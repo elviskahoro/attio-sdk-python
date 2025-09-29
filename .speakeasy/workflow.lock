@@ -1,0 +1,37 @@
+speakeasyVersion: 1.631.4
+sources:
+    Attio API:
+        sourceNamespace: attio-api
+        sourceRevisionDigest: sha256:41dd025e3cd776fe450874b9add41c5ca7b50678e58e8204ea2cdc581f7adb3a
+        sourceBlobDigest: sha256:6da7832576df8c365f4cb183f16bb8169338fe17946ce16d2774d6674fe91139
+        tags:
+            - latest
+            - 2.0.0
+targets:
+    attio:
+        source: Attio API
+        sourceNamespace: attio-api
+        sourceRevisionDigest: sha256:41dd025e3cd776fe450874b9add41c5ca7b50678e58e8204ea2cdc581f7adb3a
+        sourceBlobDigest: sha256:6da7832576df8c365f4cb183f16bb8169338fe17946ce16d2774d6674fe91139
+        codeSamplesNamespace: attio-api-python-code-samples
+        codeSamplesRevisionDigest: sha256:a046a78d446d534ec3c6cda4663aa9ff465d7f316bb872a813904b629ea65f1d
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Attio API:
+            inputs:
+                - location: open-api.json
+            output: .speakeasy/out.openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/elviskahoro/attio/attio-api
+    targets:
+        attio:
+            target: python
+            source: Attio API
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/elviskahoro/attio/attio-api-python-code-samples
+                labelOverride:
+                    fixedValue: Python (SDK)
+                blocking: false

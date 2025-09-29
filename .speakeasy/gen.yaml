@@ -27,7 +27,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 python:
-  version: 0.0.5
+  version: 0.0.17
   additionalDependencies:
     dev: {}
     main: {}
@@ -64,10 +64,13 @@ python:
   legacyPyright: false
   maxMethodParams: 999
   methodArguments: infer-optional-args
+  moduleAttributeReturnType: typing.Any
   moduleName: ""
   outputModelSuffix: output
   packageManager: uv
   packageName: attio
+  pylintDisable:
+    - redefined-builtin
   pytestFilterWarnings: []
   pytestTimeout: 0
   responseFormat: flat
