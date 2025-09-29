@@ -14,9 +14,13 @@ from typing import Optional
 class PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictErrorData(BaseModel):
     status_code: float
 
-    type: models_post_v2_target_identifier_attributes_attribute_statusesop.PostV2TargetIdentifierAttributesAttributeStatusesConflictType
+    type: (
+        models_post_v2_target_identifier_attributes_attribute_statusesop.PostV2TargetIdentifierAttributesAttributeStatusesConflictType
+    )
 
-    code: models_post_v2_target_identifier_attributes_attribute_statusesop.PostV2TargetIdentifierAttributesAttributeStatusesConflictCode
+    code: (
+        models_post_v2_target_identifier_attributes_attribute_statusesop.PostV2TargetIdentifierAttributesAttributeStatusesConflictCode
+    )
 
     message: str
 
@@ -44,9 +48,13 @@ class PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError(AttioEr
 class PostV2TargetIdentifierAttributesAttributeStatusesNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: models_post_v2_target_identifier_attributes_attribute_statusesop.PostV2TargetIdentifierAttributesAttributeStatusesNotFoundType
+    type: (
+        models_post_v2_target_identifier_attributes_attribute_statusesop.PostV2TargetIdentifierAttributesAttributeStatusesNotFoundType
+    )
 
-    code: models_post_v2_target_identifier_attributes_attribute_statusesop.PostV2TargetIdentifierAttributesAttributeStatusesNotFoundCode
+    code: (
+        models_post_v2_target_identifier_attributes_attribute_statusesop.PostV2TargetIdentifierAttributesAttributeStatusesNotFoundCode
+    )
 
     message: str
 
@@ -76,9 +84,13 @@ class PostV2TargetIdentifierAttributesAttributeStatusesValidationTypeErrorData(
 ):
     status_code: float
 
-    type: models_post_v2_target_identifier_attributes_attribute_statusesop.PostV2TargetIdentifierAttributesAttributeStatusesBadRequestType
+    type: (
+        models_post_v2_target_identifier_attributes_attribute_statusesop.PostV2TargetIdentifierAttributesAttributeStatusesBadRequestType
+    )
 
-    code: models_post_v2_target_identifier_attributes_attribute_statusesop.PostV2TargetIdentifierAttributesAttributeStatusesCodeValidationType
+    code: (
+        models_post_v2_target_identifier_attributes_attribute_statusesop.PostV2TargetIdentifierAttributesAttributeStatusesCodeValidationType
+    )
 
     message: str
 

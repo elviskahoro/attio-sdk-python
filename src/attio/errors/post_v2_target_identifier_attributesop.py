@@ -14,9 +14,13 @@ from typing import Optional
 class PostV2TargetIdentifierAttributesSlugConflictErrorData(BaseModel):
     status_code: float
 
-    type: models_post_v2_target_identifier_attributesop.PostV2TargetIdentifierAttributesConflictType
+    type: (
+        models_post_v2_target_identifier_attributesop.PostV2TargetIdentifierAttributesConflictType
+    )
 
-    code: models_post_v2_target_identifier_attributesop.PostV2TargetIdentifierAttributesConflictCode
+    code: (
+        models_post_v2_target_identifier_attributesop.PostV2TargetIdentifierAttributesConflictCode
+    )
 
     message: str
 
@@ -42,9 +46,13 @@ class PostV2TargetIdentifierAttributesSlugConflictError(AttioError):
 class PostV2TargetIdentifierAttributesNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: models_post_v2_target_identifier_attributesop.PostV2TargetIdentifierAttributesNotFoundType
+    type: (
+        models_post_v2_target_identifier_attributesop.PostV2TargetIdentifierAttributesNotFoundType
+    )
 
-    code: models_post_v2_target_identifier_attributesop.PostV2TargetIdentifierAttributesNotFoundCode
+    code: (
+        models_post_v2_target_identifier_attributesop.PostV2TargetIdentifierAttributesNotFoundCode
+    )
 
     message: str
 
@@ -70,9 +78,13 @@ class PostV2TargetIdentifierAttributesNotFoundError(AttioError):
 class PostV2TargetIdentifierAttributesValidationTypeErrorData(BaseModel):
     status_code: float
 
-    type: models_post_v2_target_identifier_attributesop.PostV2TargetIdentifierAttributesBadRequestType
+    type: (
+        models_post_v2_target_identifier_attributesop.PostV2TargetIdentifierAttributesBadRequestType
+    )
 
-    code: models_post_v2_target_identifier_attributesop.PostV2TargetIdentifierAttributesCodeValidationType
+    code: (
+        models_post_v2_target_identifier_attributesop.PostV2TargetIdentifierAttributesCodeValidationType
+    )
 
     message: str
 

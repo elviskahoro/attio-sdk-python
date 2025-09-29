@@ -14,9 +14,13 @@ from typing import Optional
 class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: models_get_v2_meetings_meeting_id_call_recordings_call_recording_id_op.GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDNotFoundType
+    type: (
+        models_get_v2_meetings_meeting_id_call_recordings_call_recording_id_op.GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDNotFoundType
+    )
 
-    code: models_get_v2_meetings_meeting_id_call_recordings_call_recording_id_op.GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDCode
+    code: (
+        models_get_v2_meetings_meeting_id_call_recordings_call_recording_id_op.GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDCode
+    )
 
     message: str
 

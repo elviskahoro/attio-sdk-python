@@ -14,9 +14,13 @@ from typing import Optional
 class DeleteV2ObjectsObjectRecordsRecordIDNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: models_delete_v2_objects_object_records_record_id_op.DeleteV2ObjectsObjectRecordsRecordIDType
+    type: (
+        models_delete_v2_objects_object_records_record_id_op.DeleteV2ObjectsObjectRecordsRecordIDType
+    )
 
-    code: models_delete_v2_objects_object_records_record_id_op.DeleteV2ObjectsObjectRecordsRecordIDCode
+    code: (
+        models_delete_v2_objects_object_records_record_id_op.DeleteV2ObjectsObjectRecordsRecordIDCode
+    )
 
     message: str
 

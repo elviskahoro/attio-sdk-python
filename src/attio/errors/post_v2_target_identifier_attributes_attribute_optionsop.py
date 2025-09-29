@@ -14,9 +14,13 @@ from typing import Optional
 class PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictErrorData(BaseModel):
     status_code: float
 
-    type: models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsConflictType
+    type: (
+        models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsConflictType
+    )
 
-    code: models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsConflictCode
+    code: (
+        models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsConflictCode
+    )
 
     message: str
 
@@ -44,9 +48,13 @@ class PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError(AttioErr
 class PostV2TargetIdentifierAttributesAttributeOptionsNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsNotFoundType
+    type: (
+        models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsNotFoundType
+    )
 
-    code: models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsNotFoundCode
+    code: (
+        models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsNotFoundCode
+    )
 
     message: str
 
@@ -76,9 +84,13 @@ class PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeErrorData(
 ):
     status_code: float
 
-    type: models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType
+    type: (
+        models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType
+    )
 
-    code: models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType
+    code: (
+        models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType
+    )
 
     message: str
 

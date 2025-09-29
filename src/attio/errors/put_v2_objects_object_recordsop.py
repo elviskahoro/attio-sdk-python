@@ -44,7 +44,9 @@ class PutV2ObjectsObjectRecordsValueNotFoundErrorData(BaseModel):
 
     type: models_put_v2_objects_object_recordsop.PutV2ObjectsObjectRecordsBadRequestType
 
-    code: models_put_v2_objects_object_recordsop.PutV2ObjectsObjectRecordsCodeValueNotFound
+    code: (
+        models_put_v2_objects_object_recordsop.PutV2ObjectsObjectRecordsCodeValueNotFound
+    )
 
     message: str
 

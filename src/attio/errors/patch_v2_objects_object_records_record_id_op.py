@@ -14,9 +14,13 @@ from typing import Optional
 class PatchV2ObjectsObjectRecordsRecordIDNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDNotFoundType
+    type: (
+        models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDNotFoundType
+    )
 
-    code: models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDNotFoundCode
+    code: (
+        models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDNotFoundCode
+    )
 
     message: str
 
@@ -42,9 +46,13 @@ class PatchV2ObjectsObjectRecordsRecordIDNotFoundError(AttioError):
 class PatchV2ObjectsObjectRecordsRecordIDMissingValueErrorData(BaseModel):
     status_code: float
 
-    type: models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDBadRequestType
+    type: (
+        models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDBadRequestType
+    )
 
-    code: models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDCodeMissingValue
+    code: (
+        models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDCodeMissingValue
+    )
 
     message: str
 

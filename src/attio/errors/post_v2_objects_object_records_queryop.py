@@ -14,9 +14,13 @@ from typing import Optional
 class PostV2ObjectsObjectRecordsQueryNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: models_post_v2_objects_object_records_queryop.PostV2ObjectsObjectRecordsQueryNotFoundType
+    type: (
+        models_post_v2_objects_object_records_queryop.PostV2ObjectsObjectRecordsQueryNotFoundType
+    )
 
-    code: models_post_v2_objects_object_records_queryop.PostV2ObjectsObjectRecordsQueryNotFoundCode
+    code: (
+        models_post_v2_objects_object_records_queryop.PostV2ObjectsObjectRecordsQueryNotFoundCode
+    )
 
     message: str
 
@@ -42,7 +46,9 @@ class PostV2ObjectsObjectRecordsQueryNotFoundError(AttioError):
 class FilterErrorData(BaseModel):
     status_code: float
 
-    type: models_post_v2_objects_object_records_queryop.PostV2ObjectsObjectRecordsQueryBadRequestType
+    type: (
+        models_post_v2_objects_object_records_queryop.PostV2ObjectsObjectRecordsQueryBadRequestType
+    )
 
     code: models_post_v2_objects_object_records_queryop.CodeFilterError
 

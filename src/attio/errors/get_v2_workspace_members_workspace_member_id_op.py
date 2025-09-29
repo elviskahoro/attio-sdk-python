@@ -14,9 +14,13 @@ from typing import Optional
 class GetV2WorkspaceMembersWorkspaceMemberIDNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: models_get_v2_workspace_members_workspace_member_id_op.GetV2WorkspaceMembersWorkspaceMemberIDType
+    type: (
+        models_get_v2_workspace_members_workspace_member_id_op.GetV2WorkspaceMembersWorkspaceMemberIDType
+    )
 
-    code: models_get_v2_workspace_members_workspace_member_id_op.GetV2WorkspaceMembersWorkspaceMemberIDCode
+    code: (
+        models_get_v2_workspace_members_workspace_member_id_op.GetV2WorkspaceMembersWorkspaceMemberIDCode
+    )
 
     message: str
 

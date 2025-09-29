@@ -14,9 +14,13 @@ from typing import Optional
 class PatchV2TargetIdentifierAttributesAttributeNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: models_patch_v2_target_identifier_attributes_attribute_op.PatchV2TargetIdentifierAttributesAttributeNotFoundType
+    type: (
+        models_patch_v2_target_identifier_attributes_attribute_op.PatchV2TargetIdentifierAttributesAttributeNotFoundType
+    )
 
-    code: models_patch_v2_target_identifier_attributes_attribute_op.PatchV2TargetIdentifierAttributesAttributeNotFoundCode
+    code: (
+        models_patch_v2_target_identifier_attributes_attribute_op.PatchV2TargetIdentifierAttributesAttributeNotFoundCode
+    )
 
     message: str
 
@@ -44,9 +48,13 @@ class PatchV2TargetIdentifierAttributesAttributeNotFoundError(AttioError):
 class SystemEditUnauthorizedErrorData(BaseModel):
     status_code: float
 
-    type: models_patch_v2_target_identifier_attributes_attribute_op.PatchV2TargetIdentifierAttributesAttributeBadRequestType
+    type: (
+        models_patch_v2_target_identifier_attributes_attribute_op.PatchV2TargetIdentifierAttributesAttributeBadRequestType
+    )
 
-    code: models_patch_v2_target_identifier_attributes_attribute_op.CodeSystemEditUnauthorized
+    code: (
+        models_patch_v2_target_identifier_attributes_attribute_op.CodeSystemEditUnauthorized
+    )
 
     message: str
 

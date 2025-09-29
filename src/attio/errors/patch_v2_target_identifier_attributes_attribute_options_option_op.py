@@ -16,9 +16,13 @@ class PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictErrorDa
 ):
     status_code: float
 
-    type: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionConflictType
+    type: (
+        models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionConflictType
+    )
 
-    code: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionConflictCode
+    code: (
+        models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionConflictCode
+    )
 
     message: str
 
@@ -29,9 +33,9 @@ class PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictError(
 ):
     r"""Conflict"""
 
-    data: PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictErrorData = field(
-        hash=False
-    )
+    data: (
+        PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictErrorData
+    ) = field(hash=False)
 
     def __init__(
         self,
@@ -50,9 +54,13 @@ class PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundErrorData(
 ):
     status_code: float
 
-    type: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundType
+    type: (
+        models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundType
+    )
 
-    code: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundCode
+    code: (
+        models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundCode
+    )
 
     message: str
 
@@ -82,9 +90,13 @@ class PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundErrorD
 ):
     status_code: float
 
-    type: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType
+    type: (
+        models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType
+    )
 
-    code: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionCodeValueNotFound
+    code: (
+        models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionCodeValueNotFound
+    )
 
     message: str
 
@@ -95,9 +107,9 @@ class PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError(
 ):
     r"""Bad Request"""
 
-    data: PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundErrorData = field(
-        hash=False
-    )
+    data: (
+        PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundErrorData
+    ) = field(hash=False)
 
     def __init__(
         self,

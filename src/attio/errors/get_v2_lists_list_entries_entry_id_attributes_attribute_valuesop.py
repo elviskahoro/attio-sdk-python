@@ -14,9 +14,13 @@ from typing import Optional
 class GetV2ListsListEntriesEntryIDAttributesAttributeValuesNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: models_get_v2_lists_list_entries_entry_id_attributes_attribute_valuesop.GetV2ListsListEntriesEntryIDAttributesAttributeValuesNotFoundType
+    type: (
+        models_get_v2_lists_list_entries_entry_id_attributes_attribute_valuesop.GetV2ListsListEntriesEntryIDAttributesAttributeValuesNotFoundType
+    )
 
-    code: models_get_v2_lists_list_entries_entry_id_attributes_attribute_valuesop.GetV2ListsListEntriesEntryIDAttributesAttributeValuesCode
+    code: (
+        models_get_v2_lists_list_entries_entry_id_attributes_attribute_valuesop.GetV2ListsListEntriesEntryIDAttributesAttributeValuesCode
+    )
 
     message: str
 

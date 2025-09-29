@@ -14,9 +14,13 @@ from typing import Optional
 class PutV2ListsListEntriesEntryIDNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: models_put_v2_lists_list_entries_entry_id_op.PutV2ListsListEntriesEntryIDNotFoundType
+    type: (
+        models_put_v2_lists_list_entries_entry_id_op.PutV2ListsListEntriesEntryIDNotFoundType
+    )
 
-    code: models_put_v2_lists_list_entries_entry_id_op.PutV2ListsListEntriesEntryIDNotFoundCode
+    code: (
+        models_put_v2_lists_list_entries_entry_id_op.PutV2ListsListEntriesEntryIDNotFoundCode
+    )
 
     message: str
 
@@ -42,9 +46,13 @@ class PutV2ListsListEntriesEntryIDNotFoundError(AttioError):
 class PutV2ListsListEntriesEntryIDImmutableValueErrorData(BaseModel):
     status_code: float
 
-    type: models_put_v2_lists_list_entries_entry_id_op.PutV2ListsListEntriesEntryIDBadRequestType
+    type: (
+        models_put_v2_lists_list_entries_entry_id_op.PutV2ListsListEntriesEntryIDBadRequestType
+    )
 
-    code: models_put_v2_lists_list_entries_entry_id_op.PutV2ListsListEntriesEntryIDCodeImmutableValue
+    code: (
+        models_put_v2_lists_list_entries_entry_id_op.PutV2ListsListEntriesEntryIDCodeImmutableValue
+    )
 
     message: str
 
