@@ -3,10 +3,10 @@ id: 1906541d-2991-4ee4-98bb-d62ebc43ec92
 management:
   docChecksum: 6c6d5beee2a4118a994f0a582387b849
   docVersion: 2.0.0
-  speakeasyVersion: 1.631.4
+  speakeasyVersion: 1.631.5
   generationVersion: 2.716.16
-  releaseVersion: 0.0.17
-  configChecksum: 0bdcd7b29b3ce292d6a7074b29c9381e
+  releaseVersion: 0.0.18
+  configChecksum: 46f0d19f0119b98b408f494513c81774
 features:
   python:
     additionalDependencies: 1.0.0
