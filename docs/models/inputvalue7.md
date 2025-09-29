@@ -1,0 +1,9 @@
+# InputValue7
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `target_object`                                                              | *str*                                                                        | :heavy_check_mark:                                                           | A UUID or slug to identify the object that the referenced record belongs to. | people                                                                       |
+| `target_record_id`                                                           | *str*                                                                        | :heavy_check_mark:                                                           | A UUID to identify the referenced record.                                    | 891dcbfc-9141-415d-9b2a-2238a6cc012d                                         |

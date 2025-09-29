@@ -1,0 +1,9 @@
+# Assignee
+
+
+## Fields
+
+| Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   | Example                                                                       |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `referenced_actor_type`                                                       | [models.TaskReferencedActorType](../models/taskreferencedactortype.md)        | :heavy_check_mark:                                                            | The type of actor. [Read more information on actor types here](/docs/actors). | workspace-member                                                              |
+| `referenced_actor_id`                                                         | *str*                                                                         | :heavy_check_mark:                                                            | The ID of the workspace member actor assigned to this task.                   | 50cf242c-7fa3-4cad-87d0-75b1af71c57b                                          |

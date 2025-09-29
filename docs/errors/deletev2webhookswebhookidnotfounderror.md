@@ -1,0 +1,13 @@
+# DeleteV2WebhooksWebhookIDNotFoundError
+
+Not Found
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        | Example                                                                            |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `status_code`                                                                      | *float*                                                                            | :heavy_check_mark:                                                                 | N/A                                                                                |                                                                                    |
+| `type`                                                                             | [models.DeleteV2WebhooksWebhookIDType](../models/deletev2webhookswebhookidtype.md) | :heavy_check_mark:                                                                 | N/A                                                                                |                                                                                    |
+| `code`                                                                             | [models.DeleteV2WebhooksWebhookIDCode](../models/deletev2webhookswebhookidcode.md) | :heavy_check_mark:                                                                 | N/A                                                                                |                                                                                    |
+| `message`                                                                          | *str*                                                                              | :heavy_check_mark:                                                                 | N/A                                                                                | Webhook not found                                                                  |

@@ -1,0 +1,11 @@
+# PutV2ListsListEntriesEntryIDCreatedByActor11
+
+The actor that created this value.
+
+
+## Fields
+
+| Field                                                                                                                                      | Type                                                                                                                                       | Required                                                                                                                                   | Description                                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                       | *OptionalNullable[str]*                                                                                                                    | :heavy_minus_sign:                                                                                                                         | An ID to identify the actor.                                                                                                               |
+| `type`                                                                                                                                     | [OptionalNullable[models.PutV2ListsListEntriesEntryIDCreatedByActorType11]](../models/putv2listslistentriesentryidcreatedbyactortype11.md) | :heavy_minus_sign:                                                                                                                         | The type of actor. [Read more information on actor types here](/docs/actors).                                                              |

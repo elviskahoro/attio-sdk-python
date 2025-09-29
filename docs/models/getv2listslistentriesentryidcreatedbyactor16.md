@@ -1,0 +1,11 @@
+# GetV2ListsListEntriesEntryIDCreatedByActor16
+
+The actor that created this value.
+
+
+## Fields
+
+| Field                                                                                                                                      | Type                                                                                                                                       | Required                                                                                                                                   | Description                                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                       | *OptionalNullable[str]*                                                                                                                    | :heavy_minus_sign:                                                                                                                         | An ID to identify the actor.                                                                                                               |
+| `type`                                                                                                                                     | [OptionalNullable[models.GetV2ListsListEntriesEntryIDCreatedByActorType16]](../models/getv2listslistentriesentryidcreatedbyactortype16.md) | :heavy_minus_sign:                                                                                                                         | The type of actor. [Read more information on actor types here](/docs/actors).                                                              |

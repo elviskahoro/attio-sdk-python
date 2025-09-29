@@ -1,0 +1,13 @@
+# PatchV2WebhooksWebhookIDNotFoundError
+
+Not Found
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      | Example                                                                          |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `status_code`                                                                    | *float*                                                                          | :heavy_check_mark:                                                               | N/A                                                                              |                                                                                  |
+| `type`                                                                           | [models.PatchV2WebhooksWebhookIDType](../models/patchv2webhookswebhookidtype.md) | :heavy_check_mark:                                                               | N/A                                                                              |                                                                                  |
+| `code`                                                                           | [models.PatchV2WebhooksWebhookIDCode](../models/patchv2webhookswebhookidcode.md) | :heavy_check_mark:                                                               | N/A                                                                              |                                                                                  |
+| `message`                                                                        | *str*                                                                            | :heavy_check_mark:                                                               | N/A                                                                              | Webhook with ID "23e42eaf-323a-41da-b5bb-fd67eebda553" was not found.            |

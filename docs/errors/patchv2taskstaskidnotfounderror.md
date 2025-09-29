@@ -1,0 +1,13 @@
+# PatchV2TasksTaskIDNotFoundError
+
+Not Found
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          | Example                                                                              |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `status_code`                                                                        | *float*                                                                              | :heavy_check_mark:                                                                   | N/A                                                                                  |                                                                                      |
+| `type`                                                                               | [models.PatchV2TasksTaskIDNotFoundType](../models/patchv2taskstaskidnotfoundtype.md) | :heavy_check_mark:                                                                   | N/A                                                                                  |                                                                                      |
+| `code`                                                                               | [models.PatchV2TasksTaskIDNotFoundCode](../models/patchv2taskstaskidnotfoundcode.md) | :heavy_check_mark:                                                                   | N/A                                                                                  |                                                                                      |
+| `message`                                                                            | *str*                                                                                | :heavy_check_mark:                                                                   | N/A                                                                                  | Object with slug/ID "649e34f4-c39a-4f4d-99ef-48a36bef8f04" not found.                |

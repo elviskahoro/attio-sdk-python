@@ -1,0 +1,11 @@
+# GetV2ListsListEntriesEntryIDCreatedByActor2
+
+The actor that created this value.
+
+
+## Fields
+
+| Field                                                                                                                                    | Type                                                                                                                                     | Required                                                                                                                                 | Description                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                     | *OptionalNullable[str]*                                                                                                                  | :heavy_minus_sign:                                                                                                                       | An ID to identify the actor.                                                                                                             |
+| `type`                                                                                                                                   | [OptionalNullable[models.GetV2ListsListEntriesEntryIDCreatedByActorType2]](../models/getv2listslistentriesentryidcreatedbyactortype2.md) | :heavy_minus_sign:                                                                                                                       | The type of actor. [Read more information on actor types here](/docs/actors).                                                            |

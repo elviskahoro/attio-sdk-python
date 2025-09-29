@@ -1,0 +1,11 @@
+# PutV2ListsListEntriesCreatedByActor9
+
+The actor that created this value.
+
+
+## Fields
+
+| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                       | *OptionalNullable[str]*                                                                                                    | :heavy_minus_sign:                                                                                                         | An ID to identify the actor.                                                                                               |
+| `type`                                                                                                                     | [OptionalNullable[models.PutV2ListsListEntriesCreatedByActorType9]](../models/putv2listslistentriescreatedbyactortype9.md) | :heavy_minus_sign:                                                                                                         | The type of actor. [Read more information on actor types here](/docs/actors).                                              |

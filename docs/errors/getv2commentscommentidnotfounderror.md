@@ -1,0 +1,13 @@
+# GetV2CommentsCommentIDNotFoundError
+
+Not Found
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `status_code`                                                                | *float*                                                                      | :heavy_check_mark:                                                           | N/A                                                                          |                                                                              |
+| `type`                                                                       | [models.GetV2CommentsCommentIDType](../models/getv2commentscommentidtype.md) | :heavy_check_mark:                                                           | N/A                                                                          |                                                                              |
+| `code`                                                                       | [models.GetV2CommentsCommentIDCode](../models/getv2commentscommentidcode.md) | :heavy_check_mark:                                                           | N/A                                                                          |                                                                              |
+| `message`                                                                    | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          | Comment with ID "aa1dc1d9-93ac-4c6c-987e-16b6eea9aab2" was not found.        |

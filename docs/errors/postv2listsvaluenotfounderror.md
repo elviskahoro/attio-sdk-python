@@ -1,0 +1,13 @@
+# PostV2ListsValueNotFoundError
+
+Bad Request
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      | Example                                                                          |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `status_code`                                                                    | *float*                                                                          | :heavy_check_mark:                                                               | N/A                                                                              |                                                                                  |
+| `type`                                                                           | [models.PostV2ListsBadRequestType](../models/postv2listsbadrequesttype.md)       | :heavy_check_mark:                                                               | N/A                                                                              |                                                                                  |
+| `code`                                                                           | [models.PostV2ListsCodeValueNotFound](../models/postv2listscodevaluenotfound.md) | :heavy_check_mark:                                                               | N/A                                                                              |                                                                                  |
+| `message`                                                                        | *str*                                                                            | :heavy_check_mark:                                                               | N/A                                                                              | Workspace member with ID "50cf242c-7fa3-4cad-87d0-75b1af71c57b" not found.       |

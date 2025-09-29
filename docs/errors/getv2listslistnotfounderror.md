@@ -1,0 +1,13 @@
+# GetV2ListsListNotFoundError
+
+Not Found
+
+
+## Fields
+
+| Field                                                        | Type                                                         | Required                                                     | Description                                                  | Example                                                      |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `status_code`                                                | *float*                                                      | :heavy_check_mark:                                           | N/A                                                          |                                                              |
+| `type`                                                       | [models.GetV2ListsListType](../models/getv2listslisttype.md) | :heavy_check_mark:                                           | N/A                                                          |                                                              |
+| `code`                                                       | [models.GetV2ListsListCode](../models/getv2listslistcode.md) | :heavy_check_mark:                                           | N/A                                                          |                                                              |
+| `message`                                                    | *str*                                                        | :heavy_check_mark:                                           | N/A                                                          | List with slug/ID "enterprise_sales" not found.              |

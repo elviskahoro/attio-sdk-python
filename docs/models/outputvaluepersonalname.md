@@ -1,0 +1,11 @@
+# OutputValuePersonalName
+
+
+## Fields
+
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                | Example                                                                    |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `first_name`                                                               | *str*                                                                      | :heavy_check_mark:                                                         | The first name.                                                            | Ada                                                                        |
+| `last_name`                                                                | *str*                                                                      | :heavy_check_mark:                                                         | The last name.                                                             | Lovelace                                                                   |
+| `full_name`                                                                | *str*                                                                      | :heavy_check_mark:                                                         | The full name.                                                             | Ada Lovelace                                                               |
+| `attribute_type`                                                           | [models.AttributeTypePersonalName](../models/attributetypepersonalname.md) | :heavy_check_mark:                                                         | The attribute type of the value.                                           | personal-name                                                              |
