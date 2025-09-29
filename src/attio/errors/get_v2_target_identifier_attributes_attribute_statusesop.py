@@ -14,13 +14,9 @@ from typing import Optional
 class GetV2TargetIdentifierAttributesAttributeStatusesNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: (
-        models_get_v2_target_identifier_attributes_attribute_statusesop.GetV2TargetIdentifierAttributesAttributeStatusesType
-    )
+    type: models_get_v2_target_identifier_attributes_attribute_statusesop.GetV2TargetIdentifierAttributesAttributeStatusesType
 
-    code: (
-        models_get_v2_target_identifier_attributes_attribute_statusesop.GetV2TargetIdentifierAttributesAttributeStatusesCode
-    )
+    code: models_get_v2_target_identifier_attributes_attribute_statusesop.GetV2TargetIdentifierAttributesAttributeStatusesCode
 
     message: str
 

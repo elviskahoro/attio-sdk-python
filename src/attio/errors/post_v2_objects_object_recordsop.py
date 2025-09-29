@@ -46,9 +46,7 @@ class PostV2ObjectsObjectRecordsValueNotFoundErrorData(BaseModel):
         models_post_v2_objects_object_recordsop.PostV2ObjectsObjectRecordsBadRequestType
     )
 
-    code: (
-        models_post_v2_objects_object_recordsop.PostV2ObjectsObjectRecordsCodeValueNotFound
-    )
+    code: models_post_v2_objects_object_recordsop.PostV2ObjectsObjectRecordsCodeValueNotFound
 
     message: str
 

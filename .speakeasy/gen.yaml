@@ -27,7 +27,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 python:
-  version: 0.0.1
+  version: 0.0.5
   additionalDependencies:
     dev: {}
     main: {}
@@ -35,6 +35,7 @@ python:
     - id
     - object
     - input
+    - list
   asyncMode: both
   authors:
     - Speakeasy

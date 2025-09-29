@@ -1,0 +1,9 @@
+overlay: 1.0.0
+info:
+  title: Attio API Python SDK Overlay
+  version: 1.0.0
+actions:
+  # Rename query parameter from 'list' to 'list_id' in threads endpoint
+  - target: "$.paths['/v2/threads'].get.parameters[?(@.name == 'list')]"
+    update:
+      name: list_id

@@ -14,13 +14,9 @@ from typing import Optional
 class PutV2ObjectsObjectRecordsRecordIDNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: (
-        models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDNotFoundType
-    )
+    type: models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDNotFoundType
 
-    code: (
-        models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDNotFoundCode
-    )
+    code: models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDNotFoundCode
 
     message: str
 
@@ -46,13 +42,9 @@ class PutV2ObjectsObjectRecordsRecordIDNotFoundError(AttioError):
 class PutV2ObjectsObjectRecordsRecordIDMissingValueErrorData(BaseModel):
     status_code: float
 
-    type: (
-        models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDBadRequestType
-    )
+    type: models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDBadRequestType
 
-    code: (
-        models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDCodeMissingValue
-    )
+    code: models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDCodeMissingValue
 
     message: str
 

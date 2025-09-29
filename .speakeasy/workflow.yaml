@@ -3,7 +3,7 @@ speakeasyVersion: latest
 sources:
     Attio API:
         inputs:
-            - location: ../attio-api.json
+            - location: open-api.json
         output: .speakeasy/out.openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/elviskahoro/attio/attio-api

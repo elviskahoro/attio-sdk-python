@@ -14,13 +14,9 @@ from typing import Optional
 class GetV2ObjectsObjectRecordsRecordIDNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: (
-        models_get_v2_objects_object_records_record_id_op.GetV2ObjectsObjectRecordsRecordIDNotFoundType
-    )
+    type: models_get_v2_objects_object_records_record_id_op.GetV2ObjectsObjectRecordsRecordIDNotFoundType
 
-    code: (
-        models_get_v2_objects_object_records_record_id_op.GetV2ObjectsObjectRecordsRecordIDCode
-    )
+    code: models_get_v2_objects_object_records_record_id_op.GetV2ObjectsObjectRecordsRecordIDCode
 
     message: str
 

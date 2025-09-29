@@ -15,7 +15,7 @@ class Entries(BaseSDK):
     def post_v2_lists_list_entries_query(
         self,
         *,
-        list_id: str,
+        list: str,
         filter_: Optional[Dict[str, Any]] = None,
         sorts: Optional[
             Union[
@@ -36,7 +36,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param filter_: An object used to filter results to a subset of results. See the [full guide to filtering and sorting here](/rest-api/how-to/filtering-and-sorting).
         :param sorts: An object used to sort results. See the [full guide to filtering and sorting here](/rest-api/how-to/filtering-and-sorting).
         :param limit: The maximum number of results to return. Defaults to 500. See the [full guide to pagination here](/rest-api/how-to/pagination).
@@ -57,7 +57,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PostV2ListsListEntriesQueryRequest(
-            list=list_id,
+            list=list,
             request_body=models.PostV2ListsListEntriesQueryRequestBody(
                 filter_=filter_,
                 sorts=utils.get_pydantic_model(
@@ -142,7 +142,7 @@ class Entries(BaseSDK):
     async def post_v2_lists_list_entries_query_async(
         self,
         *,
-        list_id: str,
+        list: str,
         filter_: Optional[Dict[str, Any]] = None,
         sorts: Optional[
             Union[
@@ -163,7 +163,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param filter_: An object used to filter results to a subset of results. See the [full guide to filtering and sorting here](/rest-api/how-to/filtering-and-sorting).
         :param sorts: An object used to sort results. See the [full guide to filtering and sorting here](/rest-api/how-to/filtering-and-sorting).
         :param limit: The maximum number of results to return. Defaults to 500. See the [full guide to pagination here](/rest-api/how-to/pagination).
@@ -184,7 +184,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PostV2ListsListEntriesQueryRequest(
-            list=list_id,
+            list=list,
             request_body=models.PostV2ListsListEntriesQueryRequestBody(
                 filter_=filter_,
                 sorts=utils.get_pydantic_model(
@@ -269,7 +269,7 @@ class Entries(BaseSDK):
     def post_v2_lists_list_entries(
         self,
         *,
-        list_id: str,
+        list: str,
         data: Union[
             models.PostV2ListsListEntriesDataRequest,
             models.PostV2ListsListEntriesDataRequestTypedDict,
@@ -285,7 +285,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param data:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -303,7 +303,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PostV2ListsListEntriesRequest(
-            list=list_id,
+            list=list,
             request_body=models.PostV2ListsListEntriesRequestBody(
                 data=utils.get_pydantic_model(
                     data, models.PostV2ListsListEntriesDataRequest
@@ -390,7 +390,7 @@ class Entries(BaseSDK):
     async def post_v2_lists_list_entries_async(
         self,
         *,
-        list_id: str,
+        list: str,
         data: Union[
             models.PostV2ListsListEntriesDataRequest,
             models.PostV2ListsListEntriesDataRequestTypedDict,
@@ -406,7 +406,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param data:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -424,7 +424,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PostV2ListsListEntriesRequest(
-            list=list_id,
+            list=list,
             request_body=models.PostV2ListsListEntriesRequestBody(
                 data=utils.get_pydantic_model(
                     data, models.PostV2ListsListEntriesDataRequest
@@ -511,7 +511,7 @@ class Entries(BaseSDK):
     def put_v2_lists_list_entries(
         self,
         *,
-        list_id: str,
+        list: str,
         data: Union[
             models.PutV2ListsListEntriesDataRequest,
             models.PutV2ListsListEntriesDataRequestTypedDict,
@@ -527,7 +527,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param data:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -545,7 +545,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PutV2ListsListEntriesRequest(
-            list=list_id,
+            list=list,
             request_body=models.PutV2ListsListEntriesRequestBody(
                 data=utils.get_pydantic_model(
                     data, models.PutV2ListsListEntriesDataRequest
@@ -630,7 +630,7 @@ class Entries(BaseSDK):
     async def put_v2_lists_list_entries_async(
         self,
         *,
-        list_id: str,
+        list: str,
         data: Union[
             models.PutV2ListsListEntriesDataRequest,
             models.PutV2ListsListEntriesDataRequestTypedDict,
@@ -646,7 +646,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param data:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -664,7 +664,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PutV2ListsListEntriesRequest(
-            list=list_id,
+            list=list,
             request_body=models.PutV2ListsListEntriesRequestBody(
                 data=utils.get_pydantic_model(
                     data, models.PutV2ListsListEntriesDataRequest
@@ -749,7 +749,7 @@ class Entries(BaseSDK):
     def get_v2_lists_list_entries_entry_id_(
         self,
         *,
-        list_id: str,
+        list: str,
         entry_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -762,7 +762,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param entry_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -780,7 +780,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetV2ListsListEntriesEntryIDRequest(
-            list=list_id,
+            list=list,
             entry_id=entry_id,
         )
 
@@ -851,7 +851,7 @@ class Entries(BaseSDK):
     async def get_v2_lists_list_entries_entry_id__async(
         self,
         *,
-        list_id: str,
+        list: str,
         entry_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -864,7 +864,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param entry_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -882,7 +882,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetV2ListsListEntriesEntryIDRequest(
-            list=list_id,
+            list=list,
             entry_id=entry_id,
         )
 
@@ -953,7 +953,7 @@ class Entries(BaseSDK):
     def patch_v2_lists_list_entries_entry_id_(
         self,
         *,
-        list_id: str,
+        list: str,
         entry_id: str,
         data: Union[
             models.PatchV2ListsListEntriesEntryIDDataRequest,
@@ -970,7 +970,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param entry_id:
         :param data:
         :param retries: Override the default retry configuration for this method
@@ -989,7 +989,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PatchV2ListsListEntriesEntryIDRequest(
-            list=list_id,
+            list=list,
             entry_id=entry_id,
             request_body=models.PatchV2ListsListEntriesEntryIDRequestBody(
                 data=utils.get_pydantic_model(
@@ -1079,7 +1079,7 @@ class Entries(BaseSDK):
     async def patch_v2_lists_list_entries_entry_id__async(
         self,
         *,
-        list_id: str,
+        list: str,
         entry_id: str,
         data: Union[
             models.PatchV2ListsListEntriesEntryIDDataRequest,
@@ -1096,7 +1096,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param entry_id:
         :param data:
         :param retries: Override the default retry configuration for this method
@@ -1115,7 +1115,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PatchV2ListsListEntriesEntryIDRequest(
-            list=list_id,
+            list=list,
             entry_id=entry_id,
             request_body=models.PatchV2ListsListEntriesEntryIDRequestBody(
                 data=utils.get_pydantic_model(
@@ -1205,7 +1205,7 @@ class Entries(BaseSDK):
     def put_v2_lists_list_entries_entry_id_(
         self,
         *,
-        list_id: str,
+        list: str,
         entry_id: str,
         data: Union[
             models.PutV2ListsListEntriesEntryIDDataRequest,
@@ -1222,7 +1222,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param entry_id:
         :param data:
         :param retries: Override the default retry configuration for this method
@@ -1241,7 +1241,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PutV2ListsListEntriesEntryIDRequest(
-            list=list_id,
+            list=list,
             entry_id=entry_id,
             request_body=models.PutV2ListsListEntriesEntryIDRequestBody(
                 data=utils.get_pydantic_model(
@@ -1331,7 +1331,7 @@ class Entries(BaseSDK):
     async def put_v2_lists_list_entries_entry_id__async(
         self,
         *,
-        list_id: str,
+        list: str,
         entry_id: str,
         data: Union[
             models.PutV2ListsListEntriesEntryIDDataRequest,
@@ -1348,7 +1348,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param entry_id:
         :param data:
         :param retries: Override the default retry configuration for this method
@@ -1367,7 +1367,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PutV2ListsListEntriesEntryIDRequest(
-            list=list_id,
+            list=list,
             entry_id=entry_id,
             request_body=models.PutV2ListsListEntriesEntryIDRequestBody(
                 data=utils.get_pydantic_model(
@@ -1457,7 +1457,7 @@ class Entries(BaseSDK):
     def delete_v2_lists_list_entries_entry_id_(
         self,
         *,
-        list_id: str,
+        list: str,
         entry_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1470,7 +1470,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param entry_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1488,7 +1488,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeleteV2ListsListEntriesEntryIDRequest(
-            list=list_id,
+            list=list,
             entry_id=entry_id,
         )
 
@@ -1559,7 +1559,7 @@ class Entries(BaseSDK):
     async def delete_v2_lists_list_entries_entry_id__async(
         self,
         *,
-        list_id: str,
+        list: str,
         entry_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1572,7 +1572,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read-write`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param entry_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1590,7 +1590,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeleteV2ListsListEntriesEntryIDRequest(
-            list=list_id,
+            list=list,
             entry_id=entry_id,
         )
 
@@ -1661,7 +1661,7 @@ class Entries(BaseSDK):
     def get_v2_lists_list_entries_entry_id_attributes_attribute_values(
         self,
         *,
-        list_id: str,
+        list: str,
         entry_id: str,
         attribute: str,
         show_historic: Optional[bool] = False,
@@ -1678,7 +1678,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param entry_id:
         :param attribute:
         :param show_historic:
@@ -1700,7 +1700,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetV2ListsListEntriesEntryIDAttributesAttributeValuesRequest(
-            list=list_id,
+            list=list,
             entry_id=entry_id,
             attribute=attribute,
             show_historic=show_historic,
@@ -1777,7 +1777,7 @@ class Entries(BaseSDK):
     async def get_v2_lists_list_entries_entry_id_attributes_attribute_values_async(
         self,
         *,
-        list_id: str,
+        list: str,
         entry_id: str,
         attribute: str,
         show_historic: Optional[bool] = False,
@@ -1794,7 +1794,7 @@ class Entries(BaseSDK):
 
         Required scopes: `list_entry:read`, `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param entry_id:
         :param attribute:
         :param show_historic:
@@ -1816,7 +1816,7 @@ class Entries(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetV2ListsListEntriesEntryIDAttributesAttributeValuesRequest(
-            list=list_id,
+            list=list,
             entry_id=entry_id,
             attribute=attribute,
             show_historic=show_historic,

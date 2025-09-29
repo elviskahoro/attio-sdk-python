@@ -14,13 +14,9 @@ from typing import Optional
 class DeleteV2ListsListEntriesEntryIDNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: (
-        models_delete_v2_lists_list_entries_entry_id_op.DeleteV2ListsListEntriesEntryIDType
-    )
+    type: models_delete_v2_lists_list_entries_entry_id_op.DeleteV2ListsListEntriesEntryIDType
 
-    code: (
-        models_delete_v2_lists_list_entries_entry_id_op.DeleteV2ListsListEntriesEntryIDCode
-    )
+    code: models_delete_v2_lists_list_entries_entry_id_op.DeleteV2ListsListEntriesEntryIDCode
 
     message: str
 

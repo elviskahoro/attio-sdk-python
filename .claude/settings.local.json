@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(.venv/bin/python -m pylint:*)"
+      "Bash(.venv/bin/python -m pylint:*)",
+      "Bash(python3:*)",
+      "Bash(speakeasy generate:*)",
+      "Bash(speakeasy run:*)",
+      "Bash(uv run:*)"
     ],
     "deny": [],
     "ask": []

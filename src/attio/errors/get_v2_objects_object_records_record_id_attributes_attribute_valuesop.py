@@ -16,13 +16,9 @@ class GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundErrorDat
 ):
     status_code: float
 
-    type: (
-        models_get_v2_objects_object_records_record_id_attributes_attribute_valuesop.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundType
-    )
+    type: models_get_v2_objects_object_records_record_id_attributes_attribute_valuesop.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundType
 
-    code: (
-        models_get_v2_objects_object_records_record_id_attributes_attribute_valuesop.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundCode
-    )
+    code: models_get_v2_objects_object_records_record_id_attributes_attribute_valuesop.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundCode
 
     message: str
 
@@ -33,9 +29,9 @@ class GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundError(
 ):
     r"""Not Found"""
 
-    data: (
-        GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundErrorData
-    ) = field(hash=False)
+    data: GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundErrorData = field(
+        hash=False
+    )
 
     def __init__(
         self,
@@ -54,13 +50,9 @@ class GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesValidationTypeEr
 ):
     status_code: float
 
-    type: (
-        models_get_v2_objects_object_records_record_id_attributes_attribute_valuesop.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesBadRequestType
-    )
+    type: models_get_v2_objects_object_records_record_id_attributes_attribute_valuesop.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesBadRequestType
 
-    code: (
-        models_get_v2_objects_object_records_record_id_attributes_attribute_valuesop.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesCodeValidationType
-    )
+    code: models_get_v2_objects_object_records_record_id_attributes_attribute_valuesop.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesCodeValidationType
 
     message: str
 
@@ -71,9 +63,9 @@ class GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesValidationTypeEr
 ):
     r"""Bad Request"""
 
-    data: (
-        GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesValidationTypeErrorData
-    ) = field(hash=False)
+    data: GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesValidationTypeErrorData = field(
+        hash=False
+    )
 
     def __init__(
         self,

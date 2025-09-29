@@ -413,7 +413,7 @@ class Lists(BaseSDK):
     def get_v2_lists_list_(
         self,
         *,
-        list_id: str,
+        list: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -425,7 +425,7 @@ class Lists(BaseSDK):
 
         Required scopes: `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -442,7 +442,7 @@ class Lists(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetV2ListsListRequest(
-            list=list_id,
+            list=list,
         )
 
         req = self._build_request(
@@ -508,7 +508,7 @@ class Lists(BaseSDK):
     async def get_v2_lists_list__async(
         self,
         *,
-        list_id: str,
+        list: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -520,7 +520,7 @@ class Lists(BaseSDK):
 
         Required scopes: `list_configuration:read`.
 
-        :param list_id:
+        :param list:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -537,7 +537,7 @@ class Lists(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetV2ListsListRequest(
-            list=list_id,
+            list=list,
         )
 
         req = self._build_request_async(
@@ -603,7 +603,7 @@ class Lists(BaseSDK):
     def patch_v2_lists_list_(
         self,
         *,
-        list_id: str,
+        list: str,
         data: Union[models.PatchV2ListsListData, models.PatchV2ListsListDataTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -616,7 +616,7 @@ class Lists(BaseSDK):
 
         Required scopes: `list_configuration:read-write`.
 
-        :param list_id:
+        :param list:
         :param data:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -634,7 +634,7 @@ class Lists(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PatchV2ListsListRequest(
-            list=list_id,
+            list=list,
             request_body=models.PatchV2ListsListRequestBody(
                 data=utils.get_pydantic_model(data, models.PatchV2ListsListData),
             ),
@@ -715,7 +715,7 @@ class Lists(BaseSDK):
     async def patch_v2_lists_list__async(
         self,
         *,
-        list_id: str,
+        list: str,
         data: Union[models.PatchV2ListsListData, models.PatchV2ListsListDataTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -728,7 +728,7 @@ class Lists(BaseSDK):
 
         Required scopes: `list_configuration:read-write`.
 
-        :param list_id:
+        :param list:
         :param data:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -746,7 +746,7 @@ class Lists(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PatchV2ListsListRequest(
-            list=list_id,
+            list=list,
             request_body=models.PatchV2ListsListRequestBody(
                 data=utils.get_pydantic_model(data, models.PatchV2ListsListData),
             ),

@@ -14,9 +14,7 @@ from typing import Optional
 class GetV2ListsListEntriesEntryIDNotFoundErrorData(BaseModel):
     status_code: float
 
-    type: (
-        models_get_v2_lists_list_entries_entry_id_op.GetV2ListsListEntriesEntryIDNotFoundType
-    )
+    type: models_get_v2_lists_list_entries_entry_id_op.GetV2ListsListEntriesEntryIDNotFoundType
 
     code: models_get_v2_lists_list_entries_entry_id_op.GetV2ListsListEntriesEntryIDCode
 

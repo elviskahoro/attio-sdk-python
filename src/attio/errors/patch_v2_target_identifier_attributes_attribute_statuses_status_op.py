@@ -16,13 +16,9 @@ class PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictErrorD
 ):
     status_code: float
 
-    type: (
-        models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusConflictType
-    )
+    type: models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusConflictType
 
-    code: (
-        models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusConflictCode
-    )
+    code: models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusConflictCode
 
     message: str
 
@@ -33,9 +29,9 @@ class PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictError(
 ):
     r"""Conflict"""
 
-    data: (
-        PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictErrorData
-    ) = field(hash=False)
+    data: PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictErrorData = field(
+        hash=False
+    )
 
     def __init__(
         self,
@@ -54,13 +50,9 @@ class PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundErrorData(
 ):
     status_code: float
 
-    type: (
-        models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundType
-    )
+    type: models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundType
 
-    code: (
-        models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundCode
-    )
+    code: models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundCode
 
     message: str
 
@@ -90,13 +82,9 @@ class PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError
 ):
     status_code: float
 
-    type: (
-        models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusBadRequestType
-    )
+    type: models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusBadRequestType
 
-    code: (
-        models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound
-    )
+    code: models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound
 
     message: str
 
@@ -107,9 +95,9 @@ class PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError
 ):
     r"""Bad Request"""
 
-    data: (
-        PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundErrorData
-    ) = field(hash=False)
+    data: PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundErrorData = field(
+        hash=False
+    )
 
     def __init__(
         self,
