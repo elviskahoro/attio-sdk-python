@@ -18,7 +18,7 @@ class Threads(BaseSDK):
         record_id: Optional[str] = None,
         object: Optional[str] = None,
         entry_id: Optional[str] = None,
-        list: Optional[str] = None,
+        list_id: Optional[str] = None,
         limit: Optional[int] = None,
         offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -39,7 +39,7 @@ class Threads(BaseSDK):
         :param record_id:
         :param object:
         :param entry_id:
-        :param list:
+        :param list_id:
         :param limit:
         :param offset:
         :param retries: Override the default retry configuration for this method
@@ -61,7 +61,7 @@ class Threads(BaseSDK):
             record_id=record_id,
             object=object,
             entry_id=entry_id,
-            list=list,
+            list_id=list_id,
             limit=limit,
             offset=offset,
         )
@@ -126,7 +126,7 @@ class Threads(BaseSDK):
         record_id: Optional[str] = None,
         object: Optional[str] = None,
         entry_id: Optional[str] = None,
-        list: Optional[str] = None,
+        list_id: Optional[str] = None,
         limit: Optional[int] = None,
         offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -147,7 +147,7 @@ class Threads(BaseSDK):
         :param record_id:
         :param object:
         :param entry_id:
-        :param list:
+        :param list_id:
         :param limit:
         :param offset:
         :param retries: Override the default retry configuration for this method
@@ -169,7 +169,7 @@ class Threads(BaseSDK):
             record_id=record_id,
             object=object,
             entry_id=entry_id,
-            list=list,
+            list_id=list_id,
             limit=limit,
             offset=offset,
         )

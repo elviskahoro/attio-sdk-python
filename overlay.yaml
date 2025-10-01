@@ -7,3 +7,48 @@ actions:
   - target: "$.paths['/v2/threads'].get.parameters[?(@.name == 'list')]"
     update:
       name: list_id
+
+  # Remove format field from timestamp value in output-value to force Speakeasy to use str
+  - target: "$.components.schemas['output-value'].anyOf[18].properties.value.format"
+    remove: true
+
+  # Remove format field from timestamp value in input-value
+  - target: "$.components.schemas['input-value'].anyOf[18].properties.value.format"
+    remove: true
+
+  # Remove format field from timestamp value in nested attribute schemas
+  - target: "$.components.schemas.attribute.properties.relationship_value.properties.attribute.properties.default_value.anyOf[18].properties.value.format"
+    remove: true
+
+  # Change example to prevent Speakeasy from inferring date type
+  - target: "$.components.schemas['output-value'].anyOf[18].properties.value.example"
+    remove: true
+
+  - target: "$.components.schemas['input-value'].anyOf[18].properties.value.example"
+    remove: true
+
+  - target: "$.components.schemas.attribute.properties.relationship_value.properties.attribute.properties.default_value.anyOf[18].properties.value.example"
+    remove: true
+
+  # Simplify description to prevent Speakeasy from inferring date type from date examples
+  - target: "$.components.schemas['output-value'].anyOf[18].properties.value.description"
+    update: "An ISO 8601 formatted timestamp string with nanosecond precision and timezone."
+
+  - target: "$.components.schemas['input-value'].anyOf[18].properties.value.description"
+    update: "An ISO 8601 formatted timestamp string with nanosecond precision and timezone."
+
+  - target: "$.components.schemas.attribute.properties.relationship_value.properties.attribute.properties.default_value.anyOf[18].properties.value.description"
+    update: "An ISO 8601 formatted timestamp string with nanosecond precision and timezone."
+
+  # Add Speakeasy extension to explicitly set Python type to str
+  - target: "$.components.schemas['output-value'].anyOf[18].properties.value"
+    update:
+      x-speakeasy-type: string
+
+  - target: "$.components.schemas['input-value'].anyOf[18].properties.value"
+    update:
+      x-speakeasy-type: string
+
+  - target: "$.components.schemas.attribute.properties.relationship_value.properties.attribute.properties.default_value.anyOf[18].properties.value"
+    update:
+      x-speakeasy-type: string

@@ -12,7 +12,7 @@ class GetV2ThreadsRequestTypedDict(TypedDict):
     record_id: NotRequired[str]
     object: NotRequired[str]
     entry_id: NotRequired[str]
-    list: NotRequired[str]
+    list_id: NotRequired[str]
     limit: NotRequired[int]
     offset: NotRequired[int]
 
@@ -33,7 +33,7 @@ class GetV2ThreadsRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
 
-    list: Annotated[
+    list_id: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None

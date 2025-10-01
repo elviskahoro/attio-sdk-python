@@ -4,13 +4,15 @@ sources:
     Attio API:
         inputs:
             - location: .speakeasy/out.openapi.yaml
-            - location: open-api.json
-            - location: open-api.json
-        overlays:
-            - location: overlay.yaml
         registry:
             location: registry.speakeasyapi.dev/elviskahoro/attio/attio-api
 targets:
     attio:
         target: python
         source: Attio API
+        codeSamples:
+            registry:
+                location: registry.speakeasyapi.dev/elviskahoro/attio/attio-api-python-code-samples
+            labelOverride:
+                fixedValue: Python (SDK)
+            blocking: false

@@ -2,8 +2,8 @@ speakeasyVersion: 1.633.1
 sources:
     Attio API:
         sourceNamespace: attio-api
-        sourceRevisionDigest: sha256:41dd025e3cd776fe450874b9add41c5ca7b50678e58e8204ea2cdc581f7adb3a
-        sourceBlobDigest: sha256:6da7832576df8c365f4cb183f16bb8169338fe17946ce16d2774d6674fe91139
+        sourceRevisionDigest: sha256:36a29d64cc23e235872ad9f038fcfe86a7dbb28ebdbc24bfc0ceca658d1c7477
+        sourceBlobDigest: sha256:c77ed15aa13a24adaf32b988e042251689a44441ce945cfb05788c6d0b80658f
         tags:
             - latest
             - 2.0.0
@@ -11,27 +11,22 @@ targets:
     attio:
         source: Attio API
         sourceNamespace: attio-api
-        sourceRevisionDigest: sha256:41dd025e3cd776fe450874b9add41c5ca7b50678e58e8204ea2cdc581f7adb3a
-        sourceBlobDigest: sha256:6da7832576df8c365f4cb183f16bb8169338fe17946ce16d2774d6674fe91139
-        codeSamplesNamespace: attio-api-python-code-samples
-        codeSamplesRevisionDigest: sha256:f2cdd9f548c08677c36705b568b31abb0658468cca70ba8796139a386e648294
+        sourceRevisionDigest: sha256:36a29d64cc23e235872ad9f038fcfe86a7dbb28ebdbc24bfc0ceca658d1c7477
+        sourceBlobDigest: sha256:c77ed15aa13a24adaf32b988e042251689a44441ce945cfb05788c6d0b80658f
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
     sources:
         Attio API:
             inputs:
+                - location: .speakeasy/out.openapi.yaml
                 - location: open-api.json
-            output: .speakeasy/out.openapi.yaml
+                - location: open-api.json
+            overlays:
+                - location: overlay.yaml
             registry:
                 location: registry.speakeasyapi.dev/elviskahoro/attio/attio-api
     targets:
         attio:
             target: python
             source: Attio API
-            codeSamples:
-                registry:
-                    location: registry.speakeasyapi.dev/elviskahoro/attio/attio-api-python-code-samples
-                labelOverride:
-                    fixedValue: Python (SDK)
-                blocking: false
