@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from attio.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from datetime import datetime
+from datetime import date, datetime
 import pydantic
 from pydantic import model_serializer
 from typing import List, Literal, Optional, Union
@@ -10,13 +10,13 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class InputValue18TypedDict(TypedDict):
-    value: str
-    r"""A timestamp value string in ISO 8601 format"""
+    value: date
+    r"""Value as string"""
 
 
 class InputValue18(BaseModel):
-    value: str
-    r"""A timestamp value string in ISO 8601 format"""
+    value: date
+    r"""Value as string"""
 
 
 class InputValue17TypedDict(TypedDict):
