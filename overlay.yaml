@@ -8,21 +8,12 @@ actions:
     update:
       name: list_id
 
-  # Update timestamp value schema to use string type in Python
-  - target: "$.components.schemas['output-value'].anyOf[18].properties.value"
-    update:
-      type: string
-      description: "ISO 8601 timestamp with time and timezone components"
-      example: "2023-01-01T15:00:00.000000000Z"
+  # Remove format field from timestamp value to force string type
+  - target: "$.components.schemas['output-value'].anyOf[18].properties.value.format"
+    remove: true
 
-  - target: "$.components.schemas['input-value'].anyOf[18].properties.value"
-    update:
-      type: string
-      description: "ISO 8601 timestamp with time and timezone components"
-      example: "2023-01-01T15:00:00.000000000Z"
+  - target: "$.components.schemas['input-value'].anyOf[18].properties.value.format"
+    remove: true
 
-  - target: "$.components.schemas.attribute.properties.relationship_value.properties.attribute.properties.default_value.anyOf[18].properties.value"
-    update:
-      type: string
-      description: "ISO 8601 timestamp with time and timezone components"
-      example: "2023-01-01T15:00:00.000000000Z"
+  - target: "$.components.schemas.attribute.properties.relationship_value.properties.attribute.properties.default_value.anyOf[18].properties.value.format"
+    remove: true
