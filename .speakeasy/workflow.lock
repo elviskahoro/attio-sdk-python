@@ -2,8 +2,8 @@ speakeasyVersion: 1.633.1
 sources:
     Attio API:
         sourceNamespace: attio-api
-        sourceRevisionDigest: sha256:4fbb2a8312cc5827570895f1b6da255377b8c03c594a26e8935a621eb733f26a
-        sourceBlobDigest: sha256:c6a9c89abc9d9d7aa09903ab465d586811ae752c8db2c781562d95de19e0a947
+        sourceRevisionDigest: sha256:33647bedf9359099f1d7facb113420482903616659f13fcb9a0ce988beadc45d
+        sourceBlobDigest: sha256:29f5ab5ddee852f1b8811d4037caf0775368eb91ad9ee4d974c4d0ae140df307
         tags:
             - latest
             - 2.0.0
@@ -11,10 +11,10 @@ targets:
     attio:
         source: Attio API
         sourceNamespace: attio-api
-        sourceRevisionDigest: sha256:4fbb2a8312cc5827570895f1b6da255377b8c03c594a26e8935a621eb733f26a
-        sourceBlobDigest: sha256:c6a9c89abc9d9d7aa09903ab465d586811ae752c8db2c781562d95de19e0a947
+        sourceRevisionDigest: sha256:33647bedf9359099f1d7facb113420482903616659f13fcb9a0ce988beadc45d
+        sourceBlobDigest: sha256:29f5ab5ddee852f1b8811d4037caf0775368eb91ad9ee4d974c4d0ae140df307
         codeSamplesNamespace: attio-api-python-code-samples
-        codeSamplesRevisionDigest: sha256:9783f682945607c294d5af7498e345c5c2a96c17784fa4a830b0eb1a066e1f08
+        codeSamplesRevisionDigest: sha256:c4ad3d02d34ad86a8c23448a20e7e16e46be3ab97ee5a947314b9473cad7423a
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

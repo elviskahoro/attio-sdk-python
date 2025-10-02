@@ -8,12 +8,17 @@ actions:
     update:
       name: list_id
 
-  # Remove format field from timestamp value to force string type
-  - target: "$.components.schemas['output-value'].anyOf[18].properties.value.format"
-    remove: true
+  # Override timestamp value to force string type (nullify format to prevent date inference)
+  - target: "$.components.schemas['output-value'].anyOf[18].properties.value"
+    update:
+      type: string
+      format: null
+      description: "A timestamp value represents a single, universal moment in time using an ISO 8601 formatted string"
+      example: "2023-01-01T15:00:00.000000000Z"
 
-  - target: "$.components.schemas['input-value'].anyOf[18].properties.value.format"
-    remove: true
-
-  - target: "$.components.schemas.attribute.properties.relationship_value.properties.attribute.properties.default_value.anyOf[18].properties.value.format"
-    remove: true
+  - target: "$.components.schemas['input-value'].anyOf[18].properties.value"
+    update:
+      type: string
+      format: null
+      description: "A timestamp value represents a single, universal moment in time using an ISO 8601 formatted string"
+      example: "2023-01-01T15:00:00.000000000Z"
