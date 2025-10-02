@@ -4,7 +4,7 @@ from __future__ import annotations
 from .select_option import SelectOption, SelectOptionTypedDict
 from .status import Status, StatusTypedDict
 from attio.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from datetime import datetime
+from datetime import date, datetime
 from pydantic import model_serializer
 from typing import Literal, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
@@ -17,16 +17,16 @@ r"""The attribute type of the value."""
 class OutputValueTimestampTypedDict(TypedDict):
     attribute_type: AttributeTypeTimestamp
     r"""The attribute type of the value."""
-    value: str
-    r"""An ISO 8601 formatted timestamp string with nanosecond precision and timezone."""
+    value: date
+    r"""ISO 8601 timestamp with time and timezone components"""
 
 
 class OutputValueTimestamp(BaseModel):
     attribute_type: AttributeTypeTimestamp
     r"""The attribute type of the value."""
 
-    value: str
-    r"""An ISO 8601 formatted timestamp string with nanosecond precision and timezone."""
+    value: date
+    r"""ISO 8601 timestamp with time and timezone components"""
 
 
 AttributeTypeText = Literal["text",]

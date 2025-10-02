@@ -1,19 +1,18 @@
 lockVersion: 2.0.0
-id: 2733ba98-7ee0-497c-95aa-666e1f526dbc
+id: a4f0a449-fba7-415a-aaff-1f4d6023c579
 management:
-  docChecksum: 009a443e4e3810ccdd0a43d172920b7d
+  docChecksum: 466a629fae201b524a76c766700ae131
   docVersion: 2.0.0
   speakeasyVersion: 1.633.1
   generationVersion: 2.720.1
-  releaseVersion: 0.0.30
-  configChecksum: d31003afc5888b19a9d8e80ea06d0f2d
+  releaseVersion: 0.0.45
+  configChecksum: 021419297790c253f09c16de0095dcd1
 features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
     core: 5.22.0
     defaultEnabledRetries: 0.2.0
-    devContainers: 3.0.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
     flatRequests: 1.0.1
@@ -29,9 +28,6 @@ features:
     sdkHooks: 1.1.0
     unions: 3.0.5
 generatedFiles:
-  - .devcontainer/README.md
-  - .devcontainer/devcontainer.json
-  - .devcontainer/setup.sh
   - .gitattributes
   - .vscode/settings.json
   - USAGE.md

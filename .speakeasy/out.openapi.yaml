@@ -1274,8 +1274,10 @@ components:
           properties:
             "value":
               type: "string"
-              description: "An ISO 8601 formatted timestamp string with nanosecond precision and timezone."
-              x-speakeasy-type: "string"
+              description: "ISO 8601 timestamp with time and timezone components"
+              format: "date-time"
+              example: "2023-01-01T15:00:00.000000000Z"
+              x-speakeasy-type: "date-time"
           required:
             - "value"
           additionalProperties: false
@@ -2278,8 +2280,10 @@ components:
               example: "timestamp"
             "value":
               type: "string"
-              description: "An ISO 8601 formatted timestamp string with nanosecond precision and timezone."
-              x-speakeasy-type: "string"
+              description: "ISO 8601 timestamp with time and timezone components"
+              format: "date-time"
+              example: "2023-01-01T15:00:00.000000000Z"
+              x-speakeasy-type: "date-time"
           required:
             - "attribute_type"
             - "value"
