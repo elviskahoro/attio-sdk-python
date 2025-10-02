@@ -1,9 +1,0 @@
-# OutputValueTimestamp
-
-
-## Fields
-
-| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `attribute_type`                                                             | [models.AttributeTypeTimestamp](../models/attributetypetimestamp.md)         | :heavy_check_mark:                                                           | The attribute type of the value.                                             | timestamp                                                                    |
-| `value`                                                                      | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects) | :heavy_check_mark:                                                           | Value as string                                                              | example-string-value                                                         |

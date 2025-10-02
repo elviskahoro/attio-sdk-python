@@ -1,8 +1,0 @@
-# PatchV2TargetIdentifierAttributesAttributeStatusesStatusConflictCode
-
-
-## Values
-
-| Name            | Value           |
-| --------------- | --------------- |
-| `SLUG_CONFLICT` | slug_conflict   |

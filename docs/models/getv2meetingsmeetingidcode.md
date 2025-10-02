@@ -1,8 +1,0 @@
-# GetV2MeetingsMeetingIDCode
-
-
-## Values
-
-| Name        | Value       |
-| ----------- | ----------- |
-| `NOT_FOUND` | not_found   |
