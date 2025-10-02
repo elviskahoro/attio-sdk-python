@@ -1,0 +1,9 @@
+# GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDRequest
+
+
+## Fields
+
+| Field                                | Type                                 | Required                             | Description                          | Example                              |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| `meeting_id`                         | *str*                                | :heavy_check_mark:                   | N/A                                  | cb59ab17-ad15-460c-a126-0715617c0853 |
+| `call_recording_id`                  | *str*                                | :heavy_check_mark:                   | N/A                                  | e8f2a3b7-9b4d-4c5e-8a1f-3d7b2c5e8f9a |

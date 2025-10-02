@@ -1,0 +1,10 @@
+# GetV2TasksResponse
+
+Success
+
+
+## Fields
+
+| Field                                  | Type                                   | Required                               | Description                            |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| `data`                                 | List[[models.Task](../models/task.md)] | :heavy_check_mark:                     | N/A                                    |

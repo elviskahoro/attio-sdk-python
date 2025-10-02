@@ -1,0 +1,13 @@
+# PostV2CommentsValueNotFoundError
+
+Bad Request
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      | Example                                                                          |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `status_code`                                                                    | *float*                                                                          | :heavy_check_mark:                                                               | N/A                                                                              |                                                                                  |
+| `type`                                                                           | [models.PostV2CommentsBadRequestType](../models/postv2commentsbadrequesttype.md) | :heavy_check_mark:                                                               | N/A                                                                              |                                                                                  |
+| `code`                                                                           | [models.PostV2CommentsCode](../models/postv2commentscode.md)                     | :heavy_check_mark:                                                               | N/A                                                                              |                                                                                  |
+| `message`                                                                        | *str*                                                                            | :heavy_check_mark:                                                               | N/A                                                                              | The referenced Thread could not be found, it might have been deleted.            |

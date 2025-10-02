@@ -1,0 +1,10 @@
+# OutputValueRecordReference
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      | Example                                                                          |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `target_object`                                                                  | *str*                                                                            | :heavy_check_mark:                                                               | A slug identifying the object that the referenced record belongs to.             | people                                                                           |
+| `target_record_id`                                                               | *str*                                                                            | :heavy_check_mark:                                                               | A UUID to identify the referenced record.                                        | 891dcbfc-9141-415d-9b2a-2238a6cc012d                                             |
+| `attribute_type`                                                                 | [models.AttributeTypeRecordReference](../models/attributetyperecordreference.md) | :heavy_check_mark:                                                               | The attribute type of the value.                                                 | record-reference                                                                 |

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
-id: 79e58e1d-dd88-48a4-9fb1-1af29676c304
+id: 8dc93348-09a5-472d-90a9-8d558c23be86
 management:
-  docChecksum: be0e6a47065b132e678ce9cad2140ea9
+  docChecksum: 9dd3031edad5572520bf6ce0b28407eb
   docVersion: 2.0.0
   speakeasyVersion: 1.633.1
   generationVersion: 2.720.1
-  releaseVersion: 0.0.56
-  configChecksum: 9147046c795af4dbbc6af3497ae05552
+  releaseVersion: 0.19.1
+  configChecksum: a82fef08b3713fae2ce1d567f00a7145
 features:
   python:
     additionalDependencies: 1.0.0
@@ -22,6 +22,7 @@ features:
     globalSecurityFlattening: 1.0.0
     globalServerURLs: 3.1.1
     methodArguments: 1.0.2
+    nameOverrides: 3.0.1
     nullables: 1.0.1
     responseFormat: 1.0.1
     retries: 3.0.2
@@ -1912,7 +1913,6 @@ generatedFiles:
   - docs/models/workspacemember.md
   - docs/models/workspacememberaccess.md
   - docs/models/workspacememberid.md
-  - docs/sdks/attio/README.md
   - docs/sdks/attributes/README.md
   - docs/sdks/callrecordings/README.md
   - docs/sdks/comments/README.md
@@ -1923,6 +1923,7 @@ generatedFiles:
   - docs/sdks/notes/README.md
   - docs/sdks/objects/README.md
   - docs/sdks/records/README.md
+  - docs/sdks/sdk/README.md
   - docs/sdks/tasks/README.md
   - docs/sdks/threads/README.md
   - docs/sdks/transcripts/README.md
@@ -1943,8 +1944,6 @@ generatedFiles:
   - src/attio/comments.py
   - src/attio/entries.py
   - src/attio/errors/__init__.py
-  - src/attio/errors/attiodefaulterror.py
-  - src/attio/errors/attioerror.py
   - src/attio/errors/delete_v2_comments_comment_id_op.py
   - src/attio/errors/delete_v2_lists_list_entries_entry_id_op.py
   - src/attio/errors/delete_v2_notes_note_id_op.py
@@ -1998,6 +1997,8 @@ generatedFiles:
   - src/attio/errors/put_v2_objects_object_records_record_id_op.py
   - src/attio/errors/put_v2_objects_object_recordsop.py
   - src/attio/errors/responsevalidationerror.py
+  - src/attio/errors/sdkdefaulterror.py
+  - src/attio/errors/sdkerror.py
   - src/attio/httpclient.py
   - src/attio/lists.py
   - src/attio/meetings.py
@@ -2575,7 +2576,7 @@ examples:
     speakeasy-default-delete-/v2-/lists/{list}/entries/{entry-id}:
       parameters:
         path:
-          list: "enterprise_sales"
+          list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
           entry_id: "2e6e29ea-c4e0-4f44-842d-78a891f8c156"
       responses:
         "200":
@@ -2586,7 +2587,7 @@ examples:
     speakeasy-default-get-/v2-/lists/{list}/entries/{entry-id}/attributes/{attribute}/values:
       parameters:
         path:
-          list: "enterprise_sales"
+          list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
           entry_id: "2e6e29ea-c4e0-4f44-842d-78a891f8c156"
           attribute: "41252299-f8c7-4b5e-99c9-4ff8321d2f96"
         query:
@@ -2721,7 +2722,7 @@ examples:
           record_id: "891dcbfc-9141-415d-9b2a-2238a6cc012d"
           object: "people"
           entry_id: "2e6e29ea-c4e0-4f44-842d-78a891f8c156"
-          list_id: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
+          list: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
           limit: 10
           offset: 5
       responses:

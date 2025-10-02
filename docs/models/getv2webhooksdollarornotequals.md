@@ -1,0 +1,10 @@
+# GetV2WebhooksDollarOrNotEquals
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `field`                                                                                              | *str*                                                                                                | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `operator`                                                                                           | [models.GetV2WebhooksDollarOrOperatorNotEquals](../models/getv2webhooksdollaroroperatornotequals.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `value`                                                                                              | *str*                                                                                                | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

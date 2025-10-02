@@ -1,0 +1,10 @@
+# GetV2ListsListEntriesEntryIDAttributesAttributeValuesAttributeTypeEmailAddress
+
+The attribute type of the value.
+
+
+## Values
+
+| Name            | Value           |
+| --------------- | --------------- |
+| `EMAIL_ADDRESS` | email-address   |

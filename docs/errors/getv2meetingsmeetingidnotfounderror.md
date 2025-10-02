@@ -1,0 +1,13 @@
+# GetV2MeetingsMeetingIDNotFoundError
+
+Not Found
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `status_code`                                                                | *float*                                                                      | :heavy_check_mark:                                                           | N/A                                                                          |                                                                              |
+| `type`                                                                       | [models.GetV2MeetingsMeetingIDType](../models/getv2meetingsmeetingidtype.md) | :heavy_check_mark:                                                           | N/A                                                                          |                                                                              |
+| `code`                                                                       | [models.GetV2MeetingsMeetingIDCode](../models/getv2meetingsmeetingidcode.md) | :heavy_check_mark:                                                           | N/A                                                                          |                                                                              |
+| `message`                                                                    | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          | Meeting with ID "cb59ab17-ad15-460c-a126-0715617c0853" was not found.        |

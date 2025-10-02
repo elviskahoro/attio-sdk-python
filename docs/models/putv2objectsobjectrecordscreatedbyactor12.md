@@ -1,0 +1,11 @@
+# PutV2ObjectsObjectRecordsCreatedByActor12
+
+The actor that created this value.
+
+
+## Fields
+
+| Field                                                                                                                                | Type                                                                                                                                 | Required                                                                                                                             | Description                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                 | *OptionalNullable[str]*                                                                                                              | :heavy_minus_sign:                                                                                                                   | An ID to identify the actor.                                                                                                         |
+| `type`                                                                                                                               | [OptionalNullable[models.PutV2ObjectsObjectRecordsCreatedByActorType12]](../models/putv2objectsobjectrecordscreatedbyactortype12.md) | :heavy_minus_sign:                                                                                                                   | The type of actor. [Read more information on actor types here](/docs/actors).                                                        |

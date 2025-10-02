@@ -1,0 +1,11 @@
+# PostV2ListsListEntriesQueryCreatedByActor9
+
+The actor that created this value.
+
+
+## Fields
+
+| Field                                                                                                                                  | Type                                                                                                                                   | Required                                                                                                                               | Description                                                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                   | *OptionalNullable[str]*                                                                                                                | :heavy_minus_sign:                                                                                                                     | An ID to identify the actor.                                                                                                           |
+| `type`                                                                                                                                 | [OptionalNullable[models.PostV2ListsListEntriesQueryCreatedByActorType9]](../models/postv2listslistentriesquerycreatedbyactortype9.md) | :heavy_minus_sign:                                                                                                                     | The type of actor. [Read more information on actor types here](/docs/actors).                                                          |

@@ -1,0 +1,10 @@
+# PostV2TargetIdentifierAttributesRecordReference
+
+Configuration available for attributes of type "record-reference".
+
+
+## Fields
+
+| Field                                                                                                                                       | Type                                                                                                                                        | Required                                                                                                                                    | Description                                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `allowed_objects`                                                                                                                           | List[*str*]                                                                                                                                 | :heavy_check_mark:                                                                                                                          | A list of slugs or UUIDs to indicate which objects records are allowed to belong to. Leave empty to to allow records from all object types. |
