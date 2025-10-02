@@ -1,0 +1,118 @@
+{
+    "data": [
+        {
+            "id": {
+                "workspace_id": "08fb2a81-ce26-4214-a0ad-545a16e811be",
+                "object_id": "257a144a-852c-436d-8fa1-8cac198b9dab",
+                "record_id": "cf996e47-60d3-409a-a565-ac5d66c422b1"
+            },
+            "created_at": "2025-10-01T07:10:52.871000000Z",
+            "web_url": "https://app.attio.com/elviskahoro/person/cf996e47-60d3-409a-a565-ac5d66c422b1",
+            "values": {
+                "record_id": [
+                    {
+                        "active_from": "2025-10-01T07:10:52.871000000Z",
+                        "active_until": null,
+                        "created_by_actor": {
+                            "type": "api-token",
+                            "id": "98253b6a-ef0d-4a3b-942a-1539804d270b"
+                        },
+                        "value": "cf996e47-60d3-409a-a565-ac5d66c422b1",
+                        "attribute_type": "text"
+                    }
+                ],
+                "website": [],
+                "connected_where": [],
+                "connected_on": [],
+                "github": [],
+                "name": [
+                    {
+                        "active_from": "2025-10-01T07:10:52.871000000Z",
+                        "active_until": null,
+                        "created_by_actor": {
+                            "type": "api-token",
+                            "id": "98253b6a-ef0d-4a3b-942a-1539804d270b"
+                        },
+                        "first_name": "Bethleham",
+                        "last_name": "Abebe",
+                        "full_name": "Bethleham Abebe",
+                        "attribute_type": "personal-name"
+                    }
+                ],
+                "email_addresses": [
+                    {
+                        "active_from": "2025-10-01T07:10:52.871000000Z",
+                        "active_until": null,
+                        "created_by_actor": {
+                            "type": "api-token",
+                            "id": "98253b6a-ef0d-4a3b-942a-1539804d270b"
+                        },
+                        "original_email_address": "bethleham.a@gmail.com",
+                        "email_address": "bethleham.a@gmail.com",
+                        "email_domain": "gmail.com",
+                        "email_root_domain": "gmail.com",
+                        "email_local_specifier": "bethleham.a",
+                        "attribute_type": "email-address"
+                    }
+                ],
+                "description": [],
+                "company": [],
+                "job_title": [],
+                "avatar_url": [],
+                "phone_numbers": [],
+                "primary_location": [],
+                "angellist": [],
+                "facebook": [],
+                "instagram": [],
+                "linkedin": [],
+                "twitter": [],
+                "twitter_follower_count": [],
+                "first_calendar_interaction": [],
+                "last_calendar_interaction": [],
+                "next_calendar_interaction": [],
+                "first_email_interaction": [],
+                "last_email_interaction": [],
+                "first_interaction": [],
+                "last_interaction": [],
+                "next_interaction": [],
+                "strongest_connection_strength_legacy": [],
+                "strongest_connection_strength": [],
+                "strongest_connection_user": [],
+                "associated_deals": [],
+                "associated_users": [],
+                "created_at": [
+                    {
+                        "active_from": "2025-10-01T07:10:52.871000000Z",
+                        "active_until": null,
+                        "created_by_actor": {
+                            "type": "api-token",
+                            "id": "98253b6a-ef0d-4a3b-942a-1539804d270b"
+                        },
+                        "value": "2025-10-01T07:10:52.888000000Z",
+                        "attribute_type": "timestamp"
+                    }
+                ],
+                "created_by": [
+                    {
+                        "active_from": "2025-10-01T07:10:52.871000000Z",
+                        "active_until": null,
+                        "created_by_actor": {
+                            "type": "api-token",
+                            "id": "98253b6a-ef0d-4a3b-942a-1539804d270b"
+                        },
+                        "referenced_actor_type": "api-token",
+                        "referenced_actor_id": "98253b6a-ef0d-4a3b-942a-1539804d270b",
+                        "attribute_type": "actor-reference"
+                    }
+                ],
+                "avatar_url_google": [],
+                "birth_date": [],
+                "linkedin_connection_count": [],
+                "linkedin_follower_count_1": [],
+                "school": [],
+                "school_major": [],
+                "school_graduation_date": []
+            }
+        }
+    ]
+}

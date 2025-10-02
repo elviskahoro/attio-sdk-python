@@ -1,20 +1,9 @@
 workflowVersion: 1.0.0
-speakeasyVersion: latest
 sources:
-    Attio API:
+    attio:
         inputs:
-            - location: open-api.json
+            - location: api.json
         overlays:
             - location: overlay.yaml
-        registry:
-            location: registry.speakeasyapi.dev/elviskahoro/attio/attio-api
-targets:
-    attio:
-        target: python
-        source: Attio API
-        codeSamples:
-            registry:
-                location: registry.speakeasyapi.dev/elviskahoro/attio/attio-api-python-code-samples
-            labelOverride:
-                fixedValue: Python (SDK)
-            blocking: false
+        output: api-with_overlay
+targets: {}
