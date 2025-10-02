@@ -22523,7 +22523,7 @@
               "example": "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
             },
             "required": true,
-            "name": "list_id",
+            "name": "list",
             "in": "path"
           }
         ],
@@ -22611,7 +22611,7 @@
               "example": "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
             },
             "required": true,
-            "name": "list_id",
+            "name": "list",
             "in": "path"
           }
         ],
@@ -22815,7 +22815,7 @@
               "example": "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
             },
             "required": true,
-            "name": "list_id",
+            "name": "list",
             "in": "path"
           }
         ],
@@ -25021,7 +25021,7 @@
               "example": "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
             },
             "required": true,
-            "name": "list_id",
+            "name": "list",
             "in": "path"
           }
         ],
@@ -27199,7 +27199,7 @@
               "example": "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
             },
             "required": true,
-            "name": "list_id",
+            "name": "list",
             "in": "path"
           }
         ],
@@ -29379,7 +29379,7 @@
               "example": "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
             },
             "required": true,
-            "name": "list_id",
+            "name": "list",
             "in": "path"
           },
           {
@@ -31477,7 +31477,7 @@
               "example": "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
             },
             "required": true,
-            "name": "list_id",
+            "name": "list",
             "in": "path"
           },
           {
@@ -33653,7 +33653,7 @@
               "example": "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
             },
             "required": true,
-            "name": "list_id",
+            "name": "list",
             "in": "path"
           },
           {
@@ -35829,7 +35829,7 @@
               "example": "enterprise_sales"
             },
             "required": true,
-            "name": "list_id",
+            "name": "list",
             "in": "path"
           },
           {
@@ -35924,7 +35924,7 @@
               "example": "enterprise_sales"
             },
             "required": true,
-            "name": "list_id",
+            "name": "list",
             "in": "path"
           },
           {

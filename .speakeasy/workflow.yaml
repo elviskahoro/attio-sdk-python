@@ -5,5 +5,5 @@ sources:
             - location: api.json
         overlays:
             - location: overlay.yaml
-        output: api-with_overlay
+        output: api-with_overlay.json
 targets: {}
