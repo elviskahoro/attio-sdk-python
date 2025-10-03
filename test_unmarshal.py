@@ -10,11 +10,12 @@ Toggle USE_INSTALLED_PACKAGE to compare:
 """
 
 import sys
+
 # Toggle this to test installed package vs local source
 USE_INSTALLED_PACKAGE = True
 
 if not USE_INSTALLED_PACKAGE:
-    sys.path.insert(0, '/Users/elvis/Documents/elviskahoro/attio-sdk-python/src')
+    sys.path.insert(0, "/Users/elvis/Documents/elviskahoro/attio-sdk-python/src")
 
 import json
 from attio import models
@@ -24,7 +25,9 @@ from attio.utils.unmarshal_json_response import unmarshal_json_response
 with open("test.json", "r") as f:
     response_json = json.load(f)
 
-print(f"Testing with {'INSTALLED' if USE_INSTALLED_PACKAGE else 'LOCAL SOURCE'} package")
+print(
+    f"Testing with {'INSTALLED' if USE_INSTALLED_PACKAGE else 'LOCAL SOURCE'} package"
+)
 print("Testing unmarshalling of test.json with timestamp attribute...")
 print(f"Response keys: {response_json.keys()}")
 print()
@@ -41,11 +44,11 @@ try:
 
     mock_response = Mock()
     mock_response.text = json.dumps(response_json)  # Use the full response with array
-    mock_response.headers = {'content-type': 'application/json'}
+    mock_response.headers = {"content-type": "application/json"}
 
     result = unmarshal_json_response(
         models.PostV2ObjectsObjectRecordsQueryResponse,  # Use Query response model
-        mock_response
+        mock_response,
     )
     print("[PASS] Unmarshalling successful!")
     print(f"Result type: {type(result)}")
@@ -68,22 +71,23 @@ error_response = {
     "status_code": 400,
     "type": "invalid_request_error",
     "code": "uniqueness_conflict",
-    "message": 'The value "{\\"email_address\\":\\"bethleham.a@gmail.com\\"}" provided for attribute with ID "b8bfd231-5bd9-4092-9d39-dbf3f0e6e0d9" conflicts with one already in the system.'
+    "message": 'The value "{\\"email_address\\":\\"bethleham.a@gmail.com\\"}" provided for attribute with ID "b8bfd231-5bd9-4092-9d39-dbf3f0e6e0d9" conflicts with one already in the system.',
 }
 
 try:
-    from attio.errors.post_v2_objects_object_recordsop import PostV2ObjectsObjectRecordsValueNotFoundErrorData
+    from attio.errors.post_v2_objects_object_recordsop import (
+        PostV2ObjectsObjectRecordsValueNotFoundErrorData,
+    )
 
     mock_error_response = Mock()
     mock_error_response.text = json.dumps(error_response)
-    mock_error_response.headers = {'content-type': 'application/json'}
+    mock_error_response.headers = {"content-type": "application/json"}
     mock_error_response.status_code = 400
 
     # Try to unmarshal as an error response using the ValueNotFoundError model
     # This should fail because it only accepts code: "value_not_found"
     result = unmarshal_json_response(
-        PostV2ObjectsObjectRecordsValueNotFoundErrorData,
-        mock_error_response
+        PostV2ObjectsObjectRecordsValueNotFoundErrorData, mock_error_response
     )
     print("[PASS] Error response unmarshalling successful!")
     print(f"Result: {result}")
