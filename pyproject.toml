@@ -49,6 +49,7 @@ ignore_missing_imports = true
 [tool.pyright]
 venvPath = "."
 venv = ".venv"
+reportGeneralTypeIssues = "none"
 
 [tool.black]
 extend-exclude = '''
