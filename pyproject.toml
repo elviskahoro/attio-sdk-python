@@ -1,6 +1,6 @@
 [project]
 name = "attio"
-version = "0.20.1"
+version = "0.20.2"
 description = "Attio API client library from elviskahoro"
 authors = [{ name = "elviskahoro" },]
 readme = "README.md"
@@ -16,7 +16,6 @@ urls.homepage = "https://github.com/elviskahoro/attio-sdk-python"
 dev = [
     "mypy ==1.15.0",
     "pylint ==3.2.3",
-    "pyright ==1.1.405",
 ]
 
 [tool.setuptools.packages.find]
@@ -49,11 +48,5 @@ ignore_missing_imports = true
 [tool.pyright]
 venvPath = "."
 venv = ".venv"
-reportGeneralTypeIssues = "none"
 
-[tool.black]
-extend-exclude = '''
-/(
-  | src
-)/
-'''
+
