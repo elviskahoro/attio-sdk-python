@@ -3,15 +3,15 @@ id: 8dc93348-09a5-472d-90a9-8d558c23be86
 management:
   docChecksum: 9dd3031edad5572520bf6ce0b28407eb
   docVersion: 2.0.0
-  speakeasyVersion: 1.633.1
-  generationVersion: 2.720.1
-  releaseVersion: 0.19.1
-  configChecksum: a82fef08b3713fae2ce1d567f00a7145
+  speakeasyVersion: 1.634.0
+  generationVersion: 2.721.0
+  releaseVersion: 0.20.1
+  configChecksum: c731b36ea01efbde5bb1bc2b6dae4067
 features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.22.0
+    core: 5.22.1
     defaultEnabledRetries: 0.2.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
@@ -27,7 +27,7 @@ features:
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.1.0
-    unions: 3.0.5
+    unions: 3.1.0
 generatedFiles:
   - .gitattributes
   - .vscode/settings.json

@@ -24,7 +24,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 python:
-  version: 0.19.1
+  version: 0.20.1
   additionalDependencies:
     dev: {}
     main: {}
@@ -47,6 +47,7 @@ python:
   flattenGlobalSecurity: true
   flattenRequests: true
   flatteningOrder: parameters-first
+  homepage: https://github.com/elviskahoro/attio-sdk-python
   imports:
     option: openapi
     paths:
@@ -65,6 +66,7 @@ python:
   packageName: attio
   pytestFilterWarnings: []
   pytestTimeout: 0
+  repoURL: https://github.com/elviskahoro/attio-sdk-python
   responseFormat: flat
   sseFlatResponse: true
   templateVersion: v2

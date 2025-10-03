@@ -1,4 +1,4 @@
-speakeasyVersion: 1.633.1
+speakeasyVersion: 1.634.0
 sources:
     Attio API:
         sourceNamespace: attio-api
