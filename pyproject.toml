@@ -2,21 +2,13 @@
 name = "attio"
 version = "0.19.1"
 description = "Attio API client library from elviskahoro"
-authors = [{ name = "elviskahoro" },]
+authors = [{ name = "elviskahoro" }]
 readme = "README.md"
 requires-python = ">=3.9.2"
-dependencies = [
-    "httpcore >=1.0.9",
-    "httpx >=0.28.1",
-    "pydantic >=2.11.2",
-]
+dependencies = ["httpcore >=1.0.9", "httpx >=0.28.1", "pydantic >=2.11.2"]
 
 [dependency-groups]
-dev = [
-    "mypy ==1.15.0",
-    "pylint ==3.2.3",
-    "pyright ==1.1.405",
-]
+dev = ["mypy ==1.15.0", "pylint ==3.2.3", "pyright ==1.1.405"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -48,5 +40,3 @@ ignore_missing_imports = true
 [tool.pyright]
 venvPath = "."
 venv = ".venv"
-
-

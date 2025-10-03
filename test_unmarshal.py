@@ -47,12 +47,12 @@ try:
         models.PostV2ObjectsObjectRecordsQueryResponse,  # Use Query response model
         mock_response
     )
-    print("✓ Unmarshalling successful!")
+    print("[PASS] Unmarshalling successful!")
     print(f"Result type: {type(result)}")
     print(f"Result data type: {type(result.data)}")
     print(f"Number of records: {len(result.data)}")
 except Exception as e:
-    print(f"✗ Unmarshalling failed with error:")
+    print("[FAIL] Unmarshalling failed with error:")
     print(f"Error type: {type(e).__name__}")
     print()
     # Print full error for debugging
@@ -85,10 +85,10 @@ try:
         PostV2ObjectsObjectRecordsValueNotFoundErrorData,
         mock_error_response
     )
-    print("✓ Error response unmarshalling successful!")
+    print("[PASS] Error response unmarshalling successful!")
     print(f"Result: {result}")
 except Exception as e:
-    print(f"✗ Error response unmarshalling failed:")
+    print("[FAIL] Error response unmarshalling failed:")
     print(f"Error type: {type(e).__name__}")
     print()
     print(str(e)[:500])  # Limit output
