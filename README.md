@@ -17,6 +17,9 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage *open
 <!-- Start Summary [summary] -->
 ## Summary
 
+The Attio SDK for Python provides a type-safe client for the [Attio API](https://developers.attio.com/).
+
+The latest OpenAPI spec is available at: https://api.attio.com/openapi/api
 
 <!-- End Summary [summary] -->
 
