@@ -14,12 +14,13 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage *open
 > [!IMPORTANT]
 > This SDK is not yet ready for production use. To complete setup please follow the steps outlined in your [workspace](https://app.speakeasy.com/org/elviskahoro/attio). Delete this section before > publishing to a package manager.
 
-<!-- Start Summary [summary] -->
-## Summary
-
 The Attio SDK for Python provides a type-safe client for the [Attio API](https://developers.attio.com/).
 
 The latest OpenAPI spec is available at: https://api.attio.com/openapi/api
+
+<!-- Start Summary [summary] -->
+## Summary
+
 
 <!-- End Summary [summary] -->
 
