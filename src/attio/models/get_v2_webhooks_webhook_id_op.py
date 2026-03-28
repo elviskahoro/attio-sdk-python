@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 from attio.types import BaseModel, Nullable, UNSET_SENTINEL
-from attio.utils import FieldMetadata, PathParamMetadata
+from attio.utils import FieldMetadata, PathParamMetadata, get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import List, Literal, Union
 from typing_extensions import Annotated, TypeAliasType, TypedDict
 
@@ -100,12 +100,13 @@ GetV2WebhooksWebhookIDDollarAndUnionTypedDict = TypeAliasType(
 )
 
 
-GetV2WebhooksWebhookIDDollarAndUnion = TypeAliasType(
-    "GetV2WebhooksWebhookIDDollarAndUnion",
+GetV2WebhooksWebhookIDDollarAndUnion = Annotated[
     Union[
-        GetV2WebhooksWebhookIDDollarAndEquals, GetV2WebhooksWebhookIDDollarAndNotEquals
+        Annotated[GetV2WebhooksWebhookIDDollarAndEquals, Tag("equals")],
+        Annotated[GetV2WebhooksWebhookIDDollarAndNotEquals, Tag("not_equals")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "operator", "operator")),
+]
 
 
 class GetV2WebhooksWebhookIDFilter2TypedDict(TypedDict):
@@ -161,12 +162,13 @@ GetV2WebhooksWebhookIDDollarOrUnionTypedDict = TypeAliasType(
 )
 
 
-GetV2WebhooksWebhookIDDollarOrUnion = TypeAliasType(
-    "GetV2WebhooksWebhookIDDollarOrUnion",
+GetV2WebhooksWebhookIDDollarOrUnion = Annotated[
     Union[
-        GetV2WebhooksWebhookIDDollarOrEquals, GetV2WebhooksWebhookIDDollarOrNotEquals
+        Annotated[GetV2WebhooksWebhookIDDollarOrEquals, Tag("equals")],
+        Annotated[GetV2WebhooksWebhookIDDollarOrNotEquals, Tag("not_equals")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "operator", "operator")),
+]
 
 
 class GetV2WebhooksWebhookIDFilter1TypedDict(TypedDict):
@@ -213,30 +215,14 @@ class GetV2WebhooksWebhookIDSubscription(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["filter"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -303,3 +289,17 @@ class GetV2WebhooksWebhookIDResponse(BaseModel):
     r"""Success"""
 
     data: GetV2WebhooksWebhookIDData
+
+
+try:
+    GetV2WebhooksWebhookIDFilter2.model_rebuild()
+except NameError:
+    pass
+try:
+    GetV2WebhooksWebhookIDFilter1.model_rebuild()
+except NameError:
+    pass
+try:
+    GetV2WebhooksWebhookIDSubscription.model_rebuild()
+except NameError:
+    pass

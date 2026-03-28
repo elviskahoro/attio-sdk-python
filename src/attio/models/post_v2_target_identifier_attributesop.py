@@ -4,8 +4,13 @@ from __future__ import annotations
 from .attribute import Attribute, AttributeTypedDict
 from .input_value_union import InputValueUnion, InputValueUnionTypedDict
 from attio.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from attio.utils import FieldMetadata, PathParamMetadata, RequestMetadata
-from pydantic import model_serializer
+from attio.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    RequestMetadata,
+    get_discriminator,
+)
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -79,21 +84,50 @@ PostV2TargetIdentifierAttributesDefaultValueUnionTypedDict = TypeAliasType(
 r"""The default value for this attribute. Static values are used to directly populate values using their contents. Dynamic values are used to lookup data at the point of creation. For example, you could use a dynamic value to insert a value for the currently logged in user. Which default values are available is dependent on the type of the attribute. Default values are not currently supported on people or company objects."""
 
 
-PostV2TargetIdentifierAttributesDefaultValueUnion = TypeAliasType(
-    "PostV2TargetIdentifierAttributesDefaultValueUnion",
+PostV2TargetIdentifierAttributesDefaultValueUnion = Annotated[
     Union[
-        PostV2TargetIdentifierAttributesDefaultValueDynamic,
-        PostV2TargetIdentifierAttributesDefaultValueStatic,
+        Annotated[PostV2TargetIdentifierAttributesDefaultValueDynamic, Tag("dynamic")],
+        Annotated[PostV2TargetIdentifierAttributesDefaultValueStatic, Tag("static")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""The default value for this attribute. Static values are used to directly populate values using their contents. Dynamic values are used to lookup data at the point of creation. For example, you could use a dynamic value to insert a value for the currently logged in user. Which default values are available is dependent on the type of the attribute. Default values are not currently supported on people or company objects."""
+
+
+class PostV2TargetIdentifierAttributesRelationshipTypedDict(TypedDict):
+    r"""Optional relationship configuration. When provided, creates a bidirectional relationship between two objects. Can only be used with attributes of type \"record-reference\". If `config.record_reference.allowed_objects` is also provided, it must contain only the relationship object."""
+
+    object: str
+    r"""The slug or UUID of the object to create the reverse relationship attribute on."""
+    title: str
+    r"""The title for the reverse relationship attribute."""
+    api_slug: str
+    r"""The API slug for the reverse relationship attribute."""
+    is_multiselect: bool
+    r"""Whether the related attribute supports selecting multiple values. Combined with the parent attribute's `is_multiselect`, this determines the relationship type: both `false` = one-to-one, parent `true` + related `false` = many-to-one, parent `false` + related `true` = one-to-many, both `true` = many-to-many."""
+
+
+class PostV2TargetIdentifierAttributesRelationship(BaseModel):
+    r"""Optional relationship configuration. When provided, creates a bidirectional relationship between two objects. Can only be used with attributes of type \"record-reference\". If `config.record_reference.allowed_objects` is also provided, it must contain only the relationship object."""
+
+    object: str
+    r"""The slug or UUID of the object to create the reverse relationship attribute on."""
+
+    title: str
+    r"""The title for the reverse relationship attribute."""
+
+    api_slug: str
+    r"""The API slug for the reverse relationship attribute."""
+
+    is_multiselect: bool
+    r"""Whether the related attribute supports selecting multiple values. Combined with the parent attribute's `is_multiselect`, this determines the relationship type: both `false` = one-to-one, parent `true` + related `false` = many-to-one, parent `false` + related `true` = one-to-many, both `true` = many-to-many."""
 
 
 PostV2TargetIdentifierAttributesDefaultCurrencyCode = Literal[
     "ARS",
     "AUD",
     "BRL",
-    "BEL",
+    "BGN",
     "CAD",
     "CLP",
     "CNY",
@@ -101,11 +135,14 @@ PostV2TargetIdentifierAttributesDefaultCurrencyCode = Literal[
     "CZK",
     "DKK",
     "EUR",
+    "FJD",
     "HKD",
+    "HUF",
     "ISK",
     "INR",
     "ILS",
     "JPY",
+    "KES",
     "KRW",
     "MYR",
     "MXN",
@@ -124,6 +161,7 @@ PostV2TargetIdentifierAttributesDefaultCurrencyCode = Literal[
     "ZAR",
     "SEK",
     "CHF",
+    "THB",
     "AED",
     "UYU",
     "USD",
@@ -163,14 +201,14 @@ class PostV2TargetIdentifierAttributesRecordReferenceTypedDict(TypedDict):
     r"""Configuration available for attributes of type \"record-reference\"."""
 
     allowed_objects: List[str]
-    r"""A list of slugs or UUIDs to indicate which objects records are allowed to belong to. Leave empty to to allow records from all object types."""
+    r"""A list of slugs or UUIDs to indicate which objects records are allowed to belong to. If `relationship` is also provided, this must contain only the relationship object."""
 
 
 class PostV2TargetIdentifierAttributesRecordReference(BaseModel):
     r"""Configuration available for attributes of type \"record-reference\"."""
 
     allowed_objects: List[str]
-    r"""A list of slugs or UUIDs to indicate which objects records are allowed to belong to. Leave empty to to allow records from all object types."""
+    r"""A list of slugs or UUIDs to indicate which objects records are allowed to belong to. If `relationship` is also provided, this must contain only the relationship object."""
 
 
 class PostV2TargetIdentifierAttributesConfigTypedDict(TypedDict):
@@ -188,6 +226,22 @@ class PostV2TargetIdentifierAttributesConfig(BaseModel):
 
     record_reference: Optional[PostV2TargetIdentifierAttributesRecordReference] = None
     r"""Configuration available for attributes of type \"record-reference\"."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["currency", "record_reference"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class PostV2TargetIdentifierAttributesDataTypedDict(TypedDict):
@@ -210,6 +264,10 @@ class PostV2TargetIdentifierAttributesDataTypedDict(TypedDict):
         Nullable[PostV2TargetIdentifierAttributesDefaultValueUnionTypedDict]
     ]
     r"""The default value for this attribute. Static values are used to directly populate values using their contents. Dynamic values are used to lookup data at the point of creation. For example, you could use a dynamic value to insert a value for the currently logged in user. Which default values are available is dependent on the type of the attribute. Default values are not currently supported on people or company objects."""
+    relationship: NotRequired[
+        Nullable[PostV2TargetIdentifierAttributesRelationshipTypedDict]
+    ]
+    r"""Optional relationship configuration. When provided, creates a bidirectional relationship between two objects. Can only be used with attributes of type \"record-reference\". If `config.record_reference.allowed_objects` is also provided, it must contain only the relationship object."""
 
 
 class PostV2TargetIdentifierAttributesData(BaseModel):
@@ -241,33 +299,31 @@ class PostV2TargetIdentifierAttributesData(BaseModel):
     ] = UNSET
     r"""The default value for this attribute. Static values are used to directly populate values using their contents. Dynamic values are used to lookup data at the point of creation. For example, you could use a dynamic value to insert a value for the currently logged in user. Which default values are available is dependent on the type of the attribute. Default values are not currently supported on people or company objects."""
 
+    relationship: OptionalNullable[PostV2TargetIdentifierAttributesRelationship] = UNSET
+    r"""Optional relationship configuration. When provided, creates a bidirectional relationship between two objects. Can only be used with attributes of type \"record-reference\". If `config.record_reference.allowed_objects` is also provided, it must contain only the relationship object."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["default_value"]
-        nullable_fields = ["description", "default_value"]
-        null_default_fields = []
-
+        optional_fields = set(["default_value", "relationship"])
+        nullable_fields = set(["description", "default_value", "relationship"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 

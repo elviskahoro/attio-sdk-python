@@ -1,8 +1,13 @@
 # GetV2TargetIdentifierAttributesAttributeOptionsCode
 
+## Example Usage
+
+```python
+from attio.models import GetV2TargetIdentifierAttributesAttributeOptionsCode
+value: GetV2TargetIdentifierAttributesAttributeOptionsCode = "not_found"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `NOT_FOUND` | not_found   |
+- `"not_found"`

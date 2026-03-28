@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PostV2ListsListEntriesQueryAttributeTypePhoneNumber
+value: PostV2ListsListEntriesQueryAttributeTypePhoneNumber = "phone-number"
+```
+
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `PHONE_NUMBER` | phone-number   |
+- `"phone-number"`

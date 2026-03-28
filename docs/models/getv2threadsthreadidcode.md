@@ -1,8 +1,13 @@
 # GetV2ThreadsThreadIDCode
 
+## Example Usage
+
+```python
+from attio.models import GetV2ThreadsThreadIDCode
+value: GetV2ThreadsThreadIDCode = "not_found"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `NOT_FOUND` | not_found   |
+- `"not_found"`

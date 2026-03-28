@@ -4,10 +4,15 @@ from __future__ import annotations
 from .select_option import SelectOption, SelectOptionTypedDict
 from .status import Status, StatusTypedDict
 from attio.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from attio.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
+from attio.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    QueryParamMetadata,
+    get_discriminator,
+)
 from datetime import datetime
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -50,6 +55,22 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesRequest(BaseModel):
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["show_historic", "limit", "offset"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 GetV2ListsListEntriesEntryIDAttributesAttributeValuesNotFoundType = Literal[
@@ -97,31 +118,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor17(Base
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -173,30 +189,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataTimestamp(BaseMod
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -239,31 +239,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor16(Base
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -313,30 +308,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataText(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -379,31 +358,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor15(Base
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -453,30 +427,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataSelect(BaseModel)
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -519,31 +477,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor14(Base
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -595,30 +548,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataRating(BaseModel)
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -661,31 +598,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor13(Base
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -735,30 +667,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataStatus(BaseModel)
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -801,31 +717,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor12(Base
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -1142,30 +1053,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataPhoneNumber(BaseM
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -1208,31 +1103,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor11(Base
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -1294,30 +1184,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataPersonalName(Base
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -1360,31 +1234,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor10(Base
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -1436,30 +1305,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataNumber(BaseModel)
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -1502,31 +1355,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor9(BaseM
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -1884,42 +1732,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataLocation(BaseMode
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = [
-            "active_until",
-            "line_1",
-            "line_2",
-            "line_3",
-            "line_4",
-            "locality",
-            "region",
-            "postcode",
-            "country_code",
-            "latitude",
-            "longitude",
-        ]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -1962,31 +1782,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor8(BaseM
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2037,31 +1852,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesOwnerActor(BaseModel)
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2129,30 +1939,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataInteraction(BaseM
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -2195,31 +1989,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor7(BaseM
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2274,30 +2063,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataRecordReference(
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -2340,31 +2113,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor6(BaseM
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2426,30 +2194,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataEmailAddress(Base
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -2492,31 +2244,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor5(BaseM
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2569,30 +2316,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataDomain(BaseModel)
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -2635,31 +2366,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor4(BaseM
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2709,30 +2435,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataDate(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -2775,31 +2485,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor3(BaseM
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2808,7 +2513,7 @@ GetV2ListsListEntriesEntryIDAttributesAttributeValuesCurrencyCode = Literal[
     "ARS",
     "AUD",
     "BRL",
-    "BEL",
+    "BGN",
     "CAD",
     "CLP",
     "CNY",
@@ -2816,11 +2521,14 @@ GetV2ListsListEntriesEntryIDAttributesAttributeValuesCurrencyCode = Literal[
     "CZK",
     "DKK",
     "EUR",
+    "FJD",
     "HKD",
+    "HUF",
     "ISK",
     "INR",
     "ILS",
     "JPY",
+    "KES",
     "KRW",
     "MYR",
     "MXN",
@@ -2839,6 +2547,7 @@ GetV2ListsListEntriesEntryIDAttributesAttributeValuesCurrencyCode = Literal[
     "ZAR",
     "SEK",
     "CHF",
+    "THB",
     "AED",
     "UYU",
     "USD",
@@ -2902,31 +2611,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataCurrency(BaseMode
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["currency_code"]
-        nullable_fields = ["active_until", "currency_code"]
-        null_default_fields = []
-
+        optional_fields = set(["currency_code"])
+        nullable_fields = set(["active_until", "currency_code"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2968,31 +2672,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor2(BaseM
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -3044,30 +2743,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataCheckbox(BaseMode
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -3110,31 +2793,26 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesCreatedByActor1(BaseM
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -3206,30 +2884,14 @@ class GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataActorReference(
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["active_until", "referenced_actor_id"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -3259,28 +2921,77 @@ GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataUnionTypedDict = TypeAl
 )
 
 
-GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataUnion = TypeAliasType(
-    "GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataUnion",
+GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataUnion = Annotated[
     Union[
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataNumber,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataCheckbox,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataTimestamp,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataDate,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataText,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataSelect,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataRating,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataStatus,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataDomain,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataRecordReference,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataActorReference,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataCurrency,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataPersonalName,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataPhoneNumber,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataInteraction,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataEmailAddress,
-        GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataLocation,
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataActorReference,
+            Tag("actor-reference"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataCheckbox,
+            Tag("checkbox"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataCurrency,
+            Tag("currency"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataDate, Tag("date")
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataDomain,
+            Tag("domain"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataEmailAddress,
+            Tag("email-address"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataRecordReference,
+            Tag("record-reference"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataInteraction,
+            Tag("interaction"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataLocation,
+            Tag("location"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataNumber,
+            Tag("number"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataPersonalName,
+            Tag("personal-name"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataPhoneNumber,
+            Tag("phone-number"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataStatus,
+            Tag("status"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataRating,
+            Tag("rating"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataSelect,
+            Tag("select"),
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataText, Tag("text")
+        ],
+        Annotated[
+            GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataTimestamp,
+            Tag("timestamp"),
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "attribute_type", "attribute_type")),
+]
 
 
 class GetV2ListsListEntriesEntryIDAttributesAttributeValuesResponseTypedDict(TypedDict):

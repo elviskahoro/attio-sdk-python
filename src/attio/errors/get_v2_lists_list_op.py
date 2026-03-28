@@ -11,15 +11,12 @@ from typing import Optional
 
 class GetV2ListsListNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_get_v2_lists_list_op.GetV2ListsListType
-
     code: models_get_v2_lists_list_op.GetV2ListsListCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetV2ListsListNotFoundError(SDKError):
     r"""Not Found"""
 

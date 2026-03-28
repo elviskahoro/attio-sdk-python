@@ -1,8 +1,13 @@
 # PostV2TargetIdentifierAttributesNotFoundCode
 
+## Example Usage
+
+```python
+from attio.models import PostV2TargetIdentifierAttributesNotFoundCode
+value: PostV2TargetIdentifierAttributesNotFoundCode = "not_found"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `NOT_FOUND` | not_found   |
+- `"not_found"`

@@ -15,15 +15,12 @@ class GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundErrorDat
     BaseModel
 ):
     status_code: float
-
     type: models_get_v2_objects_object_records_record_id_attributes_attribute_valuesop.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundType
-
     code: models_get_v2_objects_object_records_record_id_attributes_attribute_valuesop.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -47,15 +44,12 @@ class GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesValidationTypeEr
     BaseModel
 ):
     status_code: float
-
     type: models_get_v2_objects_object_records_record_id_attributes_attribute_valuesop.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesBadRequestType
-
     code: models_get_v2_objects_object_records_record_id_attributes_attribute_valuesop.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesCodeValidationType
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesValidationTypeError(
     SDKError
 ):

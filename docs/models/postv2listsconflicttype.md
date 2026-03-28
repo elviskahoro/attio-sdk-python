@@ -1,8 +1,13 @@
 # PostV2ListsConflictType
 
+## Example Usage
+
+```python
+from attio.models import PostV2ListsConflictType
+value: PostV2ListsConflictType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

@@ -1,8 +1,13 @@
 # PostV2TasksBadRequestType
 
+## Example Usage
+
+```python
+from attio.models import PostV2TasksBadRequestType
+value: PostV2TasksBadRequestType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

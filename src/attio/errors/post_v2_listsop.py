@@ -11,15 +11,12 @@ from typing import Optional
 
 class PostV2ListsSlugConflictErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_listsop.PostV2ListsConflictType
-
     code: models_post_v2_listsop.PostV2ListsConflictCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2ListsSlugConflictError(SDKError):
     r"""Conflict"""
 
@@ -39,15 +36,12 @@ class PostV2ListsSlugConflictError(SDKError):
 
 class PostV2ListsNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_listsop.PostV2ListsNotFoundType
-
     code: models_post_v2_listsop.PostV2ListsNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2ListsNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -67,15 +61,12 @@ class PostV2ListsNotFoundError(SDKError):
 
 class BillingErrorData(BaseModel):
     status_code: float
-
-    type: models_post_v2_listsop.ForbiddenType
-
-    code: models_post_v2_listsop.ForbiddenCode
-
+    type: models_post_v2_listsop.PostV2ListsForbiddenType
+    code: models_post_v2_listsop.PostV2ListsCodeBillingError
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class BillingError(SDKError):
     r"""Forbidden"""
 
@@ -95,15 +86,12 @@ class BillingError(SDKError):
 
 class PostV2ListsValueNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_listsop.PostV2ListsBadRequestType
-
     code: models_post_v2_listsop.PostV2ListsCodeValueNotFound
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2ListsValueNotFoundError(SDKError):
     r"""Bad Request"""
 

@@ -1,8 +1,13 @@
 # PostV2ListsListEntriesQueryNotFoundType
 
+## Example Usage
+
+```python
+from attio.models import PostV2ListsListEntriesQueryNotFoundType
+value: PostV2ListsListEntriesQueryNotFoundType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

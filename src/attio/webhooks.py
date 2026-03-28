@@ -5,7 +5,7 @@ from attio import errors, models, utils
 from attio._hooks import HookContext
 from attio.types import OptionalNullable, UNSET
 from attio.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Mapping, Optional, Union
 
 
 class Webhooks(BaseSDK):
@@ -20,7 +20,7 @@ class Webhooks(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.GetV2WebhooksData]:
+    ) -> models.GetV2WebhooksResponse:
         r"""List webhooks
 
         Get all of the webhooks in your workspace.
@@ -62,6 +62,7 @@ class Webhooks(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -78,7 +79,7 @@ class Webhooks(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/webhooks",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -106,7 +107,7 @@ class Webhooks(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.GetV2WebhooksData]:
+    ) -> models.GetV2WebhooksResponse:
         r"""List webhooks
 
         Get all of the webhooks in your workspace.
@@ -148,6 +149,7 @@ class Webhooks(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -164,7 +166,7 @@ class Webhooks(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/webhooks",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -193,7 +195,7 @@ class Webhooks(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PostV2WebhooksDataResponse:
+    ) -> models.PostV2WebhooksResponse:
         r"""Create a webhook
 
         Create a webhook and associated subscriptions.
@@ -236,6 +238,7 @@ class Webhooks(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.PostV2WebhooksRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -252,7 +255,7 @@ class Webhooks(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/webhooks",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -287,7 +290,7 @@ class Webhooks(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PostV2WebhooksDataResponse:
+    ) -> models.PostV2WebhooksResponse:
         r"""Create a webhook
 
         Create a webhook and associated subscriptions.
@@ -330,6 +333,7 @@ class Webhooks(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.PostV2WebhooksRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -346,7 +350,7 @@ class Webhooks(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/webhooks",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -379,7 +383,7 @@ class Webhooks(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetV2WebhooksWebhookIDData:
+    ) -> models.GetV2WebhooksWebhookIDResponse:
         r"""Get a webhook
 
         Get a single webhook.
@@ -419,6 +423,7 @@ class Webhooks(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -435,7 +440,7 @@ class Webhooks(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/webhooks/{webhook_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -470,7 +475,7 @@ class Webhooks(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetV2WebhooksWebhookIDData:
+    ) -> models.GetV2WebhooksWebhookIDResponse:
         r"""Get a webhook
 
         Get a single webhook.
@@ -510,6 +515,7 @@ class Webhooks(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -526,7 +532,7 @@ class Webhooks(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/webhooks/{webhook_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -565,7 +571,7 @@ class Webhooks(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PatchV2WebhooksWebhookIDDataResponse:
+    ) -> models.PatchV2WebhooksWebhookIDResponse:
         r"""Update a webhook
 
         Update a webhook and associated subscriptions.
@@ -618,6 +624,7 @@ class Webhooks(BaseSDK):
                 "json",
                 models.PatchV2WebhooksWebhookIDRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -634,7 +641,7 @@ class Webhooks(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="patch_/v2/webhooks/{webhook_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -673,7 +680,7 @@ class Webhooks(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PatchV2WebhooksWebhookIDDataResponse:
+    ) -> models.PatchV2WebhooksWebhookIDResponse:
         r"""Update a webhook
 
         Update a webhook and associated subscriptions.
@@ -726,6 +733,7 @@ class Webhooks(BaseSDK):
                 "json",
                 models.PatchV2WebhooksWebhookIDRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -742,7 +750,7 @@ class Webhooks(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="patch_/v2/webhooks/{webhook_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -817,6 +825,7 @@ class Webhooks(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -833,7 +842,7 @@ class Webhooks(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_/v2/webhooks/{webhook_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -908,6 +917,7 @@ class Webhooks(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -924,7 +934,7 @@ class Webhooks(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_/v2/webhooks/{webhook_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

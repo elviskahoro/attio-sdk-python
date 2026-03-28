@@ -2,12 +2,17 @@
 
 The type of actor. [Read more information on actor types here](/docs/actors).
 
+## Example Usage
+
+```python
+from attio.models import GetV2ListsListEntriesEntryIDCreatedByActorType4
+value: GetV2ListsListEntriesEntryIDCreatedByActorType4 = "api-token"
+```
+
 
 ## Values
 
-| Name               | Value              |
-| ------------------ | ------------------ |
-| `API_TOKEN`        | api-token          |
-| `WORKSPACE_MEMBER` | workspace-member   |
-| `SYSTEM`           | system             |
-| `APP`              | app                |
+- `"api-token"`
+- `"workspace-member"`
+- `"system"`
+- `"app"`

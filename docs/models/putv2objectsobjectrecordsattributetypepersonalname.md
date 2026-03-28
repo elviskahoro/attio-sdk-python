@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PutV2ObjectsObjectRecordsAttributeTypePersonalName
+value: PutV2ObjectsObjectRecordsAttributeTypePersonalName = "personal-name"
+```
+
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `PERSONAL_NAME` | personal-name   |
+- `"personal-name"`

@@ -13,15 +13,12 @@ from typing import Optional
 
 class PutV2ListsListEntriesNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_put_v2_lists_list_entriesop.PutV2ListsListEntriesNotFoundType
-
     code: models_put_v2_lists_list_entriesop.PutV2ListsListEntriesNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PutV2ListsListEntriesNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -41,15 +38,12 @@ class PutV2ListsListEntriesNotFoundError(SDKError):
 
 class MultipleMatchResultsErrorData(BaseModel):
     status_code: float
-
     type: models_put_v2_lists_list_entriesop.PutV2ListsListEntriesBadRequestType
-
     code: models_put_v2_lists_list_entriesop.CodeMultipleMatchResults
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class MultipleMatchResultsError(SDKError):
     r"""Bad Request"""
 

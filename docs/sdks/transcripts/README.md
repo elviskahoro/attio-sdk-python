@@ -1,5 +1,4 @@
 # Transcripts
-(*transcripts*)
 
 ## Overview
 

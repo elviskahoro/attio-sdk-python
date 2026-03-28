@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from .object import Object, ObjectTypedDict
-from attio.types import BaseModel
+from attio.types import BaseModel, UNSET_SENTINEL
 from attio.utils import FieldMetadata, PathParamMetadata, RequestMetadata
+from pydantic import model_serializer
 from typing import Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -26,6 +27,22 @@ class PatchV2ObjectsObjectData(BaseModel):
 
     plural_noun: Optional[str] = None
     r"""The plural form of the object's name."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["api_slug", "singular_noun", "plural_noun"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class PatchV2ObjectsObjectRequestBodyTypedDict(TypedDict):

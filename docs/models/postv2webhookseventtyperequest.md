@@ -2,35 +2,40 @@
 
 Type of event the webhook is subscribed to.
 
+## Example Usage
+
+```python
+from attio.models import PostV2WebhooksEventTypeRequest
+value: PostV2WebhooksEventTypeRequest = "call-recording.created"
+```
+
 
 ## Values
 
-| Name                       | Value                      |
-| -------------------------- | -------------------------- |
-| `CALL_RECORDING_CREATED`   | call-recording.created     |
-| `COMMENT_CREATED`          | comment.created            |
-| `COMMENT_RESOLVED`         | comment.resolved           |
-| `COMMENT_UNRESOLVED`       | comment.unresolved         |
-| `COMMENT_DELETED`          | comment.deleted            |
-| `LIST_CREATED`             | list.created               |
-| `LIST_UPDATED`             | list.updated               |
-| `LIST_DELETED`             | list.deleted               |
-| `LIST_ATTRIBUTE_CREATED`   | list-attribute.created     |
-| `LIST_ATTRIBUTE_UPDATED`   | list-attribute.updated     |
-| `LIST_ENTRY_CREATED`       | list-entry.created         |
-| `LIST_ENTRY_UPDATED`       | list-entry.updated         |
-| `LIST_ENTRY_DELETED`       | list-entry.deleted         |
-| `OBJECT_ATTRIBUTE_CREATED` | object-attribute.created   |
-| `OBJECT_ATTRIBUTE_UPDATED` | object-attribute.updated   |
-| `NOTE_CREATED`             | note.created               |
-| `NOTE_CONTENT_UPDATED`     | note-content.updated       |
-| `NOTE_UPDATED`             | note.updated               |
-| `NOTE_DELETED`             | note.deleted               |
-| `RECORD_CREATED`           | record.created             |
-| `RECORD_MERGED`            | record.merged              |
-| `RECORD_UPDATED`           | record.updated             |
-| `RECORD_DELETED`           | record.deleted             |
-| `TASK_CREATED`             | task.created               |
-| `TASK_UPDATED`             | task.updated               |
-| `TASK_DELETED`             | task.deleted               |
-| `WORKSPACE_MEMBER_CREATED` | workspace-member.created   |
+- `"call-recording.created"`
+- `"comment.created"`
+- `"comment.resolved"`
+- `"comment.unresolved"`
+- `"comment.deleted"`
+- `"list.created"`
+- `"list.updated"`
+- `"list.deleted"`
+- `"list-attribute.created"`
+- `"list-attribute.updated"`
+- `"list-entry.created"`
+- `"list-entry.updated"`
+- `"list-entry.deleted"`
+- `"object-attribute.created"`
+- `"object-attribute.updated"`
+- `"note.created"`
+- `"note-content.updated"`
+- `"note.updated"`
+- `"note.deleted"`
+- `"record.created"`
+- `"record.merged"`
+- `"record.updated"`
+- `"record.deleted"`
+- `"task.created"`
+- `"task.updated"`
+- `"task.deleted"`
+- `"workspace-member.created"`

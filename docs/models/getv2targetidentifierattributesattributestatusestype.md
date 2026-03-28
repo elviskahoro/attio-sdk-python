@@ -1,8 +1,13 @@
 # GetV2TargetIdentifierAttributesAttributeStatusesType
 
+## Example Usage
+
+```python
+from attio.models import GetV2TargetIdentifierAttributesAttributeStatusesType
+value: GetV2TargetIdentifierAttributesAttributeStatusesType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

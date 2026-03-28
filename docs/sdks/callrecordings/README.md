@@ -1,5 +1,4 @@
 # CallRecordings
-(*call_recordings*)
 
 ## Overview
 
@@ -8,7 +7,9 @@ Call recordings store video, audio, transcript and speaker information for calls
 ### Available Operations
 
 * [get_v2_meetings_meeting_id_call_recordings](#get_v2_meetings_meeting_id_call_recordings) - List call recordings
+* [post_v2_meetings_meeting_id_call_recordings](#post_v2_meetings_meeting_id_call_recordings) - Create call recording
 * [get_v2_meetings_meeting_id_call_recordings_call_recording_id_](#get_v2_meetings_meeting_id_call_recordings_call_recording_id_) - Get call recording
+* [delete_v2_meetings_meeting_id_call_recordings_call_recording_id_](#delete_v2_meetings_meeting_id_call_recordings_call_recording_id_) - Delete call recording
 
 ## get_v2_meetings_meeting_id_call_recordings
 
@@ -55,6 +56,55 @@ with SDK(
 | ---------------------- | ---------------------- | ---------------------- |
 | errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
 
+## post_v2_meetings_meeting_id_call_recordings
+
+Create a call recording for a meeting. This endpoint is rate limited to 1 request per second.
+
+This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+
+Required scopes: `meeting:read`, `call_recording:read-write`.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="post_/v2/meetings/{meeting_id}/call_recordings" method="post" path="/v2/meetings/{meeting_id}/call_recordings" -->
+```python
+from attio import SDK
+
+
+with SDK(
+    oauth2="<YOUR_OAUTH2_HERE>",
+) as sdk:
+
+    res = sdk.call_recordings.post_v2_meetings_meeting_id_call_recordings(meeting_id="cb59ab17-ad15-460c-a126-0715617c0853", data={
+        "video_url": "https://example.com/recording.mp4",
+    })
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                   | Type                                                                                                                        | Required                                                                                                                    | Description                                                                                                                 | Example                                                                                                                     |
+| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `meeting_id`                                                                                                                | *str*                                                                                                                       | :heavy_check_mark:                                                                                                          | N/A                                                                                                                         | cb59ab17-ad15-460c-a126-0715617c0853                                                                                        |
+| `data`                                                                                                                      | [models.PostV2MeetingsMeetingIDCallRecordingsDataRequest](../../models/postv2meetingsmeetingidcallrecordingsdatarequest.md) | :heavy_check_mark:                                                                                                          | N/A                                                                                                                         |                                                                                                                             |
+| `retries`                                                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                            | :heavy_minus_sign:                                                                                                          | Configuration to override the default retry behavior of the client.                                                         |                                                                                                                             |
+
+### Response
+
+**[models.PostV2MeetingsMeetingIDCallRecordingsResponse](../../models/postv2meetingsmeetingidcallrecordingsresponse.md)**
+
+### Errors
+
+| Error Type                                                      | Status Code                                                     | Content Type                                                    |
+| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| errors.PostV2MeetingsMeetingIDCallRecordingsValidationTypeError | 400                                                             | application/json                                                |
+| errors.AuthError                                                | 403                                                             | application/json                                                |
+| errors.PostV2MeetingsMeetingIDCallRecordingsNotFoundError       | 404                                                             | application/json                                                |
+| errors.SDKDefaultError                                          | 4XX, 5XX                                                        | \*/\*                                                           |
+
 ## get_v2_meetings_meeting_id_call_recordings_call_recording_id_
 
 Get a single call recording by ID.
@@ -99,3 +149,48 @@ with SDK(
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | errors.GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDNotFoundError | 404                                                                     | application/json                                                        |
 | errors.SDKDefaultError                                                  | 4XX, 5XX                                                                | \*/\*                                                                   |
+
+## delete_v2_meetings_meeting_id_call_recordings_call_recording_id_
+
+Deletes the specified call recording. This will remove the call recording and all associated data.
+
+This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+
+Required scopes: `meeting:read`, `call_recording:read-write`.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="delete_/v2/meetings/{meeting_id}/call_recordings/{call_recording_id}" method="delete" path="/v2/meetings/{meeting_id}/call_recordings/{call_recording_id}" -->
+```python
+from attio import SDK
+
+
+with SDK(
+    oauth2="<YOUR_OAUTH2_HERE>",
+) as sdk:
+
+    res = sdk.call_recordings.delete_v2_meetings_meeting_id_call_recordings_call_recording_id_(meeting_id="cb59ab17-ad15-460c-a126-0715617c0853", call_recording_id="e8f2a3b7-9b4d-4c5e-8a1f-3d7b2c5e8f9a")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `meeting_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 | cb59ab17-ad15-460c-a126-0715617c0853                                |
+| `call_recording_id`                                                 | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 | e8f2a3b7-9b4d-4c5e-8a1f-3d7b2c5e8f9a                                |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[models.DeleteV2MeetingsMeetingIDCallRecordingsCallRecordingIDResponse](../../models/deletev2meetingsmeetingidcallrecordingscallrecordingidresponse.md)**
+
+### Errors
+
+| Error Type                                                                 | Status Code                                                                | Content Type                                                               |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| errors.DeleteV2MeetingsMeetingIDCallRecordingsCallRecordingIDNotFoundError | 404                                                                        | application/json                                                           |
+| errors.SDKDefaultError                                                     | 4XX, 5XX                                                                   | \*/\*                                                                      |

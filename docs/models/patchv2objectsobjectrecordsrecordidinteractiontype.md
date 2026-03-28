@@ -2,14 +2,19 @@
 
 The type of interaction e.g. calendar or email.
 
+## Example Usage
+
+```python
+from attio.models import PatchV2ObjectsObjectRecordsRecordIDInteractionType
+value: PatchV2ObjectsObjectRecordsRecordIDInteractionType = "calendar-event"
+```
+
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `CALENDAR_EVENT`    | calendar-event      |
-| `CALL`              | call                |
-| `CHAT_THREAD`       | chat-thread         |
-| `EMAIL`             | email               |
-| `IN_PERSON_MEETING` | in-person-meeting   |
-| `MEETING`           | meeting             |
+- `"calendar-event"`
+- `"call"`
+- `"chat-thread"`
+- `"email"`
+- `"in-person-meeting"`
+- `"meeting"`

@@ -2,10 +2,15 @@
 
 The direction to sort the results by.
 
+## Example Usage
+
+```python
+from attio.models import PostV2ListsListEntriesQueryDirection1
+value: PostV2ListsListEntriesQueryDirection1 = "asc"
+```
+
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `ASC`  | asc    |
-| `DESC` | desc   |
+- `"asc"`
+- `"desc"`

@@ -1,8 +1,13 @@
 # GetV2TasksTaskIDCode
 
+## Example Usage
+
+```python
+from attio.models import GetV2TasksTaskIDCode
+value: GetV2TasksTaskIDCode = "not_found"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `NOT_FOUND` | not_found   |
+- `"not_found"`

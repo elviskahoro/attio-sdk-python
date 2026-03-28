@@ -13,15 +13,12 @@ from typing import Optional
 
 class DeleteV2CommentsCommentIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_delete_v2_comments_comment_id_op.DeleteV2CommentsCommentIDType
-
     code: models_delete_v2_comments_comment_id_op.DeleteV2CommentsCommentIDCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class DeleteV2CommentsCommentIDNotFoundError(SDKError):
     r"""Not Found"""
 

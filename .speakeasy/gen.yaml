@@ -13,18 +13,25 @@ generation:
     requestResponseComponentNamesFeb2024: true
     securityFeb2025: true
     sharedErrorComponentsApr2025: true
+    sharedNestedComponentsJan2026: false
+    nameOverrideFeb2026: false
   auth:
-    oAuth2ClientCredentialsEnabled: true
-    oAuth2PasswordEnabled: true
+    oAuth2ClientCredentialsEnabled: false
+    oAuth2PasswordEnabled: false
     hoistGlobalSecurity: true
   inferSSEOverload: true
   sdkHooksConfigAccess: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ""
+  versioningStrategy: automatic
+  persistentEdits: {}
   tests:
     generateTests: false
     generateNewTests: true
     skipResponseBodyAssertions: false
 python:
-  version: 0.20.2
+  version: 0.21.0
   additionalDependencies:
     dev: {}
     main: {}
@@ -37,16 +44,20 @@ python:
     - elviskahoro
   baseErrorName: SDKError
   clientServerStatusCodesAsErrors: true
+  constFieldCasing: upper
   defaultErrorName: SDKDefaultError
   description: Attio API client library from elviskahoro
   enableCustomCodeRegions: false
   enumFormat: union
   fixFlags:
     asyncPaginationSep2025: true
+    conflictResistantModelImportsFeb2026: false
     responseRequiredSep2024: true
   flattenGlobalSecurity: true
   flattenRequests: true
   flatteningOrder: parameters-first
+  forwardCompatibleEnumsByDefault: false
+  forwardCompatibleUnionsByDefault: "false"
   homepage: https://github.com/elviskahoro/attio-sdk-python
   imports:
     option: openapi
@@ -56,17 +67,22 @@ python:
       operations: ""
       shared: ""
       webhooks: ""
+  inferUnionDiscriminators: true
   inputModelSuffix: input
   legacyPyright: true
+  license: ""
   maxMethodParams: 999
   methodArguments: infer-optional-args
   moduleName: ""
+  multipartArrayFormat: legacy
   outputModelSuffix: output
   packageManager: uv
   packageName: attio
+  preApplyUnionDiscriminators: false
   pytestFilterWarnings: []
   pytestTimeout: 0
   repoURL: https://github.com/elviskahoro/attio-sdk-python
   responseFormat: flat
   sseFlatResponse: true
   templateVersion: v2
+  useAsyncHooks: false

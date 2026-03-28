@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PostV2ListsListEntriesQueryAttributeTypeEmailAddress
+value: PostV2ListsListEntriesQueryAttributeTypeEmailAddress = "email-address"
+```
+
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `EMAIL_ADDRESS` | email-address   |
+- `"email-address"`

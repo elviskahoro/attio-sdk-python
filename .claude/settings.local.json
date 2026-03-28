@@ -5,7 +5,10 @@
       "Bash(python3:*)",
       "Bash(speakeasy generate:*)",
       "Bash(speakeasy run:*)",
-      "Bash(uv run:*)"
+      "Bash(uv run:*)",
+      "Bash(mv /Users/elvis/Documents/elviskahoro/attio-sdk-python/.claude/skills/update-sdk/SKILL.md /Users/elvis/Documents/elviskahoro/attio-sdk-python/.agents/skills/update-sdk/SKILL.md)",
+      "Bash(rm -rf /Users/elvis/Documents/elviskahoro/attio-sdk-python/.claude/skills)",
+      "Bash(git rm:*)"
     ],
     "deny": [],
     "ask": []

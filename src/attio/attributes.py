@@ -5,7 +5,7 @@ from attio import errors, models, utils
 from attio._hooks import HookContext
 from attio.types import OptionalNullable, UNSET
 from attio.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Mapping, Optional, Union
 
 
 class Attributes(BaseSDK):
@@ -23,12 +23,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.Attribute]:
+    ) -> models.GetV2TargetIdentifierAttributesResponse:
         r"""List attributes
 
         Lists all attributes defined on a specific object or list. Attributes are returned in the order that they are sorted by in the UI.
 
-        Required scopes: `object_configuration:read`.
+        When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
         :param target: Whether the attributes are on an object or a list.
         :param identifier:
@@ -71,6 +71,7 @@ class Attributes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -87,7 +88,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/{target}/{identifier}/attributes",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -120,12 +121,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.Attribute]:
+    ) -> models.GetV2TargetIdentifierAttributesResponse:
         r"""List attributes
 
         Lists all attributes defined on a specific object or list. Attributes are returned in the order that they are sorted by in the UI.
 
-        Required scopes: `object_configuration:read`.
+        When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
         :param target: Whether the attributes are on an object or a list.
         :param identifier:
@@ -168,6 +169,7 @@ class Attributes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -184,7 +186,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/{target}/{identifier}/attributes",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -218,10 +220,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Attribute:
+    ) -> models.PostV2TargetIdentifierAttributesResponse:
         r"""Create an attribute
 
         Creates a new attribute on either an object or a list.
+
+        For record-reference attributes, you can optionally create a bidirectional relationship by providing a `relationship` object. This will create two entangled attributes: one on the specified object and a reverse attribute on the related object.
 
         To create an attribute on an object, you must also have the `object_configuration:read-write` scope.
 
@@ -275,6 +279,7 @@ class Attributes(BaseSDK):
                 "json",
                 models.PostV2TargetIdentifierAttributesRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -291,7 +296,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/{target}/{identifier}/attributes",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -347,10 +352,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Attribute:
+    ) -> models.PostV2TargetIdentifierAttributesResponse:
         r"""Create an attribute
 
         Creates a new attribute on either an object or a list.
+
+        For record-reference attributes, you can optionally create a bidirectional relationship by providing a `relationship` object. This will create two entangled attributes: one on the specified object and a reverse attribute on the related object.
 
         To create an attribute on an object, you must also have the `object_configuration:read-write` scope.
 
@@ -404,6 +411,7 @@ class Attributes(BaseSDK):
                 "json",
                 models.PostV2TargetIdentifierAttributesRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -420,7 +428,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/{target}/{identifier}/attributes",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -473,12 +481,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Attribute:
+    ) -> models.GetV2TargetIdentifierAttributesAttributeResponse:
         r"""Get an attribute
 
         Gets information about a single attribute on either an object or a list.
 
-        Required scopes: `object_configuration:read`.
+        When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
         :param target: Whether the attribute is on an object or a list.
         :param identifier:
@@ -517,6 +525,7 @@ class Attributes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -533,7 +542,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/{target}/{identifier}/attributes/{attribute}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -573,12 +582,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Attribute:
+    ) -> models.GetV2TargetIdentifierAttributesAttributeResponse:
         r"""Get an attribute
 
         Gets information about a single attribute on either an object or a list.
 
-        Required scopes: `object_configuration:read`.
+        When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
         :param target: Whether the attribute is on an object or a list.
         :param identifier:
@@ -617,6 +626,7 @@ class Attributes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -633,7 +643,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/{target}/{identifier}/attributes/{attribute}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -677,12 +687,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Attribute:
+    ) -> models.PatchV2TargetIdentifierAttributesAttributeResponse:
         r"""Update an attribute
 
         Updates a single attribute on a given object or list.
 
-        Required scopes: `object_configuration:read-write`.
+        When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
         :param target: Whether the attribute is on an object or a list.
         :param identifier:
@@ -734,6 +744,7 @@ class Attributes(BaseSDK):
                 "json",
                 models.PatchV2TargetIdentifierAttributesAttributeRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -750,7 +761,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="patch_/v2/{target}/{identifier}/attributes/{attribute}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -799,12 +810,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Attribute:
+    ) -> models.PatchV2TargetIdentifierAttributesAttributeResponse:
         r"""Update an attribute
 
         Updates a single attribute on a given object or list.
 
-        Required scopes: `object_configuration:read-write`.
+        When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
         :param target: Whether the attribute is on an object or a list.
         :param identifier:
@@ -856,6 +867,7 @@ class Attributes(BaseSDK):
                 "json",
                 models.PatchV2TargetIdentifierAttributesAttributeRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -872,7 +884,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="patch_/v2/{target}/{identifier}/attributes/{attribute}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -918,12 +930,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.SelectOption]:
+    ) -> models.GetV2TargetIdentifierAttributesAttributeOptionsResponse:
         r"""List select options
 
         Lists all select options for a particular attribute on either an object or a list.
 
-        Required scopes: `object_configuration:read`.
+        When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
         :param target: Whether the attribute is on an object or a list.
         :param identifier:
@@ -964,6 +976,7 @@ class Attributes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -980,7 +993,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/{target}/{identifier}/attributes/{attribute}/options",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1021,12 +1034,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.SelectOption]:
+    ) -> models.GetV2TargetIdentifierAttributesAttributeOptionsResponse:
         r"""List select options
 
         Lists all select options for a particular attribute on either an object or a list.
 
-        Required scopes: `object_configuration:read`.
+        When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
         :param target: Whether the attribute is on an object or a list.
         :param identifier:
@@ -1067,6 +1080,7 @@ class Attributes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1083,7 +1097,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/{target}/{identifier}/attributes/{attribute}/options",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1127,12 +1141,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.SelectOption:
+    ) -> models.PostV2TargetIdentifierAttributesAttributeOptionsResponse:
         r"""Create a select option
 
         Adds a select option to a select attribute on an object or a list.
 
-        Required scopes: `object_configuration:read-write`.
+        When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
         :param target: Whether the attribute is on an object or a list.
         :param identifier:
@@ -1184,6 +1198,7 @@ class Attributes(BaseSDK):
                 "json",
                 models.PostV2TargetIdentifierAttributesAttributeOptionsRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1200,7 +1215,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/{target}/{identifier}/attributes/{attribute}/options",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1261,12 +1276,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.SelectOption:
+    ) -> models.PostV2TargetIdentifierAttributesAttributeOptionsResponse:
         r"""Create a select option
 
         Adds a select option to a select attribute on an object or a list.
 
-        Required scopes: `object_configuration:read-write`.
+        When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
         :param target: Whether the attribute is on an object or a list.
         :param identifier:
@@ -1318,6 +1333,7 @@ class Attributes(BaseSDK):
                 "json",
                 models.PostV2TargetIdentifierAttributesAttributeOptionsRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1334,7 +1350,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/{target}/{identifier}/attributes/{attribute}/options",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1396,12 +1412,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.SelectOption:
+    ) -> models.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse:
         r"""Update a select option
 
         Updates a select option on an attribute on either an object or a list.
 
-        Required scopes: `object_configuration:read-write`.
+        When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
         :param target: Whether the attribute is on an object or a list.
         :param identifier:
@@ -1456,6 +1472,7 @@ class Attributes(BaseSDK):
                 "json",
                 models.PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1472,7 +1489,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="patch_/v2/{target}/{identifier}/attributes/{attribute}/options/{option}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1534,12 +1551,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.SelectOption:
+    ) -> models.PatchV2TargetIdentifierAttributesAttributeOptionsOptionResponse:
         r"""Update a select option
 
         Updates a select option on an attribute on either an object or a list.
 
-        Required scopes: `object_configuration:read-write`.
+        When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
         :param target: Whether the attribute is on an object or a list.
         :param identifier:
@@ -1594,6 +1611,7 @@ class Attributes(BaseSDK):
                 "json",
                 models.PatchV2TargetIdentifierAttributesAttributeOptionsOptionRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1610,7 +1628,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="patch_/v2/{target}/{identifier}/attributes/{attribute}/options/{option}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1668,12 +1686,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.Status]:
+    ) -> models.GetV2TargetIdentifierAttributesAttributeStatusesResponse:
         r"""List statuses
 
         Lists all statuses for a particular status attribute on either an object or a list.
 
-        Required scopes: `object_configuration:read`.
+        When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
         :param target: Whether the attribute is on an object or a list. Please note that the company and people objects do not support status attributes at this time.
         :param identifier:
@@ -1714,6 +1732,7 @@ class Attributes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1730,7 +1749,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/{target}/{identifier}/attributes/{attribute}/statuses",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1772,12 +1791,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.Status]:
+    ) -> models.GetV2TargetIdentifierAttributesAttributeStatusesResponse:
         r"""List statuses
 
         Lists all statuses for a particular status attribute on either an object or a list.
 
-        Required scopes: `object_configuration:read`.
+        When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
         :param target: Whether the attribute is on an object or a list. Please note that the company and people objects do not support status attributes at this time.
         :param identifier:
@@ -1818,6 +1837,7 @@ class Attributes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1834,7 +1854,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/{target}/{identifier}/attributes/{attribute}/statuses",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1879,12 +1899,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Status:
+    ) -> models.PostV2TargetIdentifierAttributesAttributeStatusesResponse:
         r"""Create a status
 
         Add a new status to a status attribute on either an object or a list.
 
-        Required scopes: `object_configuration:read-write`.
+        When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
         :param target: Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
         :param identifier:
@@ -1936,6 +1956,7 @@ class Attributes(BaseSDK):
                 "json",
                 models.PostV2TargetIdentifierAttributesAttributeStatusesRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1952,7 +1973,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/{target}/{identifier}/attributes/{attribute}/statuses",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -2013,12 +2034,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Status:
+    ) -> models.PostV2TargetIdentifierAttributesAttributeStatusesResponse:
         r"""Create a status
 
         Add a new status to a status attribute on either an object or a list.
 
-        Required scopes: `object_configuration:read-write`.
+        When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
         :param target: Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
         :param identifier:
@@ -2070,6 +2091,7 @@ class Attributes(BaseSDK):
                 "json",
                 models.PostV2TargetIdentifierAttributesAttributeStatusesRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2086,7 +2108,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/{target}/{identifier}/attributes/{attribute}/statuses",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -2148,12 +2170,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Status:
+    ) -> models.PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse:
         r"""Update a status
 
         Update a status on an status attribute on either an object or a list.
 
-        Required scopes: `object_configuration:read-write`.
+        When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
         :param target: Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
         :param identifier:
@@ -2208,6 +2230,7 @@ class Attributes(BaseSDK):
                 "json",
                 models.PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2224,7 +2247,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="patch_/v2/{target}/{identifier}/attributes/{attribute}/statuses/{status}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -2286,12 +2309,12 @@ class Attributes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Status:
+    ) -> models.PatchV2TargetIdentifierAttributesAttributeStatusesStatusResponse:
         r"""Update a status
 
         Update a status on an status attribute on either an object or a list.
 
-        Required scopes: `object_configuration:read-write`.
+        When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
         :param target: Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time.
         :param identifier:
@@ -2346,6 +2369,7 @@ class Attributes(BaseSDK):
                 "json",
                 models.PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2362,7 +2386,7 @@ class Attributes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="patch_/v2/{target}/{identifier}/attributes/{attribute}/statuses/{status}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

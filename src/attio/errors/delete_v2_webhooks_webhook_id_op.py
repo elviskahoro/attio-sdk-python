@@ -13,15 +13,12 @@ from typing import Optional
 
 class DeleteV2WebhooksWebhookIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_delete_v2_webhooks_webhook_id_op.DeleteV2WebhooksWebhookIDType
-
     code: models_delete_v2_webhooks_webhook_id_op.DeleteV2WebhooksWebhookIDCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class DeleteV2WebhooksWebhookIDNotFoundError(SDKError):
     r"""Not Found"""
 

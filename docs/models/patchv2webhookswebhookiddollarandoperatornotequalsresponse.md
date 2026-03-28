@@ -1,8 +1,13 @@
 # PatchV2WebhooksWebhookIDDollarAndOperatorNotEqualsResponse
 
+## Example Usage
+
+```python
+from attio.models import PatchV2WebhooksWebhookIDDollarAndOperatorNotEqualsResponse
+value: PatchV2WebhooksWebhookIDDollarAndOperatorNotEqualsResponse = "not_equals"
+```
+
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `NOT_EQUALS` | not_equals   |
+- `"not_equals"`

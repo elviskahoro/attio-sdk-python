@@ -13,15 +13,12 @@ from typing_extensions import Annotated
 
 class PostV2CommentsValueNotFoundErrorData(BaseModel):
     status_code: Annotated[float, pydantic.Field(alias="statusCode")]
-
     type: models_post_v2_commentsop.PostV2CommentsBadRequestType
-
     code: models_post_v2_commentsop.PostV2CommentsCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2CommentsValueNotFoundError(SDKError):
     r"""Bad Request"""
 

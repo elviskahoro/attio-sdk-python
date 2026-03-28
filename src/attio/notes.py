@@ -5,7 +5,7 @@ from attio import errors, models, utils
 from attio._hooks import HookContext
 from attio.types import OptionalNullable, UNSET
 from attio.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Mapping, Optional, Union
 
 
 class Notes(BaseSDK):
@@ -22,7 +22,7 @@ class Notes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.Note]:
+    ) -> models.GetV2NotesResponse:
         r"""List notes
 
         List notes for all records or for a specific record.
@@ -68,6 +68,7 @@ class Notes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -84,7 +85,7 @@ class Notes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/notes",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -120,7 +121,7 @@ class Notes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.Note]:
+    ) -> models.GetV2NotesResponse:
         r"""List notes
 
         List notes for all records or for a specific record.
@@ -166,6 +167,7 @@ class Notes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -182,7 +184,7 @@ class Notes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/notes",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -215,7 +217,7 @@ class Notes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Note:
+    ) -> models.PostV2NotesResponse:
         r"""Create a note
 
         Creates a new note for a given record.
@@ -258,6 +260,7 @@ class Notes(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.PostV2NotesRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -274,11 +277,11 @@ class Notes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/notes",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            error_status_codes=["404", "413", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -290,6 +293,11 @@ class Notes(BaseSDK):
                 errors.PostV2NotesNotFoundErrorData, http_res
             )
             raise errors.PostV2NotesNotFoundError(response_data, http_res)
+        if utils.match_response(http_res, "413", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.PostV2NotesValidationTypeErrorData, http_res
+            )
+            raise errors.PostV2NotesValidationTypeError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
@@ -307,7 +315,7 @@ class Notes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Note:
+    ) -> models.PostV2NotesResponse:
         r"""Create a note
 
         Creates a new note for a given record.
@@ -350,6 +358,7 @@ class Notes(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.PostV2NotesRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -366,11 +375,11 @@ class Notes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/notes",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["404", "4XX", "5XX"],
+            error_status_codes=["404", "413", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
@@ -382,6 +391,11 @@ class Notes(BaseSDK):
                 errors.PostV2NotesNotFoundErrorData, http_res
             )
             raise errors.PostV2NotesNotFoundError(response_data, http_res)
+        if utils.match_response(http_res, "413", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.PostV2NotesValidationTypeErrorData, http_res
+            )
+            raise errors.PostV2NotesValidationTypeError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
@@ -399,7 +413,7 @@ class Notes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Note:
+    ) -> models.GetV2NotesNoteIDResponse:
         r"""Get a note
 
         Get a single note by ID.
@@ -439,6 +453,7 @@ class Notes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -455,7 +470,7 @@ class Notes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/notes/{note_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -488,7 +503,7 @@ class Notes(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Note:
+    ) -> models.GetV2NotesNoteIDResponse:
         r"""Get a note
 
         Get a single note by ID.
@@ -528,6 +543,7 @@ class Notes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -544,7 +560,7 @@ class Notes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/notes/{note_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -617,6 +633,7 @@ class Notes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -633,7 +650,7 @@ class Notes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_/v2/notes/{note_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -706,6 +723,7 @@ class Notes(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -722,7 +740,7 @@ class Notes(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_/v2/notes/{note_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

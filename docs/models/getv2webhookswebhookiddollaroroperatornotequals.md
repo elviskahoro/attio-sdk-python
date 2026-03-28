@@ -1,8 +1,13 @@
 # GetV2WebhooksWebhookIDDollarOrOperatorNotEquals
 
+## Example Usage
+
+```python
+from attio.models import GetV2WebhooksWebhookIDDollarOrOperatorNotEquals
+value: GetV2WebhooksWebhookIDDollarOrOperatorNotEquals = "not_equals"
+```
+
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `NOT_EQUALS` | not_equals   |
+- `"not_equals"`

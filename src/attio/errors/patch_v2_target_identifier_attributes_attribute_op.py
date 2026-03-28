@@ -13,15 +13,12 @@ from typing import Optional
 
 class PatchV2TargetIdentifierAttributesAttributeNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_target_identifier_attributes_attribute_op.PatchV2TargetIdentifierAttributesAttributeNotFoundType
-
     code: models_patch_v2_target_identifier_attributes_attribute_op.PatchV2TargetIdentifierAttributesAttributeNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2TargetIdentifierAttributesAttributeNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -43,15 +40,12 @@ class PatchV2TargetIdentifierAttributesAttributeNotFoundError(SDKError):
 
 class SystemEditUnauthorizedErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_target_identifier_attributes_attribute_op.PatchV2TargetIdentifierAttributesAttributeBadRequestType
-
     code: models_patch_v2_target_identifier_attributes_attribute_op.CodeSystemEditUnauthorized
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class SystemEditUnauthorizedError(SDKError):
     r"""Bad Request"""
 

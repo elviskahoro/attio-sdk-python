@@ -5,7 +5,7 @@ from attio import errors, models, utils
 from attio._hooks import HookContext
 from attio.types import OptionalNullable, UNSET
 from attio.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional
+from typing import Any, Mapping, Optional
 
 
 class WorkspaceMembers(BaseSDK):
@@ -18,7 +18,7 @@ class WorkspaceMembers(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.WorkspaceMember]:
+    ) -> models.GetV2WorkspaceMembersResponse:
         r"""List workspace members
 
         Lists all workspace members in the workspace.
@@ -52,6 +52,7 @@ class WorkspaceMembers(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -68,7 +69,7 @@ class WorkspaceMembers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/workspace_members",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -96,7 +97,7 @@ class WorkspaceMembers(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.WorkspaceMember]:
+    ) -> models.GetV2WorkspaceMembersResponse:
         r"""List workspace members
 
         Lists all workspace members in the workspace.
@@ -130,6 +131,7 @@ class WorkspaceMembers(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -146,7 +148,7 @@ class WorkspaceMembers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/workspace_members",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -175,7 +177,7 @@ class WorkspaceMembers(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.WorkspaceMember:
+    ) -> models.GetV2WorkspaceMembersWorkspaceMemberIDResponse:
         r"""Get a workspace member
 
         Gets a single workspace member by ID.
@@ -215,6 +217,7 @@ class WorkspaceMembers(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -231,7 +234,7 @@ class WorkspaceMembers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/workspace_members/{workspace_member_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -268,7 +271,7 @@ class WorkspaceMembers(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.WorkspaceMember:
+    ) -> models.GetV2WorkspaceMembersWorkspaceMemberIDResponse:
         r"""Get a workspace member
 
         Gets a single workspace member by ID.
@@ -308,6 +311,7 @@ class WorkspaceMembers(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -324,7 +328,7 @@ class WorkspaceMembers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/workspace_members/{workspace_member_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

@@ -10,10 +10,15 @@ Specify the format for the note's content. Choose from:
 
   *Note: While the Attio interface supports image embeds, they cannot currently be added or retrieved via the API's markdown format.*
 
+## Example Usage
+
+```python
+from attio.models import PostV2NotesFormat
+value: PostV2NotesFormat = "plaintext"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `PLAINTEXT` | plaintext   |
-| `MARKDOWN`  | markdown    |
+- `"plaintext"`
+- `"markdown"`

@@ -13,15 +13,12 @@ from typing import Optional
 
 class GetV2TargetIdentifierAttributesAttributeStatusesNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_get_v2_target_identifier_attributes_attribute_statusesop.GetV2TargetIdentifierAttributesAttributeStatusesType
-
     code: models_get_v2_target_identifier_attributes_attribute_statusesop.GetV2TargetIdentifierAttributesAttributeStatusesCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetV2TargetIdentifierAttributesAttributeStatusesNotFoundError(SDKError):
     r"""Not Found"""
 

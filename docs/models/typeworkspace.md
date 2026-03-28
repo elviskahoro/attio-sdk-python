@@ -1,8 +1,13 @@
 # TypeWorkspace
 
+## Example Usage
+
+```python
+from attio.models import TypeWorkspace
+value: TypeWorkspace = "workspace"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `WORKSPACE` | workspace   |
+- `"workspace"`

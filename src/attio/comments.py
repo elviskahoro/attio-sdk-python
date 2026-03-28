@@ -21,7 +21,7 @@ class Comments(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Comment:
+    ) -> models.PostV2CommentsResponse:
         r"""Create a comment
 
         Creates a new comment related to an existing thread, record or entry.
@@ -68,6 +68,7 @@ class Comments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.PostV2CommentsRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -84,7 +85,7 @@ class Comments(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/comments",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -119,7 +120,7 @@ class Comments(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Comment:
+    ) -> models.PostV2CommentsResponse:
         r"""Create a comment
 
         Creates a new comment related to an existing thread, record or entry.
@@ -166,6 +167,7 @@ class Comments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.PostV2CommentsRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -182,7 +184,7 @@ class Comments(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/comments",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -215,7 +217,7 @@ class Comments(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Comment:
+    ) -> models.GetV2CommentsCommentIDResponse:
         r"""Get a comment
 
         Get a single comment by ID.
@@ -259,6 +261,7 @@ class Comments(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -275,7 +278,7 @@ class Comments(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/comments/{comment_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -310,7 +313,7 @@ class Comments(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Comment:
+    ) -> models.GetV2CommentsCommentIDResponse:
         r"""Get a comment
 
         Get a single comment by ID.
@@ -354,6 +357,7 @@ class Comments(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -370,7 +374,7 @@ class Comments(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/comments/{comment_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -445,6 +449,7 @@ class Comments(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -461,7 +466,7 @@ class Comments(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_/v2/comments/{comment_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -536,6 +541,7 @@ class Comments(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -552,7 +558,7 @@ class Comments(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_/v2/comments/{comment_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

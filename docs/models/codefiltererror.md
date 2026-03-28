@@ -1,8 +1,13 @@
 # CodeFilterError
 
+## Example Usage
+
+```python
+from attio.models import CodeFilterError
+value: CodeFilterError = "filter_error"
+```
+
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `FILTER_ERROR` | filter_error   |
+- `"filter_error"`

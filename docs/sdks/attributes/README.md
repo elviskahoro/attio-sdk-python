@@ -1,5 +1,4 @@
 # Attributes
-(*attributes*)
 
 ## Overview
 
@@ -22,7 +21,7 @@ Attributes model properties of objects and lists. Some attributes, such as the `
 
 Lists all attributes defined on a specific object or list. Attributes are returned in the order that they are sorted by in the UI.
 
-Required scopes: `object_configuration:read`.
+When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
 ### Example Usage
 
@@ -67,6 +66,8 @@ with SDK(
 
 Creates a new attribute on either an object or a list.
 
+For record-reference attributes, you can optionally create a bidirectional relationship by providing a `relationship` object. This will create two entangled attributes: one on the specified object and a reverse attribute on the related object.
+
 To create an attribute on an object, you must also have the `object_configuration:read-write` scope.
 
 To create an attribute on a list, you must also have the `list_configuration:read-write` scope.
@@ -98,6 +99,7 @@ with SDK(
                 },
             ],
         },
+        "relationship": None,
         "config": {
             "currency": {
                 "default_currency_code": "USD",
@@ -142,7 +144,7 @@ with SDK(
 
 Gets information about a single attribute on either an object or a list.
 
-Required scopes: `object_configuration:read`.
+When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
 ### Example Usage
 
@@ -186,7 +188,7 @@ with SDK(
 
 Updates a single attribute on a given object or list.
 
-Required scopes: `object_configuration:read-write`.
+When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
 ### Example Usage
 
@@ -258,7 +260,7 @@ with SDK(
 
 Lists all select options for a particular attribute on either an object or a list.
 
-Required scopes: `object_configuration:read`.
+When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
 ### Example Usage
 
@@ -303,7 +305,7 @@ with SDK(
 
 Adds a select option to a select attribute on an object or a list.
 
-Required scopes: `object_configuration:read-write`.
+When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
 ### Example Usage
 
@@ -352,7 +354,7 @@ with SDK(
 
 Updates a select option on an attribute on either an object or a list.
 
-Required scopes: `object_configuration:read-write`.
+When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
 ### Example Usage
 
@@ -403,7 +405,7 @@ with SDK(
 
 Lists all statuses for a particular status attribute on either an object or a list.
 
-Required scopes: `object_configuration:read`.
+When `target` is `objects`, the required scopes are `object_configuration:read`. When `target` is `lists`, the required scopes are `list_configuration:read`.
 
 ### Example Usage
 
@@ -448,7 +450,7 @@ with SDK(
 
 Add a new status to a status attribute on either an object or a list.
 
-Required scopes: `object_configuration:read-write`.
+When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
 ### Example Usage
 
@@ -499,7 +501,7 @@ with SDK(
 
 Update a status on an status attribute on either an object or a list.
 
-Required scopes: `object_configuration:read-write`.
+When `target` is `objects`, the required scopes are `object_configuration:read-write`. When `target` is `lists`, the required scopes are `list_configuration:read-write`.
 
 ### Example Usage
 

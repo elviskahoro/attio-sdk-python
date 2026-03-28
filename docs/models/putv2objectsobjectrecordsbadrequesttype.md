@@ -1,8 +1,13 @@
 # PutV2ObjectsObjectRecordsBadRequestType
 
+## Example Usage
+
+```python
+from attio.models import PutV2ObjectsObjectRecordsBadRequestType
+value: PutV2ObjectsObjectRecordsBadRequestType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

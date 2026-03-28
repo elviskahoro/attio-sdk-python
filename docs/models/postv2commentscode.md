@@ -1,8 +1,13 @@
 # PostV2CommentsCode
 
+## Example Usage
+
+```python
+from attio.models import PostV2CommentsCode
+value: PostV2CommentsCode = "value_not_found"
+```
+
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `VALUE_NOT_FOUND` | value_not_found   |
+- `"value_not_found"`

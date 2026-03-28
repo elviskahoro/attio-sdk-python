@@ -1,10 +1,10 @@
 [project]
 name = "attio"
-version = "0.20.2"
+version = "0.21.0"
 description = "Attio API client library from elviskahoro"
 authors = [{ name = "elviskahoro" },]
 readme = "README.md"
-requires-python = ">=3.9.2"
+requires-python = ">=3.10"
 dependencies = [
     "httpcore >=1.0.9",
     "httpx >=0.28.1",
@@ -16,6 +16,7 @@ urls.homepage = "https://github.com/elviskahoro/attio-sdk-python"
 dev = [
     "mypy ==1.15.0",
     "pylint ==3.2.3",
+    "pyright ==1.1.398",
 ]
 
 [tool.setuptools.packages.find]

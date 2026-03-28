@@ -3,9 +3,10 @@
 from __future__ import annotations
 from .output_value import OutputValue, OutputValueTypedDict
 from attio.types import BaseModel, Nullable, UNSET_SENTINEL
-from pydantic import model_serializer
+from attio.utils import get_discriminator
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, List, Literal, Union
-from typing_extensions import TypeAliasType, TypedDict
+from typing_extensions import Annotated, TypeAliasType, TypedDict
 
 
 class AttributeIDTypedDict(TypedDict):
@@ -89,9 +90,13 @@ DefaultValueUnionTypedDict = TypeAliasType(
 r"""The default value for this attribute. Static values are used to directly populate values using their contents. Dynamic values are used to lookup data at the point of creation. For example, you could use a dynamic value to insert a value for the currently logged in user. Which default values are available is dependent on the type of the attribute."""
 
 
-DefaultValueUnion = TypeAliasType(
-    "DefaultValueUnion", Union[DefaultValueDynamic, DefaultValueStatic]
-)
+DefaultValueUnion = Annotated[
+    Union[
+        Annotated[DefaultValueDynamic, Tag("dynamic")],
+        Annotated[DefaultValueStatic, Tag("static")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""The default value for this attribute. Static values are used to directly populate values using their contents. Dynamic values are used to lookup data at the point of creation. For example, you could use a dynamic value to insert a value for the currently logged in user. Which default values are available is dependent on the type of the attribute."""
 
 
@@ -119,6 +124,14 @@ class RelationshipTypedDict(TypedDict):
     r"""If this attribute is related to another attribute, this is an object that includes an `id` property that identifies the other attribute. `null` means no relationship exists. See [the help center](https://attio.com/help/reference/managing-your-data/attributes#relationship-attributes) for more details about relationship attributes."""
 
     id: RelationshipIDTypedDict
+    object_slug: str
+    r"""The slug of the object that the related attribute belongs to."""
+    title: str
+    r"""The title of the related attribute."""
+    api_slug: str
+    r"""The API slug identifying the related attribute."""
+    is_multiselect: bool
+    r"""Whether the related attribute supports selecting multiple values. Combined with the parent attribute's `is_multiselect`, this determines the relationship type: both `false` = one-to-one, parent `true` + related `false` = many-to-one, parent `false` + related `true` = one-to-many, both `true` = many-to-many."""
 
 
 class Relationship(BaseModel):
@@ -126,12 +139,24 @@ class Relationship(BaseModel):
 
     id: RelationshipID
 
+    object_slug: str
+    r"""The slug of the object that the related attribute belongs to."""
+
+    title: str
+    r"""The title of the related attribute."""
+
+    api_slug: str
+    r"""The API slug identifying the related attribute."""
+
+    is_multiselect: bool
+    r"""Whether the related attribute supports selecting multiple values. Combined with the parent attribute's `is_multiselect`, this determines the relationship type: both `false` = one-to-one, parent `true` + related `false` = many-to-one, parent `false` + related `true` = one-to-many, both `true` = many-to-many."""
+
 
 DefaultCurrencyCode = Literal[
     "ARS",
     "AUD",
     "BRL",
-    "BEL",
+    "BGN",
     "CAD",
     "CLP",
     "CNY",
@@ -139,11 +164,14 @@ DefaultCurrencyCode = Literal[
     "CZK",
     "DKK",
     "EUR",
+    "FJD",
     "HKD",
+    "HUF",
     "ISK",
     "INR",
     "ILS",
     "JPY",
+    "KES",
     "KRW",
     "MYR",
     "MXN",
@@ -162,6 +190,7 @@ DefaultCurrencyCode = Literal[
     "ZAR",
     "SEK",
     "CHF",
+    "THB",
     "AED",
     "UYU",
     "USD",
@@ -198,30 +227,14 @@ class Currency(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["default_currency_code", "display_type"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -242,30 +255,14 @@ class RecordReference(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["allowed_object_ids"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -374,30 +371,14 @@ class Attribute(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["description", "default_value", "relationship"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m

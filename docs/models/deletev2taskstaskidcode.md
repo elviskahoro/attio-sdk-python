@@ -1,8 +1,13 @@
 # DeleteV2TasksTaskIDCode
 
+## Example Usage
+
+```python
+from attio.models import DeleteV2TasksTaskIDCode
+value: DeleteV2TasksTaskIDCode = "not_found"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `NOT_FOUND` | not_found   |
+- `"not_found"`

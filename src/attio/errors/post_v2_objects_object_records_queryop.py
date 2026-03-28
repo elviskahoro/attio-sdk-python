@@ -13,15 +13,12 @@ from typing import Optional
 
 class PostV2ObjectsObjectRecordsQueryNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_objects_object_records_queryop.PostV2ObjectsObjectRecordsQueryNotFoundType
-
     code: models_post_v2_objects_object_records_queryop.PostV2ObjectsObjectRecordsQueryNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2ObjectsObjectRecordsQueryNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -41,15 +38,12 @@ class PostV2ObjectsObjectRecordsQueryNotFoundError(SDKError):
 
 class FilterErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_objects_object_records_queryop.PostV2ObjectsObjectRecordsQueryBadRequestType
-
     code: models_post_v2_objects_object_records_queryop.CodeFilterError
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class FilterError(SDKError):
     r"""Bad Request"""
 

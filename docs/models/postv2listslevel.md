@@ -2,11 +2,16 @@
 
 The level of access to the list.
 
+## Example Usage
+
+```python
+from attio.models import PostV2ListsLevel
+value: PostV2ListsLevel = "full-access"
+```
+
 
 ## Values
 
-| Name             | Value            |
-| ---------------- | ---------------- |
-| `FULL_ACCESS`    | full-access      |
-| `READ_AND_WRITE` | read-and-write   |
-| `READ_ONLY`      | read-only        |
+- `"full-access"`
+- `"read-and-write"`
+- `"read-only"`

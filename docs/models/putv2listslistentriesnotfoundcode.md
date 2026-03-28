@@ -1,8 +1,13 @@
 # PutV2ListsListEntriesNotFoundCode
 
+## Example Usage
+
+```python
+from attio.models import PutV2ListsListEntriesNotFoundCode
+value: PutV2ListsListEntriesNotFoundCode = "not_found"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `NOT_FOUND` | not_found   |
+- `"not_found"`

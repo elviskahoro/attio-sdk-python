@@ -1,8 +1,13 @@
 # CodeSystemEditUnauthorized
 
+## Example Usage
+
+```python
+from attio.models import CodeSystemEditUnauthorized
+value: CodeSystemEditUnauthorized = "system_edit_unauthorized"
+```
+
 
 ## Values
 
-| Name                       | Value                      |
-| -------------------------- | -------------------------- |
-| `SYSTEM_EDIT_UNAUTHORIZED` | system_edit_unauthorized   |
+- `"system_edit_unauthorized"`

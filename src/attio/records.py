@@ -16,6 +16,7 @@ class Records(BaseSDK):
         *,
         object: str,
         filter_: Optional[Dict[str, Any]] = None,
+        filter_view_id: Optional[str] = None,
         sorts: Optional[
             Union[
                 List[models.PostV2ObjectsObjectRecordsQuerySortUnion],
@@ -28,7 +29,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.PostV2ObjectsObjectRecordsQueryData]:
+    ) -> models.PostV2ObjectsObjectRecordsQueryResponse:
         r"""List records
 
         Lists people, company or other records, with the option to filter and sort results.
@@ -36,10 +37,11 @@ class Records(BaseSDK):
         Required scopes: `record_permission:read`, `object_configuration:read`.
 
         :param object:
-        :param filter_: An object used to filter results to a subset of results. See the [full guide to filtering and sorting here](/rest-api/how-to/filtering-and-sorting).
-        :param sorts: An object used to sort results. See the [full guide to filtering and sorting here](/rest-api/how-to/filtering-and-sorting).
-        :param limit: The maximum number of results to return. Defaults to 500. See the [full guide to pagination here](/rest-api/how-to/pagination).
-        :param offset: The number of results to skip over before returning. Defaults to 0. See the [full guide to pagination here](/rest-api/how-to/pagination).
+        :param filter_: An object used to filter results to a subset of results. Cannot be used together with `filter_view_id`. See the [full guide to filtering and sorting here](/rest-api/guides/filtering-and-sorting).
+        :param filter_view_id: UUID of a saved view on this object or list. When set, results are filtered using that view's filter configuration. Cannot be used together with `filter`. Note: sorts, limits, and offsets are applied independently and are not taken from the view. All attributes are returned regardless of which attributes are visible in the view.
+        :param sorts: An object used to sort results. See the [full guide to filtering and sorting here](/rest-api/guides/filtering-and-sorting).
+        :param limit: The maximum number of results to return. Defaults to 500. See the [full guide to pagination here](/rest-api/guides/pagination).
+        :param offset: The number of results to skip over before returning. Defaults to 0. See the [full guide to pagination here](/rest-api/guides/pagination).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -59,6 +61,7 @@ class Records(BaseSDK):
             object=object,
             request_body=models.PostV2ObjectsObjectRecordsQueryRequestBody(
                 filter_=filter_,
+                filter_view_id=filter_view_id,
                 sorts=utils.get_pydantic_model(
                     sorts,
                     Optional[List[models.PostV2ObjectsObjectRecordsQuerySortUnion]],
@@ -88,6 +91,7 @@ class Records(BaseSDK):
                 "json",
                 models.PostV2ObjectsObjectRecordsQueryRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -104,7 +108,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/objects/{object}/records/query",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -141,6 +145,7 @@ class Records(BaseSDK):
         *,
         object: str,
         filter_: Optional[Dict[str, Any]] = None,
+        filter_view_id: Optional[str] = None,
         sorts: Optional[
             Union[
                 List[models.PostV2ObjectsObjectRecordsQuerySortUnion],
@@ -153,7 +158,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.PostV2ObjectsObjectRecordsQueryData]:
+    ) -> models.PostV2ObjectsObjectRecordsQueryResponse:
         r"""List records
 
         Lists people, company or other records, with the option to filter and sort results.
@@ -161,10 +166,11 @@ class Records(BaseSDK):
         Required scopes: `record_permission:read`, `object_configuration:read`.
 
         :param object:
-        :param filter_: An object used to filter results to a subset of results. See the [full guide to filtering and sorting here](/rest-api/how-to/filtering-and-sorting).
-        :param sorts: An object used to sort results. See the [full guide to filtering and sorting here](/rest-api/how-to/filtering-and-sorting).
-        :param limit: The maximum number of results to return. Defaults to 500. See the [full guide to pagination here](/rest-api/how-to/pagination).
-        :param offset: The number of results to skip over before returning. Defaults to 0. See the [full guide to pagination here](/rest-api/how-to/pagination).
+        :param filter_: An object used to filter results to a subset of results. Cannot be used together with `filter_view_id`. See the [full guide to filtering and sorting here](/rest-api/guides/filtering-and-sorting).
+        :param filter_view_id: UUID of a saved view on this object or list. When set, results are filtered using that view's filter configuration. Cannot be used together with `filter`. Note: sorts, limits, and offsets are applied independently and are not taken from the view. All attributes are returned regardless of which attributes are visible in the view.
+        :param sorts: An object used to sort results. See the [full guide to filtering and sorting here](/rest-api/guides/filtering-and-sorting).
+        :param limit: The maximum number of results to return. Defaults to 500. See the [full guide to pagination here](/rest-api/guides/pagination).
+        :param offset: The number of results to skip over before returning. Defaults to 0. See the [full guide to pagination here](/rest-api/guides/pagination).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -184,6 +190,7 @@ class Records(BaseSDK):
             object=object,
             request_body=models.PostV2ObjectsObjectRecordsQueryRequestBody(
                 filter_=filter_,
+                filter_view_id=filter_view_id,
                 sorts=utils.get_pydantic_model(
                     sorts,
                     Optional[List[models.PostV2ObjectsObjectRecordsQuerySortUnion]],
@@ -213,6 +220,7 @@ class Records(BaseSDK):
                 "json",
                 models.PostV2ObjectsObjectRecordsQueryRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -229,7 +237,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/objects/{object}/records/query",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -273,7 +281,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PostV2ObjectsObjectRecordsDataResponse:
+    ) -> models.PostV2ObjectsObjectRecordsResponse:
         r"""Create a record
 
         Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Assert record endpoint](/rest-api/endpoint-reference/records/assert-a-record) instead.
@@ -326,6 +334,7 @@ class Records(BaseSDK):
                 "json",
                 models.PostV2ObjectsObjectRecordsRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -342,7 +351,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/objects/{object}/records",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -390,7 +399,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PostV2ObjectsObjectRecordsDataResponse:
+    ) -> models.PostV2ObjectsObjectRecordsResponse:
         r"""Create a record
 
         Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Assert record endpoint](/rest-api/endpoint-reference/records/assert-a-record) instead.
@@ -443,6 +452,7 @@ class Records(BaseSDK):
                 "json",
                 models.PostV2ObjectsObjectRecordsRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -459,7 +469,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/objects/{object}/records",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -508,7 +518,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PutV2ObjectsObjectRecordsDataResponse:
+    ) -> models.PutV2ObjectsObjectRecordsResponse:
         r"""Assert a record
 
         Use this endpoint to create or update people, companies and other records. A matching attribute is used to search for existing records. If a record is found with the same value for the matching attribute, that record will be updated. If no record with the same value for the matching attribute is found, a new record will be created instead. If you would like to avoid matching, please use the [Create record endpoint](/rest-api/endpoint-reference/records/create-a-record).
@@ -565,6 +575,7 @@ class Records(BaseSDK):
                 "json",
                 models.PutV2ObjectsObjectRecordsRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -581,7 +592,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="put_/v2/objects/{object}/records",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -628,7 +639,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PutV2ObjectsObjectRecordsDataResponse:
+    ) -> models.PutV2ObjectsObjectRecordsResponse:
         r"""Assert a record
 
         Use this endpoint to create or update people, companies and other records. A matching attribute is used to search for existing records. If a record is found with the same value for the matching attribute, that record will be updated. If no record with the same value for the matching attribute is found, a new record will be created instead. If you would like to avoid matching, please use the [Create record endpoint](/rest-api/endpoint-reference/records/create-a-record).
@@ -685,6 +696,7 @@ class Records(BaseSDK):
                 "json",
                 models.PutV2ObjectsObjectRecordsRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -701,7 +713,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="put_/v2/objects/{object}/records",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -744,7 +756,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetV2ObjectsObjectRecordsRecordIDData:
+    ) -> models.GetV2ObjectsObjectRecordsRecordIDResponse:
         r"""Get a record
 
         Gets a single person, company or other record by its `record_id`.
@@ -786,6 +798,7 @@ class Records(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -802,7 +815,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/objects/{object}/records/{record_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -840,7 +853,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetV2ObjectsObjectRecordsRecordIDData:
+    ) -> models.GetV2ObjectsObjectRecordsRecordIDResponse:
         r"""Get a record
 
         Gets a single person, company or other record by its `record_id`.
@@ -882,6 +895,7 @@ class Records(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -898,7 +912,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/objects/{object}/records/{record_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -940,7 +954,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PatchV2ObjectsObjectRecordsRecordIDDataResponse:
+    ) -> models.PatchV2ObjectsObjectRecordsRecordIDResponse:
         r"""Update a record (append multiselect values)
 
         Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
@@ -995,6 +1009,7 @@ class Records(BaseSDK):
                 "json",
                 models.PatchV2ObjectsObjectRecordsRecordIDRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1011,7 +1026,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="patch_/v2/objects/{object}/records/{record_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1061,7 +1076,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PatchV2ObjectsObjectRecordsRecordIDDataResponse:
+    ) -> models.PatchV2ObjectsObjectRecordsRecordIDResponse:
         r"""Update a record (append multiselect values)
 
         Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
@@ -1116,6 +1131,7 @@ class Records(BaseSDK):
                 "json",
                 models.PatchV2ObjectsObjectRecordsRecordIDRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1132,7 +1148,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="patch_/v2/objects/{object}/records/{record_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1182,7 +1198,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PutV2ObjectsObjectRecordsRecordIDDataResponse:
+    ) -> models.PutV2ObjectsObjectRecordsRecordIDResponse:
         r"""Update a record (overwrite multiselect values)
 
         Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
@@ -1237,6 +1253,7 @@ class Records(BaseSDK):
                 "json",
                 models.PutV2ObjectsObjectRecordsRecordIDRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1253,7 +1270,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="put_/v2/objects/{object}/records/{record_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1302,7 +1319,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PutV2ObjectsObjectRecordsRecordIDDataResponse:
+    ) -> models.PutV2ObjectsObjectRecordsRecordIDResponse:
         r"""Update a record (overwrite multiselect values)
 
         Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
@@ -1357,6 +1374,7 @@ class Records(BaseSDK):
                 "json",
                 models.PutV2ObjectsObjectRecordsRecordIDRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1373,7 +1391,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="put_/v2/objects/{object}/records/{record_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1460,6 +1478,7 @@ class Records(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1476,7 +1495,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_/v2/objects/{object}/records/{record_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1556,6 +1575,7 @@ class Records(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1572,7 +1592,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_/v2/objects/{object}/records/{record_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1614,9 +1634,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[
-        models.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesDataUnion
-    ]:
+    ) -> models.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesResponse:
         r"""List record attribute values
 
         Gets all values for a given attribute on a record. Historic values can be queried using the `show_historic` query param. Historic values cannot be queried on COMINT (Communication Intelligence) or enriched attributes and the endpoint will return a 400 error if this is attempted. Historic values are sorted from oldest to newest (by `active_from`). Some attributes are subject to billing status and will return an empty array of values if theworkspace being queried does not have the required billing flag enabled.
@@ -1668,6 +1686,7 @@ class Records(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1684,7 +1703,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/objects/{object}/records/{record_id}/attributes/{attribute}/values",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1736,9 +1755,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[
-        models.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesDataUnion
-    ]:
+    ) -> models.GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesResponse:
         r"""List record attribute values
 
         Gets all values for a given attribute on a record. Historic values can be queried using the `show_historic` query param. Historic values cannot be queried on COMINT (Communication Intelligence) or enriched attributes and the endpoint will return a 400 error if this is attempted. Historic values are sorted from oldest to newest (by `active_from`). Some attributes are subject to billing status and will return an empty array of values if theworkspace being queried does not have the required billing flag enabled.
@@ -1790,6 +1807,7 @@ class Records(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1806,7 +1824,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/objects/{object}/records/{record_id}/attributes/{attribute}/values",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1856,7 +1874,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.GetV2ObjectsObjectRecordsRecordIDEntriesData]:
+    ) -> models.GetV2ObjectsObjectRecordsRecordIDEntriesResponse:
         r"""List record entries
 
         List all entries, across all lists, for which this record is the parent.
@@ -1902,6 +1920,7 @@ class Records(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1918,7 +1937,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/objects/{object}/records/{record_id}/entries",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1950,7 +1969,7 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.GetV2ObjectsObjectRecordsRecordIDEntriesData]:
+    ) -> models.GetV2ObjectsObjectRecordsRecordIDEntriesResponse:
         r"""List record entries
 
         List all entries, across all lists, for which this record is the parent.
@@ -1996,6 +2015,7 @@ class Records(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2012,7 +2032,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/objects/{object}/records/{record_id}/entries",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -2044,14 +2064,14 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.PostV2ObjectsRecordsSearchDataUnion]:
+    ) -> models.PostV2ObjectsRecordsSearchResponse:
         r"""Search records
 
         The search records endpoint provides a convenient way to fuzzy search for records across one or more objects.
         The matching strategy employed in this endpoint follows the in-product strategy and will match names, domains, emails, phone numbers and social handles on people and companies, and labels on all other objects.
         Please note, results returned from this endpoint are eventually consistent. For results which are guaranteed to be up to date, please use the record query endpoint instead.
 
-        This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+        This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
         Required scopes: `record_permission:read`, `object_configuration:read`.
 
@@ -2097,6 +2117,7 @@ class Records(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.PostV2ObjectsRecordsSearchRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2113,7 +2134,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/objects/records/search",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -2153,14 +2174,14 @@ class Records(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.PostV2ObjectsRecordsSearchDataUnion]:
+    ) -> models.PostV2ObjectsRecordsSearchResponse:
         r"""Search records
 
         The search records endpoint provides a convenient way to fuzzy search for records across one or more objects.
         The matching strategy employed in this endpoint follows the in-product strategy and will match names, domains, emails, phone numbers and social handles on people and companies, and labels on all other objects.
         Please note, results returned from this endpoint are eventually consistent. For results which are guaranteed to be up to date, please use the record query endpoint instead.
 
-        This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+        This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
         Required scopes: `record_permission:read`, `object_configuration:read`.
 
@@ -2206,6 +2227,7 @@ class Records(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.PostV2ObjectsRecordsSearchRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2222,7 +2244,7 @@ class Records(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/objects/records/search",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

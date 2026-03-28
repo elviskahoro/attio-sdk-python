@@ -1,8 +1,13 @@
 # PatchV2ObjectsObjectRecordsRecordIDNotFoundType
 
+## Example Usage
+
+```python
+from attio.models import PatchV2ObjectsObjectRecordsRecordIDNotFoundType
+value: PatchV2ObjectsObjectRecordsRecordIDNotFoundType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

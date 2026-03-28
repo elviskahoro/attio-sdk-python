@@ -13,15 +13,12 @@ from typing import Optional
 
 class PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsConflictType
-
     code: models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsConflictCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError(SDKError):
     r"""Conflict"""
 
@@ -43,15 +40,12 @@ class PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError(SDKError
 
 class PostV2TargetIdentifierAttributesAttributeOptionsNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsNotFoundType
-
     code: models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2TargetIdentifierAttributesAttributeOptionsNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -75,15 +69,12 @@ class PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeErrorData(
     BaseModel
 ):
     status_code: float
-
     type: models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsBadRequestType
-
     code: models_post_v2_target_identifier_attributes_attribute_optionsop.PostV2TargetIdentifierAttributesAttributeOptionsCodeValidationType
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError(SDKError):
     r"""Bad Request"""
 

@@ -11,15 +11,12 @@ from typing import Optional
 
 class PatchV2ListsListNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_lists_list_op.PatchV2ListsListNotFoundType
-
     code: models_patch_v2_lists_list_op.PatchV2ListsListNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2ListsListNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -39,15 +36,12 @@ class PatchV2ListsListNotFoundError(SDKError):
 
 class PatchV2ListsListValueNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_lists_list_op.PatchV2ListsListBadRequestType
-
     code: models_patch_v2_lists_list_op.PatchV2ListsListCodeValueNotFound
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2ListsListValueNotFoundError(SDKError):
     r"""Bad Request"""
 

@@ -13,15 +13,12 @@ from typing import Optional
 
 class PostV2ListsListEntriesQueryNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_lists_list_entries_queryop.PostV2ListsListEntriesQueryNotFoundType
-
     code: models_post_v2_lists_list_entries_queryop.PostV2ListsListEntriesQueryCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2ListsListEntriesQueryNotFoundError(SDKError):
     r"""Not Found"""
 

@@ -1,5 +1,4 @@
 # Objects
-(*objects*)
 
 ## Overview
 
@@ -11,6 +10,7 @@ Objects are the core data models inside of Attio. They contain standard objects,
 * [post_v2_objects](#post_v2_objects) - Create an object
 * [get_v2_objects_object_](#get_v2_objects_object_) - Get an object
 * [patch_v2_objects_object_](#patch_v2_objects_object_) - Update an object
+* [get_v2_objects_object_views](#get_v2_objects_object_views) - List views for object
 
 ## get_v2_objects
 
@@ -188,3 +188,48 @@ with SDK(
 | errors.PatchV2ObjectsObjectNotFoundError       | 404                                            | application/json                               |
 | errors.PatchV2ObjectsObjectSlugConflictError   | 409                                            | application/json                               |
 | errors.SDKDefaultError                         | 4XX, 5XX                                       | \*/\*                                          |
+
+## get_v2_objects_object_views
+
+Lists saved views for an object. Results are ordered by view ID (`id.view_id` ascending).
+
+Required scopes: `object_configuration:read`.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="get_/v2/objects/{object}/views" method="get" path="/v2/objects/{object}/views" -->
+```python
+from attio import SDK
+
+
+with SDK(
+    oauth2="<YOUR_OAUTH2_HERE>",
+) as sdk:
+
+    res = sdk.objects.get_v2_objects_object_views(object="people", show_archived=False, limit=500, cursor="eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `object`                                                                     | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          | people                                                                       |
+| `show_archived`                                                              | *Optional[bool]*                                                             | :heavy_minus_sign:                                                           | N/A                                                                          | false                                                                        |
+| `limit`                                                                      | *Optional[int]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          | 500                                                                          |
+| `cursor`                                                                     | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          | eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr |
+| `retries`                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)             | :heavy_minus_sign:                                                           | Configuration to override the default retry behavior of the client.          |                                                                              |
+
+### Response
+
+**[models.GetV2ObjectsObjectViewsResponse](../../models/getv2objectsobjectviewsresponse.md)**
+
+### Errors
+
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| errors.GetV2ObjectsObjectViewsNotFoundError | 404                                         | application/json                            |
+| errors.SDKDefaultError                      | 4XX, 5XX                                    | \*/\*                                       |

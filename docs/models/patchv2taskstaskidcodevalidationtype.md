@@ -1,8 +1,13 @@
 # PatchV2TasksTaskIDCodeValidationType
 
+## Example Usage
+
+```python
+from attio.models import PatchV2TasksTaskIDCodeValidationType
+value: PatchV2TasksTaskIDCodeValidationType = "validation_type"
+```
+
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `VALIDATION_TYPE` | validation_type   |
+- `"validation_type"`

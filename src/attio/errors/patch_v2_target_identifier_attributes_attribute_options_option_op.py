@@ -15,15 +15,12 @@ class PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictErrorDa
     BaseModel
 ):
     status_code: float
-
     type: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionConflictType
-
     code: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionConflictCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictError(
     SDKError
 ):
@@ -49,15 +46,12 @@ class PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundErrorData(
     BaseModel
 ):
     status_code: float
-
     type: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundType
-
     code: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -81,15 +75,12 @@ class PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundErrorD
     BaseModel
 ):
     status_code: float
-
     type: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType
-
     code: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionCodeValueNotFound
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError(
     SDKError
 ):

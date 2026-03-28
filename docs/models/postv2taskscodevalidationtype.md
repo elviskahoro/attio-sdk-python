@@ -1,8 +1,13 @@
 # PostV2TasksCodeValidationType
 
+## Example Usage
+
+```python
+from attio.models import PostV2TasksCodeValidationType
+value: PostV2TasksCodeValidationType = "validation_type"
+```
+
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `VALIDATION_TYPE` | validation_type   |
+- `"validation_type"`

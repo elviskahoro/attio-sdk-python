@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PutV2ObjectsObjectRecordsRecordIDAttributeTypeActorReference
+value: PutV2ObjectsObjectRecordsRecordIDAttributeTypeActorReference = "actor-reference"
+```
+
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `ACTOR_REFERENCE` | actor-reference   |
+- `"actor-reference"`

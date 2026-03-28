@@ -1,3 +1,4 @@
+pyrightconfig.json
 .venv/
 venv/
 src/*.egg-info/
@@ -10,3 +11,4 @@ src/*.egg-info/
 .speakeasy/reports
 .env
 .env.local
+.claude/

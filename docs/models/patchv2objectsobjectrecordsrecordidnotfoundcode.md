@@ -1,8 +1,13 @@
 # PatchV2ObjectsObjectRecordsRecordIDNotFoundCode
 
+## Example Usage
+
+```python
+from attio.models import PatchV2ObjectsObjectRecordsRecordIDNotFoundCode
+value: PatchV2ObjectsObjectRecordsRecordIDNotFoundCode = "not_found"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `NOT_FOUND` | not_found   |
+- `"not_found"`

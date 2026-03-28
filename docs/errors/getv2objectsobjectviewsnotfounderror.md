@@ -1,0 +1,13 @@
+# GetV2ObjectsObjectViewsNotFoundError
+
+Not Found
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    | Example                                                                        |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `status_code`                                                                  | *float*                                                                        | :heavy_check_mark:                                                             | N/A                                                                            |                                                                                |
+| `type`                                                                         | [models.GetV2ObjectsObjectViewsType](../models/getv2objectsobjectviewstype.md) | :heavy_check_mark:                                                             | N/A                                                                            |                                                                                |
+| `code`                                                                         | [models.GetV2ObjectsObjectViewsCode](../models/getv2objectsobjectviewscode.md) | :heavy_check_mark:                                                             | N/A                                                                            |                                                                                |
+| `message`                                                                      | *str*                                                                          | :heavy_check_mark:                                                             | N/A                                                                            | Object with slug/ID "people" not found.                                        |

@@ -1,5 +1,4 @@
 # WorkspaceMembers
-(*workspace_members*)
 
 ## Overview
 

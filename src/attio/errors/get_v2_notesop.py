@@ -11,15 +11,12 @@ from typing import Optional
 
 class GetV2NotesNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_get_v2_notesop.GetV2NotesType
-
     code: models_get_v2_notesop.GetV2NotesCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetV2NotesNotFoundError(SDKError):
     r"""Not Found"""
 

@@ -1,8 +1,13 @@
 # PostV2TargetIdentifierAttributesAttributeStatusesCodeValidationType
 
+## Example Usage
+
+```python
+from attio.models import PostV2TargetIdentifierAttributesAttributeStatusesCodeValidationType
+value: PostV2TargetIdentifierAttributesAttributeStatusesCodeValidationType = "validation_type"
+```
+
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `VALIDATION_TYPE` | validation_type   |
+- `"validation_type"`

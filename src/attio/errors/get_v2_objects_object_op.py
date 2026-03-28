@@ -11,15 +11,12 @@ from typing import Optional
 
 class GetV2ObjectsObjectNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_get_v2_objects_object_op.GetV2ObjectsObjectType
-
     code: models_get_v2_objects_object_op.GetV2ObjectsObjectCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetV2ObjectsObjectNotFoundError(SDKError):
     r"""Not Found"""
 

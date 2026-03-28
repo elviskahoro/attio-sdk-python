@@ -4,8 +4,13 @@ from __future__ import annotations
 from .attribute import Attribute, AttributeTypedDict
 from .input_value_union import InputValueUnion, InputValueUnionTypedDict
 from attio.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
-from attio.utils import FieldMetadata, PathParamMetadata, RequestMetadata
-from pydantic import model_serializer
+from attio.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    RequestMetadata,
+    get_discriminator,
+)
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -59,13 +64,18 @@ PatchV2TargetIdentifierAttributesAttributeDefaultValueUnionTypedDict = TypeAlias
 r"""The default value for this attribute. Static values are used to directly populate values using their contents. Dynamic values are used to lookup data at the point of creation. For example, you could use a dynamic value to insert a value for the currently logged in user. Which default values are available is dependent on the type of the attribute. Default values are not currently supported on people or company objects."""
 
 
-PatchV2TargetIdentifierAttributesAttributeDefaultValueUnion = TypeAliasType(
-    "PatchV2TargetIdentifierAttributesAttributeDefaultValueUnion",
+PatchV2TargetIdentifierAttributesAttributeDefaultValueUnion = Annotated[
     Union[
-        PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic,
-        PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic,
+        Annotated[
+            PatchV2TargetIdentifierAttributesAttributeDefaultValueDynamic,
+            Tag("dynamic"),
+        ],
+        Annotated[
+            PatchV2TargetIdentifierAttributesAttributeDefaultValueStatic, Tag("static")
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""The default value for this attribute. Static values are used to directly populate values using their contents. Dynamic values are used to lookup data at the point of creation. For example, you could use a dynamic value to insert a value for the currently logged in user. Which default values are available is dependent on the type of the attribute. Default values are not currently supported on people or company objects."""
 
 
@@ -73,7 +83,7 @@ PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode = Literal[
     "ARS",
     "AUD",
     "BRL",
-    "BEL",
+    "BGN",
     "CAD",
     "CLP",
     "CNY",
@@ -81,11 +91,14 @@ PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode = Literal[
     "CZK",
     "DKK",
     "EUR",
+    "FJD",
     "HKD",
+    "HUF",
     "ISK",
     "INR",
     "ILS",
     "JPY",
+    "KES",
     "KRW",
     "MYR",
     "MXN",
@@ -104,6 +117,7 @@ PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode = Literal[
     "ZAR",
     "SEK",
     "CHF",
+    "THB",
     "AED",
     "UYU",
     "USD",
@@ -143,14 +157,14 @@ class PatchV2TargetIdentifierAttributesAttributeRecordReferenceTypedDict(TypedDi
     r"""Configuration available for attributes of type \"record-reference\"."""
 
     allowed_objects: List[str]
-    r"""A list of slugs or UUIDs to indicate which objects records are allowed to belong to. Leave empty to to allow records from all object types."""
+    r"""A list of slugs or UUIDs to indicate which objects records are allowed to belong to. If `relationship` is also provided, this must contain only the relationship object."""
 
 
 class PatchV2TargetIdentifierAttributesAttributeRecordReference(BaseModel):
     r"""Configuration available for attributes of type \"record-reference\"."""
 
     allowed_objects: List[str]
-    r"""A list of slugs or UUIDs to indicate which objects records are allowed to belong to. Leave empty to to allow records from all object types."""
+    r"""A list of slugs or UUIDs to indicate which objects records are allowed to belong to. If `relationship` is also provided, this must contain only the relationship object."""
 
 
 class PatchV2TargetIdentifierAttributesAttributeConfigTypedDict(TypedDict):
@@ -174,6 +188,22 @@ class PatchV2TargetIdentifierAttributesAttributeConfig(BaseModel):
         PatchV2TargetIdentifierAttributesAttributeRecordReference
     ] = None
     r"""Configuration available for attributes of type \"record-reference\"."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["currency", "record_reference"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class PatchV2TargetIdentifierAttributesAttributeDataTypedDict(TypedDict):
@@ -226,40 +256,37 @@ class PatchV2TargetIdentifierAttributesAttributeData(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "title",
-            "description",
-            "api_slug",
-            "is_required",
-            "is_unique",
-            "default_value",
-            "config",
-            "is_archived",
-        ]
-        nullable_fields = ["description", "default_value"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "title",
+                "description",
+                "api_slug",
+                "is_required",
+                "is_unique",
+                "default_value",
+                "config",
+                "is_archived",
+            ]
+        )
+        nullable_fields = set(["description", "default_value"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 

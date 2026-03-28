@@ -2,10 +2,15 @@
 
 Whether the attributes are on an object or a list.
 
+## Example Usage
+
+```python
+from attio.models import GetV2TargetIdentifierAttributesTarget
+value: GetV2TargetIdentifierAttributesTarget = "objects"
+```
+
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `OBJECTS` | objects   |
-| `LISTS`   | lists     |
+- `"objects"`
+- `"lists"`

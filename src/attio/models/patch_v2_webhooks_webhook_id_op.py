@@ -2,9 +2,14 @@
 
 from __future__ import annotations
 from attio.types import BaseModel, Nullable, UNSET_SENTINEL
-from attio.utils import FieldMetadata, PathParamMetadata, RequestMetadata
+from attio.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    RequestMetadata,
+    get_discriminator,
+)
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -84,13 +89,13 @@ PatchV2WebhooksWebhookIDDollarAndRequestUnionTypedDict = TypeAliasType(
 )
 
 
-PatchV2WebhooksWebhookIDDollarAndRequestUnion = TypeAliasType(
-    "PatchV2WebhooksWebhookIDDollarAndRequestUnion",
+PatchV2WebhooksWebhookIDDollarAndRequestUnion = Annotated[
     Union[
-        PatchV2WebhooksWebhookIDDollarAndEqualsRequest,
-        PatchV2WebhooksWebhookIDDollarAndNotEqualsRequest,
+        Annotated[PatchV2WebhooksWebhookIDDollarAndEqualsRequest, Tag("equals")],
+        Annotated[PatchV2WebhooksWebhookIDDollarAndNotEqualsRequest, Tag("not_equals")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "operator", "operator")),
+]
 
 
 class PatchV2WebhooksWebhookIDFilterRequest2TypedDict(TypedDict):
@@ -147,13 +152,13 @@ PatchV2WebhooksWebhookIDDollarOrRequestUnionTypedDict = TypeAliasType(
 )
 
 
-PatchV2WebhooksWebhookIDDollarOrRequestUnion = TypeAliasType(
-    "PatchV2WebhooksWebhookIDDollarOrRequestUnion",
+PatchV2WebhooksWebhookIDDollarOrRequestUnion = Annotated[
     Union[
-        PatchV2WebhooksWebhookIDDollarOrEqualsRequest,
-        PatchV2WebhooksWebhookIDDollarOrNotEqualsRequest,
+        Annotated[PatchV2WebhooksWebhookIDDollarOrEqualsRequest, Tag("equals")],
+        Annotated[PatchV2WebhooksWebhookIDDollarOrNotEqualsRequest, Tag("not_equals")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "operator", "operator")),
+]
 
 
 class PatchV2WebhooksWebhookIDFilterRequest1TypedDict(TypedDict):
@@ -204,30 +209,14 @@ class PatchV2WebhooksWebhookIDSubscriptionRequest(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["filter"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -248,6 +237,22 @@ class PatchV2WebhooksWebhookIDDataRequest(BaseModel):
 
     subscriptions: Optional[List[PatchV2WebhooksWebhookIDSubscriptionRequest]] = None
     r"""One or more events the webhook is subscribed to."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["target_url", "subscriptions"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class PatchV2WebhooksWebhookIDRequestBodyTypedDict(TypedDict):
@@ -355,13 +360,15 @@ PatchV2WebhooksWebhookIDDollarAndResponseUnionTypedDict = TypeAliasType(
 )
 
 
-PatchV2WebhooksWebhookIDDollarAndResponseUnion = TypeAliasType(
-    "PatchV2WebhooksWebhookIDDollarAndResponseUnion",
+PatchV2WebhooksWebhookIDDollarAndResponseUnion = Annotated[
     Union[
-        PatchV2WebhooksWebhookIDDollarAndEqualsResponse,
-        PatchV2WebhooksWebhookIDDollarAndNotEqualsResponse,
+        Annotated[PatchV2WebhooksWebhookIDDollarAndEqualsResponse, Tag("equals")],
+        Annotated[
+            PatchV2WebhooksWebhookIDDollarAndNotEqualsResponse, Tag("not_equals")
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "operator", "operator")),
+]
 
 
 class PatchV2WebhooksWebhookIDFilterResponse2TypedDict(TypedDict):
@@ -418,13 +425,13 @@ PatchV2WebhooksWebhookIDDollarOrResponseUnionTypedDict = TypeAliasType(
 )
 
 
-PatchV2WebhooksWebhookIDDollarOrResponseUnion = TypeAliasType(
-    "PatchV2WebhooksWebhookIDDollarOrResponseUnion",
+PatchV2WebhooksWebhookIDDollarOrResponseUnion = Annotated[
     Union[
-        PatchV2WebhooksWebhookIDDollarOrEqualsResponse,
-        PatchV2WebhooksWebhookIDDollarOrNotEqualsResponse,
+        Annotated[PatchV2WebhooksWebhookIDDollarOrEqualsResponse, Tag("equals")],
+        Annotated[PatchV2WebhooksWebhookIDDollarOrNotEqualsResponse, Tag("not_equals")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "operator", "operator")),
+]
 
 
 class PatchV2WebhooksWebhookIDFilterResponse1TypedDict(TypedDict):
@@ -475,30 +482,14 @@ class PatchV2WebhooksWebhookIDSubscriptionResponse(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["filter"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -565,3 +556,29 @@ class PatchV2WebhooksWebhookIDResponse(BaseModel):
     r"""Success"""
 
     data: PatchV2WebhooksWebhookIDDataResponse
+
+
+try:
+    PatchV2WebhooksWebhookIDFilterRequest2.model_rebuild()
+except NameError:
+    pass
+try:
+    PatchV2WebhooksWebhookIDFilterRequest1.model_rebuild()
+except NameError:
+    pass
+try:
+    PatchV2WebhooksWebhookIDSubscriptionRequest.model_rebuild()
+except NameError:
+    pass
+try:
+    PatchV2WebhooksWebhookIDFilterResponse2.model_rebuild()
+except NameError:
+    pass
+try:
+    PatchV2WebhooksWebhookIDFilterResponse1.model_rebuild()
+except NameError:
+    pass
+try:
+    PatchV2WebhooksWebhookIDSubscriptionResponse.model_rebuild()
+except NameError:
+    pass

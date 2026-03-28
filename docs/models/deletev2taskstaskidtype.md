@@ -1,8 +1,13 @@
 # DeleteV2TasksTaskIDType
 
+## Example Usage
+
+```python
+from attio.models import DeleteV2TasksTaskIDType
+value: DeleteV2TasksTaskIDType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

@@ -1,8 +1,13 @@
 # GetV2NotesType
 
+## Example Usage
+
+```python
+from attio.models import GetV2NotesType
+value: GetV2NotesType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

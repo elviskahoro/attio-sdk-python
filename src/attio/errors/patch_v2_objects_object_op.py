@@ -11,15 +11,12 @@ from typing import Optional
 
 class PatchV2ObjectsObjectSlugConflictErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_objects_object_op.PatchV2ObjectsObjectConflictType
-
     code: models_patch_v2_objects_object_op.PatchV2ObjectsObjectConflictCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2ObjectsObjectSlugConflictError(SDKError):
     r"""Conflict"""
 
@@ -39,15 +36,12 @@ class PatchV2ObjectsObjectSlugConflictError(SDKError):
 
 class PatchV2ObjectsObjectNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_objects_object_op.PatchV2ObjectsObjectNotFoundType
-
     code: models_patch_v2_objects_object_op.PatchV2ObjectsObjectNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2ObjectsObjectNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -67,15 +61,12 @@ class PatchV2ObjectsObjectNotFoundError(SDKError):
 
 class PatchV2ObjectsObjectValidationTypeErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_objects_object_op.PatchV2ObjectsObjectBadRequestType
-
     code: models_patch_v2_objects_object_op.PatchV2ObjectsObjectCodeValidationType
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2ObjectsObjectValidationTypeError(SDKError):
     r"""Bad Request"""
 

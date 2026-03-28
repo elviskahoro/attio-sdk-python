@@ -2,12 +2,17 @@
 
 The status of the individual meeting participant.
 
+## Example Usage
+
+```python
+from attio.models import MeetingStatus
+value: MeetingStatus = "accepted"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ACCEPTED`  | accepted    |
-| `TENTATIVE` | tentative   |
-| `DECLINED`  | declined    |
-| `PENDING`   | pending     |
+- `"accepted"`
+- `"tentative"`
+- `"declined"`
+- `"pending"`

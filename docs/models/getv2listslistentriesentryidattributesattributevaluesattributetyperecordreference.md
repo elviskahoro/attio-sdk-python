@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import GetV2ListsListEntriesEntryIDAttributesAttributeValuesAttributeTypeRecordReference
+value: GetV2ListsListEntriesEntryIDAttributesAttributeValuesAttributeTypeRecordReference = "record-reference"
+```
+
 
 ## Values
 
-| Name               | Value              |
-| ------------------ | ------------------ |
-| `RECORD_REFERENCE` | record-reference   |
+- `"record-reference"`

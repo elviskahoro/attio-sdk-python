@@ -1,8 +1,13 @@
 # PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound
 
+## Example Usage
+
+```python
+from attio.models import PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound
+value: PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound = "value_not_found"
+```
+
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `VALUE_NOT_FOUND` | value_not_found   |
+- `"value_not_found"`

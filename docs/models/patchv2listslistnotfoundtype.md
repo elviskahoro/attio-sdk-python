@@ -1,8 +1,13 @@
 # PatchV2ListsListNotFoundType
 
+## Example Usage
+
+```python
+from attio.models import PatchV2ListsListNotFoundType
+value: PatchV2ListsListNotFoundType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

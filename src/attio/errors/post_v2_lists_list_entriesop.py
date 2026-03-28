@@ -13,15 +13,12 @@ from typing import Optional
 
 class PostV2ListsListEntriesNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_lists_list_entriesop.PostV2ListsListEntriesNotFoundType
-
     code: models_post_v2_lists_list_entriesop.PostV2ListsListEntriesNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2ListsListEntriesNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -41,15 +38,12 @@ class PostV2ListsListEntriesNotFoundError(SDKError):
 
 class PostV2ListsListEntriesValueNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_lists_list_entriesop.PostV2ListsListEntriesBadRequestType
-
     code: models_post_v2_lists_list_entriesop.PostV2ListsListEntriesCodeValueNotFound
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2ListsListEntriesValueNotFoundError(SDKError):
     r"""Bad Request"""
 

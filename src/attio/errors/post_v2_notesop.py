@@ -9,17 +9,39 @@ import httpx
 from typing import Optional
 
 
-class PostV2NotesNotFoundErrorData(BaseModel):
+class PostV2NotesValidationTypeErrorData(BaseModel):
     status_code: float
-
-    type: models_post_v2_notesop.PostV2NotesType
-
-    code: models_post_v2_notesop.PostV2NotesCode
-
+    type: models_post_v2_notesop.RequestEntityTooLargeType
+    code: models_post_v2_notesop.RequestEntityTooLargeCode
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
+class PostV2NotesValidationTypeError(SDKError):
+    r"""Content Too Large"""
+
+    data: PostV2NotesValidationTypeErrorData = field(hash=False)
+
+    def __init__(
+        self,
+        data: PostV2NotesValidationTypeErrorData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        fallback = body or raw_response.text
+        message = str(data.message) or fallback
+        super().__init__(message, raw_response, body)
+        object.__setattr__(self, "data", data)
+
+
+class PostV2NotesNotFoundErrorData(BaseModel):
+    status_code: float
+    type: models_post_v2_notesop.PostV2NotesNotFoundType
+    code: models_post_v2_notesop.PostV2NotesNotFoundCode
+    message: str
+
+
+@dataclass(unsafe_hash=True)
 class PostV2NotesNotFoundError(SDKError):
     r"""Not Found"""
 

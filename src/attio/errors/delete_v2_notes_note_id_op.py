@@ -11,15 +11,12 @@ from typing import Optional
 
 class DeleteV2NotesNoteIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_delete_v2_notes_note_id_op.DeleteV2NotesNoteIDType
-
     code: models_delete_v2_notes_note_id_op.DeleteV2NotesNoteIDCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class DeleteV2NotesNoteIDNotFoundError(SDKError):
     r"""Not Found"""
 

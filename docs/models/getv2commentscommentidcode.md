@@ -1,8 +1,13 @@
 # GetV2CommentsCommentIDCode
 
+## Example Usage
+
+```python
+from attio.models import GetV2CommentsCommentIDCode
+value: GetV2CommentsCommentIDCode = "not_found"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `NOT_FOUND` | not_found   |
+- `"not_found"`

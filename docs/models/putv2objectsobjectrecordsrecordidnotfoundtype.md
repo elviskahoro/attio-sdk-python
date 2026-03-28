@@ -1,8 +1,13 @@
 # PutV2ObjectsObjectRecordsRecordIDNotFoundType
 
+## Example Usage
+
+```python
+from attio.models import PutV2ObjectsObjectRecordsRecordIDNotFoundType
+value: PutV2ObjectsObjectRecordsRecordIDNotFoundType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

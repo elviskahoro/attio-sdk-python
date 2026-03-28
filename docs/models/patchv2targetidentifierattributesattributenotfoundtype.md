@@ -1,8 +1,13 @@
 # PatchV2TargetIdentifierAttributesAttributeNotFoundType
 
+## Example Usage
+
+```python
+from attio.models import PatchV2TargetIdentifierAttributesAttributeNotFoundType
+value: PatchV2TargetIdentifierAttributesAttributeNotFoundType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

@@ -13,15 +13,12 @@ from typing import Optional
 
 class GetV2ThreadsThreadIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_get_v2_threads_thread_id_op.GetV2ThreadsThreadIDType
-
     code: models_get_v2_threads_thread_id_op.GetV2ThreadsThreadIDCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetV2ThreadsThreadIDNotFoundError(SDKError):
     r"""Not Found"""
 

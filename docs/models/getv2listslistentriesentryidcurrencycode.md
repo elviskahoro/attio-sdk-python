@@ -2,45 +2,54 @@
 
 The ISO4217 currency code representing the currency that the value is stored in.
 
+## Example Usage
+
+```python
+from attio.models import GetV2ListsListEntriesEntryIDCurrencyCode
+value: GetV2ListsListEntriesEntryIDCurrencyCode = "ARS"
+```
+
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `ARS` | ARS   |
-| `AUD` | AUD   |
-| `BRL` | BRL   |
-| `BEL` | BEL   |
-| `CAD` | CAD   |
-| `CLP` | CLP   |
-| `CNY` | CNY   |
-| `COP` | COP   |
-| `CZK` | CZK   |
-| `DKK` | DKK   |
-| `EUR` | EUR   |
-| `HKD` | HKD   |
-| `ISK` | ISK   |
-| `INR` | INR   |
-| `ILS` | ILS   |
-| `JPY` | JPY   |
-| `KRW` | KRW   |
-| `MYR` | MYR   |
-| `MXN` | MXN   |
-| `NTD` | NTD   |
-| `NZD` | NZD   |
-| `NGN` | NGN   |
-| `NOK` | NOK   |
-| `XPF` | XPF   |
-| `PEN` | PEN   |
-| `PHP` | PHP   |
-| `PLN` | PLN   |
-| `GBP` | GBP   |
-| `RWF` | RWF   |
-| `SAR` | SAR   |
-| `SGD` | SGD   |
-| `ZAR` | ZAR   |
-| `SEK` | SEK   |
-| `CHF` | CHF   |
-| `AED` | AED   |
-| `UYU` | UYU   |
-| `USD` | USD   |
+- `"ARS"`
+- `"AUD"`
+- `"BRL"`
+- `"BGN"`
+- `"CAD"`
+- `"CLP"`
+- `"CNY"`
+- `"COP"`
+- `"CZK"`
+- `"DKK"`
+- `"EUR"`
+- `"FJD"`
+- `"HKD"`
+- `"HUF"`
+- `"ISK"`
+- `"INR"`
+- `"ILS"`
+- `"JPY"`
+- `"KES"`
+- `"KRW"`
+- `"MYR"`
+- `"MXN"`
+- `"NTD"`
+- `"NZD"`
+- `"NGN"`
+- `"NOK"`
+- `"XPF"`
+- `"PEN"`
+- `"PHP"`
+- `"PLN"`
+- `"GBP"`
+- `"RWF"`
+- `"SAR"`
+- `"SGD"`
+- `"ZAR"`
+- `"SEK"`
+- `"CHF"`
+- `"THB"`
+- `"AED"`
+- `"UYU"`
+- `"USD"`

@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import AttributeTypeInteraction
+value: AttributeTypeInteraction = "interaction"
+```
+
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `INTERACTION` | interaction   |
+- `"interaction"`

@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from attio.errors import SDKError
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class ResponseValidationError(SDKError):
     """Error raised when there is a type mismatch between the response data and the expected Pydantic model."""
 

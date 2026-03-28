@@ -227,18 +227,6 @@ actions:
       in: "path"
       x-speakeasy-name-override: "list_id"
 
-  - target: "$.paths['/v2/lists/{list}'].delete.parameters[?(@.name=='list')]"
-    description: "Rename list parameter to list_id in DELETE /v2/lists/{list}"
-    update:
-      schema:
-        type: string
-        description: "A UUID or slug to identify the list."
-        example: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
-      required: true
-      name: "list"
-      in: "path"
-      x-speakeasy-name-override: "list_id"
-
   - target: "$.paths['/v2/lists/{list}/entries/query'].post.parameters[?(@.name=='list')]"
     description: "Rename list parameter to list_id in POST /v2/lists/{list}/entries/query"
     update:
@@ -335,24 +323,50 @@ actions:
       in: "path"
       x-speakeasy-name-override: "list_id"
 
-  - target: "$.paths['/v2/threads/{thread}/entries/query'].post.parameters[?(@.name=='list')]"
-    description: "Rename list parameter to list_id in POST /v2/threads/{thread}/entries/query"
+  # Fix SCIM endpoints missing path parameters (upstream spec bug)
+  - target: "$.paths['/scim/v2/Users/{user_id}'].patch"
+    description: "Add missing user_id path parameter to PATCH /scim/v2/Users/{user_id}"
     update:
-      schema:
-        type: string
-      required: false
-      name: "list"
-      in: "query"
-      x-speakeasy-name-override: "list_id"
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: "user_id"
+          in: "path"
+          description: "The ID of the SCIM user to update."
 
-  - target: "$.paths['/v2/threads/{thread}/entries'].post.parameters[?(@.name=='list')]"
-    description: "Rename list parameter to list_id in POST /v2/threads/{thread}/entries"
+  - target: "$.paths['/scim/v2/Users/{user_id}'].put"
+    description: "Add missing user_id path parameter to PUT /scim/v2/Users/{user_id}"
+    update:
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: "user_id"
+          in: "path"
+          description: "The ID of the SCIM user to replace."
+
+  - target: "$.paths['/scim/v2/Groups/{workspace_team_id}'].patch"
+    description: "Add missing workspace_team_id path parameter to PATCH /scim/v2/Groups/{workspace_team_id}"
+    update:
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: "workspace_team_id"
+          in: "path"
+          description: "The ID of the SCIM group to update."
+
+  - target: "$.paths['/v2/lists/{list}/views'].get.parameters[?(@.name=='list')]"
+    description: "Rename list parameter to list_id in GET /v2/lists/{list}/views"
     update:
       schema:
         type: string
-      required: false
+        description: "A UUID or slug to identify the list."
+        example: "33ebdbe9-e529-47c9-b894-0ba25e9c15c0"
+      required: true
       name: "list"
-      in: "query"
+      in: "path"
       x-speakeasy-name-override: "list_id"
 
   - target: "$.paths['/v2/threads'].get.parameters[?(@.name=='list')]"

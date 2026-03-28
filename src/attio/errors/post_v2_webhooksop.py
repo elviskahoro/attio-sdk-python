@@ -11,15 +11,12 @@ from typing import Optional
 
 class PostV2WebhooksValidationTypeErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_webhooksop.PostV2WebhooksType
-
     code: models_post_v2_webhooksop.PostV2WebhooksCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2WebhooksValidationTypeError(SDKError):
     r"""Bad Request"""
 

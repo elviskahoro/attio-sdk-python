@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from attio.types import BaseModel, Nullable, UNSET_SENTINEL
+from attio.utils import get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import List, Literal, Union
 from typing_extensions import Annotated, TypeAliasType, TypedDict
 
@@ -83,12 +84,13 @@ PostV2WebhooksDollarAndRequestUnionTypedDict = TypeAliasType(
 )
 
 
-PostV2WebhooksDollarAndRequestUnion = TypeAliasType(
-    "PostV2WebhooksDollarAndRequestUnion",
+PostV2WebhooksDollarAndRequestUnion = Annotated[
     Union[
-        PostV2WebhooksDollarAndEqualsRequest, PostV2WebhooksDollarAndNotEqualsRequest
+        Annotated[PostV2WebhooksDollarAndEqualsRequest, Tag("equals")],
+        Annotated[PostV2WebhooksDollarAndNotEqualsRequest, Tag("not_equals")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "operator", "operator")),
+]
 
 
 class PostV2WebhooksFilterRequest2TypedDict(TypedDict):
@@ -144,10 +146,13 @@ PostV2WebhooksDollarOrRequestUnionTypedDict = TypeAliasType(
 )
 
 
-PostV2WebhooksDollarOrRequestUnion = TypeAliasType(
-    "PostV2WebhooksDollarOrRequestUnion",
-    Union[PostV2WebhooksDollarOrEqualsRequest, PostV2WebhooksDollarOrNotEqualsRequest],
-)
+PostV2WebhooksDollarOrRequestUnion = Annotated[
+    Union[
+        Annotated[PostV2WebhooksDollarOrEqualsRequest, Tag("equals")],
+        Annotated[PostV2WebhooksDollarOrNotEqualsRequest, Tag("not_equals")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "operator", "operator")),
+]
 
 
 class PostV2WebhooksFilterRequest1TypedDict(TypedDict):
@@ -192,30 +197,14 @@ class PostV2WebhooksSubscriptionRequest(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["filter"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -325,12 +314,13 @@ PostV2WebhooksDollarAndResponseUnionTypedDict = TypeAliasType(
 )
 
 
-PostV2WebhooksDollarAndResponseUnion = TypeAliasType(
-    "PostV2WebhooksDollarAndResponseUnion",
+PostV2WebhooksDollarAndResponseUnion = Annotated[
     Union[
-        PostV2WebhooksDollarAndEqualsResponse, PostV2WebhooksDollarAndNotEqualsResponse
+        Annotated[PostV2WebhooksDollarAndEqualsResponse, Tag("equals")],
+        Annotated[PostV2WebhooksDollarAndNotEqualsResponse, Tag("not_equals")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "operator", "operator")),
+]
 
 
 class PostV2WebhooksFilterResponse2TypedDict(TypedDict):
@@ -386,12 +376,13 @@ PostV2WebhooksDollarOrResponseUnionTypedDict = TypeAliasType(
 )
 
 
-PostV2WebhooksDollarOrResponseUnion = TypeAliasType(
-    "PostV2WebhooksDollarOrResponseUnion",
+PostV2WebhooksDollarOrResponseUnion = Annotated[
     Union[
-        PostV2WebhooksDollarOrEqualsResponse, PostV2WebhooksDollarOrNotEqualsResponse
+        Annotated[PostV2WebhooksDollarOrEqualsResponse, Tag("equals")],
+        Annotated[PostV2WebhooksDollarOrNotEqualsResponse, Tag("not_equals")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "operator", "operator")),
+]
 
 
 class PostV2WebhooksFilterResponse1TypedDict(TypedDict):
@@ -438,30 +429,14 @@ class PostV2WebhooksSubscriptionResponse(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["filter"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -533,3 +508,29 @@ class PostV2WebhooksResponse(BaseModel):
     r"""Success"""
 
     data: PostV2WebhooksDataResponse
+
+
+try:
+    PostV2WebhooksFilterRequest2.model_rebuild()
+except NameError:
+    pass
+try:
+    PostV2WebhooksFilterRequest1.model_rebuild()
+except NameError:
+    pass
+try:
+    PostV2WebhooksSubscriptionRequest.model_rebuild()
+except NameError:
+    pass
+try:
+    PostV2WebhooksFilterResponse2.model_rebuild()
+except NameError:
+    pass
+try:
+    PostV2WebhooksFilterResponse1.model_rebuild()
+except NameError:
+    pass
+try:
+    PostV2WebhooksSubscriptionResponse.model_rebuild()
+except NameError:
+    pass

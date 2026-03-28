@@ -1,8 +1,13 @@
 # CodeMultipleMatchResults
 
+## Example Usage
+
+```python
+from attio.models import CodeMultipleMatchResults
+value: CodeMultipleMatchResults = "multiple_match_results"
+```
+
 
 ## Values
 
-| Name                     | Value                    |
-| ------------------------ | ------------------------ |
-| `MULTIPLE_MATCH_RESULTS` | multiple_match_results   |
+- `"multiple_match_results"`

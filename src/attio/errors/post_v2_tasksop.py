@@ -11,15 +11,12 @@ from typing import Optional
 
 class PostV2TasksNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_tasksop.PostV2TasksNotFoundType
-
     code: models_post_v2_tasksop.PostV2TasksNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2TasksNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -39,15 +36,12 @@ class PostV2TasksNotFoundError(SDKError):
 
 class PostV2TasksValidationTypeErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_tasksop.PostV2TasksBadRequestType
-
     code: models_post_v2_tasksop.PostV2TasksCodeValidationType
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2TasksValidationTypeError(SDKError):
     r"""Bad Request"""
 

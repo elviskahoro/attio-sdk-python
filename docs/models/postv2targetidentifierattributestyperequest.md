@@ -2,23 +2,28 @@
 
 The type of the attribute. This value affects the possible `config` values. Attributes of type "status" are not supported on objects.
 
+## Example Usage
+
+```python
+from attio.models import PostV2TargetIdentifierAttributesTypeRequest
+value: PostV2TargetIdentifierAttributesTypeRequest = "text"
+```
+
 
 ## Values
 
-| Name               | Value              |
-| ------------------ | ------------------ |
-| `TEXT`             | text               |
-| `NUMBER`           | number             |
-| `CHECKBOX`         | checkbox           |
-| `CURRENCY`         | currency           |
-| `DATE`             | date               |
-| `TIMESTAMP`        | timestamp          |
-| `RATING`           | rating             |
-| `STATUS`           | status             |
-| `SELECT`           | select             |
-| `RECORD_REFERENCE` | record-reference   |
-| `ACTOR_REFERENCE`  | actor-reference    |
-| `LOCATION`         | location           |
-| `DOMAIN`           | domain             |
-| `EMAIL_ADDRESS`    | email-address      |
-| `PHONE_NUMBER`     | phone-number       |
+- `"text"`
+- `"number"`
+- `"checkbox"`
+- `"currency"`
+- `"date"`
+- `"timestamp"`
+- `"rating"`
+- `"status"`
+- `"select"`
+- `"record-reference"`
+- `"actor-reference"`
+- `"location"`
+- `"domain"`
+- `"email-address"`
+- `"phone-number"`

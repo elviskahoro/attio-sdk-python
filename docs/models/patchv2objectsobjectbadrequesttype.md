@@ -1,8 +1,13 @@
 # PatchV2ObjectsObjectBadRequestType
 
+## Example Usage
+
+```python
+from attio.models import PatchV2ObjectsObjectBadRequestType
+value: PatchV2ObjectsObjectBadRequestType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

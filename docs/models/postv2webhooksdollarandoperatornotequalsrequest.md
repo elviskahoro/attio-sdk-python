@@ -1,8 +1,13 @@
 # PostV2WebhooksDollarAndOperatorNotEqualsRequest
 
+## Example Usage
+
+```python
+from attio.models import PostV2WebhooksDollarAndOperatorNotEqualsRequest
+value: PostV2WebhooksDollarAndOperatorNotEqualsRequest = "not_equals"
+```
+
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `NOT_EQUALS` | not_equals   |
+- `"not_equals"`

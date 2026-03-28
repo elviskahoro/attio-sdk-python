@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PostV2ObjectsObjectRecordsQueryAttributeTypeLocation
+value: PostV2ObjectsObjectRecordsQueryAttributeTypeLocation = "location"
+```
+
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `LOCATION` | location   |
+- `"location"`

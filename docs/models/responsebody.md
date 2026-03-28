@@ -5,4 +5,4 @@
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `active`           | *bool*             | :heavy_check_mark: | N/A                |
+| `active`           | *Literal[False]*   | :heavy_check_mark: | N/A                |

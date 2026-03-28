@@ -13,17 +13,14 @@ from typing import Optional
 
 class PostV2ObjectsRecordsSearchValueNotFoundErrorData(BaseModel):
     status_code: float
-
     type: (
         models_post_v2_objects_records_searchop.PostV2ObjectsRecordsSearchBadRequestType
     )
-
     code: models_post_v2_objects_records_searchop.PostV2ObjectsRecordsSearchCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2ObjectsRecordsSearchValueNotFoundError(SDKError):
     r"""Bad Request"""
 

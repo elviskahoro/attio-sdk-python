@@ -13,15 +13,12 @@ from typing import Optional
 
 class PatchV2ListsListEntriesEntryIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_lists_list_entries_entry_id_op.PatchV2ListsListEntriesEntryIDNotFoundType
-
     code: models_patch_v2_lists_list_entries_entry_id_op.PatchV2ListsListEntriesEntryIDNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2ListsListEntriesEntryIDNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -41,15 +38,12 @@ class PatchV2ListsListEntriesEntryIDNotFoundError(SDKError):
 
 class PatchV2ListsListEntriesEntryIDImmutableValueErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_lists_list_entries_entry_id_op.PatchV2ListsListEntriesEntryIDBadRequestType
-
     code: models_patch_v2_lists_list_entries_entry_id_op.PatchV2ListsListEntriesEntryIDCodeImmutableValue
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2ListsListEntriesEntryIDImmutableValueError(SDKError):
     r"""Bad Request"""
 

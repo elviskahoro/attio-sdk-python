@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from .attribute import Attribute, AttributeTypedDict
-from attio.types import BaseModel
+from attio.types import BaseModel, UNSET_SENTINEL
 from attio.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
+from pydantic import model_serializer
 from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -49,6 +50,22 @@ class GetV2TargetIdentifierAttributesRequest(BaseModel):
         Optional[bool],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["limit", "offset", "show_archived"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class GetV2TargetIdentifierAttributesResponseTypedDict(TypedDict):

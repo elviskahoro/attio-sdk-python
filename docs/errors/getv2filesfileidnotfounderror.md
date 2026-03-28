@@ -1,0 +1,13 @@
+# GetV2FilesFileIDNotFoundError
+
+Not Found
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      | Example                                                                          |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `status_code`                                                                    | *float*                                                                          | :heavy_check_mark:                                                               | N/A                                                                              |                                                                                  |
+| `type`                                                                           | [models.GetV2FilesFileIDNotFoundType](../models/getv2filesfileidnotfoundtype.md) | :heavy_check_mark:                                                               | N/A                                                                              |                                                                                  |
+| `code`                                                                           | [models.GetV2FilesFileIDCode](../models/getv2filesfileidcode.md)                 | :heavy_check_mark:                                                               | N/A                                                                              |                                                                                  |
+| `message`                                                                        | *str*                                                                            | :heavy_check_mark:                                                               | N/A                                                                              | File with ID "a1b2c3d4-e5f6-7890-abcd-ef1234567890" was not found.               |

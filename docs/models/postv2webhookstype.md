@@ -1,8 +1,13 @@
 # PostV2WebhooksType
 
+## Example Usage
+
+```python
+from attio.models import PostV2WebhooksType
+value: PostV2WebhooksType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

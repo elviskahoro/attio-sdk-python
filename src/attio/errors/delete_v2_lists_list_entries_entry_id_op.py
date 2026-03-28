@@ -13,15 +13,12 @@ from typing import Optional
 
 class DeleteV2ListsListEntriesEntryIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_delete_v2_lists_list_entries_entry_id_op.DeleteV2ListsListEntriesEntryIDType
-
     code: models_delete_v2_lists_list_entries_entry_id_op.DeleteV2ListsListEntriesEntryIDCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class DeleteV2ListsListEntriesEntryIDNotFoundError(SDKError):
     r"""Not Found"""
 

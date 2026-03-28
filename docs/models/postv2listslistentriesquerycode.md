@@ -1,8 +1,13 @@
 # PostV2ListsListEntriesQueryCode
 
+## Example Usage
+
+```python
+from attio.models import PostV2ListsListEntriesQueryCode
+value: PostV2ListsListEntriesQueryCode = "not_found"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `NOT_FOUND` | not_found   |
+- `"not_found"`

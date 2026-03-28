@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PostV2ListsListEntriesAttributeTypeSelect
+value: PostV2ListsListEntriesAttributeTypeSelect = "select"
+```
+
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SELECT` | select   |
+- `"select"`

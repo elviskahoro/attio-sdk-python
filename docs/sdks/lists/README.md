@@ -1,5 +1,4 @@
 # Lists
-(*lists*)
 
 ## Overview
 
@@ -11,6 +10,7 @@ Lists are used to model a particular process. A list contains many records of a 
 * [post_v2_lists](#post_v2_lists) - Create a list
 * [get_v2_lists_list_](#get_v2_lists_list_) - Get a list
 * [patch_v2_lists_list_](#patch_v2_lists_list_) - Update a list
+* [get_v2_lists_list_views](#get_v2_lists_list_views) - List views for list
 
 ## get_v2_lists
 
@@ -209,3 +209,48 @@ with SDK(
 | errors.PatchV2ListsListValueNotFoundError | 400                                       | application/json                          |
 | errors.PatchV2ListsListNotFoundError      | 404                                       | application/json                          |
 | errors.SDKDefaultError                    | 4XX, 5XX                                  | \*/\*                                     |
+
+## get_v2_lists_list_views
+
+Lists saved views for a list. Results are ordered by view ID (`id.view_id` ascending).
+
+Required scopes: `list_configuration:read`.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="get_/v2/lists/{list}/views" method="get" path="/v2/lists/{list}/views" -->
+```python
+from attio import SDK
+
+
+with SDK(
+    oauth2="<YOUR_OAUTH2_HERE>",
+) as sdk:
+
+    res = sdk.lists.get_v2_lists_list_views(list_id="33ebdbe9-e529-47c9-b894-0ba25e9c15c0", show_archived=False, limit=500, cursor="eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `list_id`                                                                    | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          | 33ebdbe9-e529-47c9-b894-0ba25e9c15c0                                         |
+| `show_archived`                                                              | *Optional[bool]*                                                             | :heavy_minus_sign:                                                           | N/A                                                                          | false                                                                        |
+| `limit`                                                                      | *Optional[int]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          | 500                                                                          |
+| `cursor`                                                                     | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          | eyJkZXNjcmlwdGlvbiI6ICJ0aGlzIGlzIGEgY3Vyc29yIn0=.eM56CGbqZ6G1NHiJchTIkH4vKDr |
+| `retries`                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)             | :heavy_minus_sign:                                                           | Configuration to override the default retry behavior of the client.          |                                                                              |
+
+### Response
+
+**[models.GetV2ListsListViewsResponse](../../models/getv2listslistviewsresponse.md)**
+
+### Errors
+
+| Error Type                              | Status Code                             | Content Type                            |
+| --------------------------------------- | --------------------------------------- | --------------------------------------- |
+| errors.GetV2ListsListViewsNotFoundError | 404                                     | application/json                        |
+| errors.SDKDefaultError                  | 4XX, 5XX                                | \*/\*                                   |

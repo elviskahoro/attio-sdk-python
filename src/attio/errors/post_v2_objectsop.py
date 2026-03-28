@@ -11,15 +11,12 @@ from typing import Optional
 
 class PostV2ObjectsSlugConflictErrorData(BaseModel):
     status_code: float
-
     type: models_post_v2_objectsop.PostV2ObjectsType
-
     code: models_post_v2_objectsop.PostV2ObjectsCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PostV2ObjectsSlugConflictError(SDKError):
     r"""Conflict"""
 

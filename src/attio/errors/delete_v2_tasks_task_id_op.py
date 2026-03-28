@@ -11,15 +11,12 @@ from typing import Optional
 
 class DeleteV2TasksTaskIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_delete_v2_tasks_task_id_op.DeleteV2TasksTaskIDType
-
     code: models_delete_v2_tasks_task_id_op.DeleteV2TasksTaskIDCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class DeleteV2TasksTaskIDNotFoundError(SDKError):
     r"""Not Found"""
 

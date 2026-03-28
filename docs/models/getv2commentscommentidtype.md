@@ -1,8 +1,13 @@
 # GetV2CommentsCommentIDType
 
+## Example Usage
+
+```python
+from attio.models import GetV2CommentsCommentIDType
+value: GetV2CommentsCommentIDType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

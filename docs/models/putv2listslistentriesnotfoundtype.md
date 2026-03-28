@@ -1,8 +1,13 @@
 # PutV2ListsListEntriesNotFoundType
 
+## Example Usage
+
+```python
+from attio.models import PutV2ListsListEntriesNotFoundType
+value: PutV2ListsListEntriesNotFoundType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

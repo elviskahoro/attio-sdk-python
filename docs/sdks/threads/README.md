@@ -1,5 +1,4 @@
 # Threads
-(*threads*)
 
 ## Overview
 

@@ -13,15 +13,12 @@ from typing import Optional
 
 class PutV2ObjectsObjectRecordsRecordIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDNotFoundType
-
     code: models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PutV2ObjectsObjectRecordsRecordIDNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -41,15 +38,12 @@ class PutV2ObjectsObjectRecordsRecordIDNotFoundError(SDKError):
 
 class PutV2ObjectsObjectRecordsRecordIDMissingValueErrorData(BaseModel):
     status_code: float
-
     type: models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDBadRequestType
-
     code: models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDCodeMissingValue
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PutV2ObjectsObjectRecordsRecordIDMissingValueError(SDKError):
     r"""Bad Request"""
 

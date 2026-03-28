@@ -13,15 +13,12 @@ from typing import Optional
 
 class GetV2WebhooksWebhookIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_get_v2_webhooks_webhook_id_op.GetV2WebhooksWebhookIDType
-
     code: models_get_v2_webhooks_webhook_id_op.GetV2WebhooksWebhookIDCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetV2WebhooksWebhookIDNotFoundError(SDKError):
     r"""Not Found"""
 

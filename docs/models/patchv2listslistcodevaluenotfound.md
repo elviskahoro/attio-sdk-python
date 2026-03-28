@@ -1,8 +1,13 @@
 # PatchV2ListsListCodeValueNotFound
 
+## Example Usage
+
+```python
+from attio.models import PatchV2ListsListCodeValueNotFound
+value: PatchV2ListsListCodeValueNotFound = "value_not_found"
+```
+
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `VALUE_NOT_FOUND` | value_not_found   |
+- `"value_not_found"`

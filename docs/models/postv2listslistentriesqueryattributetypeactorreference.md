@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PostV2ListsListEntriesQueryAttributeTypeActorReference
+value: PostV2ListsListEntriesQueryAttributeTypeActorReference = "actor-reference"
+```
+
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `ACTOR_REFERENCE` | actor-reference   |
+- `"actor-reference"`

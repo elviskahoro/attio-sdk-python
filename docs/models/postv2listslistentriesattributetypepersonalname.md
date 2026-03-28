@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PostV2ListsListEntriesAttributeTypePersonalName
+value: PostV2ListsListEntriesAttributeTypePersonalName = "personal-name"
+```
+
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `PERSONAL_NAME` | personal-name   |
+- `"personal-name"`

@@ -1,8 +1,13 @@
 # PatchV2WebhooksWebhookIDCode
 
+## Example Usage
+
+```python
+from attio.models import PatchV2WebhooksWebhookIDCode
+value: PatchV2WebhooksWebhookIDCode = "not_found"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `NOT_FOUND` | not_found   |
+- `"not_found"`

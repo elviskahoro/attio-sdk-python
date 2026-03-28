@@ -9,7 +9,7 @@ from attio.errors import SDKError
 MAX_MESSAGE_LEN = 10_000
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class SDKDefaultError(SDKError):
     """The fallback error class if no more specific error class is matched."""
 

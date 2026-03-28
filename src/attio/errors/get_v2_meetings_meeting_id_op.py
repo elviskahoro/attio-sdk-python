@@ -13,15 +13,12 @@ from typing import Optional
 
 class GetV2MeetingsMeetingIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_get_v2_meetings_meeting_id_op.GetV2MeetingsMeetingIDType
-
     code: models_get_v2_meetings_meeting_id_op.GetV2MeetingsMeetingIDCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetV2MeetingsMeetingIDNotFoundError(SDKError):
     r"""Not Found"""
 

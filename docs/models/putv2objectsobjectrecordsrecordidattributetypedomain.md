@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PutV2ObjectsObjectRecordsRecordIDAttributeTypeDomain
+value: PutV2ObjectsObjectRecordsRecordIDAttributeTypeDomain = "domain"
+```
+
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `DOMAIN` | domain   |
+- `"domain"`

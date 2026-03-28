@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from .comment import Comment, CommentTypedDict
-from attio.types import BaseModel
+from attio.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -72,6 +73,22 @@ class PostV2CommentsDataPlaintext3(BaseModel):
     created_at: Optional[str] = None
     r"""`created_at` will default to the current time. However, if you wish to backdate a comment for migration or other purposes, you can override with a custom `created_at` value. Note that dates before 1970 or in the future are not allowed."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created_at"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 PostV2CommentsFormat2 = Literal["plaintext",]
 r"""The format that the comment content is provided in. The `plaintext` format uses the line feed character `\n` to create new lines within the note content. Rich text formatting and links are not supported."""
@@ -137,6 +154,22 @@ class PostV2CommentsDataPlaintext2(BaseModel):
     created_at: Optional[str] = None
     r"""`created_at` will default to the current time. However, if you wish to backdate a comment for migration or other purposes, you can override with a custom `created_at` value. Note that dates before 1970 or in the future are not allowed."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created_at"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 PostV2CommentsFormat1 = Literal["plaintext",]
 r"""The format that the comment content is provided in. The `plaintext` format uses the line feed character `\n` to create new lines within the note content. Rich text formatting and links are not supported."""
@@ -189,6 +222,22 @@ class PostV2CommentsDataPlaintext1(BaseModel):
     created_at: Optional[str] = None
     r"""`created_at` will default to the current time. However, if you wish to backdate a comment for migration or other purposes, you can override with a custom `created_at` value. Note that dates before 1970 or in the future are not allowed."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created_at"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 PostV2CommentsDataUnionTypedDict = TypeAliasType(
     "PostV2CommentsDataUnionTypedDict",
@@ -234,3 +283,17 @@ class PostV2CommentsResponse(BaseModel):
     r"""Success"""
 
     data: Comment
+
+
+try:
+    PostV2CommentsDataPlaintext3.model_rebuild()
+except NameError:
+    pass
+try:
+    PostV2CommentsDataPlaintext2.model_rebuild()
+except NameError:
+    pass
+try:
+    PostV2CommentsDataPlaintext1.model_rebuild()
+except NameError:
+    pass

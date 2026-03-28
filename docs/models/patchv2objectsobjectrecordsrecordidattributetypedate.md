@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PatchV2ObjectsObjectRecordsRecordIDAttributeTypeDate
+value: PatchV2ObjectsObjectRecordsRecordIDAttributeTypeDate = "date"
+```
+
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `DATE` | date   |
+- `"date"`

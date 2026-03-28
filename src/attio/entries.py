@@ -16,6 +16,7 @@ class Entries(BaseSDK):
         *,
         list_id: str,
         filter_: Optional[Dict[str, Any]] = None,
+        filter_view_id: Optional[str] = None,
         sorts: Optional[
             Union[
                 List[models.PostV2ListsListEntriesQuerySortUnion],
@@ -28,7 +29,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.PostV2ListsListEntriesQueryData]:
+    ) -> models.PostV2ListsListEntriesQueryResponse:
         r"""List entries
 
         Lists entries in a given list, with the option to filter and sort results.
@@ -36,10 +37,11 @@ class Entries(BaseSDK):
         Required scopes: `list_entry:read`, `list_configuration:read`.
 
         :param list_id:
-        :param filter_: An object used to filter results to a subset of results. See the [full guide to filtering and sorting here](/rest-api/how-to/filtering-and-sorting).
-        :param sorts: An object used to sort results. See the [full guide to filtering and sorting here](/rest-api/how-to/filtering-and-sorting).
-        :param limit: The maximum number of results to return. Defaults to 500. See the [full guide to pagination here](/rest-api/how-to/pagination).
-        :param offset: The number of results to skip over before returning. Defaults to 0. See the [full guide to pagination here](/rest-api/how-to/pagination).
+        :param filter_: An object used to filter results to a subset of results. Cannot be used together with `filter_view_id`. See the [full guide to filtering and sorting here](/rest-api/guides/filtering-and-sorting).
+        :param filter_view_id: UUID of a saved view on this object or list. When set, results are filtered using that view's filter configuration. Cannot be used together with `filter`. Note: sorts, limits, and offsets are applied independently and are not taken from the view. All attributes are returned regardless of which attributes are visible in the view.
+        :param sorts: An object used to sort results. See the [full guide to filtering and sorting here](/rest-api/guides/filtering-and-sorting).
+        :param limit: The maximum number of results to return. Defaults to 500. See the [full guide to pagination here](/rest-api/guides/pagination).
+        :param offset: The number of results to skip over before returning. Defaults to 0. See the [full guide to pagination here](/rest-api/guides/pagination).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -59,6 +61,7 @@ class Entries(BaseSDK):
             list_id=list_id,
             request_body=models.PostV2ListsListEntriesQueryRequestBody(
                 filter_=filter_,
+                filter_view_id=filter_view_id,
                 sorts=utils.get_pydantic_model(
                     sorts, Optional[List[models.PostV2ListsListEntriesQuerySortUnion]]
                 ),
@@ -87,6 +90,7 @@ class Entries(BaseSDK):
                 "json",
                 models.PostV2ListsListEntriesQueryRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -103,7 +107,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/lists/{list}/entries/query",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -137,6 +141,7 @@ class Entries(BaseSDK):
         *,
         list_id: str,
         filter_: Optional[Dict[str, Any]] = None,
+        filter_view_id: Optional[str] = None,
         sorts: Optional[
             Union[
                 List[models.PostV2ListsListEntriesQuerySortUnion],
@@ -149,7 +154,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.PostV2ListsListEntriesQueryData]:
+    ) -> models.PostV2ListsListEntriesQueryResponse:
         r"""List entries
 
         Lists entries in a given list, with the option to filter and sort results.
@@ -157,10 +162,11 @@ class Entries(BaseSDK):
         Required scopes: `list_entry:read`, `list_configuration:read`.
 
         :param list_id:
-        :param filter_: An object used to filter results to a subset of results. See the [full guide to filtering and sorting here](/rest-api/how-to/filtering-and-sorting).
-        :param sorts: An object used to sort results. See the [full guide to filtering and sorting here](/rest-api/how-to/filtering-and-sorting).
-        :param limit: The maximum number of results to return. Defaults to 500. See the [full guide to pagination here](/rest-api/how-to/pagination).
-        :param offset: The number of results to skip over before returning. Defaults to 0. See the [full guide to pagination here](/rest-api/how-to/pagination).
+        :param filter_: An object used to filter results to a subset of results. Cannot be used together with `filter_view_id`. See the [full guide to filtering and sorting here](/rest-api/guides/filtering-and-sorting).
+        :param filter_view_id: UUID of a saved view on this object or list. When set, results are filtered using that view's filter configuration. Cannot be used together with `filter`. Note: sorts, limits, and offsets are applied independently and are not taken from the view. All attributes are returned regardless of which attributes are visible in the view.
+        :param sorts: An object used to sort results. See the [full guide to filtering and sorting here](/rest-api/guides/filtering-and-sorting).
+        :param limit: The maximum number of results to return. Defaults to 500. See the [full guide to pagination here](/rest-api/guides/pagination).
+        :param offset: The number of results to skip over before returning. Defaults to 0. See the [full guide to pagination here](/rest-api/guides/pagination).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -180,6 +186,7 @@ class Entries(BaseSDK):
             list_id=list_id,
             request_body=models.PostV2ListsListEntriesQueryRequestBody(
                 filter_=filter_,
+                filter_view_id=filter_view_id,
                 sorts=utils.get_pydantic_model(
                     sorts, Optional[List[models.PostV2ListsListEntriesQuerySortUnion]]
                 ),
@@ -208,6 +215,7 @@ class Entries(BaseSDK):
                 "json",
                 models.PostV2ListsListEntriesQueryRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -224,7 +232,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/lists/{list}/entries/query",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -265,7 +273,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PostV2ListsListEntriesDataResponse:
+    ) -> models.PostV2ListsListEntriesResponse:
         r"""Create an entry (add record to list)
 
         Adds a record to a list as a new list entry. This endpoint will throw on conflicts of unique attributes. Multiple list entries are allowed for the same parent record
@@ -318,6 +326,7 @@ class Entries(BaseSDK):
                 "json",
                 models.PostV2ListsListEntriesRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -334,7 +343,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/lists/{list}/entries",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -380,7 +389,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PostV2ListsListEntriesDataResponse:
+    ) -> models.PostV2ListsListEntriesResponse:
         r"""Create an entry (add record to list)
 
         Adds a record to a list as a new list entry. This endpoint will throw on conflicts of unique attributes. Multiple list entries are allowed for the same parent record
@@ -433,6 +442,7 @@ class Entries(BaseSDK):
                 "json",
                 models.PostV2ListsListEntriesRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -449,7 +459,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/v2/lists/{list}/entries",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -495,7 +505,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PutV2ListsListEntriesDataResponse:
+    ) -> models.PutV2ListsListEntriesResponse:
         r"""Assert a list entry by parent
 
         Use this endpoint to create or update a list entry for a given parent record. If an entry with the specified parent record is found, that entry will be updated. If no such entry is found, a new entry will be created instead. If there are multiple entries with the same parent record, this endpoint with return the \"MULTIPLE_MATCH_RESULTS\" error. When writing to multi-select attributes, all values will be either created or deleted as necessary to match the list of values supplied in the request body.
@@ -548,6 +558,7 @@ class Entries(BaseSDK):
                 "json",
                 models.PutV2ListsListEntriesRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -564,7 +575,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="put_/v2/lists/{list}/entries",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -608,7 +619,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PutV2ListsListEntriesDataResponse:
+    ) -> models.PutV2ListsListEntriesResponse:
         r"""Assert a list entry by parent
 
         Use this endpoint to create or update a list entry for a given parent record. If an entry with the specified parent record is found, that entry will be updated. If no such entry is found, a new entry will be created instead. If there are multiple entries with the same parent record, this endpoint with return the \"MULTIPLE_MATCH_RESULTS\" error. When writing to multi-select attributes, all values will be either created or deleted as necessary to match the list of values supplied in the request body.
@@ -661,6 +672,7 @@ class Entries(BaseSDK):
                 "json",
                 models.PutV2ListsListEntriesRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -677,7 +689,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="put_/v2/lists/{list}/entries",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -718,7 +730,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetV2ListsListEntriesEntryIDData:
+    ) -> models.GetV2ListsListEntriesEntryIDResponse:
         r"""Get a list entry
 
         Gets a single list entry by its `entry_id`.
@@ -760,6 +772,7 @@ class Entries(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -776,7 +789,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/lists/{list}/entries/{entry_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -814,7 +827,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetV2ListsListEntriesEntryIDData:
+    ) -> models.GetV2ListsListEntriesEntryIDResponse:
         r"""Get a list entry
 
         Gets a single list entry by its `entry_id`.
@@ -856,6 +869,7 @@ class Entries(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -872,7 +886,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/lists/{list}/entries/{entry_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -914,7 +928,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PatchV2ListsListEntriesEntryIDDataResponse:
+    ) -> models.PatchV2ListsListEntriesEntryIDResponse:
         r"""Update a list entry (append multiselect values)
 
         Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
@@ -969,6 +983,7 @@ class Entries(BaseSDK):
                 "json",
                 models.PatchV2ListsListEntriesEntryIDRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -985,7 +1000,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="patch_/v2/lists/{list}/entries/{entry_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1034,7 +1049,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PatchV2ListsListEntriesEntryIDDataResponse:
+    ) -> models.PatchV2ListsListEntriesEntryIDResponse:
         r"""Update a list entry (append multiselect values)
 
         Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
@@ -1089,6 +1104,7 @@ class Entries(BaseSDK):
                 "json",
                 models.PatchV2ListsListEntriesEntryIDRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1105,7 +1121,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="patch_/v2/lists/{list}/entries/{entry_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1154,7 +1170,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PutV2ListsListEntriesEntryIDDataResponse:
+    ) -> models.PutV2ListsListEntriesEntryIDResponse:
         r"""Update a list entry (overwrite multiselect values)
 
         Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to add multiselect attribute values without removing those value that already exist.
@@ -1209,6 +1225,7 @@ class Entries(BaseSDK):
                 "json",
                 models.PutV2ListsListEntriesEntryIDRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1225,7 +1242,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="put_/v2/lists/{list}/entries/{entry_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1274,7 +1291,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PutV2ListsListEntriesEntryIDDataResponse:
+    ) -> models.PutV2ListsListEntriesEntryIDResponse:
         r"""Update a list entry (overwrite multiselect values)
 
         Use this endpoint to update list entries by `entry_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to add multiselect attribute values without removing those value that already exist.
@@ -1329,6 +1346,7 @@ class Entries(BaseSDK):
                 "json",
                 models.PutV2ListsListEntriesEntryIDRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1345,7 +1363,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="put_/v2/lists/{list}/entries/{entry_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1432,6 +1450,7 @@ class Entries(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1448,7 +1467,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_/v2/lists/{list}/entries/{entry_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1528,6 +1547,7 @@ class Entries(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1544,7 +1564,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_/v2/lists/{list}/entries/{entry_id}",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1586,7 +1606,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataUnion]:
+    ) -> models.GetV2ListsListEntriesEntryIDAttributesAttributeValuesResponse:
         r"""List attribute values for a list entry
 
         Gets all values for a given attribute on a list entry. This endpoint has the ability to return all historic values using the `show_historic` query param. Historic values are sorted from oldest to newest (by `active_from`).
@@ -1636,6 +1656,7 @@ class Entries(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1652,7 +1673,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/lists/{list}/entries/{entry_id}/attributes/{attribute}/values",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1696,7 +1717,7 @@ class Entries(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.GetV2ListsListEntriesEntryIDAttributesAttributeValuesDataUnion]:
+    ) -> models.GetV2ListsListEntriesEntryIDAttributesAttributeValuesResponse:
         r"""List attribute values for a list entry
 
         Gets all values for a given attribute on a list entry. This endpoint has the ability to return all historic values using the `show_historic` query param. Historic values are sorted from oldest to newest (by `active_from`).
@@ -1746,6 +1767,7 @@ class Entries(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1762,7 +1784,7 @@ class Entries(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_/v2/lists/{list}/entries/{entry_id}/attributes/{attribute}/values",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

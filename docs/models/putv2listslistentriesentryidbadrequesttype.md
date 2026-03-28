@@ -1,8 +1,13 @@
 # PutV2ListsListEntriesEntryIDBadRequestType
 
+## Example Usage
+
+```python
+from attio.models import PutV2ListsListEntriesEntryIDBadRequestType
+value: PutV2ListsListEntriesEntryIDBadRequestType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

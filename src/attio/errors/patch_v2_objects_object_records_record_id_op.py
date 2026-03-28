@@ -13,15 +13,12 @@ from typing import Optional
 
 class PatchV2ObjectsObjectRecordsRecordIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDNotFoundType
-
     code: models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2ObjectsObjectRecordsRecordIDNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -41,15 +38,12 @@ class PatchV2ObjectsObjectRecordsRecordIDNotFoundError(SDKError):
 
 class PatchV2ObjectsObjectRecordsRecordIDMissingValueErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDBadRequestType
-
     code: models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDCodeMissingValue
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2ObjectsObjectRecordsRecordIDMissingValueError(SDKError):
     r"""Bad Request"""
 

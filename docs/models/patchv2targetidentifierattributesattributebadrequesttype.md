@@ -1,8 +1,13 @@
 # PatchV2TargetIdentifierAttributesAttributeBadRequestType
 
+## Example Usage
+
+```python
+from attio.models import PatchV2TargetIdentifierAttributesAttributeBadRequestType
+value: PatchV2TargetIdentifierAttributesAttributeBadRequestType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

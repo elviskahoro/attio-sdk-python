@@ -34,14 +34,14 @@ class Start2(BaseModel):
 
 
 class Start1TypedDict(TypedDict):
-    datetime: str
+    datetime_: str
     r"""If a non-all day event, a datetime representing when the meeting starts. Datetimes are formatted as UTC if no timezone is available. If a timezone is available, the datetime will offset using the specified timezone."""
     timezone: Nullable[str]
     r"""The IANA timezone in which the meeting starts, if available."""
 
 
 class Start1(BaseModel):
-    datetime: str
+    datetime_: Annotated[str, pydantic.Field(alias="datetime")]
     r"""If a non-all day event, a datetime representing when the meeting starts. Datetimes are formatted as UTC if no timezone is available. If a timezone is available, the datetime will offset using the specified timezone."""
 
     timezone: Nullable[str]
@@ -49,41 +49,17 @@ class Start1(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["timezone"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
-
-
-StartUnionTypedDict = TypeAliasType(
-    "StartUnionTypedDict", Union[Start2TypedDict, Start1TypedDict]
-)
-
-
-StartUnion = TypeAliasType("StartUnion", Union[Start2, Start1])
 
 
 class End2TypedDict(TypedDict):
@@ -97,14 +73,14 @@ class End2(BaseModel):
 
 
 class End1TypedDict(TypedDict):
-    datetime: str
+    datetime_: str
     r"""A datetime representing when the meeting ends. All day meetings will return a date whereas non-all day meetings will return a datetime. Datetimes do not include timezone information; please refer to `timezone` for timezone information. Following iCalendar RFC 5545, the `end_at` property is exclusive, meaning that the meeting ends before the specified time, not at it. For example, a one day meeting on June 3rd would have an `end_at` of June 4th, not June 3rd; a one hour meeting starting at 14:00 would have an `end_at` of 15:00, not 14:00."""
     timezone: Nullable[str]
     r"""The IANA timezone in which the meeting ends, if available."""
 
 
 class End1(BaseModel):
-    datetime: str
+    datetime_: Annotated[str, pydantic.Field(alias="datetime")]
     r"""A datetime representing when the meeting ends. All day meetings will return a date whereas non-all day meetings will return a datetime. Datetimes do not include timezone information; please refer to `timezone` for timezone information. Following iCalendar RFC 5545, the `end_at` property is exclusive, meaning that the meeting ends before the specified time, not at it. For example, a one day meeting on June 3rd would have an `end_at` of June 4th, not June 3rd; a one hour meeting starting at 14:00 would have an `end_at` of 15:00, not 14:00."""
 
     timezone: Nullable[str]
@@ -112,33 +88,25 @@ class End1(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["timezone"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
+
+
+StartUnionTypedDict = TypeAliasType(
+    "StartUnionTypedDict", Union[Start2TypedDict, Start1TypedDict]
+)
+
+
+StartUnion = TypeAliasType("StartUnion", Union[Start2, Start1])
 
 
 EndUnionTypedDict = TypeAliasType(
@@ -179,30 +147,14 @@ class Participant(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["email_address"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -257,31 +209,26 @@ class MeetingCreatedByActor(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["id", "type"]
-        nullable_fields = ["id", "type"]
-        null_default_fields = []
-
+        optional_fields = set(["id", "type"])
+        nullable_fields = set(["id", "type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -331,3 +278,21 @@ class Meeting(BaseModel):
 
     created_by_actor: MeetingCreatedByActor
     r"""The actor that created this meeting."""
+
+
+try:
+    Start2.model_rebuild()
+except NameError:
+    pass
+try:
+    Start1.model_rebuild()
+except NameError:
+    pass
+try:
+    End2.model_rebuild()
+except NameError:
+    pass
+try:
+    End1.model_rebuild()
+except NameError:
+    pass

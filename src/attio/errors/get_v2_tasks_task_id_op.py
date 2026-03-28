@@ -11,15 +11,12 @@ from typing import Optional
 
 class GetV2TasksTaskIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_get_v2_tasks_task_id_op.GetV2TasksTaskIDType
-
     code: models_get_v2_tasks_task_id_op.GetV2TasksTaskIDCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetV2TasksTaskIDNotFoundError(SDKError):
     r"""Not Found"""
 

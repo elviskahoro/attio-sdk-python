@@ -11,15 +11,12 @@ from typing import Optional
 
 class PatchV2TasksTaskIDNotFoundErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_tasks_task_id_op.PatchV2TasksTaskIDNotFoundType
-
     code: models_patch_v2_tasks_task_id_op.PatchV2TasksTaskIDNotFoundCode
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2TasksTaskIDNotFoundError(SDKError):
     r"""Not Found"""
 
@@ -39,15 +36,12 @@ class PatchV2TasksTaskIDNotFoundError(SDKError):
 
 class PatchV2TasksTaskIDValidationTypeErrorData(BaseModel):
     status_code: float
-
     type: models_patch_v2_tasks_task_id_op.PatchV2TasksTaskIDBadRequestType
-
     code: models_patch_v2_tasks_task_id_op.PatchV2TasksTaskIDCodeValidationType
-
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class PatchV2TasksTaskIDValidationTypeError(SDKError):
     r"""Bad Request"""
 

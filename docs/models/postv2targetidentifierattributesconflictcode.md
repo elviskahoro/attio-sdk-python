@@ -1,8 +1,13 @@
 # PostV2TargetIdentifierAttributesConflictCode
 
+## Example Usage
+
+```python
+from attio.models import PostV2TargetIdentifierAttributesConflictCode
+value: PostV2TargetIdentifierAttributesConflictCode = "slug_conflict"
+```
+
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `SLUG_CONFLICT` | slug_conflict   |
+- `"slug_conflict"`

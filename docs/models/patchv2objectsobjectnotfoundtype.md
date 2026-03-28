@@ -1,8 +1,13 @@
 # PatchV2ObjectsObjectNotFoundType
 
+## Example Usage
+
+```python
+from attio.models import PatchV2ObjectsObjectNotFoundType
+value: PatchV2ObjectsObjectNotFoundType = "invalid_request_error"
+```
+
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `INVALID_REQUEST_ERROR` | invalid_request_error   |
+- `"invalid_request_error"`

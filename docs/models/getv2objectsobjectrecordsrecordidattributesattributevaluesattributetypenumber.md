@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesAttributeTypeNumber
+value: GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesAttributeTypeNumber = "number"
+```
+
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `NUMBER` | number   |
+- `"number"`

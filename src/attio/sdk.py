@@ -19,12 +19,16 @@ if TYPE_CHECKING:
     from attio.call_recordings import CallRecordings
     from attio.comments import Comments
     from attio.entries import Entries
+    from attio.files import Files
     from attio.lists import Lists
     from attio.meetings import Meetings
-    from attio.meta import Meta
+    from attio.meta_sdk import MetaSDK
     from attio.notes import Notes
     from attio.objects import Objects
     from attio.records import Records
+    from attio.scim_groups import SCIMGroups
+    from attio.scim_schemas import SCIMSchemas
+    from attio.scim_users import SCIMUsers
     from attio.tasks import Tasks
     from attio.threads import Threads
     from attio.transcripts import Transcripts
@@ -59,9 +63,17 @@ class SDK(BaseSDK):
     r"""Call recordings store video, audio, transcript and speaker information for calls. They are linked to meetings."""
     transcripts: "Transcripts"
     r"""Transcripts contain the speech segments and speaker information for a call recording. They are linked to call recordings."""
+    files: "Files"
+    r"""Files are documents and folders linked to records, stored either in Attio or connected via external storage providers."""
+    scim_schemas: "SCIMSchemas"
+    r"""SCIM schemas describe the resource types supported by the SCIM service provider."""
+    scim_users: "SCIMUsers"
+    r"""SCIM users represent workspace members managed through the SCIM provisioning protocol."""
+    scim_groups: "SCIMGroups"
+    r"""SCIM groups represent Attio teams managed through the SCIM provisioning protocol."""
     webhooks: "Webhooks"
     r"""Webhooks allow you to listen for changes to data in Attio, for example when a record is updated."""
-    meta: "Meta"
+    meta: "MetaSDK"
     r"""Meta endpoints are used to get information about the API token."""
     _sub_sdk_map = {
         "objects": ("attio.objects", "Objects"),
@@ -77,16 +89,20 @@ class SDK(BaseSDK):
         "meetings": ("attio.meetings", "Meetings"),
         "call_recordings": ("attio.call_recordings", "CallRecordings"),
         "transcripts": ("attio.transcripts", "Transcripts"),
+        "files": ("attio.files", "Files"),
+        "scim_schemas": ("attio.scim_schemas", "SCIMSchemas"),
+        "scim_users": ("attio.scim_users", "SCIMUsers"),
+        "scim_groups": ("attio.scim_groups", "SCIMGroups"),
         "webhooks": ("attio.webhooks", "Webhooks"),
-        "meta": ("attio.meta", "Meta"),
+        "meta": ("attio.meta_sdk", "MetaSDK"),
     }
 
     def __init__(
         self,
         oauth2: Union[str, Callable[[], str]],
         server_idx: Optional[int] = None,
-        server_url: Optional[str] = None,
         url_params: Optional[Dict[str, str]] = None,
+        server_url: Optional[str] = None,
         client: Optional[HttpClient] = None,
         async_client: Optional[AsyncHttpClient] = None,
         retry_config: OptionalNullable[RetryConfig] = UNSET,

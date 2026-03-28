@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import GetV2ListsListEntriesEntryIDAttributesAttributeValuesAttributeTypeDomain
+value: GetV2ListsListEntriesEntryIDAttributesAttributeValuesAttributeTypeDomain = "domain"
+```
+
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `DOMAIN` | domain   |
+- `"domain"`

@@ -1,8 +1,13 @@
 # PostV2ObjectsRecordsSearchCode
 
+## Example Usage
+
+```python
+from attio.models import PostV2ObjectsRecordsSearchCode
+value: PostV2ObjectsRecordsSearchCode = "value_not_found"
+```
+
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `VALUE_NOT_FOUND` | value_not_found   |
+- `"value_not_found"`

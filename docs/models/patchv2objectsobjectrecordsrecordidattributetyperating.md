@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PatchV2ObjectsObjectRecordsRecordIDAttributeTypeRating
+value: PatchV2ObjectsObjectRecordsRecordIDAttributeTypeRating = "rating"
+```
+
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `RATING` | rating   |
+- `"rating"`

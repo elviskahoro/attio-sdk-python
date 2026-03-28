@@ -19,6 +19,22 @@ class PatchV2TasksTaskIDSlugOrIDOfMatchingAttribute5(BaseModel):
     value: Optional[str] = None
     r"""A raw text field. Values are limited to 10MB."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["value"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 PatchV2TasksTaskIDCountryCode = Literal[
     "AF",
@@ -293,31 +309,26 @@ class PatchV2TasksTaskIDSlugOrIDOfMatchingAttribute4(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["original_phone_number", "country_code"]
-        nullable_fields = ["country_code"]
-        null_default_fields = []
-
+        optional_fields = set(["original_phone_number", "country_code"])
+        nullable_fields = set(["country_code"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -331,6 +342,22 @@ class PatchV2TasksTaskIDSlugOrIDOfMatchingAttribute3(BaseModel):
     value: Optional[float] = None
     r"""Numbers are persisted as 64 bit floats."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["value"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class PatchV2TasksTaskIDSlugOrIDOfMatchingAttribute2TypedDict(TypedDict):
     email_address: NotRequired[str]
@@ -341,6 +368,22 @@ class PatchV2TasksTaskIDSlugOrIDOfMatchingAttribute2(BaseModel):
     email_address: Optional[str] = None
     r"""An email address string"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["email_address"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class PatchV2TasksTaskIDSlugOrIDOfMatchingAttribute1TypedDict(TypedDict):
     domain: NotRequired[str]
@@ -350,6 +393,22 @@ class PatchV2TasksTaskIDSlugOrIDOfMatchingAttribute1TypedDict(TypedDict):
 class PatchV2TasksTaskIDSlugOrIDOfMatchingAttribute1(BaseModel):
     domain: Optional[str] = None
     r"""The full domain of the website."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["domain"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 PatchV2TasksTaskIDSlugOrIDOfMatchingAttributeUnionTypedDict = TypeAliasType(
@@ -496,31 +555,28 @@ class PatchV2TasksTaskIDData(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["deadline_at", "is_completed", "linked_records", "assignees"]
-        nullable_fields = ["deadline_at"]
-        null_default_fields = []
-
+        optional_fields = set(
+            ["deadline_at", "is_completed", "linked_records", "assignees"]
+        )
+        nullable_fields = set(["deadline_at"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -571,3 +627,9 @@ class PatchV2TasksTaskIDResponse(BaseModel):
     r"""Success"""
 
     data: Task
+
+
+try:
+    PatchV2TasksTaskIDLinkedRecord2.model_rebuild()
+except NameError:
+    pass

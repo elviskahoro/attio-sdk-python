@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PutV2ObjectsObjectRecordsAttributeTypeCheckbox
+value: PutV2ObjectsObjectRecordsAttributeTypeCheckbox = "checkbox"
+```
+
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `CHECKBOX` | checkbox   |
+- `"checkbox"`

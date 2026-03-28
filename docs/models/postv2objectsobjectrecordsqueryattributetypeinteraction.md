@@ -2,9 +2,14 @@
 
 The attribute type of the value.
 
+## Example Usage
+
+```python
+from attio.models import PostV2ObjectsObjectRecordsQueryAttributeTypeInteraction
+value: PostV2ObjectsObjectRecordsQueryAttributeTypeInteraction = "interaction"
+```
+
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `INTERACTION` | interaction   |
+- `"interaction"`
