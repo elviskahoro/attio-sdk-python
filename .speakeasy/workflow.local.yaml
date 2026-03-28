@@ -13,7 +13,7 @@
 # sources:
 #     attio:
 #         inputs:
-#             - location: api-with_overlay.json
+#             - location: openapi/api-with_overlay.json
 #         overlays:
 #             - location: overlay.yaml
 #             - location: overlay.yaml
