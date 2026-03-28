@@ -11,8 +11,6 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage *open
 
 
 <br /><br />
-> [!IMPORTANT]
-> This SDK is not yet ready for production use. To complete setup please follow the steps outlined in your [workspace](https://app.speakeasy.com/org/elviskahoro/attio). Delete this section before > publishing to a package manager.
 
 The Attio SDK for Python provides a type-safe client for the [Attio API](https://developers.attio.com/).
 
@@ -48,10 +46,6 @@ The latest OpenAPI spec is available at: https://api.attio.com/openapi/api
 
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
-
-> [!TIP]
-> To finish publishing your SDK to PyPI you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
-
 
 > [!NOTE]
 > **Python version upgrade policy**
