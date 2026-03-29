@@ -1,4 +1,4 @@
-# PostV2ObjectsRecordsSearchValueNotFoundError
+# PostV2ObjectsRecordsSearchInvalidRequestError
 
 Bad Request
 

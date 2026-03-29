@@ -72,7 +72,10 @@ PostV2ListsListEntriesNotFoundCode = Literal["not_found",]
 PostV2ListsListEntriesBadRequestType = Literal["invalid_request_error",]
 
 
-PostV2ListsListEntriesCodeValueNotFound = Literal["value_not_found",]
+PostV2ListsListEntriesBadRequestCode = Literal[
+    "value_not_found",
+    "validation_type",
+]
 
 
 class PostV2ListsListEntriesIDTypedDict(TypedDict):

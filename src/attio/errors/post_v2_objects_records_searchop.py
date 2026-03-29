@@ -11,7 +11,7 @@ import httpx
 from typing import Optional
 
 
-class PostV2ObjectsRecordsSearchValueNotFoundErrorData(BaseModel):
+class PostV2ObjectsRecordsSearchInvalidRequestErrorData(BaseModel):
     status_code: float
     type: (
         models_post_v2_objects_records_searchop.PostV2ObjectsRecordsSearchBadRequestType
@@ -21,14 +21,14 @@ class PostV2ObjectsRecordsSearchValueNotFoundErrorData(BaseModel):
 
 
 @dataclass(unsafe_hash=True)
-class PostV2ObjectsRecordsSearchValueNotFoundError(SDKError):
+class PostV2ObjectsRecordsSearchInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: PostV2ObjectsRecordsSearchValueNotFoundErrorData = field(hash=False)
+    data: PostV2ObjectsRecordsSearchInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: PostV2ObjectsRecordsSearchValueNotFoundErrorData,
+        data: PostV2ObjectsRecordsSearchInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

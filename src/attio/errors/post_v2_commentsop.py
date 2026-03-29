@@ -11,7 +11,7 @@ from typing import Optional
 from typing_extensions import Annotated
 
 
-class PostV2CommentsValueNotFoundErrorData(BaseModel):
+class PostV2CommentsInvalidRequestErrorData(BaseModel):
     status_code: Annotated[float, pydantic.Field(alias="statusCode")]
     type: models_post_v2_commentsop.PostV2CommentsBadRequestType
     code: models_post_v2_commentsop.PostV2CommentsCode
@@ -19,14 +19,14 @@ class PostV2CommentsValueNotFoundErrorData(BaseModel):
 
 
 @dataclass(unsafe_hash=True)
-class PostV2CommentsValueNotFoundError(SDKError):
+class PostV2CommentsInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: PostV2CommentsValueNotFoundErrorData = field(hash=False)
+    data: PostV2CommentsInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: PostV2CommentsValueNotFoundErrorData,
+        data: PostV2CommentsInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

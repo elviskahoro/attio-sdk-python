@@ -394,12 +394,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                                                                       | Status Code                                                                      | Content Type                                                                     |
-| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError | 400                                                                              | application/json                                                                 |
-| errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundError      | 404                                                                              | application/json                                                                 |
-| errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictError  | 409                                                                              | application/json                                                                 |
-| errors.SDKDefaultError                                                           | 4XX, 5XX                                                                         | \*/\*                                                                            |
+| Error Type                                                                        | Status Code                                                                       | Content Type                                                                      |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestError | 400                                                                               | application/json                                                                  |
+| errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundError       | 404                                                                               | application/json                                                                  |
+| errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictError   | 409                                                                               | application/json                                                                  |
+| errors.SDKDefaultError                                                            | 4XX, 5XX                                                                          | \*/\*                                                                             |
 
 ## get_v2_target_identifier_attributes_attribute_statuses
 
@@ -543,9 +543,9 @@ with SDK(
 
 ### Errors
 
-| Error Type                                                                        | Status Code                                                                       | Content Type                                                                      |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError | 400                                                                               | application/json                                                                  |
-| errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundError      | 404                                                                               | application/json                                                                  |
-| errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictError  | 409                                                                               | application/json                                                                  |
-| errors.SDKDefaultError                                                            | 4XX, 5XX                                                                          | \*/\*                                                                             |
+| Error Type                                                                         | Status Code                                                                        | Content Type                                                                       |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestError | 400                                                                                | application/json                                                                   |
+| errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundError       | 404                                                                                | application/json                                                                   |
+| errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictError   | 409                                                                                | application/json                                                                   |
+| errors.SDKDefaultError                                                             | 4XX, 5XX                                                                           | \*/\*                                                                              |

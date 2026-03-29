@@ -59,7 +59,10 @@ PostV2ObjectsObjectRecordsNotFoundCode = Literal["not_found",]
 PostV2ObjectsObjectRecordsBadRequestType = Literal["invalid_request_error",]
 
 
-PostV2ObjectsObjectRecordsCodeValueNotFound = Literal["value_not_found",]
+PostV2ObjectsObjectRecordsBadRequestCode = Literal[
+    "value_not_found",
+    "validation_type",
+]
 
 
 class PostV2ObjectsObjectRecordsIDTypedDict(TypedDict):

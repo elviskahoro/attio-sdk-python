@@ -380,3 +380,50 @@ actions:
       name: "list"
       in: "query"
       x-speakeasy-name-override: "list_id"
+
+  # Some endpoints currently return validation_type for 400s in addition to value_not_found.
+  # Accept both to avoid ResponseValidationError when unmarshalling error responses.
+  - target: "$.paths['/v2/{target}/{identifier}/attributes/{attribute}/options/{option}'].patch.responses['400'].content['application/json'].schema.properties.code.enum"
+    description: "Allow validation_type code in PATCH /v2/{target}/{identifier}/attributes/{attribute}/options/{option}"
+    update:
+      - "validation_type"
+
+  - target: "$.paths['/v2/{target}/{identifier}/attributes/{attribute}/statuses/{status}'].patch.responses['400'].content['application/json'].schema.properties.code.enum"
+    description: "Allow validation_type code in PATCH /v2/{target}/{identifier}/attributes/{attribute}/statuses/{status}"
+    update:
+      - "validation_type"
+
+  - target: "$.paths['/v2/objects/{object}/records'].post.responses['400'].content['application/json'].schema.properties.code.enum"
+    description: "Allow validation_type code in POST /v2/objects/{object}/records"
+    update:
+      - "validation_type"
+
+  - target: "$.paths['/v2/objects/{object}/records'].put.responses['400'].content['application/json'].schema.properties.code.enum"
+    description: "Allow validation_type code in PUT /v2/objects/{object}/records"
+    update:
+      - "validation_type"
+
+  - target: "$.paths['/v2/objects/records/search'].post.responses['400'].content['application/json'].schema.properties.code.enum"
+    description: "Allow validation_type code in POST /v2/objects/records/search"
+    update:
+      - "validation_type"
+
+  - target: "$.paths['/v2/lists'].post.responses['400'].content['application/json'].schema.properties.code.enum"
+    description: "Allow validation_type code in POST /v2/lists"
+    update:
+      - "validation_type"
+
+  - target: "$.paths['/v2/lists/{list}'].patch.responses['400'].content['application/json'].schema.properties.code.enum"
+    description: "Allow validation_type code in PATCH /v2/lists/{list}"
+    update:
+      - "validation_type"
+
+  - target: "$.paths['/v2/lists/{list}/entries'].post.responses['400'].content['application/json'].schema.properties.code.enum"
+    description: "Allow validation_type code in POST /v2/lists/{list}/entries"
+    update:
+      - "validation_type"
+
+  - target: "$.paths['/v2/comments'].post.responses['400'].content['application/json'].schema.properties.code.enum"
+    description: "Allow validation_type code in POST /v2/comments"
+    update:
+      - "validation_type"

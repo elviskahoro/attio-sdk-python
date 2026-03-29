@@ -106,13 +106,13 @@ with SDK(
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.PostV2ListsValueNotFoundError | 400                                  | application/json                     |
-| errors.BillingError                  | 403                                  | application/json                     |
-| errors.PostV2ListsNotFoundError      | 404                                  | application/json                     |
-| errors.PostV2ListsSlugConflictError  | 409                                  | application/json                     |
-| errors.SDKDefaultError               | 4XX, 5XX                             | \*/\*                                |
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| errors.PostV2ListsInvalidRequestError | 400                                   | application/json                      |
+| errors.BillingError                   | 403                                   | application/json                      |
+| errors.PostV2ListsNotFoundError       | 404                                   | application/json                      |
+| errors.PostV2ListsSlugConflictError   | 409                                   | application/json                      |
+| errors.SDKDefaultError                | 4XX, 5XX                              | \*/\*                                 |
 
 ## get_v2_lists_list_
 
@@ -204,11 +204,11 @@ with SDK(
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.PatchV2ListsListValueNotFoundError | 400                                       | application/json                          |
-| errors.PatchV2ListsListNotFoundError      | 404                                       | application/json                          |
-| errors.SDKDefaultError                    | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| errors.PatchV2ListsListInvalidRequestError | 400                                        | application/json                           |
+| errors.PatchV2ListsListNotFoundError       | 404                                        | application/json                           |
+| errors.SDKDefaultError                     | 4XX, 5XX                                   | \*/\*                                      |
 
 ## get_v2_lists_list_views
 

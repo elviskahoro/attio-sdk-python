@@ -366,9 +366,9 @@ class Records(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PostV2ObjectsObjectRecordsValueNotFoundErrorData, http_res
+                errors.PostV2ObjectsObjectRecordsInvalidRequestErrorData, http_res
             )
-            raise errors.PostV2ObjectsObjectRecordsValueNotFoundError(
+            raise errors.PostV2ObjectsObjectRecordsInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -484,9 +484,9 @@ class Records(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PostV2ObjectsObjectRecordsValueNotFoundErrorData, http_res
+                errors.PostV2ObjectsObjectRecordsInvalidRequestErrorData, http_res
             )
-            raise errors.PostV2ObjectsObjectRecordsValueNotFoundError(
+            raise errors.PostV2ObjectsObjectRecordsInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -607,9 +607,9 @@ class Records(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PutV2ObjectsObjectRecordsValueNotFoundErrorData, http_res
+                errors.PutV2ObjectsObjectRecordsInvalidRequestErrorData, http_res
             )
-            raise errors.PutV2ObjectsObjectRecordsValueNotFoundError(
+            raise errors.PutV2ObjectsObjectRecordsInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -728,9 +728,9 @@ class Records(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PutV2ObjectsObjectRecordsValueNotFoundErrorData, http_res
+                errors.PutV2ObjectsObjectRecordsInvalidRequestErrorData, http_res
             )
-            raise errors.PutV2ObjectsObjectRecordsValueNotFoundError(
+            raise errors.PutV2ObjectsObjectRecordsInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -2149,9 +2149,9 @@ class Records(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PostV2ObjectsRecordsSearchValueNotFoundErrorData, http_res
+                errors.PostV2ObjectsRecordsSearchInvalidRequestErrorData, http_res
             )
-            raise errors.PostV2ObjectsRecordsSearchValueNotFoundError(
+            raise errors.PostV2ObjectsRecordsSearchInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2259,9 +2259,9 @@ class Records(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PostV2ObjectsRecordsSearchValueNotFoundErrorData, http_res
+                errors.PostV2ObjectsRecordsSearchInvalidRequestErrorData, http_res
             )
-            raise errors.PostV2ObjectsRecordsSearchValueNotFoundError(
+            raise errors.PostV2ObjectsRecordsSearchInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):

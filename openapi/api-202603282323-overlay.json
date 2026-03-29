@@ -6910,7 +6910,8 @@
                     "code": {
                       "type": "string",
                       "enum": [
-                        "value_not_found"
+                        "value_not_found",
+                        "validation_type"
                       ]
                     },
                     "message": {
@@ -7522,7 +7523,8 @@
                     "code": {
                       "type": "string",
                       "enum": [
-                        "value_not_found"
+                        "value_not_found",
+                        "validation_type"
                       ]
                     },
                     "message": {
@@ -11913,7 +11915,8 @@
                     "code": {
                       "type": "string",
                       "enum": [
-                        "value_not_found"
+                        "value_not_found",
+                        "validation_type"
                       ]
                     },
                     "message": {
@@ -14037,7 +14040,8 @@
                     "code": {
                       "type": "string",
                       "enum": [
-                        "value_not_found"
+                        "value_not_found",
+                        "validation_type"
                       ]
                     },
                     "message": {
@@ -23054,7 +23058,8 @@
                     "code": {
                       "type": "string",
                       "enum": [
-                        "value_not_found"
+                        "value_not_found",
+                        "validation_type"
                       ]
                     },
                     "message": {
@@ -23254,7 +23259,8 @@
                     "code": {
                       "type": "string",
                       "enum": [
-                        "value_not_found"
+                        "value_not_found",
+                        "validation_type"
                       ]
                     },
                     "message": {
@@ -23629,7 +23635,8 @@
                     "code": {
                       "type": "string",
                       "enum": [
-                        "value_not_found"
+                        "value_not_found",
+                        "validation_type"
                       ]
                     },
                     "message": {
@@ -28207,7 +28214,8 @@
                     "code": {
                       "type": "string",
                       "enum": [
-                        "value_not_found"
+                        "value_not_found",
+                        "validation_type"
                       ]
                     },
                     "message": {
@@ -41616,7 +41624,8 @@
                     "code": {
                       "type": "string",
                       "enum": [
-                        "value_not_found"
+                        "value_not_found",
+                        "validation_type"
                       ]
                     },
                     "message": {

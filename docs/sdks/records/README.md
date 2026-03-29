@@ -146,11 +146,11 @@ with SDK(
 
 ### Errors
 
-| Error Type                                          | Status Code                                         | Content Type                                        |
-| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| errors.PostV2ObjectsObjectRecordsValueNotFoundError | 400                                                 | application/json                                    |
-| errors.PostV2ObjectsObjectRecordsNotFoundError      | 404                                                 | application/json                                    |
-| errors.SDKDefaultError                              | 4XX, 5XX                                            | \*/\*                                               |
+| Error Type                                           | Status Code                                          | Content Type                                         |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| errors.PostV2ObjectsObjectRecordsInvalidRequestError | 400                                                  | application/json                                     |
+| errors.PostV2ObjectsObjectRecordsNotFoundError       | 404                                                  | application/json                                     |
+| errors.SDKDefaultError                               | 4XX, 5XX                                             | \*/\*                                                |
 
 ## put_v2_objects_object_records
 
@@ -203,11 +203,11 @@ with SDK(
 
 ### Errors
 
-| Error Type                                         | Status Code                                        | Content Type                                       |
-| -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
-| errors.PutV2ObjectsObjectRecordsValueNotFoundError | 400                                                | application/json                                   |
-| errors.PutV2ObjectsObjectRecordsNotFoundError      | 404                                                | application/json                                   |
-| errors.SDKDefaultError                             | 4XX, 5XX                                           | \*/\*                                              |
+| Error Type                                          | Status Code                                         | Content Type                                        |
+| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
+| errors.PutV2ObjectsObjectRecordsInvalidRequestError | 400                                                 | application/json                                    |
+| errors.PutV2ObjectsObjectRecordsNotFoundError       | 404                                                 | application/json                                    |
+| errors.SDKDefaultError                              | 4XX, 5XX                                            | \*/\*                                               |
 
 ## get_v2_objects_object_records_record_id_
 
@@ -548,7 +548,7 @@ with SDK(
 
 ### Errors
 
-| Error Type                                          | Status Code                                         | Content Type                                        |
-| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| errors.PostV2ObjectsRecordsSearchValueNotFoundError | 400                                                 | application/json                                    |
-| errors.SDKDefaultError                              | 4XX, 5XX                                            | \*/\*                                               |
+| Error Type                                           | Status Code                                          | Content Type                                         |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| errors.PostV2ObjectsRecordsSearchInvalidRequestError | 400                                                  | application/json                                     |
+| errors.SDKDefaultError                               | 4XX, 5XX                                             | \*/\*                                                |

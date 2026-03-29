@@ -120,8 +120,9 @@ PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType = Literal[
 ]
 
 
-PatchV2TargetIdentifierAttributesAttributeOptionsOptionCodeValueNotFound = Literal[
+PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestCode = Literal[
     "value_not_found",
+    "validation_type",
 ]
 
 

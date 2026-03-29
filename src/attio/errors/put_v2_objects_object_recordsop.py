@@ -36,22 +36,22 @@ class PutV2ObjectsObjectRecordsNotFoundError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class PutV2ObjectsObjectRecordsValueNotFoundErrorData(BaseModel):
+class PutV2ObjectsObjectRecordsInvalidRequestErrorData(BaseModel):
     status_code: float
     type: models_put_v2_objects_object_recordsop.PutV2ObjectsObjectRecordsBadRequestType
-    code: models_put_v2_objects_object_recordsop.PutV2ObjectsObjectRecordsCodeValueNotFound
+    code: models_put_v2_objects_object_recordsop.PutV2ObjectsObjectRecordsBadRequestCode
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PutV2ObjectsObjectRecordsValueNotFoundError(SDKError):
+class PutV2ObjectsObjectRecordsInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: PutV2ObjectsObjectRecordsValueNotFoundErrorData = field(hash=False)
+    data: PutV2ObjectsObjectRecordsInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: PutV2ObjectsObjectRecordsValueNotFoundErrorData,
+        data: PutV2ObjectsObjectRecordsInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

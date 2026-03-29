@@ -47,6 +47,10 @@ The latest OpenAPI spec is available at: https://api.attio.com/openapi/api
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
+> [!TIP]
+> To finish publishing your SDK to PyPI you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
+
+
 > [!NOTE]
 > **Python version upgrade policy**
 >
@@ -481,25 +485,25 @@ with SDK(
 * [`PostV2TargetIdentifierAttributesValidationTypeError`](./src/attio/errors/postv2targetidentifierattributesvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`SystemEditUnauthorizedError`](./src/attio/errors/systemeditunauthorizederror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError`](./src/attio/errors/postv2targetidentifierattributesattributeoptionsvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError`](./src/attio/errors/patchv2targetidentifierattributesattributeoptionsoptionvaluenotfounderror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
+* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestError`](./src/attio/errors/patchv2targetidentifierattributesattributeoptionsoptioninvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`PostV2TargetIdentifierAttributesAttributeStatusesValidationTypeError`](./src/attio/errors/postv2targetidentifierattributesattributestatusesvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError`](./src/attio/errors/patchv2targetidentifierattributesattributestatusesstatusvaluenotfounderror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
+* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestError`](./src/attio/errors/patchv2targetidentifierattributesattributestatusesstatusinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`FilterError`](./src/attio/errors/filtererror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2ObjectsObjectRecordsValueNotFoundError`](./src/attio/errors/postv2objectsobjectrecordsvaluenotfounderror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PutV2ObjectsObjectRecordsValueNotFoundError`](./src/attio/errors/putv2objectsobjectrecordsvaluenotfounderror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
+* [`PostV2ObjectsObjectRecordsInvalidRequestError`](./src/attio/errors/postv2objectsobjectrecordsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
+* [`PutV2ObjectsObjectRecordsInvalidRequestError`](./src/attio/errors/putv2objectsobjectrecordsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`PatchV2ObjectsObjectRecordsRecordIDMissingValueError`](./src/attio/errors/patchv2objectsobjectrecordsrecordidmissingvalueerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`PutV2ObjectsObjectRecordsRecordIDMissingValueError`](./src/attio/errors/putv2objectsobjectrecordsrecordidmissingvalueerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesValidationTypeError`](./src/attio/errors/getv2objectsobjectrecordsrecordidattributesattributevaluesvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2ObjectsRecordsSearchValueNotFoundError`](./src/attio/errors/postv2objectsrecordssearchvaluenotfounderror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2ListsValueNotFoundError`](./src/attio/errors/postv2listsvaluenotfounderror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PatchV2ListsListValueNotFoundError`](./src/attio/errors/patchv2listslistvaluenotfounderror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2ListsListEntriesValueNotFoundError`](./src/attio/errors/postv2listslistentriesvaluenotfounderror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
+* [`PostV2ObjectsRecordsSearchInvalidRequestError`](./src/attio/errors/postv2objectsrecordssearchinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
+* [`PostV2ListsInvalidRequestError`](./src/attio/errors/postv2listsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
+* [`PatchV2ListsListInvalidRequestError`](./src/attio/errors/patchv2listslistinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
+* [`PostV2ListsListEntriesInvalidRequestError`](./src/attio/errors/postv2listslistentriesinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`MultipleMatchResultsError`](./src/attio/errors/multiplematchresultserror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`PatchV2ListsListEntriesEntryIDImmutableValueError`](./src/attio/errors/patchv2listslistentriesentryidimmutablevalueerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`PutV2ListsListEntriesEntryIDImmutableValueError`](./src/attio/errors/putv2listslistentriesentryidimmutablevalueerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`PostV2TasksValidationTypeError`](./src/attio/errors/postv2tasksvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`PatchV2TasksTaskIDValidationTypeError`](./src/attio/errors/patchv2taskstaskidvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2CommentsValueNotFoundError`](./src/attio/errors/postv2commentsvaluenotfounderror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
+* [`PostV2CommentsInvalidRequestError`](./src/attio/errors/postv2commentsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`PostV2MeetingsValidationTypeError`](./src/attio/errors/postv2meetingsvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`PostV2MeetingsMeetingIDCallRecordingsValidationTypeError`](./src/attio/errors/postv2meetingsmeetingidcallrecordingsvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
 * [`PostV2WebhooksValidationTypeError`](./src/attio/errors/postv2webhooksvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*

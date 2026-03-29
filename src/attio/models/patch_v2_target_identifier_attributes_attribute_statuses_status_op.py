@@ -141,8 +141,9 @@ PatchV2TargetIdentifierAttributesAttributeStatusesStatusBadRequestType = Literal
 ]
 
 
-PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound = Literal[
+PatchV2TargetIdentifierAttributesAttributeStatusesStatusBadRequestCode = Literal[
     "value_not_found",
+    "validation_type",
 ]
 
 

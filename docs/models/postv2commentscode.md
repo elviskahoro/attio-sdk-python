@@ -11,3 +11,4 @@ value: PostV2CommentsCode = "value_not_found"
 ## Values
 
 - `"value_not_found"`
+- `"validation_type"`

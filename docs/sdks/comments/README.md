@@ -63,10 +63,10 @@ with SDK(
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| errors.PostV2CommentsValueNotFoundError | 400                                     | application/json                        |
-| errors.SDKDefaultError                  | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                               | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| errors.PostV2CommentsInvalidRequestError | 400                                      | application/json                         |
+| errors.SDKDefaultError                   | 4XX, 5XX                                 | \*/\*                                    |
 
 ## get_v2_comments_comment_id_
 

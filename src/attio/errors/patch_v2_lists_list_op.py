@@ -34,22 +34,22 @@ class PatchV2ListsListNotFoundError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class PatchV2ListsListValueNotFoundErrorData(BaseModel):
+class PatchV2ListsListInvalidRequestErrorData(BaseModel):
     status_code: float
     type: models_patch_v2_lists_list_op.PatchV2ListsListBadRequestType
-    code: models_patch_v2_lists_list_op.PatchV2ListsListCodeValueNotFound
+    code: models_patch_v2_lists_list_op.PatchV2ListsListBadRequestCode
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PatchV2ListsListValueNotFoundError(SDKError):
+class PatchV2ListsListInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: PatchV2ListsListValueNotFoundErrorData = field(hash=False)
+    data: PatchV2ListsListInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: PatchV2ListsListValueNotFoundErrorData,
+        data: PatchV2ListsListInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

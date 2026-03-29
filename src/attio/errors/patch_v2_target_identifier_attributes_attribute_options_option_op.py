@@ -71,28 +71,28 @@ class PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundError(SDKEr
         object.__setattr__(self, "data", data)
 
 
-class PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundErrorData(
+class PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestErrorData(
     BaseModel
 ):
     status_code: float
     type: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestType
-    code: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionCodeValueNotFound
+    code: models_patch_v2_target_identifier_attributes_attribute_options_option_op.PatchV2TargetIdentifierAttributesAttributeOptionsOptionBadRequestCode
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError(
+class PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestError(
     SDKError
 ):
     r"""Bad Request"""
 
-    data: PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundErrorData = field(
+    data: PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestErrorData = field(
         hash=False
     )
 
     def __init__(
         self,
-        data: PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundErrorData,
+        data: PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

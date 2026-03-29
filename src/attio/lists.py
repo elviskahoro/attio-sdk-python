@@ -252,9 +252,9 @@ class Lists(BaseSDK):
             return unmarshal_json_response(models.PostV2ListsResponse, http_res)
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PostV2ListsValueNotFoundErrorData, http_res
+                errors.PostV2ListsInvalidRequestErrorData, http_res
             )
-            raise errors.PostV2ListsValueNotFoundError(response_data, http_res)
+            raise errors.PostV2ListsInvalidRequestError(response_data, http_res)
         if utils.match_response(http_res, "403", "application/json"):
             response_data = unmarshal_json_response(errors.BillingErrorData, http_res)
             raise errors.BillingError(response_data, http_res)
@@ -364,9 +364,9 @@ class Lists(BaseSDK):
             return unmarshal_json_response(models.PostV2ListsResponse, http_res)
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PostV2ListsValueNotFoundErrorData, http_res
+                errors.PostV2ListsInvalidRequestErrorData, http_res
             )
-            raise errors.PostV2ListsValueNotFoundError(response_data, http_res)
+            raise errors.PostV2ListsInvalidRequestError(response_data, http_res)
         if utils.match_response(http_res, "403", "application/json"):
             response_data = unmarshal_json_response(errors.BillingErrorData, http_res)
             raise errors.BillingError(response_data, http_res)
@@ -659,9 +659,9 @@ class Lists(BaseSDK):
             return unmarshal_json_response(models.PatchV2ListsListResponse, http_res)
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PatchV2ListsListValueNotFoundErrorData, http_res
+                errors.PatchV2ListsListInvalidRequestErrorData, http_res
             )
-            raise errors.PatchV2ListsListValueNotFoundError(response_data, http_res)
+            raise errors.PatchV2ListsListInvalidRequestError(response_data, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PatchV2ListsListNotFoundErrorData, http_res
@@ -766,9 +766,9 @@ class Lists(BaseSDK):
             return unmarshal_json_response(models.PatchV2ListsListResponse, http_res)
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PatchV2ListsListValueNotFoundErrorData, http_res
+                errors.PatchV2ListsListInvalidRequestErrorData, http_res
             )
-            raise errors.PatchV2ListsListValueNotFoundError(response_data, http_res)
+            raise errors.PatchV2ListsListInvalidRequestError(response_data, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PatchV2ListsListNotFoundErrorData, http_res

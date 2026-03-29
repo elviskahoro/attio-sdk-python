@@ -108,7 +108,10 @@ class PostV2ObjectsRecordsSearchRequest(BaseModel):
 PostV2ObjectsRecordsSearchBadRequestType = Literal["invalid_request_error",]
 
 
-PostV2ObjectsRecordsSearchCode = Literal["value_not_found",]
+PostV2ObjectsRecordsSearchCode = Literal[
+    "value_not_found",
+    "validation_type",
+]
 
 
 class PostV2ObjectsRecordsSearchID3TypedDict(TypedDict):

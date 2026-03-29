@@ -36,22 +36,22 @@ class PostV2ListsListEntriesNotFoundError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class PostV2ListsListEntriesValueNotFoundErrorData(BaseModel):
+class PostV2ListsListEntriesInvalidRequestErrorData(BaseModel):
     status_code: float
     type: models_post_v2_lists_list_entriesop.PostV2ListsListEntriesBadRequestType
-    code: models_post_v2_lists_list_entriesop.PostV2ListsListEntriesCodeValueNotFound
+    code: models_post_v2_lists_list_entriesop.PostV2ListsListEntriesBadRequestCode
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PostV2ListsListEntriesValueNotFoundError(SDKError):
+class PostV2ListsListEntriesInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: PostV2ListsListEntriesValueNotFoundErrorData = field(hash=False)
+    data: PostV2ListsListEntriesInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: PostV2ListsListEntriesValueNotFoundErrorData,
+        data: PostV2ListsListEntriesInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

@@ -132,7 +132,10 @@ PatchV2ListsListNotFoundCode = Literal["not_found",]
 PatchV2ListsListBadRequestType = Literal["invalid_request_error",]
 
 
-PatchV2ListsListCodeValueNotFound = Literal["value_not_found",]
+PatchV2ListsListBadRequestCode = Literal[
+    "value_not_found",
+    "validation_type",
+]
 
 
 class PatchV2ListsListResponseTypedDict(TypedDict):

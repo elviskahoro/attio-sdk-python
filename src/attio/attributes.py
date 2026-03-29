@@ -1505,10 +1505,10 @@ class Attributes(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundErrorData,
+                errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestErrorData,
                 http_res,
             )
-            raise errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError(
+            raise errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -1644,10 +1644,10 @@ class Attributes(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundErrorData,
+                errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestErrorData,
                 http_res,
             )
-            raise errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionValueNotFoundError(
+            raise errors.PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -2263,10 +2263,10 @@ class Attributes(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundErrorData,
+                errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestErrorData,
                 http_res,
             )
-            raise errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError(
+            raise errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -2402,10 +2402,10 @@ class Attributes(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundErrorData,
+                errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestErrorData,
                 http_res,
             )
-            raise errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError(
+            raise errors.PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):

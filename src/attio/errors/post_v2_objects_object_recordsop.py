@@ -36,24 +36,26 @@ class PostV2ObjectsObjectRecordsNotFoundError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class PostV2ObjectsObjectRecordsValueNotFoundErrorData(BaseModel):
+class PostV2ObjectsObjectRecordsInvalidRequestErrorData(BaseModel):
     status_code: float
     type: (
         models_post_v2_objects_object_recordsop.PostV2ObjectsObjectRecordsBadRequestType
     )
-    code: models_post_v2_objects_object_recordsop.PostV2ObjectsObjectRecordsCodeValueNotFound
+    code: (
+        models_post_v2_objects_object_recordsop.PostV2ObjectsObjectRecordsBadRequestCode
+    )
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PostV2ObjectsObjectRecordsValueNotFoundError(SDKError):
+class PostV2ObjectsObjectRecordsInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: PostV2ObjectsObjectRecordsValueNotFoundErrorData = field(hash=False)
+    data: PostV2ObjectsObjectRecordsInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: PostV2ObjectsObjectRecordsValueNotFoundErrorData,
+        data: PostV2ObjectsObjectRecordsInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

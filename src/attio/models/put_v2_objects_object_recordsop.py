@@ -65,7 +65,10 @@ PutV2ObjectsObjectRecordsNotFoundCode = Literal["not_found",]
 PutV2ObjectsObjectRecordsBadRequestType = Literal["invalid_request_error",]
 
 
-PutV2ObjectsObjectRecordsCodeValueNotFound = Literal["value_not_found",]
+PutV2ObjectsObjectRecordsBadRequestCode = Literal[
+    "value_not_found",
+    "validation_type",
+]
 
 
 class PutV2ObjectsObjectRecordsIDTypedDict(TypedDict):

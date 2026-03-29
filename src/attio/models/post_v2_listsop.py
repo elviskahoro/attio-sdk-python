@@ -112,7 +112,10 @@ PostV2ListsCodeBillingError = Literal["billing_error",]
 PostV2ListsBadRequestType = Literal["invalid_request_error",]
 
 
-PostV2ListsCodeValueNotFound = Literal["value_not_found",]
+PostV2ListsBadRequestCode = Literal[
+    "value_not_found",
+    "validation_type",
+]
 
 
 class PostV2ListsResponseTypedDict(TypedDict):

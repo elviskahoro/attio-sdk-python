@@ -71,28 +71,28 @@ class PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundError(SDKE
         object.__setattr__(self, "data", data)
 
 
-class PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundErrorData(
+class PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestErrorData(
     BaseModel
 ):
     status_code: float
     type: models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusBadRequestType
-    code: models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusCodeValueNotFound
+    code: models_patch_v2_target_identifier_attributes_attribute_statuses_status_op.PatchV2TargetIdentifierAttributesAttributeStatusesStatusBadRequestCode
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundError(
+class PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestError(
     SDKError
 ):
     r"""Bad Request"""
 
-    data: PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundErrorData = field(
+    data: PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestErrorData = field(
         hash=False
     )
 
     def __init__(
         self,
-        data: PatchV2TargetIdentifierAttributesAttributeStatusesStatusValueNotFoundErrorData,
+        data: PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

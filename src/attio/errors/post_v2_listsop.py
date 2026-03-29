@@ -84,22 +84,22 @@ class BillingError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class PostV2ListsValueNotFoundErrorData(BaseModel):
+class PostV2ListsInvalidRequestErrorData(BaseModel):
     status_code: float
     type: models_post_v2_listsop.PostV2ListsBadRequestType
-    code: models_post_v2_listsop.PostV2ListsCodeValueNotFound
+    code: models_post_v2_listsop.PostV2ListsBadRequestCode
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PostV2ListsValueNotFoundError(SDKError):
+class PostV2ListsInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: PostV2ListsValueNotFoundErrorData = field(hash=False)
+    data: PostV2ListsInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: PostV2ListsValueNotFoundErrorData,
+        data: PostV2ListsInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

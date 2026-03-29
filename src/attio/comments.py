@@ -98,9 +98,9 @@ class Comments(BaseSDK):
             return unmarshal_json_response(models.PostV2CommentsResponse, http_res)
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PostV2CommentsValueNotFoundErrorData, http_res
+                errors.PostV2CommentsInvalidRequestErrorData, http_res
             )
-            raise errors.PostV2CommentsValueNotFoundError(response_data, http_res)
+            raise errors.PostV2CommentsInvalidRequestError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
@@ -197,9 +197,9 @@ class Comments(BaseSDK):
             return unmarshal_json_response(models.PostV2CommentsResponse, http_res)
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PostV2CommentsValueNotFoundErrorData, http_res
+                errors.PostV2CommentsInvalidRequestErrorData, http_res
             )
-            raise errors.PostV2CommentsValueNotFoundError(response_data, http_res)
+            raise errors.PostV2CommentsInvalidRequestError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)

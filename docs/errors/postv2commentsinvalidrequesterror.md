@@ -1,4 +1,4 @@
-# PostV2CommentsValueNotFoundError
+# PostV2CommentsInvalidRequestError
 
 Bad Request
 

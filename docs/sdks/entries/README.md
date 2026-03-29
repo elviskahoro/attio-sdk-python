@@ -145,11 +145,11 @@ with SDK(
 
 ### Errors
 
-| Error Type                                      | Status Code                                     | Content Type                                    |
-| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| errors.PostV2ListsListEntriesValueNotFoundError | 400                                             | application/json                                |
-| errors.PostV2ListsListEntriesNotFoundError      | 404                                             | application/json                                |
-| errors.SDKDefaultError                          | 4XX, 5XX                                        | \*/\*                                           |
+| Error Type                                       | Status Code                                      | Content Type                                     |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| errors.PostV2ListsListEntriesInvalidRequestError | 400                                              | application/json                                 |
+| errors.PostV2ListsListEntriesNotFoundError       | 404                                              | application/json                                 |
+| errors.SDKDefaultError                           | 4XX, 5XX                                         | \*/\*                                            |
 
 ## put_v2_lists_list_entries
 

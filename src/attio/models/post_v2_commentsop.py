@@ -270,7 +270,10 @@ class PostV2CommentsRequest(BaseModel):
 PostV2CommentsBadRequestType = Literal["invalid_request_error",]
 
 
-PostV2CommentsCode = Literal["value_not_found",]
+PostV2CommentsCode = Literal[
+    "value_not_found",
+    "validation_type",
+]
 
 
 class PostV2CommentsResponseTypedDict(TypedDict):

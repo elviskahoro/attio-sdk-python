@@ -358,9 +358,9 @@ class Entries(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PostV2ListsListEntriesValueNotFoundErrorData, http_res
+                errors.PostV2ListsListEntriesInvalidRequestErrorData, http_res
             )
-            raise errors.PostV2ListsListEntriesValueNotFoundError(
+            raise errors.PostV2ListsListEntriesInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -474,9 +474,9 @@ class Entries(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PostV2ListsListEntriesValueNotFoundErrorData, http_res
+                errors.PostV2ListsListEntriesInvalidRequestErrorData, http_res
             )
-            raise errors.PostV2ListsListEntriesValueNotFoundError(
+            raise errors.PostV2ListsListEntriesInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
