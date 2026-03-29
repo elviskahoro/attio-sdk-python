@@ -1,98 +1,85 @@
-"""Test script to reproduce the unmarshalling error with timestamp attribute type
-
-This script tests the unmarshalling of a query response containing a 'timestamp' attribute.
-The installed package (v0.0.18) has a bug where PostV2ObjectsObjectRecordsQueryValueTimestamp.value
-is defined as a date type instead of str, causing validation errors.
-
-Toggle USE_INSTALLED_PACKAGE to compare:
-- True: Uses pip-installed package (reproduces the error)
-- False: Uses local source (should work correctly)
-"""
-
-import sys
-
-# Toggle this to test installed package vs local source
-USE_INSTALLED_PACKAGE = True
-
-if not USE_INSTALLED_PACKAGE:
-    sys.path.insert(0, "/Users/elvis/Documents/elviskahoro/attio-sdk-python/src")
-
+import importlib
 import json
-from attio import models
+from types import SimpleNamespace
+
+import pytest
+
+from attio import errors
+from attio.errors.post_v2_objects_object_recordsop import (
+    PostV2ObjectsObjectRecordsInvalidRequestErrorData,
+)
 from attio.utils.unmarshal_json_response import unmarshal_json_response
 
-# Read the test.json file
-with open("test.json", "r") as f:
-    response_json = json.load(f)
 
-print(
-    f"Testing with {'INSTALLED' if USE_INSTALLED_PACKAGE else 'LOCAL SOURCE'} package"
-)
-print("Testing unmarshalling of test.json with timestamp attribute...")
-print(f"Response keys: {response_json.keys()}")
-print()
+INVALID_REQUEST_MODELS = [
+    (
+        "attio.errors.patch_v2_target_identifier_attributes_attribute_options_option_op",
+        "PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestErrorData",
+    ),
+    (
+        "attio.errors.patch_v2_target_identifier_attributes_attribute_statuses_status_op",
+        "PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestErrorData",
+    ),
+    (
+        "attio.errors.post_v2_objects_object_recordsop",
+        "PostV2ObjectsObjectRecordsInvalidRequestErrorData",
+    ),
+    (
+        "attio.errors.put_v2_objects_object_recordsop",
+        "PutV2ObjectsObjectRecordsInvalidRequestErrorData",
+    ),
+    (
+        "attio.errors.post_v2_objects_records_searchop",
+        "PostV2ObjectsRecordsSearchInvalidRequestErrorData",
+    ),
+    ("attio.errors.post_v2_listsop", "PostV2ListsInvalidRequestErrorData"),
+    ("attio.errors.patch_v2_lists_list_op", "PatchV2ListsListInvalidRequestErrorData"),
+    (
+        "attio.errors.post_v2_lists_list_entriesop",
+        "PostV2ListsListEntriesInvalidRequestErrorData",
+    ),
+    ("attio.errors.post_v2_commentsop", "PostV2CommentsInvalidRequestErrorData"),
+]
 
-print("=" * 80)
-print("TEST 1: Query response with timestamp attribute")
-print("=" * 80)
-try:
-    # Try to unmarshal as a query response (which is where the error occurs)
-    # The query endpoint returns multiple records in {data: [...]}
 
-    # Create a mock response object
-    from unittest.mock import Mock
+def _mock_http_response(body: str) -> SimpleNamespace:
+    return SimpleNamespace(text=body, status_code=400, headers={})
 
-    mock_response = Mock()
-    mock_response.text = json.dumps(response_json)  # Use the full response with array
-    mock_response.headers = {"content-type": "application/json"}
 
-    result = unmarshal_json_response(
-        models.PostV2ObjectsObjectRecordsQueryResponse,  # Use Query response model
-        mock_response,
+@pytest.mark.parametrize("module_name,class_name", INVALID_REQUEST_MODELS)
+@pytest.mark.parametrize("code", ["value_not_found", "validation_type"])
+def test_invalid_request_error_models_accept_both_codes(
+    module_name: str, class_name: str, code: str
+) -> None:
+    module = importlib.import_module(module_name)
+    model_cls = getattr(module, class_name)
+
+    body = json.dumps(
+        {
+            "status_code": 400,
+            "type": "invalid_request_error",
+            "code": code,
+            "message": f"message for {code}",
+        }
     )
-    print("[PASS] Unmarshalling successful!")
-    print(f"Result type: {type(result)}")
-    print(f"Result data type: {type(result.data)}")
-    print(f"Number of records: {len(result.data)}")
-except Exception as e:
-    print("[FAIL] Unmarshalling failed with error:")
-    print(f"Error type: {type(e).__name__}")
-    print()
-    # Print full error for debugging
-    print(str(e))
+    http_res = _mock_http_response(body)
 
-print()
-print("=" * 80)
-print("TEST 2: Error response with uniqueness_conflict code")
-print("=" * 80)
+    parsed = unmarshal_json_response(model_cls, http_res)
 
-# Test the uniqueness_conflict error response
-error_response = {
-    "status_code": 400,
-    "type": "invalid_request_error",
-    "code": "uniqueness_conflict",
-    "message": 'The value "{\\"email_address\\":\\"bethleham.a@gmail.com\\"}" provided for attribute with ID "b8bfd231-5bd9-4092-9d39-dbf3f0e6e0d9" conflicts with one already in the system.',
-}
+    assert parsed.type == "invalid_request_error"
+    assert parsed.code == code
 
-try:
-    from attio.errors.post_v2_objects_object_recordsop import (
-        PostV2ObjectsObjectRecordsValueNotFoundErrorData,
+
+def test_post_records_invalid_request_rejects_unknown_code() -> None:
+    body = json.dumps(
+        {
+            "status_code": 400,
+            "type": "invalid_request_error",
+            "code": "uniqueness_conflict",
+            "message": "unexpected code for this schema",
+        }
     )
+    http_res = _mock_http_response(body)
 
-    mock_error_response = Mock()
-    mock_error_response.text = json.dumps(error_response)
-    mock_error_response.headers = {"content-type": "application/json"}
-    mock_error_response.status_code = 400
-
-    # Try to unmarshal as an error response using the ValueNotFoundError model
-    # This should fail because it only accepts code: "value_not_found"
-    result = unmarshal_json_response(
-        PostV2ObjectsObjectRecordsValueNotFoundErrorData, mock_error_response
-    )
-    print("[PASS] Error response unmarshalling successful!")
-    print(f"Result: {result}")
-except Exception as e:
-    print("[FAIL] Error response unmarshalling failed:")
-    print(f"Error type: {type(e).__name__}")
-    print()
-    print(str(e)[:500])  # Limit output
+    with pytest.raises(errors.ResponseValidationError):
+        unmarshal_json_response(PostV2ObjectsObjectRecordsInvalidRequestErrorData, http_res)
