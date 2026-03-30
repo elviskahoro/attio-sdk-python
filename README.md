@@ -1,9 +1,6 @@
-# openapi
-
-Developer-friendly & type-safe Python SDK specifically catered to leverage *openapi* API.
+# Attio Python SDK
 
 <div align="left">
-    <a href="https://www.speakeasy.com/?utm_source=openapi&utm_campaign=python"><img src="https://www.speakeasy.com/assets/badges/built-by-speakeasy.svg" /></a>
     <a href="https://opensource.org/licenses/MIT">
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
     </a>
@@ -12,25 +9,28 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage *open
 
 <br /><br />
 
-The Attio SDK for Python provides a type-safe client for the [Attio API](https://developers.attio.com/).
-
-The latest OpenAPI spec is available at: https://api.attio.com/openapi/api
+Type-safe Python client for the [Attio API](https://developers.attio.com/), with support for sync and async usage.
 
 <!-- Start Summary [summary] -->
 ## Summary
 
+- Install in seconds with `pip install attio`.
+- Authenticate with your OAuth2 bearer token.
+- Use one SDK for both sync and async requests.
+- Start with quick examples, then use the full operation docs linked below.
 
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [openapi](#openapi)
+* [Attio Python SDK](#attio-python-sdk)
   * [SDK Installation](#sdk-installation)
   * [IDE Support](#ide-support)
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
-  * [Available Resources and Operations](#available-resources-and-operations)
+  * [Common Workflows](#common-workflows)
+  * [Full API Reference](#full-api-reference)
   * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
@@ -38,59 +38,35 @@ The latest OpenAPI spec is available at: https://api.attio.com/openapi/api
   * [Custom HTTP Client](#custom-http-client)
   * [Resource Management](#resource-management)
   * [Debugging](#debugging)
-* [Development](#development)
-  * [Maturity](#maturity)
-  * [Contributions](#contributions)
+  * [Troubleshooting](#troubleshooting)
 
 <!-- End Table of Contents [toc] -->
 
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-> [!TIP]
-> To finish publishing your SDK to PyPI you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
-
-
-> [!NOTE]
-> **Python version upgrade policy**
->
-> Once a Python version reaches its [official end of life date](https://devguide.python.org/versions/), a 3-month grace period is provided for users to upgrade. Following this grace period, the minimum python version supported in the SDK will be updated.
-
-The SDK can be installed with *uv*, *pip*, or *poetry* package managers.
-
-### uv
-
-*uv* is a fast Python package installer and resolver, designed as a drop-in replacement for pip and pip-tools. It's recommended for its speed and modern Python tooling capabilities.
+The easiest way to install the SDK is:
 
 ```bash
-uv add git+<UNSET>.git
+pip install attio
 ```
 
-### PIP
-
-*PIP* is the default package installer for Python, enabling easy installation and management of packages from PyPI via the command line.
+You can also install with `uv` or `poetry`:
 
 ```bash
-pip install git+<UNSET>.git
-```
-
-### Poetry
-
-*Poetry* is a modern tool that simplifies dependency management and package publishing by using a single `pyproject.toml` file to handle project metadata and dependencies.
-
-```bash
-poetry add git+<UNSET>.git
+uv add attio
+poetry add attio
 ```
 
 ### Shell and script usage with `uv`
 
-You can use this SDK in a Python shell with [uv](https://docs.astral.sh/uv/) and the `uvx` command that comes with it like so:
+You can use this SDK in a Python shell with [uv](https://docs.astral.sh/uv/) and `uvx`:
 
 ```shell
 uvx --from attio python
 ```
 
-It's also possible to write a standalone Python script without needing to set up a whole project like so:
+Or as a standalone script without creating a project:
 
 ```python
 #!/usr/bin/env -S uv run --script
@@ -104,65 +80,62 @@ It's also possible to write a standalone Python script without needing to set up
 from attio import SDK
 
 sdk = SDK(
-  # SDK arguments
+    oauth2="<YOUR_OAUTH2_HERE>",
 )
 
 # Rest of script here...
 ```
 
-Once that is saved to a file, you can run it with `uv run script.py` where
-`script.py` can be replaced with the actual file name.
+Run it with:
+
+```bash
+uv run script.py
+```
 <!-- End SDK Installation [installation] -->
 
 <!-- Start IDE Support [idesupport] -->
 ## IDE Support
 
-### PyCharm
-
-Generally, the SDK will work well with most IDEs out of the box. However, when using PyCharm, you can enjoy much better integration with Pydantic by installing an additional plugin.
-
-- [PyCharm Pydantic Plugin](https://docs.pydantic.dev/latest/integrations/pycharm/)
+The SDK ships with typed request/response models and works well with common Python tooling (`pyright`, `mypy`, Pylance, PyCharm).
 <!-- End IDE Support [idesupport] -->
 
 <!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
 
-### Example
+### Quickstart (sync)
 
 ```python
-# Synchronous Example
 from attio import SDK
-
 
 with SDK(
     oauth2="<YOUR_OAUTH2_HERE>",
 ) as sdk:
+    # Verify auth and token scopes
+    identity = sdk.meta.get_v2_self()
+    print(identity)
 
-    res = sdk.objects.get_v2_objects()
-
-    # Handle response
-    print(res)
+    # First API call: list objects in your workspace
+    objects = sdk.objects.get_v2_objects()
+    print(objects)
 ```
 
-</br>
-
-The same SDK client can also be used to make asynchronous requests by importing asyncio.
+### Quickstart (async)
 
 ```python
-# Asynchronous Example
 import asyncio
 from attio import SDK
+
 
 async def main():
 
     async with SDK(
         oauth2="<YOUR_OAUTH2_HERE>",
     ) as sdk:
+        identity = await sdk.meta.get_v2_self_async()
+        print(identity)
 
-        res = await sdk.objects.get_v2_objects_async()
-
-        # Handle response
-        print(res)
+        objects = await sdk.objects.get_v2_objects_async()
+        print(objects)
 
 asyncio.run(main())
 ```
@@ -171,15 +144,13 @@ asyncio.run(main())
 <!-- Start Authentication [security] -->
 ## Authentication
 
-### Per-Client Security Schemes
-
 This SDK supports the following security scheme globally:
 
 | Name     | Type   | Scheme       |
 | -------- | ------ | ------------ |
 | `oauth2` | oauth2 | OAuth2 token |
 
-To authenticate with the API the `oauth2` parameter must be set when initializing the SDK client instance. For example:
+Pass your OAuth2 bearer token when creating the client:
 ```python
 from attio import SDK
 
@@ -187,20 +158,70 @@ from attio import SDK
 with SDK(
     oauth2="<YOUR_OAUTH2_HERE>",
 ) as sdk:
-
-    res = sdk.objects.get_v2_objects()
-
-    # Handle response
+    res = sdk.meta.get_v2_self()
     print(res)
+```
 
+Using an environment variable is recommended:
+
+```python
+import os
+from attio import SDK
+
+with SDK(oauth2=os.environ["ATTIO_OAUTH2_TOKEN"]) as sdk:
+    res = sdk.meta.get_v2_self()
+    print(res)
 ```
 <!-- End Authentication [security] -->
 
+## Common Workflows
+
+### List objects
+
+```python
+from attio import SDK
+
+with SDK(oauth2="<YOUR_OAUTH2_HERE>") as sdk:
+    res = sdk.objects.get_v2_objects()
+    print(res)
+```
+
+### Create a record (people)
+
+```python
+from attio import SDK
+
+with SDK(oauth2="<YOUR_OAUTH2_HERE>") as sdk:
+    res = sdk.records.post_v2_objects_object_records(
+        object="people",
+        data={
+            "values": {
+                "<ATTRIBUTE_SLUG_OR_ID>": ["Ada Lovelace"],
+            },
+        },
+    )
+    print(res)
+```
+
+### Query records (people)
+
+```python
+from attio import SDK
+
+with SDK(oauth2="<YOUR_OAUTH2_HERE>") as sdk:
+    res = sdk.records.post_v2_objects_object_records_query(
+        object="people",
+        limit=25,
+        offset=0,
+    )
+    print(res)
+```
+
 <!-- Start Available Resources and Operations [operations] -->
-## Available Resources and Operations
+## Full API Reference
 
 <details open>
-<summary>Available methods</summary>
+<summary>Available resources and methods</summary>
 
 ### [Attributes](docs/sdks/attributes/README.md)
 
@@ -347,38 +368,31 @@ with SDK(
 <!-- Start File uploads [file-upload] -->
 ## File uploads
 
-Certain SDK methods accept file objects as part of a request body or multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files. The following example demonstrates how to attach a file stream to a request.
-
-> [!TIP]
->
-> For endpoints that handle file uploads bytes arrays can also be used. However, using streams is recommended for large files.
->
+Use file streams for uploads to avoid loading large files fully into memory.
 
 ```python
 from attio import SDK
 
-
 with SDK(
     oauth2="<YOUR_OAUTH2_HERE>",
 ) as sdk:
-
-    res = sdk.files.post_v2_files_upload(file={
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
-    }, object="people", record_id="bf071e1f-6035-429d-b874-d83ea64ea13b", parent_folder_id="a1b2c3d4-e5f6-7890-abcd-ef1234567890")
-
-    # Handle response
-    print(res)
-
+    with open("example.file", "rb") as f:
+        res = sdk.files.post_v2_files_upload(
+            file={"file_name": "example.file", "content": f},
+            object="people",
+            record_id="bf071e1f-6035-429d-b874-d83ea64ea13b",
+            parent_folder_id="a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        )
+        print(res)
 ```
 <!-- End File uploads [file-upload] -->
 
 <!-- Start Retries [retries] -->
 ## Retries
 
-Some of the endpoints in this SDK support retries. If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API. However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+You can configure retries per request or globally for the entire SDK.
 
-To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
+Per request:
 ```python
 from attio import SDK
 from attio.utils import BackoffStrategy, RetryConfig
@@ -387,16 +401,18 @@ from attio.utils import BackoffStrategy, RetryConfig
 with SDK(
     oauth2="<YOUR_OAUTH2_HERE>",
 ) as sdk:
-
-    res = sdk.objects.get_v2_objects(,
-        RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
-
-    # Handle response
+    res = sdk.objects.get_v2_objects(
+        retries=RetryConfig(
+            "backoff",
+            BackoffStrategy(1, 50, 1.1, 100),
+            False,
+        )
+    )
     print(res)
-
 ```
 
-If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
+Global default:
+
 ```python
 from attio import SDK
 from attio.utils import BackoffStrategy, RetryConfig
@@ -406,279 +422,80 @@ with SDK(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
     oauth2="<YOUR_OAUTH2_HERE>",
 ) as sdk:
-
     res = sdk.objects.get_v2_objects()
-
-    # Handle response
     print(res)
-
 ```
 <!-- End Retries [retries] -->
 
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-[`SDKError`](./src/attio/errors/sdkerror.py) is the base class for all HTTP error responses. It has the following properties:
+The SDK raises `errors.SDKError` for API-level failures (4XX/5XX). Catch this type for most cases.
 
-| Property           | Type             | Description                                                                             |
-| ------------------ | ---------------- | --------------------------------------------------------------------------------------- |
-| `err.message`      | `str`            | Error message                                                                           |
-| `err.status_code`  | `int`            | HTTP response status code eg `404`                                                      |
-| `err.headers`      | `httpx.Headers`  | HTTP response headers                                                                   |
-| `err.body`         | `str`            | HTTP body. Can be empty string if no body is returned.                                  |
-| `err.raw_response` | `httpx.Response` | Raw HTTP response                                                                       |
-| `err.data`         |                  | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
-
-### Example
 ```python
 from attio import SDK, errors
 
-
-with SDK(
-    oauth2="<YOUR_OAUTH2_HERE>",
-) as sdk:
-    res = None
+with SDK(oauth2="<YOUR_OAUTH2_HERE>") as sdk:
     try:
-
-        res = sdk.objects.post_v2_objects(data={
-            "api_slug": "people",
-            "singular_noun": "Person",
-            "plural_noun": "People",
-        })
-
-        # Handle response
+        res = sdk.objects.get_v2_objects()
         print(res)
-
-
-    except errors.SDKError as e:
-        # The base class for HTTP error responses
-        print(e.message)
-        print(e.status_code)
-        print(e.body)
-        print(e.headers)
-        print(e.raw_response)
-
-        # Depending on the method different errors may be thrown
-        if isinstance(e, errors.PostV2ObjectsSlugConflictError):
-            print(e.data.status_code)  # float
-            print(e.data.type)  # models.PostV2ObjectsType
-            print(e.data.code)  # models.PostV2ObjectsCode
-            print(e.data.message)  # str
+    except errors.SDKError as err:
+        print(err.status_code)
+        print(err.message)
+        print(err.body)
 ```
 
-### Error Classes
-**Primary error:**
-* [`SDKError`](./src/attio/errors/sdkerror.py): The base class for HTTP error responses.
-
-<details><summary>Less common errors (95)</summary>
-
-<br />
-
-**Network errors:**
-* [`httpx.RequestError`](https://www.python-httpx.org/exceptions/#httpx.RequestError): Base class for request errors.
-    * [`httpx.ConnectError`](https://www.python-httpx.org/exceptions/#httpx.ConnectError): HTTP client was unable to make a request to a server.
-    * [`httpx.TimeoutException`](https://www.python-httpx.org/exceptions/#httpx.TimeoutException): HTTP request timed out.
-
-
-**Inherit from [`SDKError`](./src/attio/errors/sdkerror.py)**:
-* [`PatchV2ObjectsObjectValidationTypeError`](./src/attio/errors/patchv2objectsobjectvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2TargetIdentifierAttributesValidationTypeError`](./src/attio/errors/postv2targetidentifierattributesvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`SystemEditUnauthorizedError`](./src/attio/errors/systemeditunauthorizederror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError`](./src/attio/errors/postv2targetidentifierattributesattributeoptionsvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestError`](./src/attio/errors/patchv2targetidentifierattributesattributeoptionsoptioninvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeStatusesValidationTypeError`](./src/attio/errors/postv2targetidentifierattributesattributestatusesvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestError`](./src/attio/errors/patchv2targetidentifierattributesattributestatusesstatusinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`FilterError`](./src/attio/errors/filtererror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2ObjectsObjectRecordsInvalidRequestError`](./src/attio/errors/postv2objectsobjectrecordsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PutV2ObjectsObjectRecordsInvalidRequestError`](./src/attio/errors/putv2objectsobjectrecordsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PatchV2ObjectsObjectRecordsRecordIDMissingValueError`](./src/attio/errors/patchv2objectsobjectrecordsrecordidmissingvalueerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PutV2ObjectsObjectRecordsRecordIDMissingValueError`](./src/attio/errors/putv2objectsobjectrecordsrecordidmissingvalueerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesValidationTypeError`](./src/attio/errors/getv2objectsobjectrecordsrecordidattributesattributevaluesvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2ObjectsRecordsSearchInvalidRequestError`](./src/attio/errors/postv2objectsrecordssearchinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2ListsInvalidRequestError`](./src/attio/errors/postv2listsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PatchV2ListsListInvalidRequestError`](./src/attio/errors/patchv2listslistinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2ListsListEntriesInvalidRequestError`](./src/attio/errors/postv2listslistentriesinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`MultipleMatchResultsError`](./src/attio/errors/multiplematchresultserror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PatchV2ListsListEntriesEntryIDImmutableValueError`](./src/attio/errors/patchv2listslistentriesentryidimmutablevalueerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PutV2ListsListEntriesEntryIDImmutableValueError`](./src/attio/errors/putv2listslistentriesentryidimmutablevalueerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2TasksValidationTypeError`](./src/attio/errors/postv2tasksvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PatchV2TasksTaskIDValidationTypeError`](./src/attio/errors/patchv2taskstaskidvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2CommentsInvalidRequestError`](./src/attio/errors/postv2commentsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2MeetingsValidationTypeError`](./src/attio/errors/postv2meetingsvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2MeetingsMeetingIDCallRecordingsValidationTypeError`](./src/attio/errors/postv2meetingsmeetingidcallrecordingsvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`PostV2WebhooksValidationTypeError`](./src/attio/errors/postv2webhooksvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 82 methods.*
-* [`BillingError`](./src/attio/errors/billingerror.py): Forbidden. Status code `403`. Applicable to 1 of 82 methods.*
-* [`AuthError`](./src/attio/errors/autherror.py): Forbidden. Status code `403`. Applicable to 1 of 82 methods.*
-* [`GetV2ObjectsObjectNotFoundError`](./src/attio/errors/getv2objectsobjectnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PatchV2ObjectsObjectNotFoundError`](./src/attio/errors/patchv2objectsobjectnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2ObjectsObjectViewsNotFoundError`](./src/attio/errors/getv2objectsobjectviewsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PostV2TargetIdentifierAttributesNotFoundError`](./src/attio/errors/postv2targetidentifierattributesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2TargetIdentifierAttributesAttributeNotFoundError`](./src/attio/errors/getv2targetidentifierattributesattributenotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeNotFoundError`](./src/attio/errors/patchv2targetidentifierattributesattributenotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2TargetIdentifierAttributesAttributeOptionsNotFoundError`](./src/attio/errors/getv2targetidentifierattributesattributeoptionsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeOptionsNotFoundError`](./src/attio/errors/postv2targetidentifierattributesattributeoptionsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundError`](./src/attio/errors/patchv2targetidentifierattributesattributeoptionsoptionnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2TargetIdentifierAttributesAttributeStatusesNotFoundError`](./src/attio/errors/getv2targetidentifierattributesattributestatusesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeStatusesNotFoundError`](./src/attio/errors/postv2targetidentifierattributesattributestatusesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundError`](./src/attio/errors/patchv2targetidentifierattributesattributestatusesstatusnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PostV2ObjectsObjectRecordsQueryNotFoundError`](./src/attio/errors/postv2objectsobjectrecordsquerynotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PostV2ObjectsObjectRecordsNotFoundError`](./src/attio/errors/postv2objectsobjectrecordsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PutV2ObjectsObjectRecordsNotFoundError`](./src/attio/errors/putv2objectsobjectrecordsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2ObjectsObjectRecordsRecordIDNotFoundError`](./src/attio/errors/getv2objectsobjectrecordsrecordidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PatchV2ObjectsObjectRecordsRecordIDNotFoundError`](./src/attio/errors/patchv2objectsobjectrecordsrecordidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PutV2ObjectsObjectRecordsRecordIDNotFoundError`](./src/attio/errors/putv2objectsobjectrecordsrecordidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`DeleteV2ObjectsObjectRecordsRecordIDNotFoundError`](./src/attio/errors/deletev2objectsobjectrecordsrecordidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundError`](./src/attio/errors/getv2objectsobjectrecordsrecordidattributesattributevaluesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PostV2ListsNotFoundError`](./src/attio/errors/postv2listsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2ListsListNotFoundError`](./src/attio/errors/getv2listslistnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PatchV2ListsListNotFoundError`](./src/attio/errors/patchv2listslistnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2ListsListViewsNotFoundError`](./src/attio/errors/getv2listslistviewsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PostV2ListsListEntriesQueryNotFoundError`](./src/attio/errors/postv2listslistentriesquerynotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PostV2ListsListEntriesNotFoundError`](./src/attio/errors/postv2listslistentriesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PutV2ListsListEntriesNotFoundError`](./src/attio/errors/putv2listslistentriesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2ListsListEntriesEntryIDNotFoundError`](./src/attio/errors/getv2listslistentriesentryidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PatchV2ListsListEntriesEntryIDNotFoundError`](./src/attio/errors/patchv2listslistentriesentryidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PutV2ListsListEntriesEntryIDNotFoundError`](./src/attio/errors/putv2listslistentriesentryidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`DeleteV2ListsListEntriesEntryIDNotFoundError`](./src/attio/errors/deletev2listslistentriesentryidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2ListsListEntriesEntryIDAttributesAttributeValuesNotFoundError`](./src/attio/errors/getv2listslistentriesentryidattributesattributevaluesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2WorkspaceMembersWorkspaceMemberIDNotFoundError`](./src/attio/errors/getv2workspacemembersworkspacememberidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2NotesNotFoundError`](./src/attio/errors/getv2notesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PostV2NotesNotFoundError`](./src/attio/errors/postv2notesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2NotesNoteIDNotFoundError`](./src/attio/errors/getv2notesnoteidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`DeleteV2NotesNoteIDNotFoundError`](./src/attio/errors/deletev2notesnoteidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PostV2TasksNotFoundError`](./src/attio/errors/postv2tasksnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2TasksTaskIDNotFoundError`](./src/attio/errors/getv2taskstaskidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PatchV2TasksTaskIDNotFoundError`](./src/attio/errors/patchv2taskstaskidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`DeleteV2TasksTaskIDNotFoundError`](./src/attio/errors/deletev2taskstaskidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2ThreadsThreadIDNotFoundError`](./src/attio/errors/getv2threadsthreadidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2CommentsCommentIDNotFoundError`](./src/attio/errors/getv2commentscommentidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`DeleteV2CommentsCommentIDNotFoundError`](./src/attio/errors/deletev2commentscommentidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2MeetingsMeetingIDNotFoundError`](./src/attio/errors/getv2meetingsmeetingidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PostV2MeetingsMeetingIDCallRecordingsNotFoundError`](./src/attio/errors/postv2meetingsmeetingidcallrecordingsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDNotFoundError`](./src/attio/errors/getv2meetingsmeetingidcallrecordingscallrecordingidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`DeleteV2MeetingsMeetingIDCallRecordingsCallRecordingIDNotFoundError`](./src/attio/errors/deletev2meetingsmeetingidcallrecordingscallrecordingidnotfounderror.py): Call recording not found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2FilesFileIDNotFoundError`](./src/attio/errors/getv2filesfileidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`DeleteV2FilesFileIDNotFoundError`](./src/attio/errors/deletev2filesfileidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`GetV2WebhooksWebhookIDNotFoundError`](./src/attio/errors/getv2webhookswebhookidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PatchV2WebhooksWebhookIDNotFoundError`](./src/attio/errors/patchv2webhookswebhookidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`DeleteV2WebhooksWebhookIDNotFoundError`](./src/attio/errors/deletev2webhookswebhookidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 82 methods.*
-* [`PostV2ObjectsSlugConflictError`](./src/attio/errors/postv2objectsslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 82 methods.*
-* [`PatchV2ObjectsObjectSlugConflictError`](./src/attio/errors/patchv2objectsobjectslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 82 methods.*
-* [`PostV2TargetIdentifierAttributesSlugConflictError`](./src/attio/errors/postv2targetidentifierattributesslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 82 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError`](./src/attio/errors/postv2targetidentifierattributesattributeoptionsslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 82 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictError`](./src/attio/errors/patchv2targetidentifierattributesattributeoptionsoptionslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 82 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError`](./src/attio/errors/postv2targetidentifierattributesattributestatusesslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 82 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictError`](./src/attio/errors/patchv2targetidentifierattributesattributestatusesstatusslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 82 methods.*
-* [`PostV2ListsSlugConflictError`](./src/attio/errors/postv2listsslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 82 methods.*
-* [`PostV2NotesValidationTypeError`](./src/attio/errors/postv2notesvalidationtypeerror.py): Content Too Large. Status code `413`. Applicable to 1 of 82 methods.*
-* [`ResponseValidationError`](./src/attio/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
-
-</details>
-
-\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
+When needed, handle specific typed errors for an operation (for example conflict/not-found errors). See each operation page in [Full API Reference](#full-api-reference) for its exact error types.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Override Server URL Per-Client
-
-The default server can be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
+Override the default API base URL per client:
 ```python
 from attio import SDK
-
 
 with SDK(
     server_url="https://api.attio.com",
     oauth2="<YOUR_OAUTH2_HERE>",
 ) as sdk:
-
     res = sdk.objects.get_v2_objects()
-
-    # Handle response
     print(res)
-
 ```
 <!-- End Server Selection [server] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client
 
-The Python SDK makes API calls using the [httpx](https://www.python-httpx.org/) HTTP library.  In order to provide a convenient way to configure timeouts, cookies, proxies, custom headers, and other low-level configuration, you can initialize the SDK client with your own HTTP client instance.
-Depending on whether you are using the sync or async version of the SDK, you can pass an instance of `HttpClient` or `AsyncHttpClient` respectively, which are Protocol's ensuring that the client has the necessary methods to make API calls.
-This allows you to wrap the client with your own custom logic, such as adding custom headers, logging, or error handling, or you can just pass an instance of `httpx.Client` or `httpx.AsyncClient` directly.
+The SDK uses [httpx](https://www.python-httpx.org/) under the hood. You can pass your own configured client to control timeouts, headers, proxies, or transport behavior.
 
-For example, you could specify a header for every request that this sdk makes as follows:
+Sync example:
 ```python
 from attio import SDK
 import httpx
 
-http_client = httpx.Client(headers={"x-custom-header": "someValue"})
-s = SDK(client=http_client)
+client = httpx.Client(
+    timeout=20.0,
+    headers={"x-custom-header": "some-value"},
+)
+
+sdk = SDK(
+    oauth2="<YOUR_OAUTH2_HERE>",
+    client=client,
+)
 ```
 
-or you could wrap the client with your own custom logic:
+Async example:
+
 ```python
 from attio import SDK
-from attio.httpclient import AsyncHttpClient
 import httpx
 
-class CustomClient(AsyncHttpClient):
-    client: AsyncHttpClient
-
-    def __init__(self, client: AsyncHttpClient):
-        self.client = client
-
-    async def send(
-        self,
-        request: httpx.Request,
-        *,
-        stream: bool = False,
-        auth: Union[
-            httpx._types.AuthTypes, httpx._client.UseClientDefault, None
-        ] = httpx.USE_CLIENT_DEFAULT,
-        follow_redirects: Union[
-            bool, httpx._client.UseClientDefault
-        ] = httpx.USE_CLIENT_DEFAULT,
-    ) -> httpx.Response:
-        request.headers["Client-Level-Header"] = "added by client"
-
-        return await self.client.send(
-            request, stream=stream, auth=auth, follow_redirects=follow_redirects
-        )
-
-    def build_request(
-        self,
-        method: str,
-        url: httpx._types.URLTypes,
-        *,
-        content: Optional[httpx._types.RequestContent] = None,
-        data: Optional[httpx._types.RequestData] = None,
-        files: Optional[httpx._types.RequestFiles] = None,
-        json: Optional[Any] = None,
-        params: Optional[httpx._types.QueryParamTypes] = None,
-        headers: Optional[httpx._types.HeaderTypes] = None,
-        cookies: Optional[httpx._types.CookieTypes] = None,
-        timeout: Union[
-            httpx._types.TimeoutTypes, httpx._client.UseClientDefault
-        ] = httpx.USE_CLIENT_DEFAULT,
-        extensions: Optional[httpx._types.RequestExtensions] = None,
-    ) -> httpx.Request:
-        return self.client.build_request(
-            method,
-            url,
-            content=content,
-            data=data,
-            files=files,
-            json=json,
-            params=params,
-            headers=headers,
-            cookies=cookies,
-            timeout=timeout,
-            extensions=extensions,
-        )
-
-s = SDK(async_client=CustomClient(httpx.AsyncClient()))
+async_client = httpx.AsyncClient(timeout=20.0)
+sdk = SDK(
+    oauth2="<YOUR_OAUTH2_HERE>",
+    async_client=async_client,
+)
 ```
 <!-- End Custom HTTP Client [http-client] -->
 
@@ -691,17 +508,15 @@ The `SDK` class implements the context manager protocol and registers a finalize
 
 ```python
 from attio import SDK
-def main():
 
+def main():
     with SDK(
         oauth2="<YOUR_OAUTH2_HERE>",
     ) as sdk:
         # Rest of application here...
 
 
-# Or when using async:
 async def amain():
-
     async with SDK(
         oauth2="<YOUR_OAUTH2_HERE>",
     ) as sdk:
@@ -724,19 +539,23 @@ s = SDK(debug_logger=logging.getLogger("attio"))
 ```
 <!-- End Debugging [debug] -->
 
+## Troubleshooting
+
+### 401 or 403 responses
+
+- Confirm the OAuth2 token is valid and not expired.
+- Confirm the token includes the scopes required by the endpoint (scope requirements are listed in each operation doc).
+- Verify you are sending the token through `SDK(oauth2=...)`.
+
+### Validation errors on create/update
+
+- Attribute keys and value shapes must match your Attio workspace schema.
+- Check the operation docs for the exact request model and examples.
+- Start from a simple payload, then add fields incrementally.
+
+### Async usage issues
+
+- Use async methods (ending in `_async`) inside `async with SDK(...)`.
+- Do not mix sync and async clients in the same call path.
+
 <!-- Placeholder for Future Speakeasy SDK Sections -->
-
-# Development
-
-## Maturity
-
-This SDK is in beta, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning usage
-to a specific package version. This way, you can install the same version each time without breaking changes unless you are intentionally
-looking for the latest version.
-
-## Contributions
-
-While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
-We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
-
-### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=openapi&utm_campaign=python)
