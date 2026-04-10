@@ -13,7 +13,7 @@ permissions:
         type: boolean
         default: false
       set_version:
-        description: optionally set a specific SDK version
+        description: Optionally set a specific SDK version
         type: string
   schedule:
     - cron: 0 0 * * *
@@ -23,11 +23,22 @@ permissions:
       - unlabeled
 jobs:
   generate:
-    uses: speakeasy-api/sdk-generation-action/.github/workflows/workflow-executor.yaml@v15
-    with:
-      force: ${{ github.event.inputs.force }}
-      mode: pr
-      set_version: ${{ github.event.inputs.set_version }}
-    secrets:
-      github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dagger/dagger-for-github@8.0.0
+      - run: pip install dagger-io
+      - run: |
+          dagger run python ci/pipeline.py generate \
+            ${{ github.event.inputs.force == 'true' && '--force' || '' }} \
+            ${{ github.event.inputs.set_version && format('--version {0}', github.event.inputs.set_version) || '' }}
+        env:
+          SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: gha/attio-sdk-generation
+          base: main
+          commit-message: "feat(sdk): regenerate attio SDK"
+          labels: automated, sdk
+          delete-branch: true
