@@ -28,7 +28,7 @@ async def generate(force: bool = False, version: str | None = None) -> None:
         await (
             dag.container()
             .from_("ghcr.io/speakeasy-api/speakeasy:latest")
-            .with_exec(["/bin/sh", "-c", "apt-get update && apt-get install -y ca-certificates"])
+            .with_exec(["/bin/sh", "-c", "sudo apt-get update && sudo apt-get install -y ca-certificates"])
             .with_secret_variable("SPEAKEASY_API_KEY", api_key)
             .with_mounted_directory("/repo", src)
             .with_workdir("/repo")
