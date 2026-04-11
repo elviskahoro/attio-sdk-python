@@ -32,7 +32,7 @@ async def generate(force: bool = False, version: str | None = None) -> None:
             .with_secret_variable("SPEAKEASY_API_KEY", api_key)
             .with_mounted_directory("/repo", src)
             .with_workdir("/repo")
-            .with_exec(["/bin/sh", "-c", "sudo chmod -R 755 /repo && sudo mkdir -p .speakeasy/temp && sudo chown -R $(id -u):$(id -g) .speakeasy"])
+            .with_exec(["/bin/sh", "-c", "mkdir -p .speakeasy/temp"])
             .with_exec(run_args)
             .directory("/repo/src")
             .export("src")
