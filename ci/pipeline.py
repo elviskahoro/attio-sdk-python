@@ -28,7 +28,8 @@ async def generate(force: bool = False, version: str | None = None) -> None:
         await (
             dag.container()
             .from_("ghcr.io/speakeasy-api/speakeasy:latest")
-            .with_exec(["apk", "add", "--no-cache", "ca-certificates"])
+            .with_exec(["apt-get", "update"])
+            .with_exec(["apt-get", "install", "-y", "ca-certificates"])
             .with_secret_variable("SPEAKEASY_API_KEY", api_key)
             .with_mounted_directory("/repo", src)
             .with_workdir("/repo")
