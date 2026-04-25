@@ -10,7 +10,7 @@ urls.homepage = "https://github.com/elviskahoro/attio-sdk-python"
 
 [dependency-groups]
 dev = [
-  "dagger-io>=0.20.5",
+  "dagger-io>=0.20.6",
   "mypy ==1.15.0",
   "pylint ==3.2.3",
   "pyright ==1.1.398",
