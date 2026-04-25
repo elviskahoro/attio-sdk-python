@@ -5,6 +5,7 @@ permissions:
   pull-requests: write
   statuses: write
   id-token: write
+
 "on":
   workflow_dispatch:
     inputs:
@@ -12,15 +13,19 @@ permissions:
         description: Force generation of SDKs
         type: boolean
         default: false
+
       set_version:
         description: Optionally set a specific SDK version
         type: string
+
   schedule:
     - cron: 0 0 * * *
+
   pull_request:
     types:
       - labeled
       - unlabeled
+
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -32,9 +37,11 @@ jobs:
           dagger run python ci/pipeline.py generate \
             ${{ github.event.inputs.force == 'true' && '--force' || '' }} \
             ${{ github.event.inputs.set_version && format('--version {0}', github.event.inputs.set_version) || '' }}
+
         env:
           SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: peter-evans/create-pull-request@v7
         with:
           branch: gha/attio-sdk-generation
