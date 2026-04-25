@@ -72,7 +72,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "dagger-io", specifier = ">=0.20.5" },
+    { name = "dagger-io", specifier = ">=0.20.6" },
     { name = "mypy", specifier = "==1.15.0" },
     { name = "pylint", specifier = "==3.2.3" },
     { name = "pyright", specifier = "==1.1.398" },
@@ -255,7 +255,7 @@ wheels = [
 
 [[package]]
 name = "dagger-io"
-version = "0.20.5"
+version = "0.20.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
@@ -271,9 +271,9 @@ dependencies = [
     { name = "rich" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c1/2d/6ad507584cf9cbb89709be3a1f614561c742b0f6cb30cd71139999374618/dagger_io-0.20.5.tar.gz", hash = "sha256:96d8e5f5a2797ba4c1c81af856b16790b8672a15694f9f3646aa0bf341c13f13", size = 120491, upload-time = "2026-04-09T22:14:06.907Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/5b/28/7c52064af612f0b90bdace43ae8f44369e2aab4c0cc0f04550da2021d4a4/dagger_io-0.20.6.tar.gz", hash = "sha256:c55a94fb6858dff1225797fa98e750b2b67444363a959f1947c35cf259040e49", size = 120620, upload-time = "2026-04-16T04:07:32.088Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a8/1c/30b9a5e3017be5a1e9a6b6d90111992e76bf4bce961a37a67b210747f99d/dagger_io-0.20.5-py3-none-any.whl", hash = "sha256:90e4bb465de27be9e3cb9a5bf3f2967b8078b00d716de5387e776f74bf34e878", size = 109384, upload-time = "2026-04-09T22:14:05.873Z" },
+    { url = "https://files.pythonhosted.org/packages/96/38/abf6b9d5afa57d728ef998e95e81c36e94bfb9343c11eec9e49dc782dec2/dagger_io-0.20.6-py3-none-any.whl", hash = "sha256:7ce41a60551f051267e5405b3c2ed7ed3588cc61821b67e56834ad2cd551d672", size = 109478, upload-time = "2026-04-16T04:07:33.422Z" },
 ]
 
 [[package]]

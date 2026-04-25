@@ -64,10 +64,9 @@ def _sync_update_workflow(overlay_path: str, spec_path: str) -> None:
 
 
 async def fetch_latest_spec() -> str:
-    """Fetch the latest OpenAPI spec and update workflow.yaml locally.
+    """Fetch the latest OpenAPI spec and update workflow.yaml locally."""
+    import httpx
 
-    Uses a container to download the spec, then updates workflow.yaml.
-    """
     spec_url = "https://api.attio.com/openapi/api"
     from datetime import timezone
 
@@ -77,22 +76,14 @@ async def fetch_latest_spec() -> str:
 
     print(f"Fetching latest OpenAPI spec from {spec_url}...", file=sys.stderr)
 
-    import os
-
-    os.environ.setdefault("OTEL_SDK_DISABLED", "true")
-    async with dagger.connection(dagger.Config(log_output=sys.stderr)):
-        spec_json = await (
-            dag.container()
-            .from_("curlimages/curl:latest")
-            .with_exec(["curl", "-sf", spec_url])
-            .stdout()
-        )
-
-    try:
-        spec_data = json.loads(spec_json)
-    except json.JSONDecodeError as err:
-        msg = f"Invalid JSON in spec: {err}"
-        raise RuntimeError(msg) from err
+    async with httpx.AsyncClient(timeout=30.0, follow_redirects=True) as client:
+        response = await client.get(spec_url)
+        response.raise_for_status()
+        try:
+            spec_data = response.json()
+        except json.JSONDecodeError as err:
+            msg = f"Invalid JSON in spec: {err}"
+            raise RuntimeError(msg) from err
 
     # Write spec and workflow synchronously outside async context
     _sync_write_spec(spec_path, spec_data)
