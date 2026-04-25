@@ -5,7 +5,6 @@ permissions:
   pull-requests: write
   statuses: write
   id-token: write
-
 "on":
   workflow_dispatch:
     inputs:
