@@ -22,7 +22,7 @@ This SDK is generated using Speakeasy from an OpenAPI spec.
 
 1. **Fetch the latest spec** (if not already done):
    ```bash
-   ./scripts/fetch-openapi.sh
+   dagger run python ci/pipeline.py fetch-openapi
    ```
    This downloads from `https://api.attio.com/openapi/api`, saves it with a timestamp, and updates `workflow.yaml`.
 

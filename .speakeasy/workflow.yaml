@@ -1,14 +1,14 @@
 workflowVersion: 1.0.0
 sources:
-    attio:
-        inputs:
-            - location: openapi/api-202603282323.json
-        overlays:
-            - location: overlay.yaml
-        output: openapi/api-202603282323-overlay.json
-        registry:
-            location: registry.speakeasyapi.dev/elviskahoro/attio/attio
+  attio:
+    inputs:
+      - location: openapi/api-202604251408.json
+    overlays:
+      - location: overlay.yaml
+    output: openapi/api-202604251408-overlay.json
+    registry:
+      location: registry.speakeasyapi.dev/elviskahoro/attio/attio
 targets:
-    attio:
-        target: python
-        source: attio
+  attio:
+    target: python
+    source: attio

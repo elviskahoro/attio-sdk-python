@@ -11,17 +11,17 @@ Follow these steps to update the Attio Python SDK to the latest OpenAPI spec.
 
 ## Prerequisites
 
+- `dagger` CLI installed
 - `speakeasy` CLI installed (`brew install speakeasy-api/homebrew-tap/speakeasy`)
-- `curl` and `python3` available
 
 ## Steps
 
 ### 1. Fetch the latest OpenAPI spec
 
-Run the fetch script which downloads the spec and updates `workflow.yaml`:
+Run the Dagger pipeline which downloads the spec and updates `workflow.yaml`:
 
 ```bash
-bash scripts/fetch-openapi.sh
+dagger run python ci/pipeline.py fetch-openapi
 ```
 
 This will:
@@ -90,7 +90,7 @@ Optionally remove the old spec file from `openapi/` once you've confirmed the ne
 
 | File | Purpose |
 |------|---------|
-| `scripts/fetch-openapi.sh` | Downloads latest spec, updates workflow.yaml |
+| `ci/pipeline.py` | Dagger pipeline with fetch-openapi, generate, and publish commands |
 | `.speakeasy/workflow.yaml` | Points Speakeasy to the input spec and overlay |
 | `.speakeasy/gen.yaml` | SDK generation config (version, package name, etc.) |
 | `overlay.yaml` | Patches applied to the spec before generation |
