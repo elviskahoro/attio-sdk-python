@@ -324,6 +324,17 @@ actions:
       x-speakeasy-name-override: "list_id"
 
   # Fix SCIM endpoints missing path parameters (upstream spec bug)
+  - target: "$.paths['/scim/v2/Users/{user_id}'].get"
+    description: "Add missing user_id path parameter to GET /scim/v2/Users/{user_id}"
+    update:
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: "user_id"
+          in: "path"
+          description: "The ID of the SCIM user to retrieve."
+
   - target: "$.paths['/scim/v2/Users/{user_id}'].patch"
     description: "Add missing user_id path parameter to PATCH /scim/v2/Users/{user_id}"
     update:
@@ -346,6 +357,28 @@ actions:
           in: "path"
           description: "The ID of the SCIM user to replace."
 
+  - target: "$.paths['/scim/v2/Users/{user_id}'].delete"
+    description: "Add missing user_id path parameter to DELETE /scim/v2/Users/{user_id}"
+    update:
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: "user_id"
+          in: "path"
+          description: "The ID of the SCIM user to delete."
+
+  - target: "$.paths['/scim/v2/Groups/{workspace_team_id}'].get"
+    description: "Add missing workspace_team_id path parameter to GET /scim/v2/Groups/{workspace_team_id}"
+    update:
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: "workspace_team_id"
+          in: "path"
+          description: "The ID of the SCIM group to retrieve."
+
   - target: "$.paths['/scim/v2/Groups/{workspace_team_id}'].patch"
     description: "Add missing workspace_team_id path parameter to PATCH /scim/v2/Groups/{workspace_team_id}"
     update:
@@ -356,6 +389,28 @@ actions:
           name: "workspace_team_id"
           in: "path"
           description: "The ID of the SCIM group to update."
+
+  - target: "$.paths['/scim/v2/Groups/{workspace_team_id}'].put"
+    description: "Add missing workspace_team_id path parameter to PUT /scim/v2/Groups/{workspace_team_id}"
+    update:
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: "workspace_team_id"
+          in: "path"
+          description: "The ID of the SCIM group to replace."
+
+  - target: "$.paths['/scim/v2/Groups/{workspace_team_id}'].delete"
+    description: "Add missing workspace_team_id path parameter to DELETE /scim/v2/Groups/{workspace_team_id}"
+    update:
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: "workspace_team_id"
+          in: "path"
+          description: "The ID of the SCIM group to delete."
 
   - target: "$.paths['/v2/lists/{list}/views'].get.parameters[?(@.name=='list')]"
     description: "Rename list parameter to list_id in GET /v2/lists/{list}/views"
