@@ -10,9 +10,9 @@ Records are individual instances of objects e.g. a specific [person](/rest-api/e
 * [post_v2_objects_object_records](#post_v2_objects_object_records) - Create a record
 * [put_v2_objects_object_records](#put_v2_objects_object_records) - Assert a record
 * [get_v2_objects_object_records_record_id_](#get_v2_objects_object_records_record_id_) - Get a record
-* [patch_v2_objects_object_records_record_id_](#patch_v2_objects_object_records_record_id_) - Update a record (append multiselect values)
 * [put_v2_objects_object_records_record_id_](#put_v2_objects_object_records_record_id_) - Update a record (overwrite multiselect values)
 * [delete_v2_objects_object_records_record_id_](#delete_v2_objects_object_records_record_id_) - Delete a record
+* [patch_v2_objects_object_records_record_id_](#patch_v2_objects_object_records_record_id_) - Update a record (append multiselect values)
 * [get_v2_objects_object_records_record_id_attributes_attribute_values](#get_v2_objects_object_records_record_id_attributes_attribute_values) - List record attribute values
 * [get_v2_objects_object_records_record_id_entries](#get_v2_objects_object_records_record_id_entries) - List record entries
 * [post_v2_objects_records_search](#post_v2_objects_records_search) - Search records
@@ -252,61 +252,6 @@ with SDK(
 | errors.GetV2ObjectsObjectRecordsRecordIDNotFoundError | 404                                                   | application/json                                      |
 | errors.SDKDefaultError                                | 4XX, 5XX                                              | \*/\*                                                 |
 
-## patch_v2_objects_object_records_record_id_
-
-Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
-
-Required scopes: `record_permission:read-write`, `object_configuration:read`.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="patch_/v2/objects/{object}/records/{record_id}" method="patch" path="/v2/objects/{object}/records/{record_id}" -->
-```python
-from attio import SDK
-
-
-with SDK(
-    oauth2="<YOUR_OAUTH2_HERE>",
-) as sdk:
-
-    res = sdk.records.patch_v2_objects_object_records_record_id_(object="people", record_id="891dcbfc-9141-415d-9b2a-2238a6cc012d", data={
-        "values": {
-            "41252299-f8c7-4b5e-99c9-4ff8321d2f96": [
-                "Text value",
-            ],
-            "multiselect_attribute": [
-                "Select option 1",
-                "Select option 2",
-            ],
-        },
-    })
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                               | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             | Example                                                                                                                 |
-| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `object`                                                                                                                | *str*                                                                                                                   | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     | people                                                                                                                  |
-| `record_id`                                                                                                             | *str*                                                                                                                   | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     | 891dcbfc-9141-415d-9b2a-2238a6cc012d                                                                                    |
-| `data`                                                                                                                  | [models.PatchV2ObjectsObjectRecordsRecordIDDataRequest](../../models/patchv2objectsobjectrecordsrecordiddatarequest.md) | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     |                                                                                                                         |
-| `retries`                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                        | :heavy_minus_sign:                                                                                                      | Configuration to override the default retry behavior of the client.                                                     |                                                                                                                         |
-
-### Response
-
-**[models.PatchV2ObjectsObjectRecordsRecordIDResponse](../../models/patchv2objectsobjectrecordsrecordidresponse.md)**
-
-### Errors
-
-| Error Type                                                  | Status Code                                                 | Content Type                                                |
-| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| errors.PatchV2ObjectsObjectRecordsRecordIDMissingValueError | 400                                                         | application/json                                            |
-| errors.PatchV2ObjectsObjectRecordsRecordIDNotFoundError     | 404                                                         | application/json                                            |
-| errors.SDKDefaultError                                      | 4XX, 5XX                                                    | \*/\*                                                       |
-
 ## put_v2_objects_object_records_record_id_
 
 Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
@@ -404,6 +349,61 @@ with SDK(
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | errors.DeleteV2ObjectsObjectRecordsRecordIDNotFoundError | 404                                                      | application/json                                         |
 | errors.SDKDefaultError                                   | 4XX, 5XX                                                 | \*/\*                                                    |
+
+## patch_v2_objects_object_records_record_id_
+
+Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will be created and prepended to the list of values that already exist (if any). Use the `PUT` endpoint to overwrite or remove multiselect attribute values.
+
+Required scopes: `record_permission:read-write`, `object_configuration:read`.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="patch_/v2/objects/{object}/records/{record_id}" method="patch" path="/v2/objects/{object}/records/{record_id}" -->
+```python
+from attio import SDK
+
+
+with SDK(
+    oauth2="<YOUR_OAUTH2_HERE>",
+) as sdk:
+
+    res = sdk.records.patch_v2_objects_object_records_record_id_(object="people", record_id="891dcbfc-9141-415d-9b2a-2238a6cc012d", data={
+        "values": {
+            "41252299-f8c7-4b5e-99c9-4ff8321d2f96": [
+                "Text value",
+            ],
+            "multiselect_attribute": [
+                "Select option 1",
+                "Select option 2",
+            ],
+        },
+    })
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                               | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             | Example                                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `object`                                                                                                                | *str*                                                                                                                   | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     | people                                                                                                                  |
+| `record_id`                                                                                                             | *str*                                                                                                                   | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     | 891dcbfc-9141-415d-9b2a-2238a6cc012d                                                                                    |
+| `data`                                                                                                                  | [models.PatchV2ObjectsObjectRecordsRecordIDDataRequest](../../models/patchv2objectsobjectrecordsrecordiddatarequest.md) | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     |                                                                                                                         |
+| `retries`                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                        | :heavy_minus_sign:                                                                                                      | Configuration to override the default retry behavior of the client.                                                     |                                                                                                                         |
+
+### Response
+
+**[models.PatchV2ObjectsObjectRecordsRecordIDResponse](../../models/patchv2objectsobjectrecordsrecordidresponse.md)**
+
+### Errors
+
+| Error Type                                                  | Status Code                                                 | Content Type                                                |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| errors.PatchV2ObjectsObjectRecordsRecordIDMissingValueError | 400                                                         | application/json                                            |
+| errors.PatchV2ObjectsObjectRecordsRecordIDNotFoundError     | 404                                                         | application/json                                            |
+| errors.SDKDefaultError                                      | 4XX, 5XX                                                    | \*/\*                                                       |
 
 ## get_v2_objects_object_records_record_id_attributes_attribute_values
 

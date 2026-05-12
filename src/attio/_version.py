@@ -3,10 +3,10 @@
 import importlib.metadata
 
 __title__: str = "attio"
-__version__: str = "0.21.2"
+__version__: str = "0.21.3"
 __openapi_doc_version__: str = "2.0.0"
-__gen_version__: str = "2.869.25"
-__user_agent__: str = "speakeasy-sdk/python 0.21.2 2.869.25 2.0.0 attio"
+__gen_version__: str = "2.882.0"
+__user_agent__: str = "speakeasy-sdk/python 0.21.3 2.882.0 2.0.0 attio"
 
 try:
     if __package__ is not None:

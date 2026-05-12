@@ -23,7 +23,7 @@ class SCIMUsers(BaseSDK):
 
         Lists SCIM users for the workspace.
 
-        Required scopes: `scim_management:read`.
+        Required scopes: `user_management:read`.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -73,7 +73,7 @@ class SCIMUsers(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -100,7 +100,7 @@ class SCIMUsers(BaseSDK):
 
         Lists SCIM users for the workspace.
 
-        Required scopes: `scim_management:read`.
+        Required scopes: `user_management:read`.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -150,7 +150,7 @@ class SCIMUsers(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -177,7 +177,7 @@ class SCIMUsers(BaseSDK):
 
         Creates a SCIM user in the workspace.
 
-        Required scopes: `scim_management:read-write`.
+        Required scopes: `user_management:read-write`.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -227,7 +227,7 @@ class SCIMUsers(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -254,7 +254,7 @@ class SCIMUsers(BaseSDK):
 
         Creates a SCIM user in the workspace.
 
-        Required scopes: `scim_management:read-write`.
+        Required scopes: `user_management:read-write`.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -304,12 +304,184 @@ class SCIMUsers(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(models.PostScimV2UsersResponse, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+
+        raise errors.SDKDefaultError("Unexpected response received", http_res)
+
+    def get_scim_v2_users_user_id_(
+        self,
+        *,
+        user_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.GetScimV2UsersUserIDResponse:
+        r"""Get SCIM user
+
+        Gets a SCIM user by ID.
+
+        Required scopes: `user_management:read`.
+
+        :param user_id: The ID of the SCIM user to retrieve.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetScimV2UsersUserIDRequest(
+            user_id=user_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/scim/v2/Users/{user_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="get_/scim/v2/Users/{user_id}",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.GetScimV2UsersUserIDResponse, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+
+        raise errors.SDKDefaultError("Unexpected response received", http_res)
+
+    async def get_scim_v2_users_user_id__async(
+        self,
+        *,
+        user_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.GetScimV2UsersUserIDResponse:
+        r"""Get SCIM user
+
+        Gets a SCIM user by ID.
+
+        Required scopes: `user_management:read`.
+
+        :param user_id: The ID of the SCIM user to retrieve.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetScimV2UsersUserIDRequest(
+            user_id=user_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/scim/v2/Users/{user_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="get_/scim/v2/Users/{user_id}",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.GetScimV2UsersUserIDResponse, http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
@@ -332,7 +504,7 @@ class SCIMUsers(BaseSDK):
 
         Patches a SCIM user in the workspace.
 
-        Required scopes: `scim_management:read-write`.
+        Required scopes: `user_management:read-write`.
 
         :param user_id: The ID of the SCIM user to update.
         :param retries: Override the default retry configuration for this method
@@ -388,13 +560,17 @@ class SCIMUsers(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.PatchScimV2UsersUserIDResponse, http_res
+                models.PatchScimV2UsersUserIDResponseBody1, http_res
+            )
+        if utils.match_response(http_res, "204", "application/json"):
+            return unmarshal_json_response(
+                models.PatchScimV2UsersUserIDResponseBody2, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -418,7 +594,7 @@ class SCIMUsers(BaseSDK):
 
         Patches a SCIM user in the workspace.
 
-        Required scopes: `scim_management:read-write`.
+        Required scopes: `user_management:read-write`.
 
         :param user_id: The ID of the SCIM user to update.
         :param retries: Override the default retry configuration for this method
@@ -474,13 +650,17 @@ class SCIMUsers(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.PatchScimV2UsersUserIDResponse, http_res
+                models.PatchScimV2UsersUserIDResponseBody1, http_res
+            )
+        if utils.match_response(http_res, "204", "application/json"):
+            return unmarshal_json_response(
+                models.PatchScimV2UsersUserIDResponseBody2, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -504,7 +684,7 @@ class SCIMUsers(BaseSDK):
 
         Updates a SCIM user in the workspace.
 
-        Required scopes: `scim_management:read-write`.
+        Required scopes: `user_management:read-write`.
 
         :param user_id: The ID of the SCIM user to replace.
         :param retries: Override the default retry configuration for this method
@@ -560,13 +740,17 @@ class SCIMUsers(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.PutScimV2UsersUserIDResponse, http_res
+                models.PutScimV2UsersUserIDResponseBody1, http_res
+            )
+        if utils.match_response(http_res, "204", "application/json"):
+            return unmarshal_json_response(
+                models.PutScimV2UsersUserIDResponseBody2, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -590,7 +774,7 @@ class SCIMUsers(BaseSDK):
 
         Updates a SCIM user in the workspace.
 
-        Required scopes: `scim_management:read-write`.
+        Required scopes: `user_management:read-write`.
 
         :param user_id: The ID of the SCIM user to replace.
         :param retries: Override the default retry configuration for this method
@@ -646,13 +830,189 @@ class SCIMUsers(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.PutScimV2UsersUserIDResponse, http_res
+                models.PutScimV2UsersUserIDResponseBody1, http_res
+            )
+        if utils.match_response(http_res, "204", "application/json"):
+            return unmarshal_json_response(
+                models.PutScimV2UsersUserIDResponseBody2, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+
+        raise errors.SDKDefaultError("Unexpected response received", http_res)
+
+    def delete_scim_v2_users_user_id_(
+        self,
+        *,
+        user_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.DeleteScimV2UsersUserIDResponse:
+        r"""Delete SCIM user
+
+        Deletes a SCIM user from the workspace.
+
+        Required scopes: `user_management:read-write`.
+
+        :param user_id: The ID of the SCIM user to delete.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.DeleteScimV2UsersUserIDRequest(
+            user_id=user_id,
+        )
+
+        req = self._build_request(
+            method="DELETE",
+            path="/scim/v2/Users/{user_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="delete_/scim/v2/Users/{user_id}",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "204", "application/json"):
+            return unmarshal_json_response(
+                models.DeleteScimV2UsersUserIDResponse, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+
+        raise errors.SDKDefaultError("Unexpected response received", http_res)
+
+    async def delete_scim_v2_users_user_id__async(
+        self,
+        *,
+        user_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.DeleteScimV2UsersUserIDResponse:
+        r"""Delete SCIM user
+
+        Deletes a SCIM user from the workspace.
+
+        Required scopes: `user_management:read-write`.
+
+        :param user_id: The ID of the SCIM user to delete.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.DeleteScimV2UsersUserIDRequest(
+            user_id=user_id,
+        )
+
+        req = self._build_request_async(
+            method="DELETE",
+            path="/scim/v2/Users/{user_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="delete_/scim/v2/Users/{user_id}",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "204", "application/json"):
+            return unmarshal_json_response(
+                models.DeleteScimV2UsersUserIDResponse, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)

@@ -122,6 +122,8 @@ class TaskTypedDict(TypedDict):
     r"""The deadline date of the task. Returned as an ISO 8601 timestamp."""
     is_completed: bool
     r"""Whether the task has been completed."""
+    completed_at: Nullable[str]
+    r"""When the task was completed, or null if it has not been completed."""
     linked_records: List[TaskLinkedRecordTypedDict]
     r"""Records linked to the task. Creating record links within task content text is not possible via the API at present."""
     assignees: List[AssigneeTypedDict]
@@ -143,6 +145,9 @@ class Task(BaseModel):
 
     is_completed: bool
     r"""Whether the task has been completed."""
+
+    completed_at: Nullable[str]
+    r"""When the task was completed, or null if it has not been completed."""
 
     linked_records: List[TaskLinkedRecord]
     r"""Records linked to the task. Creating record links within task content text is not possible via the API at present."""

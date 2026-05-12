@@ -12,7 +12,7 @@ SCIM schemas describe the resource types supported by the SCIM service provider.
 
 Lists the SCIM schemas supported by this service provider.
 
-Required scopes: `scim_management:read`.
+Required scopes: `user_management:read`.
 
 ### Example Usage
 

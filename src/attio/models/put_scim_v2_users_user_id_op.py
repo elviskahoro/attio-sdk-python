@@ -5,8 +5,8 @@ from attio.types import BaseModel, Nullable, UNSET_SENTINEL
 from attio.utils import FieldMetadata, PathParamMetadata
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class PutScimV2UsersUserIDRequestTypedDict(TypedDict):
@@ -19,6 +19,14 @@ class PutScimV2UsersUserIDRequest(BaseModel):
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
     r"""The ID of the SCIM user to replace."""
+
+
+class PutScimV2UsersUserIDResponseBody2TypedDict(TypedDict):
+    r"""No Content"""
+
+
+class PutScimV2UsersUserIDResponseBody2(BaseModel):
+    r"""No Content"""
 
 
 class PutScimV2UsersUserIDNameTypedDict(TypedDict):
@@ -87,7 +95,7 @@ class PutScimV2UsersUserIDMeta(BaseModel):
     last_modified: Annotated[str, pydantic.Field(alias="lastModified")]
 
 
-class PutScimV2UsersUserIDResponseTypedDict(TypedDict):
+class PutScimV2UsersUserIDResponseBody1TypedDict(TypedDict):
     r"""Success"""
 
     schemas: List[str]
@@ -101,7 +109,7 @@ class PutScimV2UsersUserIDResponseTypedDict(TypedDict):
     meta: PutScimV2UsersUserIDMetaTypedDict
 
 
-class PutScimV2UsersUserIDResponse(BaseModel):
+class PutScimV2UsersUserIDResponseBody1(BaseModel):
     r"""Success"""
 
     schemas: List[str]
@@ -137,6 +145,21 @@ class PutScimV2UsersUserIDResponse(BaseModel):
         return m
 
 
+PutScimV2UsersUserIDResponseTypedDict = TypeAliasType(
+    "PutScimV2UsersUserIDResponseTypedDict",
+    Union[
+        PutScimV2UsersUserIDResponseBody2TypedDict,
+        PutScimV2UsersUserIDResponseBody1TypedDict,
+    ],
+)
+
+
+PutScimV2UsersUserIDResponse = TypeAliasType(
+    "PutScimV2UsersUserIDResponse",
+    Union[PutScimV2UsersUserIDResponseBody2, PutScimV2UsersUserIDResponseBody1],
+)
+
+
 try:
     PutScimV2UsersUserIDName.model_rebuild()
 except NameError:
@@ -146,6 +169,6 @@ try:
 except NameError:
     pass
 try:
-    PutScimV2UsersUserIDResponse.model_rebuild()
+    PutScimV2UsersUserIDResponseBody1.model_rebuild()
 except NameError:
     pass

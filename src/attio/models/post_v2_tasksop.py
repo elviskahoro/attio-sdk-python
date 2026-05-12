@@ -438,7 +438,7 @@ PostV2TasksSlugOrIDOfMatchingAttributeUnion = TypeAliasType(
 )
 
 
-class PostV2TasksLinkedRecord2TypedDict(TypedDict):
+class PostV2TasksLinkedRecords2TypedDict(TypedDict):
     target_object: str
     r"""A UUID or slug to identify the object that the referenced record belongs to."""
     slug_or_id_of_matching_attribute: List[
@@ -447,7 +447,7 @@ class PostV2TasksLinkedRecord2TypedDict(TypedDict):
     r"""In addition to referencing records directly by record ID, you may also reference by a matching attribute of your choice. For example, if you want to add a reference to the person record with email \"alice@website.com\", you should pass a value with `target_object` set to `\"people\"` and `email_addresses` set to `[{email_address:\"alice@website.com\"}]`. The key should be the slug or ID of the matching attribute you would like to use and the value should be an array containing a single value of the appropriate attribute type (as specified below). Matching on multiple values is not currently supported. Matching attributes must be unique. This process is similar to how you use the `matching_attribute` query param in Attio's [assert endpoints](/rest-api/endpoint-reference/records/assert-a-record)."""
 
 
-class PostV2TasksLinkedRecord2(BaseModel):
+class PostV2TasksLinkedRecords2(BaseModel):
     target_object: str
     r"""A UUID or slug to identify the object that the referenced record belongs to."""
 
@@ -458,14 +458,14 @@ class PostV2TasksLinkedRecord2(BaseModel):
     r"""In addition to referencing records directly by record ID, you may also reference by a matching attribute of your choice. For example, if you want to add a reference to the person record with email \"alice@website.com\", you should pass a value with `target_object` set to `\"people\"` and `email_addresses` set to `[{email_address:\"alice@website.com\"}]`. The key should be the slug or ID of the matching attribute you would like to use and the value should be an array containing a single value of the appropriate attribute type (as specified below). Matching on multiple values is not currently supported. Matching attributes must be unique. This process is similar to how you use the `matching_attribute` query param in Attio's [assert endpoints](/rest-api/endpoint-reference/records/assert-a-record)."""
 
 
-class PostV2TasksLinkedRecord1TypedDict(TypedDict):
+class PostV2TasksLinkedRecords1TypedDict(TypedDict):
     target_object: str
     r"""The ID or slug of the parent object the tasks refers to. This can reference both standard and custom objects.`"""
     target_record_id: str
     r"""The ID of the parent record the task refers to."""
 
 
-class PostV2TasksLinkedRecord1(BaseModel):
+class PostV2TasksLinkedRecords1(BaseModel):
     target_object: str
     r"""The ID or slug of the parent object the tasks refers to. This can reference both standard and custom objects.`"""
 
@@ -473,16 +473,30 @@ class PostV2TasksLinkedRecord1(BaseModel):
     r"""The ID of the parent record the task refers to."""
 
 
-PostV2TasksLinkedRecordUnionTypedDict = TypeAliasType(
-    "PostV2TasksLinkedRecordUnionTypedDict",
-    Union[PostV2TasksLinkedRecord1TypedDict, PostV2TasksLinkedRecord2TypedDict],
+PostV2TasksLinkedRecordsUnion2TypedDict = TypeAliasType(
+    "PostV2TasksLinkedRecordsUnion2TypedDict",
+    Union[PostV2TasksLinkedRecords1TypedDict, PostV2TasksLinkedRecords2TypedDict],
 )
 
 
-PostV2TasksLinkedRecordUnion = TypeAliasType(
-    "PostV2TasksLinkedRecordUnion",
-    Union[PostV2TasksLinkedRecord1, PostV2TasksLinkedRecord2],
+PostV2TasksLinkedRecordsUnion2 = TypeAliasType(
+    "PostV2TasksLinkedRecordsUnion2",
+    Union[PostV2TasksLinkedRecords1, PostV2TasksLinkedRecords2],
 )
+
+
+PostV2TasksLinkedRecordsUnion1TypedDict = TypeAliasType(
+    "PostV2TasksLinkedRecordsUnion1TypedDict",
+    Union[List[str], List[PostV2TasksLinkedRecordsUnion2TypedDict]],
+)
+r"""Records linked to the task. Records can be linked by domain (for companies), email address (for people), record ID (for all objects) or by a unique matching attribute (for all objects). Creating record links within task content text is not possible via the API at present."""
+
+
+PostV2TasksLinkedRecordsUnion1 = TypeAliasType(
+    "PostV2TasksLinkedRecordsUnion1",
+    Union[List[str], List[PostV2TasksLinkedRecordsUnion2]],
+)
+r"""Records linked to the task. Records can be linked by domain (for companies), email address (for people), record ID (for all objects) or by a unique matching attribute (for all objects). Creating record links within task content text is not possible via the API at present."""
 
 
 class PostV2TasksAssigneeTypedDict(TypedDict):
@@ -535,8 +549,8 @@ class PostV2TasksDataTypedDict(TypedDict):
     r"""The deadline of the task, in ISO 8601 format."""
     is_completed: bool
     r"""Whether the task has been completed."""
-    linked_records: List[PostV2TasksLinkedRecordUnionTypedDict]
-    r"""Records linked to the task. Creating record links within task content text is not possible via the API at present."""
+    linked_records: PostV2TasksLinkedRecordsUnion1TypedDict
+    r"""Records linked to the task. Records can be linked by domain (for companies), email address (for people), record ID (for all objects) or by a unique matching attribute (for all objects). Creating record links within task content text is not possible via the API at present."""
     assignees: List[PostV2TasksAssigneeUnionTypedDict]
     r"""Workspace members assigned to this task."""
 
@@ -554,8 +568,8 @@ class PostV2TasksData(BaseModel):
     is_completed: bool
     r"""Whether the task has been completed."""
 
-    linked_records: List[PostV2TasksLinkedRecordUnion]
-    r"""Records linked to the task. Creating record links within task content text is not possible via the API at present."""
+    linked_records: PostV2TasksLinkedRecordsUnion1
+    r"""Records linked to the task. Records can be linked by domain (for companies), email address (for people), record ID (for all objects) or by a unique matching attribute (for all objects). Creating record links within task content text is not possible via the API at present."""
 
     assignees: List[PostV2TasksAssigneeUnion]
     r"""Workspace members assigned to this task."""
@@ -608,7 +622,7 @@ class PostV2TasksResponse(BaseModel):
 
 
 try:
-    PostV2TasksLinkedRecord2.model_rebuild()
+    PostV2TasksLinkedRecords2.model_rebuild()
 except NameError:
     pass
 try:

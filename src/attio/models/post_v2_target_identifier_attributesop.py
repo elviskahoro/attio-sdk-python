@@ -39,7 +39,7 @@ PostV2TargetIdentifierAttributesTypeRequest = Literal[
     "email-address",
     "phone-number",
 ]
-r"""The type of the attribute. This value affects the possible `config` values. Attributes of type \"status\" are not supported on objects."""
+r"""The type of the attribute. This value affects the possible `config` values."""
 
 
 PostV2TargetIdentifierAttributesTypeStatic = Literal["static",]
@@ -252,7 +252,7 @@ class PostV2TargetIdentifierAttributesDataTypedDict(TypedDict):
     api_slug: str
     r"""A unique, human-readable slug to access the attribute through URLs and API calls. Formatted in snake case."""
     type: PostV2TargetIdentifierAttributesTypeRequest
-    r"""The type of the attribute. This value affects the possible `config` values. Attributes of type \"status\" are not supported on objects."""
+    r"""The type of the attribute. This value affects the possible `config` values."""
     is_required: bool
     r"""When `is_required` is `true`, new records/entries must have a value for this attribute. If `false`, values may be `null`. This value does not affect existing data and you do not need to backfill `null` values if changing `is_required` from `false` to `true`."""
     is_unique: bool
@@ -281,7 +281,7 @@ class PostV2TargetIdentifierAttributesData(BaseModel):
     r"""A unique, human-readable slug to access the attribute through URLs and API calls. Formatted in snake case."""
 
     type: PostV2TargetIdentifierAttributesTypeRequest
-    r"""The type of the attribute. This value affects the possible `config` values. Attributes of type \"status\" are not supported on objects."""
+    r"""The type of the attribute. This value affects the possible `config` values."""
 
     is_required: bool
     r"""When `is_required` is `true`, new records/entries must have a value for this attribute. If `false`, values may be `null`. This value does not affect existing data and you do not need to backfill `null` values if changing `is_required` from `false` to `true`."""

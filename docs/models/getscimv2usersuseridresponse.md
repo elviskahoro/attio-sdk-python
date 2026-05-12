@@ -1,0 +1,17 @@
+# GetScimV2UsersUserIDResponse
+
+Success
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `schemas`                                                                        | List[*str*]                                                                      | :heavy_check_mark:                                                               | N/A                                                                              |
+| `id`                                                                             | *str*                                                                            | :heavy_check_mark:                                                               | N/A                                                                              |
+| `user_name`                                                                      | *str*                                                                            | :heavy_check_mark:                                                               | N/A                                                                              |
+| `name`                                                                           | [models.GetScimV2UsersUserIDName](../models/getscimv2usersuseridname.md)         | :heavy_check_mark:                                                               | N/A                                                                              |
+| `emails`                                                                         | List[[models.GetScimV2UsersUserIDEmail](../models/getscimv2usersuseridemail.md)] | :heavy_check_mark:                                                               | N/A                                                                              |
+| `active`                                                                         | *bool*                                                                           | :heavy_check_mark:                                                               | N/A                                                                              |
+| `roles`                                                                          | List[[models.GetScimV2UsersUserIDRole](../models/getscimv2usersuseridrole.md)]   | :heavy_check_mark:                                                               | N/A                                                                              |
+| `meta`                                                                           | [models.GetScimV2UsersUserIDMeta](../models/getscimv2usersuseridmeta.md)         | :heavy_check_mark:                                                               | N/A                                                                              |

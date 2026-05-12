@@ -5,8 +5,8 @@ from attio.types import BaseModel, Nullable, UNSET_SENTINEL
 from attio.utils import FieldMetadata, PathParamMetadata
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class PatchScimV2UsersUserIDRequestTypedDict(TypedDict):
@@ -19,6 +19,14 @@ class PatchScimV2UsersUserIDRequest(BaseModel):
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
     r"""The ID of the SCIM user to update."""
+
+
+class PatchScimV2UsersUserIDResponseBody2TypedDict(TypedDict):
+    r"""No Content"""
+
+
+class PatchScimV2UsersUserIDResponseBody2(BaseModel):
+    r"""No Content"""
 
 
 class PatchScimV2UsersUserIDNameTypedDict(TypedDict):
@@ -87,7 +95,7 @@ class PatchScimV2UsersUserIDMeta(BaseModel):
     last_modified: Annotated[str, pydantic.Field(alias="lastModified")]
 
 
-class PatchScimV2UsersUserIDResponseTypedDict(TypedDict):
+class PatchScimV2UsersUserIDResponseBody1TypedDict(TypedDict):
     r"""Success"""
 
     schemas: List[str]
@@ -101,7 +109,7 @@ class PatchScimV2UsersUserIDResponseTypedDict(TypedDict):
     meta: PatchScimV2UsersUserIDMetaTypedDict
 
 
-class PatchScimV2UsersUserIDResponse(BaseModel):
+class PatchScimV2UsersUserIDResponseBody1(BaseModel):
     r"""Success"""
 
     schemas: List[str]
@@ -137,6 +145,21 @@ class PatchScimV2UsersUserIDResponse(BaseModel):
         return m
 
 
+PatchScimV2UsersUserIDResponseTypedDict = TypeAliasType(
+    "PatchScimV2UsersUserIDResponseTypedDict",
+    Union[
+        PatchScimV2UsersUserIDResponseBody2TypedDict,
+        PatchScimV2UsersUserIDResponseBody1TypedDict,
+    ],
+)
+
+
+PatchScimV2UsersUserIDResponse = TypeAliasType(
+    "PatchScimV2UsersUserIDResponse",
+    Union[PatchScimV2UsersUserIDResponseBody2, PatchScimV2UsersUserIDResponseBody1],
+)
+
+
 try:
     PatchScimV2UsersUserIDName.model_rebuild()
 except NameError:
@@ -146,6 +169,6 @@ try:
 except NameError:
     pass
 try:
-    PatchScimV2UsersUserIDResponse.model_rebuild()
+    PatchScimV2UsersUserIDResponseBody1.model_rebuild()
 except NameError:
     pass

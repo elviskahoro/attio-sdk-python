@@ -23,7 +23,7 @@ class SCIMSchemas(BaseSDK):
 
         Lists the SCIM schemas supported by this service provider.
 
-        Required scopes: `scim_management:read`.
+        Required scopes: `user_management:read`.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -73,7 +73,7 @@ class SCIMSchemas(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -100,7 +100,7 @@ class SCIMSchemas(BaseSDK):
 
         Lists the SCIM schemas supported by this service provider.
 
-        Required scopes: `scim_management:read`.
+        Required scopes: `user_management:read`.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -150,7 +150,7 @@ class SCIMSchemas(BaseSDK):
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

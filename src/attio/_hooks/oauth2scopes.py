@@ -92,9 +92,3 @@ class OAuth2Scope(str, Enum):
 
     FILE_READ_WRITE = "file:read-write"
     r"""View, and upload files."""
-
-    SCIM_MANAGEMENT_READ = "scim_management:read"
-    r"""View and manage users via SCIM."""
-
-    SCIM_MANAGEMENT_READ_WRITE = "scim_management:read-write"
-    r"""View and manage users via SCIM."""

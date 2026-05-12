@@ -12,15 +12,17 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 GetV2TasksSort = Literal[
     "created_at:asc",
     "created_at:desc",
+    "completed_at:asc",
+    "completed_at:desc",
 ]
-r"""Optionally sort the results. \"created_at:asc\" returns oldest results first, \"created_at:desc\" returns the newest results first. If unspecified, defaults to \"created_at:asc\" (oldest results first)."""
+r"""Optionally sort the results. \"created_at:asc\" returns oldest results first, \"created_at:desc\" returns the newest results first. \"completed_at:asc\" and \"completed_at:desc\" sort by completion time. With \"completed_at:asc\", incomplete tasks (no completion date) appear first, followed by completed tasks oldest-first. With \"completed_at:desc\", completed tasks appear first (newest-first), followed by incomplete tasks. To exclude incomplete tasks, filter by is_completed. If unspecified, defaults to \"created_at:asc\" (oldest results first)."""
 
 
 class GetV2TasksRequestTypedDict(TypedDict):
     limit: NotRequired[int]
     offset: NotRequired[int]
     sort: NotRequired[GetV2TasksSort]
-    r"""Optionally sort the results. \"created_at:asc\" returns oldest results first, \"created_at:desc\" returns the newest results first. If unspecified, defaults to \"created_at:asc\" (oldest results first)."""
+    r"""Optionally sort the results. \"created_at:asc\" returns oldest results first, \"created_at:desc\" returns the newest results first. \"completed_at:asc\" and \"completed_at:desc\" sort by completion time. With \"completed_at:asc\", incomplete tasks (no completion date) appear first, followed by completed tasks oldest-first. With \"completed_at:desc\", completed tasks appear first (newest-first), followed by incomplete tasks. To exclude incomplete tasks, filter by is_completed. If unspecified, defaults to \"created_at:asc\" (oldest results first)."""
     linked_object: NotRequired[str]
     linked_record_id: NotRequired[str]
     assignee: NotRequired[Nullable[str]]
@@ -42,7 +44,7 @@ class GetV2TasksRequest(BaseModel):
         Optional[GetV2TasksSort],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Optionally sort the results. \"created_at:asc\" returns oldest results first, \"created_at:desc\" returns the newest results first. If unspecified, defaults to \"created_at:asc\" (oldest results first)."""
+    r"""Optionally sort the results. \"created_at:asc\" returns oldest results first, \"created_at:desc\" returns the newest results first. \"completed_at:asc\" and \"completed_at:desc\" sort by completion time. With \"completed_at:asc\", incomplete tasks (no completion date) appear first, followed by completed tasks oldest-first. With \"completed_at:desc\", completed tasks appear first (newest-first), followed by incomplete tasks. To exclude incomplete tasks, filter by is_completed. If unspecified, defaults to \"created_at:asc\" (oldest results first)."""
 
     linked_object: Annotated[
         Optional[str],

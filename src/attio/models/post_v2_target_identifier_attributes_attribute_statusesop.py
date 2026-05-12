@@ -13,7 +13,7 @@ PostV2TargetIdentifierAttributesAttributeStatusesTarget = Literal[
     "lists",
     "objects",
 ]
-r"""Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time."""
+r"""Whether the attribute is on an object or a list."""
 
 
 class PostV2TargetIdentifierAttributesAttributeStatusesDataTypedDict(TypedDict):
@@ -71,7 +71,7 @@ class PostV2TargetIdentifierAttributesAttributeStatusesRequestBody(BaseModel):
 
 class PostV2TargetIdentifierAttributesAttributeStatusesRequestTypedDict(TypedDict):
     target: PostV2TargetIdentifierAttributesAttributeStatusesTarget
-    r"""Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time."""
+    r"""Whether the attribute is on an object or a list."""
     identifier: str
     attribute: str
     request_body: PostV2TargetIdentifierAttributesAttributeStatusesRequestBodyTypedDict
@@ -82,7 +82,7 @@ class PostV2TargetIdentifierAttributesAttributeStatusesRequest(BaseModel):
         PostV2TargetIdentifierAttributesAttributeStatusesTarget,
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
-    r"""Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time."""
+    r"""Whether the attribute is on an object or a list."""
 
     identifier: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))

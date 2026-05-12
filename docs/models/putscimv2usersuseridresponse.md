@@ -1,18 +1,17 @@
 # PutScimV2UsersUserIDResponse
 
-Success
 
+## Supported Types
 
-## Fields
+### `models.PutScimV2UsersUserIDResponseBody1`
 
-| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
-| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `schemas`                                                                        | List[*str*]                                                                      | :heavy_check_mark:                                                               | N/A                                                                              |
-| `id`                                                                             | *str*                                                                            | :heavy_check_mark:                                                               | N/A                                                                              |
-| `user_name`                                                                      | *str*                                                                            | :heavy_check_mark:                                                               | N/A                                                                              |
-| `name`                                                                           | [models.PutScimV2UsersUserIDName](../models/putscimv2usersuseridname.md)         | :heavy_check_mark:                                                               | N/A                                                                              |
-| `emails`                                                                         | List[[models.PutScimV2UsersUserIDEmail](../models/putscimv2usersuseridemail.md)] | :heavy_check_mark:                                                               | N/A                                                                              |
-| `roles`                                                                          | List[[models.PutScimV2UsersUserIDRole](../models/putscimv2usersuseridrole.md)]   | :heavy_check_mark:                                                               | N/A                                                                              |
-| `profile_url`                                                                    | *Nullable[str]*                                                                  | :heavy_check_mark:                                                               | N/A                                                                              |
-| `active`                                                                         | *bool*                                                                           | :heavy_check_mark:                                                               | N/A                                                                              |
-| `meta`                                                                           | [models.PutScimV2UsersUserIDMeta](../models/putscimv2usersuseridmeta.md)         | :heavy_check_mark:                                                               | N/A                                                                              |
+```python
+value: models.PutScimV2UsersUserIDResponseBody1 = /* values here */
+```
+
+### `models.PutScimV2UsersUserIDResponseBody2`
+
+```python
+value: models.PutScimV2UsersUserIDResponseBody2 = /* values here */
+```
+

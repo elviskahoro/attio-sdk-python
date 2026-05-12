@@ -1,18 +1,17 @@
 # PatchScimV2UsersUserIDResponse
 
-Success
 
+## Supported Types
 
-## Fields
+### `models.PatchScimV2UsersUserIDResponseBody1`
 
-| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
-| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| `schemas`                                                                            | List[*str*]                                                                          | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `id`                                                                                 | *str*                                                                                | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `user_name`                                                                          | *str*                                                                                | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `name`                                                                               | [models.PatchScimV2UsersUserIDName](../models/patchscimv2usersuseridname.md)         | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `emails`                                                                             | List[[models.PatchScimV2UsersUserIDEmail](../models/patchscimv2usersuseridemail.md)] | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `roles`                                                                              | List[[models.PatchScimV2UsersUserIDRole](../models/patchscimv2usersuseridrole.md)]   | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `profile_url`                                                                        | *Nullable[str]*                                                                      | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `active`                                                                             | *bool*                                                                               | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `meta`                                                                               | [models.PatchScimV2UsersUserIDMeta](../models/patchscimv2usersuseridmeta.md)         | :heavy_check_mark:                                                                   | N/A                                                                                  |
+```python
+value: models.PatchScimV2UsersUserIDResponseBody1 = /* values here */
+```
+
+### `models.PatchScimV2UsersUserIDResponseBody2`
+
+```python
+value: models.PatchScimV2UsersUserIDResponseBody2 = /* values here */
+```
+

@@ -13,7 +13,7 @@ PatchV2TargetIdentifierAttributesAttributeStatusesStatusTarget = Literal[
     "lists",
     "objects",
 ]
-r"""Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time."""
+r"""Whether the attribute is on an object or a list."""
 
 
 class PatchV2TargetIdentifierAttributesAttributeStatusesStatusDataTypedDict(TypedDict):
@@ -82,7 +82,7 @@ class PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequestTypedDict(
     TypedDict
 ):
     target: PatchV2TargetIdentifierAttributesAttributeStatusesStatusTarget
-    r"""Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time."""
+    r"""Whether the attribute is on an object or a list."""
     identifier: str
     attribute: str
     status: str
@@ -96,7 +96,7 @@ class PatchV2TargetIdentifierAttributesAttributeStatusesStatusRequest(BaseModel)
         PatchV2TargetIdentifierAttributesAttributeStatusesStatusTarget,
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
-    r"""Whether the attribute is on an object or a list. Please note that company and person objects do not support status attributes at this time."""
+    r"""Whether the attribute is on an object or a list."""
 
     identifier: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))

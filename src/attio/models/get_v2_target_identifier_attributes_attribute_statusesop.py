@@ -13,12 +13,12 @@ GetV2TargetIdentifierAttributesAttributeStatusesTarget = Literal[
     "lists",
     "objects",
 ]
-r"""Whether the attribute is on an object or a list. Please note that the company and people objects do not support status attributes at this time."""
+r"""Whether the attribute is on an object or a list."""
 
 
 class GetV2TargetIdentifierAttributesAttributeStatusesRequestTypedDict(TypedDict):
     target: GetV2TargetIdentifierAttributesAttributeStatusesTarget
-    r"""Whether the attribute is on an object or a list. Please note that the company and people objects do not support status attributes at this time."""
+    r"""Whether the attribute is on an object or a list."""
     identifier: str
     attribute: str
     show_archived: NotRequired[bool]
@@ -29,7 +29,7 @@ class GetV2TargetIdentifierAttributesAttributeStatusesRequest(BaseModel):
         GetV2TargetIdentifierAttributesAttributeStatusesTarget,
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
-    r"""Whether the attribute is on an object or a list. Please note that the company and people objects do not support status attributes at this time."""
+    r"""Whether the attribute is on an object or a list."""
 
     identifier: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))

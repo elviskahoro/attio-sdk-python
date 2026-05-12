@@ -435,7 +435,7 @@ PatchV2TasksTaskIDSlugOrIDOfMatchingAttributeUnion = TypeAliasType(
 )
 
 
-class PatchV2TasksTaskIDLinkedRecord2TypedDict(TypedDict):
+class PatchV2TasksTaskIDLinkedRecords2TypedDict(TypedDict):
     target_object: str
     r"""A UUID or slug to identify the object that the referenced record belongs to."""
     slug_or_id_of_matching_attribute: List[
@@ -444,7 +444,7 @@ class PatchV2TasksTaskIDLinkedRecord2TypedDict(TypedDict):
     r"""In addition to referencing records directly by record ID, you may also reference by a matching attribute of your choice. For example, if you want to add a reference to the person record with email \"alice@website.com\", you should pass a value with `target_object` set to `\"people\"` and `email_addresses` set to `[{email_address:\"alice@website.com\"}]`. The key should be the slug or ID of the matching attribute you would like to use and the value should be an array containing a single value of the appropriate attribute type (as specified below). Matching on multiple values is not currently supported. Matching attributes must be unique. This process is similar to how you use the `matching_attribute` query param in Attio's [assert endpoints](/rest-api/endpoint-reference/records/assert-a-record)."""
 
 
-class PatchV2TasksTaskIDLinkedRecord2(BaseModel):
+class PatchV2TasksTaskIDLinkedRecords2(BaseModel):
     target_object: str
     r"""A UUID or slug to identify the object that the referenced record belongs to."""
 
@@ -455,14 +455,14 @@ class PatchV2TasksTaskIDLinkedRecord2(BaseModel):
     r"""In addition to referencing records directly by record ID, you may also reference by a matching attribute of your choice. For example, if you want to add a reference to the person record with email \"alice@website.com\", you should pass a value with `target_object` set to `\"people\"` and `email_addresses` set to `[{email_address:\"alice@website.com\"}]`. The key should be the slug or ID of the matching attribute you would like to use and the value should be an array containing a single value of the appropriate attribute type (as specified below). Matching on multiple values is not currently supported. Matching attributes must be unique. This process is similar to how you use the `matching_attribute` query param in Attio's [assert endpoints](/rest-api/endpoint-reference/records/assert-a-record)."""
 
 
-class PatchV2TasksTaskIDLinkedRecord1TypedDict(TypedDict):
+class PatchV2TasksTaskIDLinkedRecords1TypedDict(TypedDict):
     target_object: str
     r"""The ID or slug of the parent object the tasks refers to. This can reference both standard and custom objects.`"""
     target_record_id: str
     r"""The ID of the parent record the task refers to."""
 
 
-class PatchV2TasksTaskIDLinkedRecord1(BaseModel):
+class PatchV2TasksTaskIDLinkedRecords1(BaseModel):
     target_object: str
     r"""The ID or slug of the parent object the tasks refers to. This can reference both standard and custom objects.`"""
 
@@ -470,19 +470,33 @@ class PatchV2TasksTaskIDLinkedRecord1(BaseModel):
     r"""The ID of the parent record the task refers to."""
 
 
-PatchV2TasksTaskIDLinkedRecordUnionTypedDict = TypeAliasType(
-    "PatchV2TasksTaskIDLinkedRecordUnionTypedDict",
+PatchV2TasksTaskIDLinkedRecordsUnion2TypedDict = TypeAliasType(
+    "PatchV2TasksTaskIDLinkedRecordsUnion2TypedDict",
     Union[
-        PatchV2TasksTaskIDLinkedRecord1TypedDict,
-        PatchV2TasksTaskIDLinkedRecord2TypedDict,
+        PatchV2TasksTaskIDLinkedRecords1TypedDict,
+        PatchV2TasksTaskIDLinkedRecords2TypedDict,
     ],
 )
 
 
-PatchV2TasksTaskIDLinkedRecordUnion = TypeAliasType(
-    "PatchV2TasksTaskIDLinkedRecordUnion",
-    Union[PatchV2TasksTaskIDLinkedRecord1, PatchV2TasksTaskIDLinkedRecord2],
+PatchV2TasksTaskIDLinkedRecordsUnion2 = TypeAliasType(
+    "PatchV2TasksTaskIDLinkedRecordsUnion2",
+    Union[PatchV2TasksTaskIDLinkedRecords1, PatchV2TasksTaskIDLinkedRecords2],
 )
+
+
+PatchV2TasksTaskIDLinkedRecordsUnion1TypedDict = TypeAliasType(
+    "PatchV2TasksTaskIDLinkedRecordsUnion1TypedDict",
+    Union[List[str], List[PatchV2TasksTaskIDLinkedRecordsUnion2TypedDict]],
+)
+r"""Records linked to the task. Records can be linked by domain (for companies), email address (for people), record ID (for all objects) or by a unique matching attribute (for all objects). Creating record links within task content text is not possible via the API at present."""
+
+
+PatchV2TasksTaskIDLinkedRecordsUnion1 = TypeAliasType(
+    "PatchV2TasksTaskIDLinkedRecordsUnion1",
+    Union[List[str], List[PatchV2TasksTaskIDLinkedRecordsUnion2]],
+)
+r"""Records linked to the task. Records can be linked by domain (for companies), email address (for people), record ID (for all objects) or by a unique matching attribute (for all objects). Creating record links within task content text is not possible via the API at present."""
 
 
 class PatchV2TasksTaskIDAssigneeTypedDict(TypedDict):
@@ -534,8 +548,8 @@ class PatchV2TasksTaskIDDataTypedDict(TypedDict):
     r"""The deadline of the task, in ISO 8601 format."""
     is_completed: NotRequired[bool]
     r"""Whether the task has been completed."""
-    linked_records: NotRequired[List[PatchV2TasksTaskIDLinkedRecordUnionTypedDict]]
-    r"""Records linked to the task. Creating record links within task content text is not possible via the API at present."""
+    linked_records: NotRequired[PatchV2TasksTaskIDLinkedRecordsUnion1TypedDict]
+    r"""Records linked to the task. Records can be linked by domain (for companies), email address (for people), record ID (for all objects) or by a unique matching attribute (for all objects). Creating record links within task content text is not possible via the API at present."""
     assignees: NotRequired[List[PatchV2TasksTaskIDAssigneeUnionTypedDict]]
     r"""Workspace members assigned to this task."""
 
@@ -547,8 +561,8 @@ class PatchV2TasksTaskIDData(BaseModel):
     is_completed: Optional[bool] = None
     r"""Whether the task has been completed."""
 
-    linked_records: Optional[List[PatchV2TasksTaskIDLinkedRecordUnion]] = None
-    r"""Records linked to the task. Creating record links within task content text is not possible via the API at present."""
+    linked_records: Optional[PatchV2TasksTaskIDLinkedRecordsUnion1] = None
+    r"""Records linked to the task. Records can be linked by domain (for companies), email address (for people), record ID (for all objects) or by a unique matching attribute (for all objects). Creating record links within task content text is not possible via the API at present."""
 
     assignees: Optional[List[PatchV2TasksTaskIDAssigneeUnion]] = None
     r"""Workspace members assigned to this task."""
@@ -630,6 +644,6 @@ class PatchV2TasksTaskIDResponse(BaseModel):
 
 
 try:
-    PatchV2TasksTaskIDLinkedRecord2.model_rebuild()
+    PatchV2TasksTaskIDLinkedRecords2.model_rebuild()
 except NameError:
     pass
