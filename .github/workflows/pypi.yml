@@ -1,0 +1,58 @@
+name: Publish to PyPI
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run tests
+        run: uv run pytest -v
+
+      - name: Build distribution
+        run: uv build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: release
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist/
+          digest-mismatch: warn
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
