@@ -16,14 +16,24 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Verify tag matches pyproject.toml version
+      - name: Verify tag matches package versions
         if: github.ref_type == 'tag'
         run: |
           tag="${GITHUB_REF_NAME#v}"
           pyproject_version=$(python -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'])")
-          echo "tag=$tag pyproject=$pyproject_version"
+          underscore_version=$(python -c "import re,pathlib; m=re.search(r'^__version__\s*:\s*str\s*=\s*\"([^\"]+)\"', pathlib.Path('src/attio/_version.py').read_text(), re.M); print(m.group(1))")
+          echo "tag=$tag pyproject=$pyproject_version _version.py=$underscore_version"
+          fail=0
           if [ "$tag" != "$pyproject_version" ]; then
-            echo "::error::Tag v$tag does not match pyproject.toml version $pyproject_version. Bump pyproject.toml (and src/attio/_version.py) before tagging."
+            echo "::error file=pyproject.toml::Tag v$tag does not match pyproject.toml version $pyproject_version."
+            fail=1
+          fi
+          if [ "$tag" != "$underscore_version" ]; then
+            echo "::error file=src/attio/_version.py::Tag v$tag does not match src/attio/_version.py __version__ $underscore_version."
+            fail=1
+          fi
+          if [ "$fail" -eq 1 ]; then
+            echo "::error::Run scripts/release.sh $tag to bump both files in lockstep before tagging."
             exit 1
           fi
 
