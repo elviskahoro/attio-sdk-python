@@ -46,7 +46,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment:
-      name: release
+      name: pypi
     steps:
       - uses: actions/download-artifact@v8
         with:
