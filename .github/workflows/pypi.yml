@@ -16,6 +16,17 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Verify tag matches pyproject.toml version
+        if: github.ref_type == 'tag'
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pyproject_version=$(python -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'])")
+          echo "tag=$tag pyproject=$pyproject_version"
+          if [ "$tag" != "$pyproject_version" ]; then
+            echo "::error::Tag v$tag does not match pyproject.toml version $pyproject_version. Bump pyproject.toml (and src/attio/_version.py) before tagging."
+            exit 1
+          fi
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
