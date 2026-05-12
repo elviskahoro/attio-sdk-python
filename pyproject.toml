@@ -10,7 +10,7 @@ dependencies = [
     "httpx >=0.28.1",
     "pydantic >=2.11.2",
 ]
-urls.homepage = "https://github.com/elviskahoro/attio-sdk-python"
+urls.homepage = "https://github.com/elviskahoro/attio-python-sdk"
 
 [dependency-groups]
 dev = [
