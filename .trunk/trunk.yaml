@@ -148,6 +148,7 @@ lint:
     - linters: [checkov]
       paths:
         - openapi/**
+        - .speakeasy/out.openapi.yaml
     - linters: [markdown-link-check, markdownlint-cli2, trufflehog]
       paths:
         - docs/**
@@ -163,6 +164,11 @@ lint:
       paths:
         - "**/*.md"
         - src/**
+        - openapi/api-*.json
+        - openapi/api-*-overlay.json
+    - linters: [semgrep]
+      paths:
+        - .speakeasy/gen.lock
   exported_configs:
     - plugin_id: oss-linter-trunk
       configs:

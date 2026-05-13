@@ -2,10 +2,9 @@
 
 <div align="left">
     <a href="https://opensource.org/licenses/MIT">
-        <img src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
+        <img alt="MIT License" src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
     </a>
 </div>
-
 
 <br /><br />
 
@@ -13,8 +12,6 @@ Type-safe Python client for the [Attio API](https://developers.attio.com/), with
 
 <!-- Start Summary [summary] -->
 ## Summary
-
-
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
@@ -40,14 +37,11 @@ Type-safe Python client for the [Attio API](https://developers.attio.com/), with
 
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
-
 > [!TIP]
 > To finish publishing your SDK to PyPI you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
 
-
 > [!NOTE]
 > **Python version upgrade policy**
->
 > Once a Python version reaches its [official end of life date](https://devguide.python.org/versions/), a 3-month grace period is provided for users to upgrade. Following this grace period, the minimum python version supported in the SDK will be updated.
 
 The SDK can be installed with *uv*, *pip*, or *poetry* package managers.
@@ -174,6 +168,7 @@ This SDK supports the following security scheme globally:
 | `oauth2` | oauth2 | OAuth2 token |
 
 To authenticate with the API the `oauth2` parameter must be set when initializing the SDK client instance. For example:
+
 ```python
 from attio import SDK
 
@@ -392,9 +387,7 @@ with SDK(oauth2="<YOUR_OAUTH2_HERE>") as sdk:
 Certain SDK methods accept file objects as part of a request body or multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files. The following example demonstrates how to attach a file stream to a request.
 
 > [!TIP]
->
 > For endpoints that handle file uploads bytes arrays can also be used. However, using streams is recommended for large files.
->
 
 ```python
 from attio import SDK
@@ -421,6 +414,7 @@ with SDK(
 Some of the endpoints in this SDK support retries. If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API. However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
 
 To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
+
 ```python
 from attio import SDK
 from attio.utils import BackoffStrategy, RetryConfig
@@ -439,6 +433,7 @@ with SDK(
 ```
 
 If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
+
 ```python
 from attio import SDK
 from attio.utils import BackoffStrategy, RetryConfig
@@ -472,6 +467,7 @@ with SDK(
 | `err.data`         |                  | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
 
 ### Example
+
 ```python
 from attio import SDK, errors
 
@@ -509,18 +505,16 @@ with SDK(
 ```
 
 ### Error Classes
+
 **Primary error:**
 * [`SDKError`](./src/attio/errors/sdkerror.py): The base class for HTTP error responses.
 
 <details><summary>Less common errors (95)</summary>
 
-<br />
-
 **Network errors:**
 * [`httpx.RequestError`](https://www.python-httpx.org/exceptions/#httpx.RequestError): Base class for request errors.
     * [`httpx.ConnectError`](https://www.python-httpx.org/exceptions/#httpx.ConnectError): HTTP client was unable to make a request to a server.
     * [`httpx.TimeoutException`](https://www.python-httpx.org/exceptions/#httpx.TimeoutException): HTTP request timed out.
-
 
 **Inherit from [`SDKError`](./src/attio/errors/sdkerror.py)**:
 * [`PatchV2ObjectsObjectValidationTypeError`](./src/attio/errors/patchv2objectsobjectvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
@@ -626,6 +620,7 @@ with SDK(
 ### Override Server URL Per-Client
 
 The default server can be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
+
 ```python
 from attio import SDK
 
@@ -651,6 +646,7 @@ Depending on whether you are using the sync or async version of the SDK, you can
 This allows you to wrap the client with your own custom logic, such as adding custom headers, logging, or error handling, or you can just pass an instance of `httpx.Client` or `httpx.AsyncClient` directly.
 
 For example, you could specify a header for every request that this sdk makes as follows:
+
 ```python
 from attio import SDK
 import httpx
@@ -660,6 +656,7 @@ s = SDK(client=http_client)
 ```
 
 or you could wrap the client with your own custom logic:
+
 ```python
 from attio import SDK
 from attio.httpclient import AsyncHttpClient
@@ -757,6 +754,7 @@ async def amain():
 You can setup your SDK to emit debug logs for SDK requests and responses.
 
 You can pass your own logger class directly into your SDK.
+
 ```python
 from attio import SDK
 import logging

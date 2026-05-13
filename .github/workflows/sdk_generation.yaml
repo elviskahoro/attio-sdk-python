@@ -7,14 +7,6 @@ permissions:
   id-token: write
 "on":
   workflow_dispatch:
-    inputs:
-      force:
-        description: Force generation of SDKs
-        type: boolean
-        default: false
-      set_version:
-        description: Optionally set a specific SDK version
-        type: string
   schedule:
     - cron: 0 0 * * *
   pull_request:
@@ -42,10 +34,7 @@ jobs:
       - uses: dagger/dagger-for-github@v10
 
       - name: Generate SDK
-        run: |
-          uv run python ci/pipeline.py generate \
-            ${{ github.event.inputs.force == 'true' && '--force' || '' }} \
-            ${{ github.event.inputs.set_version && format('--version {0}', github.event.inputs.set_version) || '' }}
+        run: uv run python ci/pipeline.py generate
         env:
           SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

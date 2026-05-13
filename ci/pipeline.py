@@ -3,6 +3,8 @@
 
 Available commands:
     fetch-openapi                  Fetch latest OpenAPI spec and update workflow.yaml
+    verify-version <version>       Verify pyproject.toml + _version.py match <version>
+    release-bump <version>         Rewrite pyproject.toml + _version.py to <version>
     test                           Run test suite
     build                          Build distribution packages
     generate [--force] [--version] Generate SDK via Speakeasy
@@ -11,6 +13,8 @@ Available commands:
 
 Examples:
     python ci/pipeline.py fetch-openapi
+    python ci/pipeline.py verify-version 0.22.9
+    python ci/pipeline.py release-bump 0.22.9
     python ci/pipeline.py test
     python ci/pipeline.py generate --force --version 1.0.0
     python ci/pipeline.py build
@@ -20,6 +24,8 @@ Examples:
 Or via Dagger directly:
     dagger call attio-sdk-pipeline test
     dagger call attio-sdk-pipeline build
+    dagger call attio-sdk-pipeline verify-version --version 0.22.9
+    dagger call attio-sdk-pipeline release-bump --version 0.22.9 export --path .
     dagger call attio-sdk-pipeline generate --api-key env:SPEAKEASY_API_KEY
     dagger call attio-sdk-pipeline publish --pypi-token env:PYPI_TOKEN
     dagger call attio-sdk-pipeline ci --api-key env:SPEAKEASY_API_KEY --pypi-token env:PYPI_TOKEN
@@ -35,6 +41,63 @@ from typing import Annotated
 
 import dagger  # type: ignore[import-untyped]
 from dagger import Directory, Doc, dag, function  # type: ignore[import-untyped]
+
+_VERIFY_VERSION_SCRIPT = r"""
+import os, pathlib, re, sys, tomllib
+
+expected = os.environ["EXPECTED_VERSION"]
+py = tomllib.loads(pathlib.Path("pyproject.toml").read_text())["project"]["version"]
+m = re.search(
+    r'^__version__\s*:\s*str\s*=\s*"([^"]+)"',
+    pathlib.Path("src/attio/_version.py").read_text(),
+    re.M,
+)
+under = m.group(1) if m else "<unset>"
+print(f"expected={expected} pyproject={py} _version.py={under}")
+
+fail = False
+if py != expected:
+    print(f"pyproject.toml version {py} does not match {expected}", file=sys.stderr)
+    fail = True
+if under != expected:
+    print(f"_version.py __version__ {under} does not match {expected}", file=sys.stderr)
+    fail = True
+if fail:
+    sys.exit("Version mismatch. Run scripts/release.sh to bump both files in lockstep.")
+"""
+
+_RELEASE_BUMP_SCRIPT = r"""
+import os, pathlib, re, sys
+
+version = os.environ["RELEASE_VERSION"]
+
+pyproject = pathlib.Path("pyproject.toml")
+text = pyproject.read_text()
+new = re.sub(r'^(version\s*=\s*)"[^"]+"', rf'\1"{version}"', text, count=1, flags=re.M)
+if new == text:
+    sys.exit('Could not find version = "..." in pyproject.toml')
+pyproject.write_text(new)
+
+vfile = pathlib.Path("src/attio/_version.py")
+text = vfile.read_text()
+new = re.sub(
+    r'^(__version__\s*:\s*str\s*=\s*)"[^"]+"',
+    rf'\1"{version}"',
+    text,
+    count=1,
+    flags=re.M,
+)
+new = re.sub(
+    r'^(__user_agent__\s*:\s*str\s*=\s*"speakeasy-sdk/python )[^ ]+( .+")$',
+    rf'\g<1>{version}\g<2>',
+    new,
+    count=1,
+    flags=re.M,
+)
+if new == text:
+    sys.exit('Could not find __version__ in src/attio/_version.py')
+vfile.write_text(new)
+"""
 
 
 def _sync_write_spec(spec_path: str, spec_data: dict[str, object]) -> None:
@@ -127,6 +190,54 @@ class AttioSDKPipeline:
         env = self.builder_env()
         deps = self.dependencies_installed(env)
         return await deps.with_exec(["uv", "run", "pytest", "-v"]).stdout()
+
+    @function
+    async def verify_version(
+        self,
+        version: Annotated[
+            str,
+            Doc("Expected version (no leading 'v')"),
+        ],
+    ) -> str:
+        """Verify pyproject.toml and src/attio/_version.py match the expected version.
+
+        Used by the release workflow before publishing to PyPI to catch tags
+        that drift from the in-tree version. Run scripts/release.sh <version>
+        to fix any mismatch.
+        """
+        return await (
+            dag.container()
+            .from_("python:3.13-slim")
+            .with_mounted_directory("/repo", self.source)
+            .with_workdir("/repo")
+            .with_env_variable("EXPECTED_VERSION", version)
+            .with_exec(["python", "-c", _VERIFY_VERSION_SCRIPT])
+            .stdout()
+        )
+
+    @function
+    def release_bump(
+        self,
+        version: Annotated[
+            str,
+            Doc("Target version (no leading 'v'), e.g. 0.22.9"),
+        ],
+    ) -> dagger.Directory:
+        """Rewrite pyproject.toml + src/attio/_version.py to the target version.
+
+        Returns the patched repo as a Directory so the caller can export the
+        files back to the host (the git commit/tag/push lives in
+        scripts/release.sh, not inside the container).
+        """
+        return (
+            dag.container()
+            .from_("python:3.13-slim")
+            .with_mounted_directory("/repo", self.source)
+            .with_workdir("/repo")
+            .with_env_variable("RELEASE_VERSION", version)
+            .with_exec(["python", "-c", _RELEASE_BUMP_SCRIPT])
+            .directory("/repo")
+        )
 
     @function
     def speakeasy_env(self, api_key: dagger.Secret) -> dagger.Container:
@@ -284,7 +395,12 @@ async def cmd_generate(*, force: bool, version: str | None) -> None:
 
 
 async def cmd_build() -> None:
-    """CLI handler for build command."""
+    """CLI handler for build command.
+
+    Builds inside a container and exports the resulting wheel/sdist back to
+    the host's ./dist directory so callers (CI publish step, manual uploads)
+    can pick them up.
+    """
     import os
 
     os.environ.setdefault("DAGGER_PROGRESS", "plain")
@@ -292,8 +408,9 @@ async def cmd_build() -> None:
     async with dagger.connection(dagger.Config(log_output=sys.stderr)):
         source_dir = dag.host().directory(".")
         pipeline = AttioSDKPipeline(source=source_dir)
-        await pipeline.build().sync()
-        print("Build completed successfully", file=sys.stderr)
+        built = pipeline.build()
+        await built.directory("/repo/dist").export("./dist")
+        print("Build completed successfully (artifacts in ./dist)", file=sys.stderr)
 
 
 async def cmd_publish(*, token: str | None = None) -> None:
@@ -361,6 +478,37 @@ async def cmd_fetch_openapi() -> None:
     print("OpenAPI spec fetched and workflow updated", file=sys.stderr)
 
 
+async def cmd_verify_version(version: str) -> None:
+    """CLI handler for verify-version command."""
+    import os
+
+    os.environ.setdefault("DAGGER_PROGRESS", "plain")
+    os.environ.setdefault("OTEL_SDK_DISABLED", "true")
+    async with dagger.connection(dagger.Config(log_output=sys.stderr)):
+        source_dir = dag.host().directory(".")
+        pipeline = AttioSDKPipeline(source=source_dir)
+        result = await pipeline.verify_version(version=version)
+        print(result)
+
+
+async def cmd_release_bump(version: str) -> None:
+    """CLI handler for release-bump command.
+
+    Bumps the version inside a container, then exports the patched files back
+    to the host so the caller (scripts/release.sh) can commit, tag, and push.
+    """
+    import os
+
+    os.environ.setdefault("DAGGER_PROGRESS", "plain")
+    os.environ.setdefault("OTEL_SDK_DISABLED", "true")
+    async with dagger.connection(dagger.Config(log_output=sys.stderr)):
+        source_dir = dag.host().directory(".")
+        pipeline = AttioSDKPipeline(source=source_dir)
+        patched = pipeline.release_bump(version=version)
+        await patched.export(".")
+        print(f"Bumped version to {version}", file=sys.stderr)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Attio SDK CI pipeline")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -371,6 +519,18 @@ def main() -> None:
     )
     sub.add_parser("test", help="Run test suite")
     sub.add_parser("build", help="Build distribution packages")
+
+    verify = sub.add_parser(
+        "verify-version",
+        help="Verify pyproject.toml + _version.py match the given version",
+    )
+    verify.add_argument("version", help="Expected version (no leading 'v')")
+
+    bump = sub.add_parser(
+        "release-bump",
+        help="Bump pyproject.toml + _version.py to a new version",
+    )
+    bump.add_argument("version", help="Target version (no leading 'v'), e.g. 0.22.9")
 
     gen = sub.add_parser("generate", help="Generate the SDK via Speakeasy")
     gen.add_argument("--force", action="store_true", help="Force regeneration")
@@ -412,6 +572,10 @@ def main() -> None:
 
     if args.command == "fetch-openapi":
         asyncio.run(cmd_fetch_openapi())
+    elif args.command == "verify-version":
+        asyncio.run(cmd_verify_version(version=args.version))
+    elif args.command == "release-bump":
+        asyncio.run(cmd_release_bump(version=args.version))
     elif args.command == "test":
         asyncio.run(cmd_test())
     elif args.command == "build":

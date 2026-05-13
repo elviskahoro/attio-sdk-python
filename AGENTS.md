@@ -21,12 +21,15 @@ This SDK is generated using Speakeasy from an OpenAPI spec.
 ### Update Steps
 
 1. **Fetch the latest spec** (if not already done):
+
    ```bash
    dagger run python ci/pipeline.py fetch-openapi
    ```
+
    This downloads from `https://api.attio.com/openapi/api`, saves it with a timestamp, and updates `workflow.yaml`.
 
 2. **Diff the new spec against the previous one** to understand what changed:
+
    ```bash
    # Compare endpoint counts
    python3 -c "import json; old=json.load(open('openapi/api-OLD.json')); new=json.load(open('openapi/api-NEW.json')); print(f'Old paths: {len(old[\"paths\"])}'); print(f'New paths: {len(new[\"paths\"])}')"
@@ -52,6 +55,7 @@ This SDK is generated using Speakeasy from an OpenAPI spec.
 4. **Update the overlay if needed**. If indices shifted or new endpoints were added, update `overlay.yaml` accordingly. Refer to `overlay_guide.md` for syntax and patterns.
 
 5. **Run Speakeasy generation**:
+
    ```bash
    speakeasy run
    ```

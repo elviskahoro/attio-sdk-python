@@ -11,31 +11,15 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+    env:
+      DAGGER_PROGRESS: plain
+      OTEL_SDK_DISABLED: "true"
     steps:
       - uses: actions/checkout@v6
-
-      - name: Verify tag matches package versions
-        if: github.ref_type == 'tag'
-        run: |
-          tag="${GITHUB_REF_NAME#v}"
-          pyproject_version=$(python -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'])")
-          underscore_version=$(python -c "import re,pathlib; m=re.search(r'^__version__\s*:\s*str\s*=\s*\"([^\"]+)\"', pathlib.Path('src/attio/_version.py').read_text(), re.M); print(m.group(1))")
-          echo "tag=$tag pyproject=$pyproject_version _version.py=$underscore_version"
-          fail=0
-          if [ "$tag" != "$pyproject_version" ]; then
-            echo "::error file=pyproject.toml::Tag v$tag does not match pyproject.toml version $pyproject_version."
-            fail=1
-          fi
-          if [ "$tag" != "$underscore_version" ]; then
-            echo "::error file=src/attio/_version.py::Tag v$tag does not match src/attio/_version.py __version__ $underscore_version."
-            fail=1
-          fi
-          if [ "$fail" -eq 1 ]; then
-            echo "::error::Run scripts/release.sh $tag to bump both files in lockstep before tagging."
-            exit 1
-          fi
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -49,29 +33,19 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
+      - uses: dagger/dagger-for-github@v10
+
+      - name: Verify tag matches package versions
+        if: github.ref_type == 'tag'
+        run: uv run python ci/pipeline.py verify-version "${GITHUB_REF_NAME#v}"
+
       - name: Run tests
-        run: uv run pytest -v
+        run: uv run python ci/pipeline.py test
 
       - name: Build distribution
-        run: uv build
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: dist
-          path: dist/
-
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: pypi
-    steps:
-      - uses: actions/download-artifact@v8
-        with:
-          name: dist
-          path: dist/
-          digest-mismatch: warn
+        run: uv run python ci/pipeline.py build
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
