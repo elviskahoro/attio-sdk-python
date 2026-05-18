@@ -47,7 +47,7 @@ fi
 git pull --ff-only origin main
 
 # Bump versions inside a Dagger container and export the patched files back.
-uv run python ci/pipeline.py release-bump "${version}" || :
+uv run python ci/pipeline.py release-bump "${version}"
 
 # Sanity check: confirm both files agree with the requested version.
 uv run python ci/pipeline.py verify-version "${version}"

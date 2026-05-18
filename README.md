@@ -36,14 +36,15 @@ Type-safe Python client for the [Attio API](https://developers.attio.com/), with
 <!-- End Table of Contents [toc] -->
 
 <!-- Start SDK Installation [installation] -->
+
 ## SDK Installation
+
 > [!TIP]
 > To finish publishing your SDK to PyPI you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
 
 > [!NOTE]
 > **Python version upgrade policy**
 > Once a Python version reaches its [official end of life date](https://devguide.python.org/versions/), a 3-month grace period is provided for users to upgrade. Following this grace period, the minimum python version supported in the SDK will be updated.
-
 The SDK can be installed with *uv*, *pip*, or *poetry* package managers.
 
 ### uv
