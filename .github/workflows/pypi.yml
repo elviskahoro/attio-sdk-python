@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - uses: dagger/dagger-for-github@v10
+      - uses: dagger/dagger-for-github@v8.4.1
 
       - name: Verify tag matches package versions
         if: github.ref_type == 'tag'

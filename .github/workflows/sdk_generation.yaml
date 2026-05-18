@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - uses: dagger/dagger-for-github@v10
+      - uses: dagger/dagger-for-github@v8.4.1
 
       - name: Generate SDK
         run: uv run python ci/pipeline.py generate
