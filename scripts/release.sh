@@ -22,7 +22,8 @@ fi
 repo_root="$(git rev-parse --show-toplevel)"
 cd "${repo_root}"
 
-if [[ -n "$(git status --porcelain)" ]]; then
+status_output="$(git status --porcelain)"
+if [[ -n ${status_output} ]]; then
   echo "Error: working tree is dirty. Commit or stash changes first." >&2
   git status --short >&2
   exit 1
@@ -47,7 +48,10 @@ fi
 git pull --ff-only origin main
 
 # Bump versions inside a Dagger container and export the patched files back.
-uv run python ci/pipeline.py release-bump "${version}"
+if ! uv run python ci/pipeline.py release-bump "${version}"; then
+  echo "Error: version bump failed" >&2
+  exit 1
+fi
 
 # Sanity check: confirm both files agree with the requested version.
 uv run python ci/pipeline.py verify-version "${version}"
