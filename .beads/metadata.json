@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "attio",
+  "project_id": "c08471fb-5ae7-4bbe-b3fc-9fa288131641"
+}
