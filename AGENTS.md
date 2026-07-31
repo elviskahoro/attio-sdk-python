@@ -1,5 +1,12 @@
 # Attio SDK Python
 
+## Beads Issue Tracking
+
+- This repository uses Beads with the DoltHub remote `elviskahoro/sdk-python-attio`.
+- Use `bd prime` for the current workflow context, `bd ready` to find unblocked work, and `bd create`/`bd update`/`bd close` for issue changes.
+- Pull remote changes explicitly with `bd dolt pull`; push committed Dolt changes with `bd dolt push`.
+- Authenticate locally with `DOLT_REMOTE_USER` and `DOLT_REMOTE_PASSWORD`; never commit credentials or `.beads` runtime/database files.
+
 ## Git Workflow
 
 - Commits are allowed when the user explicitly asks to commit

@@ -1,0 +1,6 @@
+# Beads Configuration File
+# Shared repository configuration; credentials remain machine-local.
+sync.remote: "elviskahoro/sdk-python-attio"
+federation.remote: "https://doltremoteapi.dolthub.com/elviskahoro/sdk-python-attio"
+issue-prefix: attio
+export.auto: false
