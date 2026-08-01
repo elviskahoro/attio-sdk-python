@@ -36,22 +36,22 @@ class PostV2ObjectsObjectRecordsQueryNotFoundError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class FilterErrorData(BaseModel):
+class PostV2ObjectsObjectRecordsQueryFilterErrorData(BaseModel):
     status_code: float
     type: models_post_v2_objects_object_records_queryop.PostV2ObjectsObjectRecordsQueryBadRequestType
-    code: models_post_v2_objects_object_records_queryop.CodeFilterError
+    code: models_post_v2_objects_object_records_queryop.PostV2ObjectsObjectRecordsQueryCodeFilterError
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class FilterError(SDKError):
+class PostV2ObjectsObjectRecordsQueryFilterError(SDKError):
     r"""Bad Request"""
 
-    data: FilterErrorData = field(hash=False)
+    data: PostV2ObjectsObjectRecordsQueryFilterErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: FilterErrorData,
+        data: PostV2ObjectsObjectRecordsQueryFilterErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

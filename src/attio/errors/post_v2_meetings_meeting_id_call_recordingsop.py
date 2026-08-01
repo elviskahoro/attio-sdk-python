@@ -39,7 +39,7 @@ class PostV2MeetingsMeetingIDCallRecordingsNotFoundError(SDKError):
 class AuthErrorData(BaseModel):
     status_code: float
     type: models_post_v2_meetings_meeting_id_call_recordingsop.PostV2MeetingsMeetingIDCallRecordingsForbiddenType
-    code: models_post_v2_meetings_meeting_id_call_recordingsop.Code
+    code: models_post_v2_meetings_meeting_id_call_recordingsop.PostV2MeetingsMeetingIDCallRecordingsCodeUnion
     message: str
 
 

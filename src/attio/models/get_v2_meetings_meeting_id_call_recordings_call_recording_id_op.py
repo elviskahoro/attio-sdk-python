@@ -4,7 +4,7 @@ from __future__ import annotations
 from attio.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
 from attio.utils import FieldMetadata, PathParamMetadata
 from pydantic import model_serializer
-from typing import Literal
+from typing import List, Literal
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
@@ -118,6 +118,64 @@ class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDCreatedByActor(BaseMode
         return m
 
 
+class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDSpeakerTypedDict(TypedDict):
+    r"""The speaker of this transcript segment."""
+
+    name: str
+    r"""The name of the speaker."""
+
+
+class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDSpeaker(BaseModel):
+    r"""The speaker of this transcript segment."""
+
+    name: str
+    r"""The name of the speaker."""
+
+
+class SegmentTypedDict(TypedDict):
+    speech: str
+    r"""The spoken text for this segment of the transcript."""
+    start_time: float
+    r"""The start time of this speech segment in seconds, measured from the start of the recording."""
+    end_time: float
+    r"""The end time of this speech segment in seconds, measured from the start of the recording."""
+    speaker: GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDSpeakerTypedDict
+    r"""The speaker of this transcript segment."""
+
+
+class Segment(BaseModel):
+    speech: str
+    r"""The spoken text for this segment of the transcript."""
+
+    start_time: float
+    r"""The start time of this speech segment in seconds, measured from the start of the recording."""
+
+    end_time: float
+    r"""The end time of this speech segment in seconds, measured from the start of the recording."""
+
+    speaker: GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDSpeaker
+    r"""The speaker of this transcript segment."""
+
+
+class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptTypedDict(TypedDict):
+    r"""The transcript for this call recording, `null` if no transcript is available."""
+
+    segments: List[SegmentTypedDict]
+    r"""The transcript segments with speech, timing, and speaker information."""
+    raw_transcript: str
+    r"""The raw transcript of the call recording."""
+
+
+class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscript(BaseModel):
+    r"""The transcript for this call recording, `null` if no transcript is available."""
+
+    segments: List[Segment]
+    r"""The transcript segments with speech, timing, and speaker information."""
+
+    raw_transcript: str
+    r"""The raw transcript of the call recording."""
+
+
 class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDDataTypedDict(TypedDict):
     id: GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDIDTypedDict
     status: GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDStatus
@@ -130,6 +188,10 @@ class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDDataTypedDict(TypedDict
     r"""The actor that created this call recording."""
     created_at: str
     r"""The timestamp of when the call recording was created."""
+    transcript: Nullable[
+        GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptTypedDict
+    ]
+    r"""The transcript for this call recording, `null` if no transcript is available."""
 
 
 class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDData(BaseModel):
@@ -146,6 +208,23 @@ class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDData(BaseModel):
 
     created_at: str
     r"""The timestamp of when the call recording was created."""
+
+    transcript: Nullable[GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscript]
+    r"""The transcript for this call recording, `null` if no transcript is available."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                m[k] = val
+
+        return m
 
 
 class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDResponseTypedDict(TypedDict):

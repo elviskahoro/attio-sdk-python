@@ -5,7 +5,7 @@ from attio import errors, models, utils
 from attio._hooks import HookContext
 from attio.types import OptionalNullable, UNSET
 from attio.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
 
 
 class Records(BaseSDK):
@@ -15,12 +15,12 @@ class Records(BaseSDK):
         self,
         *,
         object: str,
-        filter_: Optional[Dict[str, Any]] = None,
+        filter_: Optional[Mapping[str, Any]] = None,
         filter_view_id: Optional[str] = None,
         sorts: Optional[
             Union[
-                List[models.PostV2ObjectsObjectRecordsQuerySortUnion],
-                List[models.PostV2ObjectsObjectRecordsQuerySortUnionTypedDict],
+                Iterable[models.PostV2ObjectsObjectRecordsQuerySortUnion],
+                Iterable[models.PostV2ObjectsObjectRecordsQuerySortUnionTypedDict],
             ]
         ] = None,
         limit: Optional[float] = None,
@@ -60,7 +60,7 @@ class Records(BaseSDK):
         request = models.PostV2ObjectsObjectRecordsQueryRequest(
             object=object,
             request_body=models.PostV2ObjectsObjectRecordsQueryRequestBody(
-                filter_=filter_,
+                filter_=utils.unmarshal(filter_, Optional[Dict[str, Any]]),
                 filter_view_id=filter_view_id,
                 sorts=utils.get_pydantic_model(
                     sorts,
@@ -110,6 +110,8 @@ class Records(BaseSDK):
                 operation_id="post_/v2/objects/{object}/records/query",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -122,8 +124,12 @@ class Records(BaseSDK):
                 models.PostV2ObjectsObjectRecordsQueryResponse, http_res
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(errors.FilterErrorData, http_res)
-            raise errors.FilterError(response_data, http_res)
+            response_data = unmarshal_json_response(
+                errors.PostV2ObjectsObjectRecordsQueryFilterErrorData, http_res
+            )
+            raise errors.PostV2ObjectsObjectRecordsQueryFilterError(
+                response_data, http_res
+            )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PostV2ObjectsObjectRecordsQueryNotFoundErrorData, http_res
@@ -144,12 +150,12 @@ class Records(BaseSDK):
         self,
         *,
         object: str,
-        filter_: Optional[Dict[str, Any]] = None,
+        filter_: Optional[Mapping[str, Any]] = None,
         filter_view_id: Optional[str] = None,
         sorts: Optional[
             Union[
-                List[models.PostV2ObjectsObjectRecordsQuerySortUnion],
-                List[models.PostV2ObjectsObjectRecordsQuerySortUnionTypedDict],
+                Iterable[models.PostV2ObjectsObjectRecordsQuerySortUnion],
+                Iterable[models.PostV2ObjectsObjectRecordsQuerySortUnionTypedDict],
             ]
         ] = None,
         limit: Optional[float] = None,
@@ -189,7 +195,7 @@ class Records(BaseSDK):
         request = models.PostV2ObjectsObjectRecordsQueryRequest(
             object=object,
             request_body=models.PostV2ObjectsObjectRecordsQueryRequestBody(
-                filter_=filter_,
+                filter_=utils.unmarshal(filter_, Optional[Dict[str, Any]]),
                 filter_view_id=filter_view_id,
                 sorts=utils.get_pydantic_model(
                     sorts,
@@ -239,6 +245,8 @@ class Records(BaseSDK):
                 operation_id="post_/v2/objects/{object}/records/query",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -251,8 +259,12 @@ class Records(BaseSDK):
                 models.PostV2ObjectsObjectRecordsQueryResponse, http_res
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(errors.FilterErrorData, http_res)
-            raise errors.FilterError(response_data, http_res)
+            response_data = unmarshal_json_response(
+                errors.PostV2ObjectsObjectRecordsQueryFilterErrorData, http_res
+            )
+            raise errors.PostV2ObjectsObjectRecordsQueryFilterError(
+                response_data, http_res
+            )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PostV2ObjectsObjectRecordsQueryNotFoundErrorData, http_res
@@ -284,7 +296,7 @@ class Records(BaseSDK):
     ) -> models.PostV2ObjectsObjectRecordsResponse:
         r"""Create a record
 
-        Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Assert record endpoint](/rest-api/endpoint-reference/records/assert-a-record) instead.
+        Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Upsert record endpoint](/rest-api/endpoint-reference/records/upsert-a-record) instead.
 
         Required scopes: `record_permission:read-write`, `object_configuration:read`.
 
@@ -353,6 +365,8 @@ class Records(BaseSDK):
                 operation_id="post_/v2/objects/{object}/records",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -402,7 +416,7 @@ class Records(BaseSDK):
     ) -> models.PostV2ObjectsObjectRecordsResponse:
         r"""Create a record
 
-        Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Assert record endpoint](/rest-api/endpoint-reference/records/assert-a-record) instead.
+        Creates a new person, company or other record. This endpoint will throw on conflicts of unique attributes. If you would prefer to update records on conflicts, please use the [Upsert record endpoint](/rest-api/endpoint-reference/records/upsert-a-record) instead.
 
         Required scopes: `record_permission:read-write`, `object_configuration:read`.
 
@@ -471,6 +485,8 @@ class Records(BaseSDK):
                 operation_id="post_/v2/objects/{object}/records",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -519,7 +535,7 @@ class Records(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PutV2ObjectsObjectRecordsResponse:
-        r"""Assert a record
+        r"""Upsert a record
 
         Use this endpoint to create or update people, companies and other records. A matching attribute is used to search for existing records. If a record is found with the same value for the matching attribute, that record will be updated. If no record with the same value for the matching attribute is found, a new record will be created instead. If you would like to avoid matching, please use the [Create record endpoint](/rest-api/endpoint-reference/records/create-a-record).
 
@@ -594,6 +610,8 @@ class Records(BaseSDK):
                 operation_id="put_/v2/objects/{object}/records",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -640,7 +658,7 @@ class Records(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PutV2ObjectsObjectRecordsResponse:
-        r"""Assert a record
+        r"""Upsert a record
 
         Use this endpoint to create or update people, companies and other records. A matching attribute is used to search for existing records. If a record is found with the same value for the matching attribute, that record will be updated. If no record with the same value for the matching attribute is found, a new record will be created instead. If you would like to avoid matching, please use the [Create record endpoint](/rest-api/endpoint-reference/records/create-a-record).
 
@@ -715,6 +733,8 @@ class Records(BaseSDK):
                 operation_id="put_/v2/objects/{object}/records",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -817,6 +837,8 @@ class Records(BaseSDK):
                 operation_id="get_/v2/objects/{object}/records/{record_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -830,9 +852,10 @@ class Records(BaseSDK):
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
-                errors.GetV2ObjectsObjectRecordsRecordIDNotFoundErrorData, http_res
+                errors.GetV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData,
+                http_res,
             )
-            raise errors.GetV2ObjectsObjectRecordsRecordIDNotFoundError(
+            raise errors.GetV2ObjectsObjectRecordsRecordIDInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -914,6 +937,8 @@ class Records(BaseSDK):
                 operation_id="get_/v2/objects/{object}/records/{record_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -927,445 +952,10 @@ class Records(BaseSDK):
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
-                errors.GetV2ObjectsObjectRecordsRecordIDNotFoundErrorData, http_res
+                errors.GetV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData,
+                http_res,
             )
-            raise errors.GetV2ObjectsObjectRecordsRecordIDNotFoundError(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
-
-        raise errors.SDKDefaultError("Unexpected response received", http_res)
-
-    def put_v2_objects_object_records_record_id_(
-        self,
-        *,
-        object: str,
-        record_id: str,
-        data: Union[
-            models.PutV2ObjectsObjectRecordsRecordIDDataRequest,
-            models.PutV2ObjectsObjectRecordsRecordIDDataRequestTypedDict,
-        ],
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PutV2ObjectsObjectRecordsRecordIDResponse:
-        r"""Update a record (overwrite multiselect values)
-
-        Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
-
-        Required scopes: `record_permission:read-write`, `object_configuration:read`.
-
-        :param object:
-        :param record_id:
-        :param data:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.PutV2ObjectsObjectRecordsRecordIDRequest(
-            object=object,
-            record_id=record_id,
-            request_body=models.PutV2ObjectsObjectRecordsRecordIDRequestBody(
-                data=utils.get_pydantic_model(
-                    data, models.PutV2ObjectsObjectRecordsRecordIDDataRequest
-                ),
-            ),
-        )
-
-        req = self._build_request(
-            method="PUT",
-            path="/v2/objects/{object}/records/{record_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
-                False,
-                False,
-                "json",
-                models.PutV2ObjectsObjectRecordsRecordIDRequestBody,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="put_/v2/objects/{object}/records/{record_id}",
-                oauth2_scopes=None,
-                security_source=self.sdk_configuration.security,
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.PutV2ObjectsObjectRecordsRecordIDResponse, http_res
-            )
-        if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(
-                errors.PutV2ObjectsObjectRecordsRecordIDMissingValueErrorData, http_res
-            )
-            raise errors.PutV2ObjectsObjectRecordsRecordIDMissingValueError(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                errors.PutV2ObjectsObjectRecordsRecordIDNotFoundErrorData, http_res
-            )
-            raise errors.PutV2ObjectsObjectRecordsRecordIDNotFoundError(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
-
-        raise errors.SDKDefaultError("Unexpected response received", http_res)
-
-    async def put_v2_objects_object_records_record_id__async(
-        self,
-        *,
-        object: str,
-        record_id: str,
-        data: Union[
-            models.PutV2ObjectsObjectRecordsRecordIDDataRequest,
-            models.PutV2ObjectsObjectRecordsRecordIDDataRequestTypedDict,
-        ],
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PutV2ObjectsObjectRecordsRecordIDResponse:
-        r"""Update a record (overwrite multiselect values)
-
-        Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
-
-        Required scopes: `record_permission:read-write`, `object_configuration:read`.
-
-        :param object:
-        :param record_id:
-        :param data:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.PutV2ObjectsObjectRecordsRecordIDRequest(
-            object=object,
-            record_id=record_id,
-            request_body=models.PutV2ObjectsObjectRecordsRecordIDRequestBody(
-                data=utils.get_pydantic_model(
-                    data, models.PutV2ObjectsObjectRecordsRecordIDDataRequest
-                ),
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PUT",
-            path="/v2/objects/{object}/records/{record_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
-                False,
-                False,
-                "json",
-                models.PutV2ObjectsObjectRecordsRecordIDRequestBody,
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="put_/v2/objects/{object}/records/{record_id}",
-                oauth2_scopes=None,
-                security_source=self.sdk_configuration.security,
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.PutV2ObjectsObjectRecordsRecordIDResponse, http_res
-            )
-        if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(
-                errors.PutV2ObjectsObjectRecordsRecordIDMissingValueErrorData, http_res
-            )
-            raise errors.PutV2ObjectsObjectRecordsRecordIDMissingValueError(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                errors.PutV2ObjectsObjectRecordsRecordIDNotFoundErrorData, http_res
-            )
-            raise errors.PutV2ObjectsObjectRecordsRecordIDNotFoundError(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
-
-        raise errors.SDKDefaultError("Unexpected response received", http_res)
-
-    def delete_v2_objects_object_records_record_id_(
-        self,
-        *,
-        object: str,
-        record_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DeleteV2ObjectsObjectRecordsRecordIDResponse:
-        r"""Delete a record
-
-        Deletes a single record (e.g. a company or person) by ID.
-
-        Required scopes: `object_configuration:read`, `record_permission:read-write`.
-
-        :param object:
-        :param record_id:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.DeleteV2ObjectsObjectRecordsRecordIDRequest(
-            object=object,
-            record_id=record_id,
-        )
-
-        req = self._build_request(
-            method="DELETE",
-            path="/v2/objects/{object}/records/{record_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="delete_/v2/objects/{object}/records/{record_id}",
-                oauth2_scopes=None,
-                security_source=self.sdk_configuration.security,
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.DeleteV2ObjectsObjectRecordsRecordIDResponse, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                errors.DeleteV2ObjectsObjectRecordsRecordIDNotFoundErrorData, http_res
-            )
-            raise errors.DeleteV2ObjectsObjectRecordsRecordIDNotFoundError(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
-
-        raise errors.SDKDefaultError("Unexpected response received", http_res)
-
-    async def delete_v2_objects_object_records_record_id__async(
-        self,
-        *,
-        object: str,
-        record_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.DeleteV2ObjectsObjectRecordsRecordIDResponse:
-        r"""Delete a record
-
-        Deletes a single record (e.g. a company or person) by ID.
-
-        Required scopes: `object_configuration:read`, `record_permission:read-write`.
-
-        :param object:
-        :param record_id:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.DeleteV2ObjectsObjectRecordsRecordIDRequest(
-            object=object,
-            record_id=record_id,
-        )
-
-        req = self._build_request_async(
-            method="DELETE",
-            path="/v2/objects/{object}/records/{record_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="delete_/v2/objects/{object}/records/{record_id}",
-                oauth2_scopes=None,
-                security_source=self.sdk_configuration.security,
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.DeleteV2ObjectsObjectRecordsRecordIDResponse, http_res
-            )
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                errors.DeleteV2ObjectsObjectRecordsRecordIDNotFoundErrorData, http_res
-            )
-            raise errors.DeleteV2ObjectsObjectRecordsRecordIDNotFoundError(
+            raise errors.GetV2ObjectsObjectRecordsRecordIDInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1464,6 +1054,8 @@ class Records(BaseSDK):
                 operation_id="patch_/v2/objects/{object}/records/{record_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1477,10 +1069,10 @@ class Records(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PatchV2ObjectsObjectRecordsRecordIDMissingValueErrorData,
+                errors.PatchV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData,
                 http_res,
             )
-            raise errors.PatchV2ObjectsObjectRecordsRecordIDMissingValueError(
+            raise errors.PatchV2ObjectsObjectRecordsRecordIDInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -1586,6 +1178,8 @@ class Records(BaseSDK):
                 operation_id="patch_/v2/objects/{object}/records/{record_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1599,10 +1193,10 @@ class Records(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PatchV2ObjectsObjectRecordsRecordIDMissingValueErrorData,
+                errors.PatchV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData,
                 http_res,
             )
-            raise errors.PatchV2ObjectsObjectRecordsRecordIDMissingValueError(
+            raise errors.PatchV2ObjectsObjectRecordsRecordIDInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -1610,6 +1204,722 @@ class Records(BaseSDK):
                 errors.PatchV2ObjectsObjectRecordsRecordIDNotFoundErrorData, http_res
             )
             raise errors.PatchV2ObjectsObjectRecordsRecordIDNotFoundError(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+
+        raise errors.SDKDefaultError("Unexpected response received", http_res)
+
+    def put_v2_objects_object_records_record_id_(
+        self,
+        *,
+        object: str,
+        record_id: str,
+        data: Union[
+            models.PutV2ObjectsObjectRecordsRecordIDDataRequest,
+            models.PutV2ObjectsObjectRecordsRecordIDDataRequestTypedDict,
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PutV2ObjectsObjectRecordsRecordIDResponse:
+        r"""Update a record (overwrite multiselect values)
+
+        Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
+
+        Required scopes: `record_permission:read-write`, `object_configuration:read`.
+
+        :param object:
+        :param record_id:
+        :param data:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PutV2ObjectsObjectRecordsRecordIDRequest(
+            object=object,
+            record_id=record_id,
+            request_body=models.PutV2ObjectsObjectRecordsRecordIDRequestBody(
+                data=utils.get_pydantic_model(
+                    data, models.PutV2ObjectsObjectRecordsRecordIDDataRequest
+                ),
+            ),
+        )
+
+        req = self._build_request(
+            method="PUT",
+            path="/v2/objects/{object}/records/{record_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.PutV2ObjectsObjectRecordsRecordIDRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="put_/v2/objects/{object}/records/{record_id}",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.PutV2ObjectsObjectRecordsRecordIDResponse, http_res
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.PutV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData,
+                http_res,
+            )
+            raise errors.PutV2ObjectsObjectRecordsRecordIDInvalidRequestError(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.PutV2ObjectsObjectRecordsRecordIDNotFoundErrorData, http_res
+            )
+            raise errors.PutV2ObjectsObjectRecordsRecordIDNotFoundError(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+
+        raise errors.SDKDefaultError("Unexpected response received", http_res)
+
+    async def put_v2_objects_object_records_record_id__async(
+        self,
+        *,
+        object: str,
+        record_id: str,
+        data: Union[
+            models.PutV2ObjectsObjectRecordsRecordIDDataRequest,
+            models.PutV2ObjectsObjectRecordsRecordIDDataRequestTypedDict,
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PutV2ObjectsObjectRecordsRecordIDResponse:
+        r"""Update a record (overwrite multiselect values)
+
+        Use this endpoint to update people, companies, and other records by `record_id`. If the update payload includes multiselect attributes, the values supplied will overwrite/remove the list of values that already exist (if any). Use the `PATCH` endpoint to append multiselect values without removing those that already exist.
+
+        Required scopes: `record_permission:read-write`, `object_configuration:read`.
+
+        :param object:
+        :param record_id:
+        :param data:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PutV2ObjectsObjectRecordsRecordIDRequest(
+            object=object,
+            record_id=record_id,
+            request_body=models.PutV2ObjectsObjectRecordsRecordIDRequestBody(
+                data=utils.get_pydantic_model(
+                    data, models.PutV2ObjectsObjectRecordsRecordIDDataRequest
+                ),
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PUT",
+            path="/v2/objects/{object}/records/{record_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.PutV2ObjectsObjectRecordsRecordIDRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="put_/v2/objects/{object}/records/{record_id}",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.PutV2ObjectsObjectRecordsRecordIDResponse, http_res
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.PutV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData,
+                http_res,
+            )
+            raise errors.PutV2ObjectsObjectRecordsRecordIDInvalidRequestError(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.PutV2ObjectsObjectRecordsRecordIDNotFoundErrorData, http_res
+            )
+            raise errors.PutV2ObjectsObjectRecordsRecordIDNotFoundError(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+
+        raise errors.SDKDefaultError("Unexpected response received", http_res)
+
+    def delete_v2_objects_object_records_record_id_(
+        self,
+        *,
+        object: str,
+        record_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.DeleteV2ObjectsObjectRecordsRecordIDResponse:
+        r"""Delete a record
+
+        Deletes a single record (e.g. a company or person) by ID.
+
+        Required scopes: `object_configuration:read`, `record_permission:read-write`.
+
+        :param object:
+        :param record_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.DeleteV2ObjectsObjectRecordsRecordIDRequest(
+            object=object,
+            record_id=record_id,
+        )
+
+        req = self._build_request(
+            method="DELETE",
+            path="/v2/objects/{object}/records/{record_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="delete_/v2/objects/{object}/records/{record_id}",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.DeleteV2ObjectsObjectRecordsRecordIDResponse, http_res
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.DeleteV2ObjectsObjectRecordsRecordIDNotFoundErrorData, http_res
+            )
+            raise errors.DeleteV2ObjectsObjectRecordsRecordIDNotFoundError(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+
+        raise errors.SDKDefaultError("Unexpected response received", http_res)
+
+    async def delete_v2_objects_object_records_record_id__async(
+        self,
+        *,
+        object: str,
+        record_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.DeleteV2ObjectsObjectRecordsRecordIDResponse:
+        r"""Delete a record
+
+        Deletes a single record (e.g. a company or person) by ID.
+
+        Required scopes: `object_configuration:read`, `record_permission:read-write`.
+
+        :param object:
+        :param record_id:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.DeleteV2ObjectsObjectRecordsRecordIDRequest(
+            object=object,
+            record_id=record_id,
+        )
+
+        req = self._build_request_async(
+            method="DELETE",
+            path="/v2/objects/{object}/records/{record_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="delete_/v2/objects/{object}/records/{record_id}",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.DeleteV2ObjectsObjectRecordsRecordIDResponse, http_res
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.DeleteV2ObjectsObjectRecordsRecordIDNotFoundErrorData, http_res
+            )
+            raise errors.DeleteV2ObjectsObjectRecordsRecordIDNotFoundError(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+
+        raise errors.SDKDefaultError("Unexpected response received", http_res)
+
+    def post_v2_objects_object_records_merge(
+        self,
+        *,
+        object: str,
+        data: Union[
+            models.PostV2ObjectsObjectRecordsMergeDataRequest,
+            models.PostV2ObjectsObjectRecordsMergeDataRequestTypedDict,
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PostV2ObjectsObjectRecordsMergeResponse:
+        r"""Merge two records
+
+        Merges two records of the same object together. Where both records have a value for the same attribute, the primary record's value takes precedence.
+
+        Merging produces a **new** record, so the `new_record_id` returned will match neither of the records supplied in the request. Both of the original records are marked as merged and can no longer be read or written.
+
+        Large merges are completed asynchronously. A `200` response means the merged record is readable immediately. A `202` response means the merge has been accepted but is still being applied, and reading the merged record will return a `404` with the `merge_in_progress` error code until it completes.
+
+        This endpoint is not idempotent. Because both original records are marked as merged, repeating the same request returns `404`.
+
+        This endpoint is rate limited to 5 requests per second.
+
+        This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+
+        Required scopes: `record_permission:read-write`, `object_configuration:read`.
+
+        :param object:
+        :param data:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PostV2ObjectsObjectRecordsMergeRequest(
+            object=object,
+            request_body=models.PostV2ObjectsObjectRecordsMergeRequestBody(
+                data=utils.get_pydantic_model(
+                    data, models.PostV2ObjectsObjectRecordsMergeDataRequest
+                ),
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/objects/{object}/records/merge",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.PostV2ObjectsObjectRecordsMergeRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="post_/v2/objects/{object}/records/merge",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions={"x-hidden": True, "x-mint": {"metadata": {"tag": "BETA"}}},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.PostV2ObjectsObjectRecordsMergeResponseBody1, http_res
+            )
+        if utils.match_response(http_res, "202", "application/json"):
+            return unmarshal_json_response(
+                models.PostV2ObjectsObjectRecordsMergeResponseBody2, http_res
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = unmarshal_json_response(errors.SelfMergeErrorData, http_res)
+            raise errors.SelfMergeError(response_data, http_res)
+        if utils.match_response(http_res, "403", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.UnauthorizedErrorData, http_res
+            )
+            raise errors.UnauthorizedError(response_data, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.PostV2ObjectsObjectRecordsMergeInvalidRequestErrorData, http_res
+            )
+            raise errors.PostV2ObjectsObjectRecordsMergeInvalidRequestError(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKDefaultError("API error occurred", http_res, http_res_text)
+
+        raise errors.SDKDefaultError("Unexpected response received", http_res)
+
+    async def post_v2_objects_object_records_merge_async(
+        self,
+        *,
+        object: str,
+        data: Union[
+            models.PostV2ObjectsObjectRecordsMergeDataRequest,
+            models.PostV2ObjectsObjectRecordsMergeDataRequestTypedDict,
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PostV2ObjectsObjectRecordsMergeResponse:
+        r"""Merge two records
+
+        Merges two records of the same object together. Where both records have a value for the same attribute, the primary record's value takes precedence.
+
+        Merging produces a **new** record, so the `new_record_id` returned will match neither of the records supplied in the request. Both of the original records are marked as merged and can no longer be read or written.
+
+        Large merges are completed asynchronously. A `200` response means the merged record is readable immediately. A `202` response means the merge has been accepted but is still being applied, and reading the merged record will return a `404` with the `merge_in_progress` error code until it completes.
+
+        This endpoint is not idempotent. Because both original records are marked as merged, repeating the same request returns `404`.
+
+        This endpoint is rate limited to 5 requests per second.
+
+        This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
+
+        Required scopes: `record_permission:read-write`, `object_configuration:read`.
+
+        :param object:
+        :param data:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PostV2ObjectsObjectRecordsMergeRequest(
+            object=object,
+            request_body=models.PostV2ObjectsObjectRecordsMergeRequestBody(
+                data=utils.get_pydantic_model(
+                    data, models.PostV2ObjectsObjectRecordsMergeDataRequest
+                ),
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/objects/{object}/records/merge",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.PostV2ObjectsObjectRecordsMergeRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="post_/v2/objects/{object}/records/merge",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions={"x-hidden": True, "x-mint": {"metadata": {"tag": "BETA"}}},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.PostV2ObjectsObjectRecordsMergeResponseBody1, http_res
+            )
+        if utils.match_response(http_res, "202", "application/json"):
+            return unmarshal_json_response(
+                models.PostV2ObjectsObjectRecordsMergeResponseBody2, http_res
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = unmarshal_json_response(errors.SelfMergeErrorData, http_res)
+            raise errors.SelfMergeError(response_data, http_res)
+        if utils.match_response(http_res, "403", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.UnauthorizedErrorData, http_res
+            )
+            raise errors.UnauthorizedError(response_data, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.PostV2ObjectsObjectRecordsMergeInvalidRequestErrorData, http_res
+            )
+            raise errors.PostV2ObjectsObjectRecordsMergeInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1705,6 +2015,8 @@ class Records(BaseSDK):
                 operation_id="get_/v2/objects/{object}/records/{record_id}/attributes/{attribute}/values",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1826,6 +2138,8 @@ class Records(BaseSDK):
                 operation_id="get_/v2/objects/{object}/records/{record_id}/attributes/{attribute}/values",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1939,6 +2253,8 @@ class Records(BaseSDK):
                 operation_id="get_/v2/objects/{object}/records/{record_id}/entries",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2034,6 +2350,8 @@ class Records(BaseSDK):
                 operation_id="get_/v2/objects/{object}/records/{record_id}/entries",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2057,7 +2375,7 @@ class Records(BaseSDK):
         self,
         *,
         query: str,
-        objects: List[str],
+        objects: Iterable[str],
         request_as: Union[models.RequestAs, models.RequestAsTypedDict],
         limit: Optional[float] = 25,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2097,7 +2415,7 @@ class Records(BaseSDK):
         request = models.PostV2ObjectsRecordsSearchRequest(
             query=query,
             limit=limit,
-            objects=objects,
+            objects=utils.unmarshal(objects, List[str]),
             request_as=utils.get_pydantic_model(request_as, models.RequestAs),
         )
 
@@ -2136,6 +2454,8 @@ class Records(BaseSDK):
                 operation_id="post_/v2/objects/records/search",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2167,7 +2487,7 @@ class Records(BaseSDK):
         self,
         *,
         query: str,
-        objects: List[str],
+        objects: Iterable[str],
         request_as: Union[models.RequestAs, models.RequestAsTypedDict],
         limit: Optional[float] = 25,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2207,7 +2527,7 @@ class Records(BaseSDK):
         request = models.PostV2ObjectsRecordsSearchRequest(
             query=query,
             limit=limit,
-            objects=objects,
+            objects=utils.unmarshal(objects, List[str]),
             request_as=utils.get_pydantic_model(request_as, models.RequestAs),
         )
 
@@ -2246,6 +2566,8 @@ class Records(BaseSDK):
                 operation_id="post_/v2/objects/records/search",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Records"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

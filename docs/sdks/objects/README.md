@@ -95,6 +95,7 @@ with SDK(
 
 | Error Type                            | Status Code                           | Content Type                          |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| errors.QuotaExceededError             | 400                                   | application/json                      |
 | errors.PostV2ObjectsSlugConflictError | 409                                   | application/json                      |
 | errors.SDKDefaultError                | 4XX, 5XX                              | \*/\*                                 |
 

@@ -11,22 +11,22 @@ import httpx
 from typing import Optional
 
 
-class GetV2ObjectsObjectRecordsRecordIDNotFoundErrorData(BaseModel):
+class GetV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData(BaseModel):
     status_code: float
     type: models_get_v2_objects_object_records_record_id_op.GetV2ObjectsObjectRecordsRecordIDNotFoundType
-    code: models_get_v2_objects_object_records_record_id_op.GetV2ObjectsObjectRecordsRecordIDCode
+    code: models_get_v2_objects_object_records_record_id_op.GetV2ObjectsObjectRecordsRecordIDCodeUnion
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class GetV2ObjectsObjectRecordsRecordIDNotFoundError(SDKError):
+class GetV2ObjectsObjectRecordsRecordIDInvalidRequestError(SDKError):
     r"""Not Found"""
 
-    data: GetV2ObjectsObjectRecordsRecordIDNotFoundErrorData = field(hash=False)
+    data: GetV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: GetV2ObjectsObjectRecordsRecordIDNotFoundErrorData,
+        data: GetV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

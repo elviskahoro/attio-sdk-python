@@ -29,7 +29,28 @@ class GetV2ObjectsObjectRecordsRecordIDRequest(BaseModel):
 GetV2ObjectsObjectRecordsRecordIDNotFoundType = Literal["invalid_request_error",]
 
 
-GetV2ObjectsObjectRecordsRecordIDCode = Literal["not_found",]
+GetV2ObjectsObjectRecordsRecordIDCodeMergeInProgress = Literal["merge_in_progress",]
+
+
+GetV2ObjectsObjectRecordsRecordIDCodeEnum = Literal["not_found",]
+
+
+GetV2ObjectsObjectRecordsRecordIDCodeUnionTypedDict = TypeAliasType(
+    "GetV2ObjectsObjectRecordsRecordIDCodeUnionTypedDict",
+    Union[
+        GetV2ObjectsObjectRecordsRecordIDCodeEnum,
+        GetV2ObjectsObjectRecordsRecordIDCodeMergeInProgress,
+    ],
+)
+
+
+GetV2ObjectsObjectRecordsRecordIDCodeUnion = TypeAliasType(
+    "GetV2ObjectsObjectRecordsRecordIDCodeUnion",
+    Union[
+        GetV2ObjectsObjectRecordsRecordIDCodeEnum,
+        GetV2ObjectsObjectRecordsRecordIDCodeMergeInProgress,
+    ],
+)
 
 
 class GetV2ObjectsObjectRecordsRecordIDIDTypedDict(TypedDict):
@@ -2217,6 +2238,7 @@ GetV2ObjectsObjectRecordsRecordIDCurrencyCode = Literal[
     "HUF",
     "ISK",
     "INR",
+    "IDR",
     "ILS",
     "JPY",
     "KES",
@@ -2239,6 +2261,7 @@ GetV2ObjectsObjectRecordsRecordIDCurrencyCode = Literal[
     "SEK",
     "CHF",
     "THB",
+    "TRY",
     "AED",
     "UYU",
     "USD",

@@ -25,10 +25,6 @@ INVALID_REQUEST_MODELS = [
         "PostV2ObjectsObjectRecordsInvalidRequestErrorData",
     ),
     (
-        "attio.errors.put_v2_objects_object_recordsop",
-        "PutV2ObjectsObjectRecordsInvalidRequestErrorData",
-    ),
-    (
         "attio.errors.post_v2_objects_records_searchop",
         "PostV2ObjectsRecordsSearchInvalidRequestErrorData",
     ),
@@ -65,6 +61,30 @@ def test_invalid_request_error_models_accept_both_codes(
     http_res = _mock_http_response(body)
 
     parsed = unmarshal_json_response(model_cls, http_res)
+
+    assert parsed.type == "invalid_request_error"
+    assert parsed.code == code
+
+
+@pytest.mark.parametrize("code", ["value_not_found", "merge_in_progress"])
+def test_put_records_invalid_request_accepts_merge_codes(code: str) -> None:
+    from attio.errors.put_v2_objects_object_recordsop import (
+        PutV2ObjectsObjectRecordsInvalidRequestErrorData,
+    )
+
+    body = json.dumps(
+        {
+            "status_code": 400,
+            "type": "invalid_request_error",
+            "code": code,
+            "message": f"message for {code}",
+        }
+    )
+    http_res = _mock_http_response(body)
+
+    parsed = unmarshal_json_response(
+        PutV2ObjectsObjectRecordsInvalidRequestErrorData, http_res
+    )
 
     assert parsed.type == "invalid_request_error"
     assert parsed.code == code

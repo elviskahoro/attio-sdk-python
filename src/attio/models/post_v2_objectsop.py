@@ -35,10 +35,16 @@ class PostV2ObjectsRequest(BaseModel):
     data: PostV2ObjectsData
 
 
-PostV2ObjectsType = Literal["invalid_request_error",]
+PostV2ObjectsConflictType = Literal["invalid_request_error",]
 
 
-PostV2ObjectsCode = Literal["slug_conflict",]
+PostV2ObjectsConflictCode = Literal["slug_conflict",]
+
+
+PostV2ObjectsBadRequestType = Literal["invalid_request_error",]
+
+
+PostV2ObjectsCodeQuotaExceeded = Literal["quota_exceeded",]
 
 
 class PostV2ObjectsResponseTypedDict(TypedDict):

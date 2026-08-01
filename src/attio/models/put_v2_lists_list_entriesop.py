@@ -72,7 +72,22 @@ PutV2ListsListEntriesNotFoundCode = Literal["not_found",]
 PutV2ListsListEntriesBadRequestType = Literal["invalid_request_error",]
 
 
+PutV2ListsListEntriesCodeMergeInProgress = Literal["merge_in_progress",]
+
+
 CodeMultipleMatchResults = Literal["multiple_match_results",]
+
+
+PutV2ListsListEntriesCodeUnionTypedDict = TypeAliasType(
+    "PutV2ListsListEntriesCodeUnionTypedDict",
+    Union[CodeMultipleMatchResults, PutV2ListsListEntriesCodeMergeInProgress],
+)
+
+
+PutV2ListsListEntriesCodeUnion = TypeAliasType(
+    "PutV2ListsListEntriesCodeUnion",
+    Union[CodeMultipleMatchResults, PutV2ListsListEntriesCodeMergeInProgress],
+)
 
 
 class PutV2ListsListEntriesIDTypedDict(TypedDict):
@@ -2242,6 +2257,7 @@ PutV2ListsListEntriesCurrencyCode = Literal[
     "HUF",
     "ISK",
     "INR",
+    "IDR",
     "ILS",
     "JPY",
     "KES",
@@ -2264,6 +2280,7 @@ PutV2ListsListEntriesCurrencyCode = Literal[
     "SEK",
     "CHF",
     "THB",
+    "TRY",
     "AED",
     "UYU",
     "USD",

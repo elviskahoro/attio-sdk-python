@@ -1,0 +1,13 @@
+# QuotaExceededError
+
+Bad Request
+
+
+## Fields
+
+| Field                                                                                   | Type                                                                                    | Required                                                                                | Description                                                                             | Example                                                                                 |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `status_code`                                                                           | *float*                                                                                 | :heavy_check_mark:                                                                      | N/A                                                                                     |                                                                                         |
+| `type`                                                                                  | [models.PostV2ObjectsBadRequestType](../models/postv2objectsbadrequesttype.md)          | :heavy_check_mark:                                                                      | N/A                                                                                     |                                                                                         |
+| `code`                                                                                  | [models.PostV2ObjectsCodeQuotaExceeded](../models/postv2objectscodequotaexceeded.md)    | :heavy_check_mark:                                                                      | N/A                                                                                     |                                                                                         |
+| `message`                                                                               | *str*                                                                                   | :heavy_check_mark:                                                                      | N/A                                                                                     | You have met your plan's object limit. Please upgrade your plan to create more objects. |

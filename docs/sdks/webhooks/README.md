@@ -9,8 +9,8 @@ Webhooks allow you to listen for changes to data in Attio, for example when a re
 * [get_v2_webhooks](#get_v2_webhooks) - List webhooks
 * [post_v2_webhooks](#post_v2_webhooks) - Create a webhook
 * [get_v2_webhooks_webhook_id_](#get_v2_webhooks_webhook_id_) - Get a webhook
-* [delete_v2_webhooks_webhook_id_](#delete_v2_webhooks_webhook_id_) - Delete a webhook
 * [patch_v2_webhooks_webhook_id_](#patch_v2_webhooks_webhook_id_) - Update a webhook
+* [delete_v2_webhooks_webhook_id_](#delete_v2_webhooks_webhook_id_) - Delete a webhook
 
 ## get_v2_webhooks
 
@@ -141,48 +141,6 @@ with SDK(
 | errors.GetV2WebhooksWebhookIDNotFoundError | 404                                        | application/json                           |
 | errors.SDKDefaultError                     | 4XX, 5XX                                   | \*/\*                                      |
 
-## delete_v2_webhooks_webhook_id_
-
-Delete a webhook by ID.
-
-Required scopes: `webhook:read-write`.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="delete_/v2/webhooks/{webhook_id}" method="delete" path="/v2/webhooks/{webhook_id}" -->
-```python
-from attio import SDK
-
-
-with SDK(
-    oauth2="<YOUR_OAUTH2_HERE>",
-) as sdk:
-
-    res = sdk.webhooks.delete_v2_webhooks_webhook_id_(webhook_id="23e42eaf-323a-41da-b5bb-fd67eebda553")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `webhook_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 | 23e42eaf-323a-41da-b5bb-fd67eebda553                                |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
-
-### Response
-
-**[models.DeleteV2WebhooksWebhookIDResponse](../../models/deletev2webhookswebhookidresponse.md)**
-
-### Errors
-
-| Error Type                                    | Status Code                                   | Content Type                                  |
-| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| errors.DeleteV2WebhooksWebhookIDNotFoundError | 404                                           | application/json                              |
-| errors.SDKDefaultError                        | 4XX, 5XX                                      | \*/\*                                         |
-
 ## patch_v2_webhooks_webhook_id_
 
 Update a webhook and associated subscriptions.
@@ -241,3 +199,45 @@ with SDK(
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | errors.PatchV2WebhooksWebhookIDNotFoundError | 404                                          | application/json                             |
 | errors.SDKDefaultError                       | 4XX, 5XX                                     | \*/\*                                        |
+
+## delete_v2_webhooks_webhook_id_
+
+Delete a webhook by ID.
+
+Required scopes: `webhook:read-write`.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="delete_/v2/webhooks/{webhook_id}" method="delete" path="/v2/webhooks/{webhook_id}" -->
+```python
+from attio import SDK
+
+
+with SDK(
+    oauth2="<YOUR_OAUTH2_HERE>",
+) as sdk:
+
+    res = sdk.webhooks.delete_v2_webhooks_webhook_id_(webhook_id="23e42eaf-323a-41da-b5bb-fd67eebda553")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `webhook_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 | 23e42eaf-323a-41da-b5bb-fd67eebda553                                |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[models.DeleteV2WebhooksWebhookIDResponse](../../models/deletev2webhookswebhookidresponse.md)**
+
+### Errors
+
+| Error Type                                    | Status Code                                   | Content Type                                  |
+| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
+| errors.DeleteV2WebhooksWebhookIDNotFoundError | 404                                           | application/json                              |
+| errors.SDKDefaultError                        | 4XX, 5XX                                      | \*/\*                                         |

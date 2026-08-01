@@ -7,12 +7,12 @@ Meetings are events synced from your calendar, added manually or added from thir
 ### Available Operations
 
 * [get_v2_meetings](#get_v2_meetings) - List meetings
-* [post_v2_meetings](#post_v2_meetings) - Find or create a meeting
+* [post_v2_meetings](#post_v2_meetings) - Create a meeting
 * [get_v2_meetings_meeting_id_](#get_v2_meetings_meeting_id_) - Get a meeting
 
 ## get_v2_meetings
 
-Lists all meetings in the workspace using a deterministic sort order.
+Lists all meetings in the workspace using a deterministic sort order. When both the `participants` and `linked_record_id` filters are supplied, they are combined with OR: meetings that match either filter are returned.
 
 This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
@@ -63,7 +63,7 @@ with SDK(
 
 ## post_v2_meetings
 
-Finds an existing meeting or creates a new one if it doesn't yet exist. [Please see here](/rest-api/guides/syncing-meetings) for a full guide on syncing meetings to Attio.
+Creates a new meeting. [See here](/rest-api/guides/syncing-meetings) for guidance on avoiding duplicate meetings.
 
 This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
 
@@ -99,7 +99,6 @@ with SDK(
                 "record_id": "891dcbfc-9141-415d-9b2a-2238a6cc012d",
             },
         ],
-        "external_ref": "external_meeting_12345",
     })
 
     # Handle response

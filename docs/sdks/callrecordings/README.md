@@ -77,6 +77,17 @@ with SDK(
 
     res = sdk.call_recordings.post_v2_meetings_meeting_id_call_recordings(meeting_id="cb59ab17-ad15-460c-a126-0715617c0853", data={
         "video_url": "https://example.com/recording.mp4",
+        "transcript": [
+            {
+                "speech": "Hello everyone, welcome to the meeting.",
+                "start_time": 0.5123,
+                "end_time": 3.2123,
+                "speaker": {
+                    "name": "Simon Mitchell",
+                    "email_address": "person@company.com",
+                },
+            },
+        ],
     })
 
     # Handle response

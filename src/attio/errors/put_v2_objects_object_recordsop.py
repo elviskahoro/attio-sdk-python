@@ -39,7 +39,7 @@ class PutV2ObjectsObjectRecordsNotFoundError(SDKError):
 class PutV2ObjectsObjectRecordsInvalidRequestErrorData(BaseModel):
     status_code: float
     type: models_put_v2_objects_object_recordsop.PutV2ObjectsObjectRecordsBadRequestType
-    code: models_put_v2_objects_object_recordsop.PutV2ObjectsObjectRecordsBadRequestCode
+    code: models_put_v2_objects_object_recordsop.PutV2ObjectsObjectRecordsCodeUnion
     message: str
 
 

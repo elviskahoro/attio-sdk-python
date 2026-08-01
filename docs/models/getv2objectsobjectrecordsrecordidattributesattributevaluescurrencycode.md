@@ -28,6 +28,7 @@ value: GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesCurrencyCode = 
 - `"HUF"`
 - `"ISK"`
 - `"INR"`
+- `"IDR"`
 - `"ILS"`
 - `"JPY"`
 - `"KES"`
@@ -50,6 +51,7 @@ value: GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesCurrencyCode = 
 - `"SEK"`
 - `"CHF"`
 - `"THB"`
+- `"TRY"`
 - `"AED"`
 - `"UYU"`
 - `"USD"`

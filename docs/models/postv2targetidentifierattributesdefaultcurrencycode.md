@@ -28,6 +28,7 @@ value: PostV2TargetIdentifierAttributesDefaultCurrencyCode = "ARS"
 - `"HUF"`
 - `"ISK"`
 - `"INR"`
+- `"IDR"`
 - `"ILS"`
 - `"JPY"`
 - `"KES"`
@@ -50,6 +51,7 @@ value: PostV2TargetIdentifierAttributesDefaultCurrencyCode = "ARS"
 - `"SEK"`
 - `"CHF"`
 - `"THB"`
+- `"TRY"`
 - `"AED"`
 - `"UYU"`
 - `"USD"`

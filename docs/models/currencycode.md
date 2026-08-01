@@ -28,6 +28,7 @@ value: CurrencyCode = "ARS"
 - `"HUF"`
 - `"ISK"`
 - `"INR"`
+- `"IDR"`
 - `"ILS"`
 - `"JPY"`
 - `"KES"`
@@ -50,6 +51,7 @@ value: CurrencyCode = "ARS"
 - `"SEK"`
 - `"CHF"`
 - `"THB"`
+- `"TRY"`
 - `"AED"`
 - `"UYU"`
 - `"USD"`

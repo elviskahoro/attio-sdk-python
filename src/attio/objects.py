@@ -71,6 +71,8 @@ class Objects(BaseSDK):
                 operation_id="get_/v2/objects",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Objects"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -148,6 +150,8 @@ class Objects(BaseSDK):
                 operation_id="get_/v2/objects",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Objects"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -235,6 +239,8 @@ class Objects(BaseSDK):
                 operation_id="post_/v2/objects",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Objects"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -244,6 +250,11 @@ class Objects(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.PostV2ObjectsResponse, http_res)
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.QuotaExceededErrorData, http_res
+            )
+            raise errors.QuotaExceededError(response_data, http_res)
         if utils.match_response(http_res, "409", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PostV2ObjectsSlugConflictErrorData, http_res
@@ -328,6 +339,8 @@ class Objects(BaseSDK):
                 operation_id="post_/v2/objects",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Objects"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -337,6 +350,11 @@ class Objects(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.PostV2ObjectsResponse, http_res)
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.QuotaExceededErrorData, http_res
+            )
+            raise errors.QuotaExceededError(response_data, http_res)
         if utils.match_response(http_res, "409", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PostV2ObjectsSlugConflictErrorData, http_res
@@ -418,6 +436,8 @@ class Objects(BaseSDK):
                 operation_id="get_/v2/objects/{object}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Objects"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -508,6 +528,8 @@ class Objects(BaseSDK):
                 operation_id="get_/v2/objects/{object}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Objects"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -612,6 +634,8 @@ class Objects(BaseSDK):
                 operation_id="patch_/v2/objects/{object}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Objects"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -730,6 +754,8 @@ class Objects(BaseSDK):
                 operation_id="patch_/v2/objects/{object}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Objects"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -843,6 +869,8 @@ class Objects(BaseSDK):
                 operation_id="get_/v2/objects/{object}/views",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Objects"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -944,6 +972,8 @@ class Objects(BaseSDK):
                 operation_id="get_/v2/objects/{object}/views",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Objects"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

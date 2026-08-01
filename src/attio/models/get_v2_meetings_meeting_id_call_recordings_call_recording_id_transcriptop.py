@@ -69,32 +69,40 @@ class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptID(BaseModel)
     r"""The ID of the call recording this transcript belongs to."""
 
 
-class SpeakerTypedDict(TypedDict):
+class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptSpeakerTypedDict(
+    TypedDict
+):
     r"""The speaker of this transcript segment."""
 
     name: str
     r"""The name of the speaker."""
 
 
-class Speaker(BaseModel):
+class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptSpeaker(BaseModel):
     r"""The speaker of this transcript segment."""
 
     name: str
     r"""The name of the speaker."""
 
 
-class TranscriptTypedDict(TypedDict):
+class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptTranscriptTypedDict(
+    TypedDict
+):
     speech: str
     r"""The spoken text for this segment of the transcript."""
     start_time: float
     r"""The start time of this speech segment in seconds, measured from the start of the recording."""
     end_time: float
     r"""The end time of this speech segment in seconds, measured from the start of the recording."""
-    speaker: SpeakerTypedDict
+    speaker: (
+        GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptSpeakerTypedDict
+    )
     r"""The speaker of this transcript segment."""
 
 
-class Transcript(BaseModel):
+class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptTranscript(
+    BaseModel
+):
     speech: str
     r"""The spoken text for this segment of the transcript."""
 
@@ -104,7 +112,7 @@ class Transcript(BaseModel):
     end_time: float
     r"""The end time of this speech segment in seconds, measured from the start of the recording."""
 
-    speaker: Speaker
+    speaker: GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptSpeaker
     r"""The speaker of this transcript segment."""
 
 
@@ -112,7 +120,9 @@ class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptDataTypedDict
     TypedDict
 ):
     id: GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptIDTypedDict
-    transcript: List[TranscriptTypedDict]
+    transcript: List[
+        GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptTranscriptTypedDict
+    ]
     r"""The transcript segments with speech, timing, and speaker information."""
     raw_transcript: str
     r"""The raw transcript of the call recording."""
@@ -123,7 +133,9 @@ class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptDataTypedDict
 class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptData(BaseModel):
     id: GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptID
 
-    transcript: List[Transcript]
+    transcript: List[
+        GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptTranscript
+    ]
     r"""The transcript segments with speech, timing, and speaker information."""
 
     raw_transcript: str

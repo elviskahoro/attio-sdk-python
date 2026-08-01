@@ -11,8 +11,8 @@ from typing import Optional
 
 class PostV2ObjectsSlugConflictErrorData(BaseModel):
     status_code: float
-    type: models_post_v2_objectsop.PostV2ObjectsType
-    code: models_post_v2_objectsop.PostV2ObjectsCode
+    type: models_post_v2_objectsop.PostV2ObjectsConflictType
+    code: models_post_v2_objectsop.PostV2ObjectsConflictCode
     message: str
 
 
@@ -25,6 +25,31 @@ class PostV2ObjectsSlugConflictError(SDKError):
     def __init__(
         self,
         data: PostV2ObjectsSlugConflictErrorData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        fallback = body or raw_response.text
+        message = str(data.message) or fallback
+        super().__init__(message, raw_response, body)
+        object.__setattr__(self, "data", data)
+
+
+class QuotaExceededErrorData(BaseModel):
+    status_code: float
+    type: models_post_v2_objectsop.PostV2ObjectsBadRequestType
+    code: models_post_v2_objectsop.PostV2ObjectsCodeQuotaExceeded
+    message: str
+
+
+@dataclass(unsafe_hash=True)
+class QuotaExceededError(SDKError):
+    r"""Bad Request"""
+
+    data: QuotaExceededErrorData = field(hash=False)
+
+    def __init__(
+        self,
+        data: QuotaExceededErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):
