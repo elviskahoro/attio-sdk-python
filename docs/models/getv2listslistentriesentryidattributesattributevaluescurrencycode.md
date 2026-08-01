@@ -28,6 +28,7 @@ value: GetV2ListsListEntriesEntryIDAttributesAttributeValuesCurrencyCode = "ARS"
 - `"HUF"`
 - `"ISK"`
 - `"INR"`
+- `"IDR"`
 - `"ILS"`
 - `"JPY"`
 - `"KES"`
@@ -50,6 +51,7 @@ value: GetV2ListsListEntriesEntryIDAttributesAttributeValuesCurrencyCode = "ARS"
 - `"SEK"`
 - `"CHF"`
 - `"THB"`
+- `"TRY"`
 - `"AED"`
 - `"UYU"`
 - `"USD"`

@@ -36,22 +36,22 @@ class PatchV2ObjectsObjectRecordsRecordIDNotFoundError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class PatchV2ObjectsObjectRecordsRecordIDMissingValueErrorData(BaseModel):
+class PatchV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData(BaseModel):
     status_code: float
     type: models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDBadRequestType
-    code: models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDCodeMissingValue
+    code: models_patch_v2_objects_object_records_record_id_op.PatchV2ObjectsObjectRecordsRecordIDCodeUnion
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PatchV2ObjectsObjectRecordsRecordIDMissingValueError(SDKError):
+class PatchV2ObjectsObjectRecordsRecordIDInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: PatchV2ObjectsObjectRecordsRecordIDMissingValueErrorData = field(hash=False)
+    data: PatchV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: PatchV2ObjectsObjectRecordsRecordIDMissingValueErrorData,
+        data: PatchV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

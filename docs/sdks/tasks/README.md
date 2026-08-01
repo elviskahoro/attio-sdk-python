@@ -9,8 +9,8 @@ A task is a defined, actionable item with references to linked records and assig
 * [get_v2_tasks](#get_v2_tasks) - List tasks
 * [post_v2_tasks](#post_v2_tasks) - Create a task
 * [get_v2_tasks_task_id_](#get_v2_tasks_task_id_) - Get a task
-* [delete_v2_tasks_task_id_](#delete_v2_tasks_task_id_) - Delete a task
 * [patch_v2_tasks_task_id_](#patch_v2_tasks_task_id_) - Update a task
+* [delete_v2_tasks_task_id_](#delete_v2_tasks_task_id_) - Delete a task
 
 ## get_v2_tasks
 
@@ -156,48 +156,6 @@ with SDK(
 | errors.GetV2TasksTaskIDNotFoundError | 404                                  | application/json                     |
 | errors.SDKDefaultError               | 4XX, 5XX                             | \*/\*                                |
 
-## delete_v2_tasks_task_id_
-
-Delete a task by ID.
-
-Required scopes: `task:read-write`.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="delete_/v2/tasks/{task_id}" method="delete" path="/v2/tasks/{task_id}" -->
-```python
-from attio import SDK
-
-
-with SDK(
-    oauth2="<YOUR_OAUTH2_HERE>",
-) as sdk:
-
-    res = sdk.tasks.delete_v2_tasks_task_id_(task_id="649e34f4-c39a-4f4d-99ef-48a36bef8f04")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `task_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 | 649e34f4-c39a-4f4d-99ef-48a36bef8f04                                |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
-
-### Response
-
-**[models.DeleteV2TasksTaskIDResponse](../../models/deletev2taskstaskidresponse.md)**
-
-### Errors
-
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| errors.DeleteV2TasksTaskIDNotFoundError | 404                                     | application/json                        |
-| errors.SDKDefaultError                  | 4XX, 5XX                                | \*/\*                                   |
-
 ## patch_v2_tasks_task_id_
 
 Updates an existing task by `task_id`. At present, only the `deadline_at`, `is_completed`, `linked_records`, and `assignees` fields can be updated.
@@ -253,3 +211,45 @@ with SDK(
 | errors.PatchV2TasksTaskIDValidationTypeError | 400                                          | application/json                             |
 | errors.PatchV2TasksTaskIDNotFoundError       | 404                                          | application/json                             |
 | errors.SDKDefaultError                       | 4XX, 5XX                                     | \*/\*                                        |
+
+## delete_v2_tasks_task_id_
+
+Delete a task by ID.
+
+Required scopes: `task:read-write`.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="delete_/v2/tasks/{task_id}" method="delete" path="/v2/tasks/{task_id}" -->
+```python
+from attio import SDK
+
+
+with SDK(
+    oauth2="<YOUR_OAUTH2_HERE>",
+) as sdk:
+
+    res = sdk.tasks.delete_v2_tasks_task_id_(task_id="649e34f4-c39a-4f4d-99ef-48a36bef8f04")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `task_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 | 649e34f4-c39a-4f4d-99ef-48a36bef8f04                                |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[models.DeleteV2TasksTaskIDResponse](../../models/deletev2taskstaskidresponse.md)**
+
+### Errors
+
+| Error Type                              | Status Code                             | Content Type                            |
+| --------------------------------------- | --------------------------------------- | --------------------------------------- |
+| errors.DeleteV2TasksTaskIDNotFoundError | 404                                     | application/json                        |
+| errors.SDKDefaultError                  | 4XX, 5XX                                | \*/\*                                   |

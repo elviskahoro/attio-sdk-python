@@ -4,32 +4,109 @@ from __future__ import annotations
 from attio.types import BaseModel, Nullable, OptionalNullable, UNSET, UNSET_SENTINEL
 from attio.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 from pydantic import model_serializer
-from typing import Literal, Union
+from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+class PostV2MeetingsMeetingIDCallRecordingsSpeakerTypedDict(TypedDict):
+    name: str
+    r"""The name of the speaker."""
+    email_address: NotRequired[str]
+    r"""The email address of the speaker."""
+
+
+class PostV2MeetingsMeetingIDCallRecordingsSpeaker(BaseModel):
+    name: str
+    r"""The name of the speaker."""
+
+    email_address: Optional[str] = None
+    r"""The email address of the speaker."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["email_address"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class PostV2MeetingsMeetingIDCallRecordingsTranscriptTypedDict(TypedDict):
+    speech: str
+    r"""The spoken text for this segment of the transcript."""
+    start_time: float
+    r"""The start time of this speech segment in seconds."""
+    end_time: float
+    r"""The end time of this speech segment in seconds."""
+    speaker: PostV2MeetingsMeetingIDCallRecordingsSpeakerTypedDict
+
+
+class PostV2MeetingsMeetingIDCallRecordingsTranscript(BaseModel):
+    speech: str
+    r"""The spoken text for this segment of the transcript."""
+
+    start_time: float
+    r"""The start time of this speech segment in seconds."""
+
+    end_time: float
+    r"""The end time of this speech segment in seconds."""
+
+    speaker: PostV2MeetingsMeetingIDCallRecordingsSpeaker
+
+
 class PostV2MeetingsMeetingIDCallRecordingsDataRequestTypedDict(TypedDict):
-    video_url: str
+    video_url: NotRequired[str]
     r"""A publicly accessible URL to a video file of the call recording. Attio will download the video from this URL asynchronously.
 
     **Requirements:**
     - **Protocol:** The URL must use the `https` protocol.
     - **File type:** The file must be a `.mp4` file.
-    - **File size:** The file must not exceed 500MB in size.
+    - **File size:** The file must not exceed 1GB in size.
     - **Accessibility:** For the request to be accepted, the URL must be publicly accessible. Attio will make a `HEAD` request to the URL to verify its accessibility and retrieve file metadata. The response to this request must include a `Content-Length` header.
     """
+    transcript: NotRequired[
+        List[PostV2MeetingsMeetingIDCallRecordingsTranscriptTypedDict]
+    ]
+    r"""The call recording's transcript."""
 
 
 class PostV2MeetingsMeetingIDCallRecordingsDataRequest(BaseModel):
-    video_url: str
+    video_url: Optional[str] = None
     r"""A publicly accessible URL to a video file of the call recording. Attio will download the video from this URL asynchronously.
 
     **Requirements:**
     - **Protocol:** The URL must use the `https` protocol.
     - **File type:** The file must be a `.mp4` file.
-    - **File size:** The file must not exceed 500MB in size.
+    - **File size:** The file must not exceed 1GB in size.
     - **Accessibility:** For the request to be accepted, the URL must be publicly accessible. Attio will make a `HEAD` request to the URL to verify its accessibility and retrieve file metadata. The response to this request must include a `Content-Length` header.
     """
+
+    transcript: Optional[List[PostV2MeetingsMeetingIDCallRecordingsTranscript]] = None
+    r"""The call recording's transcript."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["video_url", "transcript"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class PostV2MeetingsMeetingIDCallRecordingsRequestBodyTypedDict(TypedDict):
@@ -65,21 +142,27 @@ PostV2MeetingsMeetingIDCallRecordingsNotFoundCode = Literal["not_found",]
 PostV2MeetingsMeetingIDCallRecordingsForbiddenType = Literal["auth_error",]
 
 
-CodeQuotaExceeded = Literal["quota_exceeded",]
+PostV2MeetingsMeetingIDCallRecordingsCodeQuotaExceeded = Literal["quota_exceeded",]
 
 
 PostV2MeetingsMeetingIDCallRecordingsCodeBillingError = Literal["billing_error",]
 
 
-CodeTypedDict = TypeAliasType(
-    "CodeTypedDict",
-    Union[PostV2MeetingsMeetingIDCallRecordingsCodeBillingError, CodeQuotaExceeded],
+PostV2MeetingsMeetingIDCallRecordingsCodeUnionTypedDict = TypeAliasType(
+    "PostV2MeetingsMeetingIDCallRecordingsCodeUnionTypedDict",
+    Union[
+        PostV2MeetingsMeetingIDCallRecordingsCodeBillingError,
+        PostV2MeetingsMeetingIDCallRecordingsCodeQuotaExceeded,
+    ],
 )
 
 
-Code = TypeAliasType(
-    "Code",
-    Union[PostV2MeetingsMeetingIDCallRecordingsCodeBillingError, CodeQuotaExceeded],
+PostV2MeetingsMeetingIDCallRecordingsCodeUnion = TypeAliasType(
+    "PostV2MeetingsMeetingIDCallRecordingsCodeUnion",
+    Union[
+        PostV2MeetingsMeetingIDCallRecordingsCodeBillingError,
+        PostV2MeetingsMeetingIDCallRecordingsCodeQuotaExceeded,
+    ],
 )
 
 

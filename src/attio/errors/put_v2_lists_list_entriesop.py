@@ -36,22 +36,22 @@ class PutV2ListsListEntriesNotFoundError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class MultipleMatchResultsErrorData(BaseModel):
+class PutV2ListsListEntriesInvalidRequestErrorData(BaseModel):
     status_code: float
     type: models_put_v2_lists_list_entriesop.PutV2ListsListEntriesBadRequestType
-    code: models_put_v2_lists_list_entriesop.CodeMultipleMatchResults
+    code: models_put_v2_lists_list_entriesop.PutV2ListsListEntriesCodeUnion
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class MultipleMatchResultsError(SDKError):
+class PutV2ListsListEntriesInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: MultipleMatchResultsErrorData = field(hash=False)
+    data: PutV2ListsListEntriesInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: MultipleMatchResultsErrorData,
+        data: PutV2ListsListEntriesInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

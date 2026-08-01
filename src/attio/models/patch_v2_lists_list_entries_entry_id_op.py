@@ -67,7 +67,28 @@ PatchV2ListsListEntriesEntryIDNotFoundCode = Literal["not_found",]
 PatchV2ListsListEntriesEntryIDBadRequestType = Literal["invalid_request_error",]
 
 
+PatchV2ListsListEntriesEntryIDCodeMergeInProgress = Literal["merge_in_progress",]
+
+
 PatchV2ListsListEntriesEntryIDCodeImmutableValue = Literal["immutable_value",]
+
+
+PatchV2ListsListEntriesEntryIDCodeUnionTypedDict = TypeAliasType(
+    "PatchV2ListsListEntriesEntryIDCodeUnionTypedDict",
+    Union[
+        PatchV2ListsListEntriesEntryIDCodeImmutableValue,
+        PatchV2ListsListEntriesEntryIDCodeMergeInProgress,
+    ],
+)
+
+
+PatchV2ListsListEntriesEntryIDCodeUnion = TypeAliasType(
+    "PatchV2ListsListEntriesEntryIDCodeUnion",
+    Union[
+        PatchV2ListsListEntriesEntryIDCodeImmutableValue,
+        PatchV2ListsListEntriesEntryIDCodeMergeInProgress,
+    ],
+)
 
 
 class PatchV2ListsListEntriesEntryIDIDTypedDict(TypedDict):
@@ -2239,6 +2260,7 @@ PatchV2ListsListEntriesEntryIDCurrencyCode = Literal[
     "HUF",
     "ISK",
     "INR",
+    "IDR",
     "ILS",
     "JPY",
     "KES",
@@ -2261,6 +2283,7 @@ PatchV2ListsListEntriesEntryIDCurrencyCode = Literal[
     "SEK",
     "CHF",
     "THB",
+    "TRY",
     "AED",
     "UYU",
     "USD",

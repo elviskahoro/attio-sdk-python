@@ -164,23 +164,44 @@ r"""The status of the individual meeting participant."""
 
 
 class PostV2MeetingsParticipantTypedDict(TypedDict):
-    email_address: str
-    r"""The email address of the participant. New person records and companies will automatically be created based upon the email address values provided."""
     is_organizer: IsOrganizerTypedDict
     r"""Whether or not the participant is the organizer of the meeting."""
     status: PostV2MeetingsStatus
     r"""The status of the individual meeting participant."""
+    email_address: NotRequired[str]
+    r"""The email address of the participant. New person records and companies will automatically be created based upon the email address values provided. If omitted, a name must be provided instead."""
+    name: NotRequired[str]
+    r"""The name of the participant. Required when no email_address is provided. Participants without an email do not create person or company records."""
 
 
 class PostV2MeetingsParticipant(BaseModel):
-    email_address: str
-    r"""The email address of the participant. New person records and companies will automatically be created based upon the email address values provided."""
-
     is_organizer: IsOrganizer
     r"""Whether or not the participant is the organizer of the meeting."""
 
     status: PostV2MeetingsStatus
     r"""The status of the individual meeting participant."""
+
+    email_address: Optional[str] = None
+    r"""The email address of the participant. New person records and companies will automatically be created based upon the email address values provided. If omitted, a name must be provided instead."""
+
+    name: Optional[str] = None
+    r"""The name of the participant. Required when no email_address is provided. Participants without an email do not create person or company records."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["email_address", "name"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class PostV2MeetingsLinkedRecordTypedDict(TypedDict):
@@ -198,64 +219,6 @@ class PostV2MeetingsLinkedRecord(BaseModel):
     r"""The UUID of the record being linked."""
 
 
-Provider = Literal[
-    "google",
-    "microsoft",
-]
-r"""The email provider used to sync the meeting."""
-
-
-class ExternalRefTypedDict(TypedDict):
-    ical_uid: str
-    r"""The ical uid of the meeting."""
-    provider: Provider
-    r"""The email provider used to sync the meeting."""
-    is_recurring: bool
-    r"""Whether or not the meeting is recurring."""
-    original_start_time: NotRequired[str]
-    r"""The original start time of the meeting. Use a timestamp with a specified offset for all day and non-all day meetings. This property is required for recurring event exceptions and optional otherwise."""
-
-
-class ExternalRef(BaseModel):
-    ical_uid: str
-    r"""The ical uid of the meeting."""
-
-    provider: Provider
-    r"""The email provider used to sync the meeting."""
-
-    is_recurring: bool
-    r"""Whether or not the meeting is recurring."""
-
-    original_start_time: Optional[str] = None
-    r"""The original start time of the meeting. Use a timestamp with a specified offset for all day and non-all day meetings. This property is required for recurring event exceptions and optional otherwise."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["original_start_time"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-ExternalRefUnionTypedDict = TypeAliasType(
-    "ExternalRefUnionTypedDict", Union[ExternalRefTypedDict, str]
-)
-r"""A consistent external reference used to match and de-duplicate meetings. Can be either a plain string (for external system IDs) or an object with `ical_uid` and `provider`. If you are writing data into Attio which is based upon calendar events that you have synced from a Google or Microsoft calendar, you must use the iCal format to avoid creating duplicate meetings inside Attio."""
-
-
-ExternalRefUnion = TypeAliasType("ExternalRefUnion", Union[ExternalRef, str])
-r"""A consistent external reference used to match and de-duplicate meetings. Can be either a plain string (for external system IDs) or an object with `ical_uid` and `provider`. If you are writing data into Attio which is based upon calendar events that you have synced from a Google or Microsoft calendar, you must use the iCal format to avoid creating duplicate meetings inside Attio."""
-
-
 class PostV2MeetingsDataTypedDict(TypedDict):
     title: str
     r"""The title of the meeting."""
@@ -268,8 +231,6 @@ class PostV2MeetingsDataTypedDict(TypedDict):
     is_all_day: bool
     r"""Whether or not the meeting is an all day event. All day events may span multiple days. When true, start and end must use date format. When false, start and end must use datetime with timezone format."""
     participants: List[PostV2MeetingsParticipantTypedDict]
-    external_ref: ExternalRefUnionTypedDict
-    r"""A consistent external reference used to match and de-duplicate meetings. Can be either a plain string (for external system IDs) or an object with `ical_uid` and `provider`. If you are writing data into Attio which is based upon calendar events that you have synced from a Google or Microsoft calendar, you must use the iCal format to avoid creating duplicate meetings inside Attio."""
     linked_records: NotRequired[List[PostV2MeetingsLinkedRecordTypedDict]]
     r"""A list of records to link to the meeting. Each record is specified by its object (slug or UUID) and record ID (UUID). Attio will automatically link the meeting participants' companies to the meeting; this behavior is asynchronous."""
 
@@ -291,9 +252,6 @@ class PostV2MeetingsData(BaseModel):
     r"""Whether or not the meeting is an all day event. All day events may span multiple days. When true, start and end must use date format. When false, start and end must use datetime with timezone format."""
 
     participants: List[PostV2MeetingsParticipant]
-
-    external_ref: ExternalRefUnion
-    r"""A consistent external reference used to match and de-duplicate meetings. Can be either a plain string (for external system IDs) or an object with `ical_uid` and `provider`. If you are writing data into Attio which is based upon calendar events that you have synced from a Google or Microsoft calendar, you must use the iCal format to avoid creating duplicate meetings inside Attio."""
 
     linked_records: Optional[List[PostV2MeetingsLinkedRecord]] = None
     r"""A list of records to link to the meeting. Each record is specified by its object (slug or UUID) and record ID (UUID). Attio will automatically link the meeting participants' companies to the meeting; this behavior is asynchronous."""

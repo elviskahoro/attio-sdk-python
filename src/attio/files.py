@@ -27,7 +27,7 @@ class Files(BaseSDK):
     ) -> models.GetV2FilesResponse:
         r"""List files
 
-        Lists internal files, externally connected files and folders across the workspace. Optional query parameters may be provided to filter results by object, record, storage provider or parent folder.
+        Lists internal files, externally connected files and folders for a specific record. Use the `object` and `record_id` query parameters to specify the record. Optional query parameters may be provided to filter results by storage provider or parent folder.
 
         This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
@@ -95,6 +95,8 @@ class Files(BaseSDK):
                 operation_id="get_/v2/files",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Files"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -128,7 +130,7 @@ class Files(BaseSDK):
     ) -> models.GetV2FilesResponse:
         r"""List files
 
-        Lists internal files, externally connected files and folders across the workspace. Optional query parameters may be provided to filter results by object, record, storage provider or parent folder.
+        Lists internal files, externally connected files and folders for a specific record. Use the `object` and `record_id` query parameters to specify the record. Optional query parameters may be provided to filter results by storage provider or parent folder.
 
         This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
@@ -196,6 +198,8 @@ class Files(BaseSDK):
                 operation_id="get_/v2/files",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Files"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -285,6 +289,8 @@ class Files(BaseSDK):
                 operation_id="post_/v2/files",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Files"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -374,6 +380,8 @@ class Files(BaseSDK):
                 operation_id="post_/v2/files",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Files"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -474,6 +482,8 @@ class Files(BaseSDK):
                 operation_id="post_/v2/files/upload",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Files"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -574,6 +584,8 @@ class Files(BaseSDK):
                 operation_id="post_/v2/files/upload",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Files"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -660,6 +672,8 @@ class Files(BaseSDK):
                 operation_id="get_/v2/files/{file_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Files"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -752,6 +766,8 @@ class Files(BaseSDK):
                 operation_id="get_/v2/files/{file_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Files"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -844,6 +860,8 @@ class Files(BaseSDK):
                 operation_id="delete_/v2/files/{file_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Files"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -936,6 +954,8 @@ class Files(BaseSDK):
                 operation_id="delete_/v2/files/{file_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Files"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1028,6 +1048,8 @@ class Files(BaseSDK):
                 operation_id="get_/v2/files/{file_id}/download",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Files"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1116,6 +1138,8 @@ class Files(BaseSDK):
                 operation_id="get_/v2/files/{file_id}/download",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Files"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

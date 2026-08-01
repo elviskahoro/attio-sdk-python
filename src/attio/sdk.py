@@ -22,13 +22,11 @@ if TYPE_CHECKING:
     from attio.files import Files
     from attio.lists import Lists
     from attio.meetings import Meetings
-    from attio.meta_sdk import MetaSDK
+    from attio.meta import Meta
     from attio.notes import Notes
     from attio.objects import Objects
     from attio.records import Records
-    from attio.scim_groups import SCIMGroups
-    from attio.scim_schemas import SCIMSchemas
-    from attio.scim_users import SCIMUsers
+    from attio.sql import SQL
     from attio.tasks import Tasks
     from attio.threads import Threads
     from attio.transcripts import Transcripts
@@ -43,6 +41,8 @@ class SDK(BaseSDK):
     r"""Attributes model properties of objects and lists. Some attributes, such as the `name` attribute on a person, are system-defined, while others are user-defined. Attributes are one of [many types](/docs/attribute-types) such as text, location or select. See our [objects and lists guide](/docs/objects-and-lists) for more information."""
     records: "Records"
     r"""Records are individual instances of objects e.g. a specific [person](/rest-api/endpoint-reference/standard-objects/people/list-person-records) or [company](/rest-api/endpoint-reference/standard-objects/companies/list-company-records). See our [objects and lists guide](/docs/objects-and-lists) for more information."""
+    sql: "SQL"
+    r"""Query records and list entries across your workspace using SQL. A single query can reference any object or list in the workspace."""
     lists: "Lists"
     r"""Lists are used to model a particular process. A list contains many records of a single object type, where each record is represented by an entry. Entries contain their own data from attributes defined on the list and also data from their parent record. See our [objects and lists guide](/docs/objects-and-lists) for more information."""
     entries: "Entries"
@@ -65,20 +65,15 @@ class SDK(BaseSDK):
     r"""Transcripts contain the speech segments and speaker information for a call recording. They are linked to call recordings."""
     files: "Files"
     r"""Files are documents and folders linked to records, stored either in Attio or connected via external storage providers."""
-    scim_schemas: "SCIMSchemas"
-    r"""SCIM schemas describe the resource types supported by the SCIM service provider."""
-    scim_users: "SCIMUsers"
-    r"""SCIM users represent workspace members managed through the SCIM provisioning protocol."""
-    scim_groups: "SCIMGroups"
-    r"""SCIM groups represent Attio teams managed through the SCIM provisioning protocol."""
     webhooks: "Webhooks"
     r"""Webhooks allow you to listen for changes to data in Attio, for example when a record is updated."""
-    meta: "MetaSDK"
+    meta: "Meta"
     r"""Meta endpoints are used to get information about the API token."""
     _sub_sdk_map = {
         "objects": ("attio.objects", "Objects"),
         "attributes": ("attio.attributes", "Attributes"),
         "records": ("attio.records", "Records"),
+        "sql": ("attio.sql", "SQL"),
         "lists": ("attio.lists", "Lists"),
         "entries": ("attio.entries", "Entries"),
         "workspace_members": ("attio.workspace_members", "WorkspaceMembers"),
@@ -90,11 +85,8 @@ class SDK(BaseSDK):
         "call_recordings": ("attio.call_recordings", "CallRecordings"),
         "transcripts": ("attio.transcripts", "Transcripts"),
         "files": ("attio.files", "Files"),
-        "scim_schemas": ("attio.scim_schemas", "SCIMSchemas"),
-        "scim_users": ("attio.scim_users", "SCIMUsers"),
-        "scim_groups": ("attio.scim_groups", "SCIMGroups"),
         "webhooks": ("attio.webhooks", "Webhooks"),
-        "meta": ("attio.meta_sdk", "MetaSDK"),
+        "meta": ("attio.meta", "Meta"),
     }
 
     def __init__(
@@ -142,7 +134,9 @@ class SDK(BaseSDK):
         ), "The provided async_client must implement the AsyncHttpClient protocol."
 
         security: Any = None
-        if callable(oauth2):
+        if oauth2 is None:
+            security = None
+        elif callable(oauth2):
             # pylint: disable=unnecessary-lambda-assignment
             security = lambda: models.Security(oauth2=oauth2())
         else:

@@ -169,6 +169,7 @@ DefaultCurrencyCode = Literal[
     "HUF",
     "ISK",
     "INR",
+    "IDR",
     "ILS",
     "JPY",
     "KES",
@@ -191,6 +192,7 @@ DefaultCurrencyCode = Literal[
     "SEK",
     "CHF",
     "THB",
+    "TRY",
     "AED",
     "UYU",
     "USD",
@@ -300,7 +302,7 @@ class AttributeTypedDict(TypedDict):
     is_system_attribute: bool
     r"""`true` if this is an Attio system-defined attribute, `false` if defined by a user or non-Attio system."""
     is_writable: bool
-    r"""Whether or not this attribute can be written to. Can only be false when `is_system_attribute` is `true` (user-defined attributes are always writeable). If `false`, this usually means the attribute is enriched by Attio."""
+    r"""Whether or not this attribute can be written to. It is `false` for protected system attributes, which are usually enriched by Attio. It is also `false` for formula attributes, whose values are calculated automatically."""
     is_required: bool
     r"""When `is_required` is `true`, new records/entries must have a value for this attribute. If `false`, values may be `null`. This value does not affect existing data and you do not need to backfill `null` values if changing `is_required` from `false` to `true`."""
     is_unique: bool
@@ -340,7 +342,7 @@ class Attribute(BaseModel):
     r"""`true` if this is an Attio system-defined attribute, `false` if defined by a user or non-Attio system."""
 
     is_writable: bool
-    r"""Whether or not this attribute can be written to. Can only be false when `is_system_attribute` is `true` (user-defined attributes are always writeable). If `false`, this usually means the attribute is enriched by Attio."""
+    r"""Whether or not this attribute can be written to. It is `false` for protected system attributes, which are usually enriched by Attio. It is also `false` for formula attributes, whose values are calculated automatically."""
 
     is_required: bool
     r"""When `is_required` is `true`, new records/entries must have a value for this attribute. If `false`, values may be `null`. This value does not affect existing data and you do not need to backfill `null` values if changing `is_required` from `false` to `true`."""

@@ -8,7 +8,7 @@ Entries are elements in a list that reference a single parent record. Entries co
 
 * [post_v2_lists_list_entries_query](#post_v2_lists_list_entries_query) - List entries
 * [post_v2_lists_list_entries](#post_v2_lists_list_entries) - Create an entry (add record to list)
-* [put_v2_lists_list_entries](#put_v2_lists_list_entries) - Assert a list entry by parent
+* [put_v2_lists_list_entries](#put_v2_lists_list_entries) - Upsert a list entry by parent
 * [get_v2_lists_list_entries_entry_id_](#get_v2_lists_list_entries_entry_id_) - Get a list entry
 * [patch_v2_lists_list_entries_entry_id_](#patch_v2_lists_list_entries_entry_id_) - Update a list entry (append multiselect values)
 * [put_v2_lists_list_entries_entry_id_](#put_v2_lists_list_entries_entry_id_) - Update a list entry (overwrite multiselect values)
@@ -201,11 +201,11 @@ with SDK(
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.MultipleMatchResultsError          | 400                                       | application/json                          |
-| errors.PutV2ListsListEntriesNotFoundError | 404                                       | application/json                          |
-| errors.SDKDefaultError                    | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                                      | Status Code                                     | Content Type                                    |
+| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| errors.PutV2ListsListEntriesInvalidRequestError | 400                                             | application/json                                |
+| errors.PutV2ListsListEntriesNotFoundError       | 404                                             | application/json                                |
+| errors.SDKDefaultError                          | 4XX, 5XX                                        | \*/\*                                           |
 
 ## get_v2_lists_list_entries_entry_id_
 
@@ -301,7 +301,7 @@ with SDK(
 
 | Error Type                                               | Status Code                                              | Content Type                                             |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| errors.PatchV2ListsListEntriesEntryIDImmutableValueError | 400                                                      | application/json                                         |
+| errors.PatchV2ListsListEntriesEntryIDInvalidRequestError | 400                                                      | application/json                                         |
 | errors.PatchV2ListsListEntriesEntryIDNotFoundError       | 404                                                      | application/json                                         |
 | errors.SDKDefaultError                                   | 4XX, 5XX                                                 | \*/\*                                                    |
 
@@ -356,7 +356,7 @@ with SDK(
 
 | Error Type                                             | Status Code                                            | Content Type                                           |
 | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
-| errors.PutV2ListsListEntriesEntryIDImmutableValueError | 400                                                    | application/json                                       |
+| errors.PutV2ListsListEntriesEntryIDInvalidRequestError | 400                                                    | application/json                                       |
 | errors.PutV2ListsListEntriesEntryIDNotFoundError       | 404                                                    | application/json                                       |
 | errors.SDKDefaultError                                 | 4XX, 5XX                                               | \*/\*                                                  |
 

@@ -65,10 +65,28 @@ PutV2ObjectsObjectRecordsNotFoundCode = Literal["not_found",]
 PutV2ObjectsObjectRecordsBadRequestType = Literal["invalid_request_error",]
 
 
-PutV2ObjectsObjectRecordsBadRequestCode = Literal[
-    "value_not_found",
-    "validation_type",
-]
+PutV2ObjectsObjectRecordsCodeMergeInProgress = Literal["merge_in_progress",]
+
+
+PutV2ObjectsObjectRecordsCodeValueNotFound = Literal["value_not_found",]
+
+
+PutV2ObjectsObjectRecordsCodeUnionTypedDict = TypeAliasType(
+    "PutV2ObjectsObjectRecordsCodeUnionTypedDict",
+    Union[
+        PutV2ObjectsObjectRecordsCodeValueNotFound,
+        PutV2ObjectsObjectRecordsCodeMergeInProgress,
+    ],
+)
+
+
+PutV2ObjectsObjectRecordsCodeUnion = TypeAliasType(
+    "PutV2ObjectsObjectRecordsCodeUnion",
+    Union[
+        PutV2ObjectsObjectRecordsCodeValueNotFound,
+        PutV2ObjectsObjectRecordsCodeMergeInProgress,
+    ],
+)
 
 
 class PutV2ObjectsObjectRecordsIDTypedDict(TypedDict):
@@ -2238,6 +2256,7 @@ PutV2ObjectsObjectRecordsCurrencyCode = Literal[
     "HUF",
     "ISK",
     "INR",
+    "IDR",
     "ILS",
     "JPY",
     "KES",
@@ -2260,6 +2279,7 @@ PutV2ObjectsObjectRecordsCurrencyCode = Literal[
     "SEK",
     "CHF",
     "THB",
+    "TRY",
     "AED",
     "UYU",
     "USD",

@@ -36,22 +36,22 @@ class PutV2ListsListEntriesEntryIDNotFoundError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class PutV2ListsListEntriesEntryIDImmutableValueErrorData(BaseModel):
+class PutV2ListsListEntriesEntryIDInvalidRequestErrorData(BaseModel):
     status_code: float
     type: models_put_v2_lists_list_entries_entry_id_op.PutV2ListsListEntriesEntryIDBadRequestType
-    code: models_put_v2_lists_list_entries_entry_id_op.PutV2ListsListEntriesEntryIDCodeImmutableValue
+    code: models_put_v2_lists_list_entries_entry_id_op.PutV2ListsListEntriesEntryIDCodeUnion
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PutV2ListsListEntriesEntryIDImmutableValueError(SDKError):
+class PutV2ListsListEntriesEntryIDInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: PutV2ListsListEntriesEntryIDImmutableValueErrorData = field(hash=False)
+    data: PutV2ListsListEntriesEntryIDInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: PutV2ListsListEntriesEntryIDImmutableValueErrorData,
+        data: PutV2ListsListEntriesEntryIDInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

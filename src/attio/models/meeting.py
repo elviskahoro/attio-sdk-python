@@ -133,6 +133,8 @@ class ParticipantTypedDict(TypedDict):
     r"""Whether or not the participant is the organizer of the meeting."""
     email_address: Nullable[str]
     r"""The normalized email address of the meeting participant."""
+    name: Nullable[str]
+    r"""The participant's name. This is only set when the name was explicitly provided when the participant was created. It is null for any participant identified by an email address — including workspace members and person records — whose display names are not resolved into this field."""
 
 
 class Participant(BaseModel):
@@ -144,6 +146,9 @@ class Participant(BaseModel):
 
     email_address: Nullable[str]
     r"""The normalized email address of the meeting participant."""
+
+    name: Nullable[str]
+    r"""The participant's name. This is only set when the name was explicitly provided when the participant was created. It is null for any participant identified by an email address — including workspace members and person records — whose display names are not resolved into this field."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

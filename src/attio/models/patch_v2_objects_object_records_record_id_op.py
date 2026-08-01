@@ -64,7 +64,28 @@ PatchV2ObjectsObjectRecordsRecordIDNotFoundCode = Literal["not_found",]
 PatchV2ObjectsObjectRecordsRecordIDBadRequestType = Literal["invalid_request_error",]
 
 
+PatchV2ObjectsObjectRecordsRecordIDCodeMergeInProgress = Literal["merge_in_progress",]
+
+
 PatchV2ObjectsObjectRecordsRecordIDCodeMissingValue = Literal["missing_value",]
+
+
+PatchV2ObjectsObjectRecordsRecordIDCodeUnionTypedDict = TypeAliasType(
+    "PatchV2ObjectsObjectRecordsRecordIDCodeUnionTypedDict",
+    Union[
+        PatchV2ObjectsObjectRecordsRecordIDCodeMissingValue,
+        PatchV2ObjectsObjectRecordsRecordIDCodeMergeInProgress,
+    ],
+)
+
+
+PatchV2ObjectsObjectRecordsRecordIDCodeUnion = TypeAliasType(
+    "PatchV2ObjectsObjectRecordsRecordIDCodeUnion",
+    Union[
+        PatchV2ObjectsObjectRecordsRecordIDCodeMissingValue,
+        PatchV2ObjectsObjectRecordsRecordIDCodeMergeInProgress,
+    ],
+)
 
 
 class PatchV2ObjectsObjectRecordsRecordIDIDTypedDict(TypedDict):
@@ -2266,6 +2287,7 @@ PatchV2ObjectsObjectRecordsRecordIDCurrencyCode = Literal[
     "HUF",
     "ISK",
     "INR",
+    "IDR",
     "ILS",
     "JPY",
     "KES",
@@ -2288,6 +2310,7 @@ PatchV2ObjectsObjectRecordsRecordIDCurrencyCode = Literal[
     "SEK",
     "CHF",
     "THB",
+    "TRY",
     "AED",
     "UYU",
     "USD",

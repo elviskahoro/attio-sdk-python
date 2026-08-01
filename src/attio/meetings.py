@@ -30,7 +30,7 @@ class Meetings(BaseSDK):
     ) -> models.GetV2MeetingsResponse:
         r"""List meetings
 
-        Lists all meetings in the workspace using a deterministic sort order.
+        Lists all meetings in the workspace using a deterministic sort order. When both the `participants` and `linked_record_id` filters are supplied, they are combined with OR: meetings that match either filter are returned.
 
         This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
@@ -104,6 +104,8 @@ class Meetings(BaseSDK):
                 operation_id="get_/v2/meetings",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Meetings"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -140,7 +142,7 @@ class Meetings(BaseSDK):
     ) -> models.GetV2MeetingsResponse:
         r"""List meetings
 
-        Lists all meetings in the workspace using a deterministic sort order.
+        Lists all meetings in the workspace using a deterministic sort order. When both the `participants` and `linked_record_id` filters are supplied, they are combined with OR: meetings that match either filter are returned.
 
         This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
@@ -214,6 +216,8 @@ class Meetings(BaseSDK):
                 operation_id="get_/v2/meetings",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Meetings"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -240,9 +244,9 @@ class Meetings(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PostV2MeetingsResponse:
-        r"""Find or create a meeting
+        r"""Create a meeting
 
-        Finds an existing meeting or creates a new one if it doesn't yet exist. [Please see here](/rest-api/guides/syncing-meetings) for a full guide on syncing meetings to Attio.
+        Creates a new meeting. [See here](/rest-api/guides/syncing-meetings) for guidance on avoiding duplicate meetings.
 
         This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
 
@@ -303,6 +307,8 @@ class Meetings(BaseSDK):
                 operation_id="post_/v2/meetings",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Meetings"],
+                extensions={"x-hidden": True, "x-mint": {"metadata": {"tag": "ALPHA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -335,9 +341,9 @@ class Meetings(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PostV2MeetingsResponse:
-        r"""Find or create a meeting
+        r"""Create a meeting
 
-        Finds an existing meeting or creates a new one if it doesn't yet exist. [Please see here](/rest-api/guides/syncing-meetings) for a full guide on syncing meetings to Attio.
+        Creates a new meeting. [See here](/rest-api/guides/syncing-meetings) for guidance on avoiding duplicate meetings.
 
         This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
 
@@ -398,6 +404,8 @@ class Meetings(BaseSDK):
                 operation_id="post_/v2/meetings",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Meetings"],
+                extensions={"x-hidden": True, "x-mint": {"metadata": {"tag": "ALPHA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -490,6 +498,8 @@ class Meetings(BaseSDK):
                 operation_id="get_/v2/meetings/{meeting_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Meetings"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -584,6 +594,8 @@ class Meetings(BaseSDK):
                 operation_id="get_/v2/meetings/{meeting_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Meetings"],
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

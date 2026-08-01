@@ -12,6 +12,8 @@ Type-safe Python client for the [Attio API](https://developers.attio.com/), with
 
 <!-- Start Summary [summary] -->
 ## Summary
+
+
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
@@ -32,15 +34,18 @@ Type-safe Python client for the [Attio API](https://developers.attio.com/), with
   * [Resource Management](#resource-management)
   * [Debugging](#debugging)
   * [Troubleshooting](#troubleshooting)
+
 <!-- End Table of Contents [toc] -->
 <!-- Start SDK Installation [installation] -->
-
 ## SDK Installation
 
 > [!TIP]
 > To finish publishing your SDK to PyPI you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
+
+
 > [!NOTE]
 > **Python version upgrade policy**
+>
 > Once a Python version reaches its [official end of life date](https://devguide.python.org/versions/), a 3-month grace period is provided for users to upgrade. Following this grace period, the minimum python version supported in the SDK will be updated.
 
 The SDK can be installed with *uv*, *pip*, or *poetry* package managers.
@@ -167,7 +172,6 @@ This SDK supports the following security scheme globally:
 | `oauth2` | oauth2 | OAuth2 token |
 
 To authenticate with the API the `oauth2` parameter must be set when initializing the SDK client instance. For example:
-
 ```python
 from attio import SDK
 
@@ -263,7 +267,7 @@ with SDK(oauth2="<YOUR_OAUTH2_HERE>") as sdk:
 
 * [post_v2_lists_list_entries_query](docs/sdks/entries/README.md#post_v2_lists_list_entries_query) - List entries
 * [post_v2_lists_list_entries](docs/sdks/entries/README.md#post_v2_lists_list_entries) - Create an entry (add record to list)
-* [put_v2_lists_list_entries](docs/sdks/entries/README.md#put_v2_lists_list_entries) - Assert a list entry by parent
+* [put_v2_lists_list_entries](docs/sdks/entries/README.md#put_v2_lists_list_entries) - Upsert a list entry by parent
 * [get_v2_lists_list_entries_entry_id_](docs/sdks/entries/README.md#get_v2_lists_list_entries_entry_id_) - Get a list entry
 * [patch_v2_lists_list_entries_entry_id_](docs/sdks/entries/README.md#patch_v2_lists_list_entries_entry_id_) - Update a list entry (append multiselect values)
 * [put_v2_lists_list_entries_entry_id_](docs/sdks/entries/README.md#put_v2_lists_list_entries_entry_id_) - Update a list entry (overwrite multiselect values)
@@ -290,12 +294,12 @@ with SDK(oauth2="<YOUR_OAUTH2_HERE>") as sdk:
 ### [Meetings](docs/sdks/meetings/README.md)
 
 * [get_v2_meetings](docs/sdks/meetings/README.md#get_v2_meetings) - List meetings
-* [post_v2_meetings](docs/sdks/meetings/README.md#post_v2_meetings) - Find or create a meeting
+* [post_v2_meetings](docs/sdks/meetings/README.md#post_v2_meetings) - Create a meeting
 * [get_v2_meetings_meeting_id_](docs/sdks/meetings/README.md#get_v2_meetings_meeting_id_) - Get a meeting
 
-### [Meta](docs/sdks/metasdk/README.md)
+### [Meta](docs/sdks/meta/README.md)
 
-* [get_v2_self](docs/sdks/metasdk/README.md#get_v2_self) - Identify
+* [get_v2_self](docs/sdks/meta/README.md#get_v2_self) - Identify
 
 ### [Notes](docs/sdks/notes/README.md)
 
@@ -316,44 +320,27 @@ with SDK(oauth2="<YOUR_OAUTH2_HERE>") as sdk:
 
 * [post_v2_objects_object_records_query](docs/sdks/records/README.md#post_v2_objects_object_records_query) - List records
 * [post_v2_objects_object_records](docs/sdks/records/README.md#post_v2_objects_object_records) - Create a record
-* [put_v2_objects_object_records](docs/sdks/records/README.md#put_v2_objects_object_records) - Assert a record
+* [put_v2_objects_object_records](docs/sdks/records/README.md#put_v2_objects_object_records) - Upsert a record
 * [get_v2_objects_object_records_record_id_](docs/sdks/records/README.md#get_v2_objects_object_records_record_id_) - Get a record
+* [patch_v2_objects_object_records_record_id_](docs/sdks/records/README.md#patch_v2_objects_object_records_record_id_) - Update a record (append multiselect values)
 * [put_v2_objects_object_records_record_id_](docs/sdks/records/README.md#put_v2_objects_object_records_record_id_) - Update a record (overwrite multiselect values)
 * [delete_v2_objects_object_records_record_id_](docs/sdks/records/README.md#delete_v2_objects_object_records_record_id_) - Delete a record
-* [patch_v2_objects_object_records_record_id_](docs/sdks/records/README.md#patch_v2_objects_object_records_record_id_) - Update a record (append multiselect values)
+* [post_v2_objects_object_records_merge](docs/sdks/records/README.md#post_v2_objects_object_records_merge) - Merge two records
 * [get_v2_objects_object_records_record_id_attributes_attribute_values](docs/sdks/records/README.md#get_v2_objects_object_records_record_id_attributes_attribute_values) - List record attribute values
 * [get_v2_objects_object_records_record_id_entries](docs/sdks/records/README.md#get_v2_objects_object_records_record_id_entries) - List record entries
 * [post_v2_objects_records_search](docs/sdks/records/README.md#post_v2_objects_records_search) - Search records
 
-### [SCIMGroups](docs/sdks/scimgroups/README.md)
+### [Sql](docs/sdks/sql/README.md)
 
-* [get_scim_v2_groups](docs/sdks/scimgroups/README.md#get_scim_v2_groups) - List SCIM groups
-* [post_scim_v2_groups](docs/sdks/scimgroups/README.md#post_scim_v2_groups) - Create SCIM group
-* [get_scim_v2_groups_workspace_team_id_](docs/sdks/scimgroups/README.md#get_scim_v2_groups_workspace_team_id_) - Get SCIM group
-* [patch_scim_v2_groups_workspace_team_id_](docs/sdks/scimgroups/README.md#patch_scim_v2_groups_workspace_team_id_) - Patch SCIM group
-* [put_scim_v2_groups_workspace_team_id_](docs/sdks/scimgroups/README.md#put_scim_v2_groups_workspace_team_id_) - Update SCIM group
-* [delete_scim_v2_groups_workspace_team_id_](docs/sdks/scimgroups/README.md#delete_scim_v2_groups_workspace_team_id_) - Delete SCIM group
-
-### [SCIMSchemas](docs/sdks/scimschemas/README.md)
-
-* [get_scim_v2_schemas](docs/sdks/scimschemas/README.md#get_scim_v2_schemas) - List SCIM schemas
-
-### [SCIMUsers](docs/sdks/scimusers/README.md)
-
-* [get_scim_v2_users](docs/sdks/scimusers/README.md#get_scim_v2_users) - List SCIM users
-* [post_scim_v2_users](docs/sdks/scimusers/README.md#post_scim_v2_users) - Create SCIM user
-* [get_scim_v2_users_user_id_](docs/sdks/scimusers/README.md#get_scim_v2_users_user_id_) - Get SCIM user
-* [patch_scim_v2_users_user_id_](docs/sdks/scimusers/README.md#patch_scim_v2_users_user_id_) - Patch SCIM user
-* [put_scim_v2_users_user_id_](docs/sdks/scimusers/README.md#put_scim_v2_users_user_id_) - Update SCIM user
-* [delete_scim_v2_users_user_id_](docs/sdks/scimusers/README.md#delete_scim_v2_users_user_id_) - Delete SCIM user
+* [post_v2_sql](docs/sdks/sql/README.md#post_v2_sql) - Query SQL
 
 ### [Tasks](docs/sdks/tasks/README.md)
 
 * [get_v2_tasks](docs/sdks/tasks/README.md#get_v2_tasks) - List tasks
 * [post_v2_tasks](docs/sdks/tasks/README.md#post_v2_tasks) - Create a task
 * [get_v2_tasks_task_id_](docs/sdks/tasks/README.md#get_v2_tasks_task_id_) - Get a task
-* [delete_v2_tasks_task_id_](docs/sdks/tasks/README.md#delete_v2_tasks_task_id_) - Delete a task
 * [patch_v2_tasks_task_id_](docs/sdks/tasks/README.md#patch_v2_tasks_task_id_) - Update a task
+* [delete_v2_tasks_task_id_](docs/sdks/tasks/README.md#delete_v2_tasks_task_id_) - Delete a task
 
 ### [Threads](docs/sdks/threads/README.md)
 
@@ -369,8 +356,8 @@ with SDK(oauth2="<YOUR_OAUTH2_HERE>") as sdk:
 * [get_v2_webhooks](docs/sdks/webhooks/README.md#get_v2_webhooks) - List webhooks
 * [post_v2_webhooks](docs/sdks/webhooks/README.md#post_v2_webhooks) - Create a webhook
 * [get_v2_webhooks_webhook_id_](docs/sdks/webhooks/README.md#get_v2_webhooks_webhook_id_) - Get a webhook
-* [delete_v2_webhooks_webhook_id_](docs/sdks/webhooks/README.md#delete_v2_webhooks_webhook_id_) - Delete a webhook
 * [patch_v2_webhooks_webhook_id_](docs/sdks/webhooks/README.md#patch_v2_webhooks_webhook_id_) - Update a webhook
+* [delete_v2_webhooks_webhook_id_](docs/sdks/webhooks/README.md#delete_v2_webhooks_webhook_id_) - Delete a webhook
 
 ### [WorkspaceMembers](docs/sdks/workspacemembers/README.md)
 
@@ -386,7 +373,9 @@ with SDK(oauth2="<YOUR_OAUTH2_HERE>") as sdk:
 Certain SDK methods accept file objects as part of a request body or multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files. The following example demonstrates how to attach a file stream to a request.
 
 > [!TIP]
+>
 > For endpoints that handle file uploads bytes arrays can also be used. However, using streams is recommended for large files.
+>
 
 ```python
 from attio import SDK
@@ -413,7 +402,6 @@ with SDK(
 Some of the endpoints in this SDK support retries. If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API. However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
 
 To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
-
 ```python
 from attio import SDK
 from attio.utils import BackoffStrategy, RetryConfig
@@ -432,7 +420,6 @@ with SDK(
 ```
 
 If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
-
 ```python
 from attio import SDK
 from attio.utils import BackoffStrategy, RetryConfig
@@ -466,7 +453,6 @@ with SDK(
 | `err.data`         |                  | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
 
 ### Example
-
 ```python
 from attio import SDK, errors
 
@@ -496,116 +482,123 @@ with SDK(
         print(e.raw_response)
 
         # Depending on the method different errors may be thrown
-        if isinstance(e, errors.PostV2ObjectsSlugConflictError):
+        if isinstance(e, errors.QuotaExceededError):
             print(e.data.status_code)  # float
-            print(e.data.type)  # models.PostV2ObjectsType
-            print(e.data.code)  # models.PostV2ObjectsCode
+            print(e.data.type)  # models.PostV2ObjectsBadRequestType
+            print(e.data.code)  # models.PostV2ObjectsCodeQuotaExceeded
             print(e.data.message)  # str
 ```
 
 ### Error Classes
-
 **Primary error:**
 * [`SDKError`](./src/attio/errors/sdkerror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (95)</summary>
+<details><summary>Less common errors (100)</summary>
+
+<br />
 
 **Network errors:**
 * [`httpx.RequestError`](https://www.python-httpx.org/exceptions/#httpx.RequestError): Base class for request errors.
     * [`httpx.ConnectError`](https://www.python-httpx.org/exceptions/#httpx.ConnectError): HTTP client was unable to make a request to a server.
     * [`httpx.TimeoutException`](https://www.python-httpx.org/exceptions/#httpx.TimeoutException): HTTP request timed out.
 
+
 **Inherit from [`SDKError`](./src/attio/errors/sdkerror.py)**:
-* [`PatchV2ObjectsObjectValidationTypeError`](./src/attio/errors/patchv2objectsobjectvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PostV2TargetIdentifierAttributesValidationTypeError`](./src/attio/errors/postv2targetidentifierattributesvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`SystemEditUnauthorizedError`](./src/attio/errors/systemeditunauthorizederror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError`](./src/attio/errors/postv2targetidentifierattributesattributeoptionsvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestError`](./src/attio/errors/patchv2targetidentifierattributesattributeoptionsoptioninvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeStatusesValidationTypeError`](./src/attio/errors/postv2targetidentifierattributesattributestatusesvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestError`](./src/attio/errors/patchv2targetidentifierattributesattributestatusesstatusinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`FilterError`](./src/attio/errors/filtererror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PostV2ObjectsObjectRecordsInvalidRequestError`](./src/attio/errors/postv2objectsobjectrecordsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PutV2ObjectsObjectRecordsInvalidRequestError`](./src/attio/errors/putv2objectsobjectrecordsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PutV2ObjectsObjectRecordsRecordIDMissingValueError`](./src/attio/errors/putv2objectsobjectrecordsrecordidmissingvalueerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PatchV2ObjectsObjectRecordsRecordIDMissingValueError`](./src/attio/errors/patchv2objectsobjectrecordsrecordidmissingvalueerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesValidationTypeError`](./src/attio/errors/getv2objectsobjectrecordsrecordidattributesattributevaluesvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PostV2ObjectsRecordsSearchInvalidRequestError`](./src/attio/errors/postv2objectsrecordssearchinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PostV2ListsInvalidRequestError`](./src/attio/errors/postv2listsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PatchV2ListsListInvalidRequestError`](./src/attio/errors/patchv2listslistinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PostV2ListsListEntriesInvalidRequestError`](./src/attio/errors/postv2listslistentriesinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`MultipleMatchResultsError`](./src/attio/errors/multiplematchresultserror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PatchV2ListsListEntriesEntryIDImmutableValueError`](./src/attio/errors/patchv2listslistentriesentryidimmutablevalueerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PutV2ListsListEntriesEntryIDImmutableValueError`](./src/attio/errors/putv2listslistentriesentryidimmutablevalueerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PostV2TasksValidationTypeError`](./src/attio/errors/postv2tasksvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PatchV2TasksTaskIDValidationTypeError`](./src/attio/errors/patchv2taskstaskidvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PostV2CommentsInvalidRequestError`](./src/attio/errors/postv2commentsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PostV2MeetingsValidationTypeError`](./src/attio/errors/postv2meetingsvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PostV2MeetingsMeetingIDCallRecordingsValidationTypeError`](./src/attio/errors/postv2meetingsmeetingidcallrecordingsvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`PostV2WebhooksValidationTypeError`](./src/attio/errors/postv2webhooksvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 87 methods.*
-* [`BillingError`](./src/attio/errors/billingerror.py): Forbidden. Status code `403`. Applicable to 1 of 87 methods.*
-* [`AuthError`](./src/attio/errors/autherror.py): Forbidden. Status code `403`. Applicable to 1 of 87 methods.*
-* [`GetV2ObjectsObjectNotFoundError`](./src/attio/errors/getv2objectsobjectnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PatchV2ObjectsObjectNotFoundError`](./src/attio/errors/patchv2objectsobjectnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2ObjectsObjectViewsNotFoundError`](./src/attio/errors/getv2objectsobjectviewsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PostV2TargetIdentifierAttributesNotFoundError`](./src/attio/errors/postv2targetidentifierattributesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2TargetIdentifierAttributesAttributeNotFoundError`](./src/attio/errors/getv2targetidentifierattributesattributenotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeNotFoundError`](./src/attio/errors/patchv2targetidentifierattributesattributenotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2TargetIdentifierAttributesAttributeOptionsNotFoundError`](./src/attio/errors/getv2targetidentifierattributesattributeoptionsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeOptionsNotFoundError`](./src/attio/errors/postv2targetidentifierattributesattributeoptionsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundError`](./src/attio/errors/patchv2targetidentifierattributesattributeoptionsoptionnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2TargetIdentifierAttributesAttributeStatusesNotFoundError`](./src/attio/errors/getv2targetidentifierattributesattributestatusesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeStatusesNotFoundError`](./src/attio/errors/postv2targetidentifierattributesattributestatusesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundError`](./src/attio/errors/patchv2targetidentifierattributesattributestatusesstatusnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PostV2ObjectsObjectRecordsQueryNotFoundError`](./src/attio/errors/postv2objectsobjectrecordsquerynotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PostV2ObjectsObjectRecordsNotFoundError`](./src/attio/errors/postv2objectsobjectrecordsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PutV2ObjectsObjectRecordsNotFoundError`](./src/attio/errors/putv2objectsobjectrecordsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2ObjectsObjectRecordsRecordIDNotFoundError`](./src/attio/errors/getv2objectsobjectrecordsrecordidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PutV2ObjectsObjectRecordsRecordIDNotFoundError`](./src/attio/errors/putv2objectsobjectrecordsrecordidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteV2ObjectsObjectRecordsRecordIDNotFoundError`](./src/attio/errors/deletev2objectsobjectrecordsrecordidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PatchV2ObjectsObjectRecordsRecordIDNotFoundError`](./src/attio/errors/patchv2objectsobjectrecordsrecordidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundError`](./src/attio/errors/getv2objectsobjectrecordsrecordidattributesattributevaluesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PostV2ListsNotFoundError`](./src/attio/errors/postv2listsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2ListsListNotFoundError`](./src/attio/errors/getv2listslistnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PatchV2ListsListNotFoundError`](./src/attio/errors/patchv2listslistnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2ListsListViewsNotFoundError`](./src/attio/errors/getv2listslistviewsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PostV2ListsListEntriesQueryNotFoundError`](./src/attio/errors/postv2listslistentriesquerynotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PostV2ListsListEntriesNotFoundError`](./src/attio/errors/postv2listslistentriesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PutV2ListsListEntriesNotFoundError`](./src/attio/errors/putv2listslistentriesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2ListsListEntriesEntryIDNotFoundError`](./src/attio/errors/getv2listslistentriesentryidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PatchV2ListsListEntriesEntryIDNotFoundError`](./src/attio/errors/patchv2listslistentriesentryidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PutV2ListsListEntriesEntryIDNotFoundError`](./src/attio/errors/putv2listslistentriesentryidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteV2ListsListEntriesEntryIDNotFoundError`](./src/attio/errors/deletev2listslistentriesentryidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2ListsListEntriesEntryIDAttributesAttributeValuesNotFoundError`](./src/attio/errors/getv2listslistentriesentryidattributesattributevaluesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2WorkspaceMembersWorkspaceMemberIDNotFoundError`](./src/attio/errors/getv2workspacemembersworkspacememberidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2NotesNotFoundError`](./src/attio/errors/getv2notesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PostV2NotesNotFoundError`](./src/attio/errors/postv2notesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2NotesNoteIDNotFoundError`](./src/attio/errors/getv2notesnoteidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteV2NotesNoteIDNotFoundError`](./src/attio/errors/deletev2notesnoteidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PostV2TasksNotFoundError`](./src/attio/errors/postv2tasksnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2TasksTaskIDNotFoundError`](./src/attio/errors/getv2taskstaskidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteV2TasksTaskIDNotFoundError`](./src/attio/errors/deletev2taskstaskidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PatchV2TasksTaskIDNotFoundError`](./src/attio/errors/patchv2taskstaskidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2ThreadsThreadIDNotFoundError`](./src/attio/errors/getv2threadsthreadidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2CommentsCommentIDNotFoundError`](./src/attio/errors/getv2commentscommentidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteV2CommentsCommentIDNotFoundError`](./src/attio/errors/deletev2commentscommentidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2MeetingsMeetingIDNotFoundError`](./src/attio/errors/getv2meetingsmeetingidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PostV2MeetingsMeetingIDCallRecordingsNotFoundError`](./src/attio/errors/postv2meetingsmeetingidcallrecordingsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDNotFoundError`](./src/attio/errors/getv2meetingsmeetingidcallrecordingscallrecordingidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteV2MeetingsMeetingIDCallRecordingsCallRecordingIDNotFoundError`](./src/attio/errors/deletev2meetingsmeetingidcallrecordingscallrecordingidnotfounderror.py): Call recording not found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2FilesFileIDNotFoundError`](./src/attio/errors/getv2filesfileidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteV2FilesFileIDNotFoundError`](./src/attio/errors/deletev2filesfileidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`GetV2WebhooksWebhookIDNotFoundError`](./src/attio/errors/getv2webhookswebhookidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`DeleteV2WebhooksWebhookIDNotFoundError`](./src/attio/errors/deletev2webhookswebhookidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PatchV2WebhooksWebhookIDNotFoundError`](./src/attio/errors/patchv2webhookswebhookidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 87 methods.*
-* [`PostV2ObjectsSlugConflictError`](./src/attio/errors/postv2objectsslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`PatchV2ObjectsObjectSlugConflictError`](./src/attio/errors/patchv2objectsobjectslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`PostV2TargetIdentifierAttributesSlugConflictError`](./src/attio/errors/postv2targetidentifierattributesslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError`](./src/attio/errors/postv2targetidentifierattributesattributeoptionsslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictError`](./src/attio/errors/patchv2targetidentifierattributesattributeoptionsoptionslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError`](./src/attio/errors/postv2targetidentifierattributesattributestatusesslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictError`](./src/attio/errors/patchv2targetidentifierattributesattributestatusesstatusslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`PostV2ListsSlugConflictError`](./src/attio/errors/postv2listsslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 87 methods.*
-* [`PostV2NotesValidationTypeError`](./src/attio/errors/postv2notesvalidationtypeerror.py): Content Too Large. Status code `413`. Applicable to 1 of 87 methods.*
+* [`QuotaExceededError`](./src/attio/errors/quotaexceedederror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PatchV2ObjectsObjectValidationTypeError`](./src/attio/errors/patchv2objectsobjectvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2TargetIdentifierAttributesValidationTypeError`](./src/attio/errors/postv2targetidentifierattributesvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`SystemEditUnauthorizedError`](./src/attio/errors/systemeditunauthorizederror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeOptionsValidationTypeError`](./src/attio/errors/postv2targetidentifierattributesattributeoptionsvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionInvalidRequestError`](./src/attio/errors/patchv2targetidentifierattributesattributeoptionsoptioninvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeStatusesValidationTypeError`](./src/attio/errors/postv2targetidentifierattributesattributestatusesvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusInvalidRequestError`](./src/attio/errors/patchv2targetidentifierattributesattributestatusesstatusinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2ObjectsObjectRecordsQueryFilterError`](./src/attio/errors/postv2objectsobjectrecordsqueryfiltererror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2ObjectsObjectRecordsInvalidRequestError`](./src/attio/errors/postv2objectsobjectrecordsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PutV2ObjectsObjectRecordsInvalidRequestError`](./src/attio/errors/putv2objectsobjectrecordsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PatchV2ObjectsObjectRecordsRecordIDInvalidRequestError`](./src/attio/errors/patchv2objectsobjectrecordsrecordidinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PutV2ObjectsObjectRecordsRecordIDInvalidRequestError`](./src/attio/errors/putv2objectsobjectrecordsrecordidinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`SelfMergeError`](./src/attio/errors/selfmergeerror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesValidationTypeError`](./src/attio/errors/getv2objectsobjectrecordsrecordidattributesattributevaluesvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2ObjectsRecordsSearchInvalidRequestError`](./src/attio/errors/postv2objectsrecordssearchinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2SQLFilterError`](./src/attio/errors/postv2sqlfiltererror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2ListsInvalidRequestError`](./src/attio/errors/postv2listsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PatchV2ListsListInvalidRequestError`](./src/attio/errors/patchv2listslistinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2ListsListEntriesInvalidRequestError`](./src/attio/errors/postv2listslistentriesinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PutV2ListsListEntriesInvalidRequestError`](./src/attio/errors/putv2listslistentriesinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PatchV2ListsListEntriesEntryIDInvalidRequestError`](./src/attio/errors/patchv2listslistentriesentryidinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PutV2ListsListEntriesEntryIDInvalidRequestError`](./src/attio/errors/putv2listslistentriesentryidinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2TasksValidationTypeError`](./src/attio/errors/postv2tasksvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PatchV2TasksTaskIDValidationTypeError`](./src/attio/errors/patchv2taskstaskidvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2CommentsInvalidRequestError`](./src/attio/errors/postv2commentsinvalidrequesterror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2MeetingsValidationTypeError`](./src/attio/errors/postv2meetingsvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2MeetingsMeetingIDCallRecordingsValidationTypeError`](./src/attio/errors/postv2meetingsmeetingidcallrecordingsvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`PostV2WebhooksValidationTypeError`](./src/attio/errors/postv2webhooksvalidationtypeerror.py): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`UnauthorizedError`](./src/attio/errors/unauthorizederror.py): Forbidden. Status code `403`. Applicable to 1 of 76 methods.*
+* [`BillingError`](./src/attio/errors/billingerror.py): Forbidden. Status code `403`. Applicable to 1 of 76 methods.*
+* [`AuthError`](./src/attio/errors/autherror.py): Forbidden. Status code `403`. Applicable to 1 of 76 methods.*
+* [`GetV2ObjectsObjectNotFoundError`](./src/attio/errors/getv2objectsobjectnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PatchV2ObjectsObjectNotFoundError`](./src/attio/errors/patchv2objectsobjectnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2ObjectsObjectViewsNotFoundError`](./src/attio/errors/getv2objectsobjectviewsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2TargetIdentifierAttributesNotFoundError`](./src/attio/errors/postv2targetidentifierattributesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2TargetIdentifierAttributesAttributeNotFoundError`](./src/attio/errors/getv2targetidentifierattributesattributenotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PatchV2TargetIdentifierAttributesAttributeNotFoundError`](./src/attio/errors/patchv2targetidentifierattributesattributenotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2TargetIdentifierAttributesAttributeOptionsNotFoundError`](./src/attio/errors/getv2targetidentifierattributesattributeoptionsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeOptionsNotFoundError`](./src/attio/errors/postv2targetidentifierattributesattributeoptionsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionNotFoundError`](./src/attio/errors/patchv2targetidentifierattributesattributeoptionsoptionnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2TargetIdentifierAttributesAttributeStatusesNotFoundError`](./src/attio/errors/getv2targetidentifierattributesattributestatusesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeStatusesNotFoundError`](./src/attio/errors/postv2targetidentifierattributesattributestatusesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundError`](./src/attio/errors/patchv2targetidentifierattributesattributestatusesstatusnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2ObjectsObjectRecordsQueryNotFoundError`](./src/attio/errors/postv2objectsobjectrecordsquerynotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2ObjectsObjectRecordsNotFoundError`](./src/attio/errors/postv2objectsobjectrecordsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PutV2ObjectsObjectRecordsNotFoundError`](./src/attio/errors/putv2objectsobjectrecordsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2ObjectsObjectRecordsRecordIDInvalidRequestError`](./src/attio/errors/getv2objectsobjectrecordsrecordidinvalidrequesterror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PatchV2ObjectsObjectRecordsRecordIDNotFoundError`](./src/attio/errors/patchv2objectsobjectrecordsrecordidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PutV2ObjectsObjectRecordsRecordIDNotFoundError`](./src/attio/errors/putv2objectsobjectrecordsrecordidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`DeleteV2ObjectsObjectRecordsRecordIDNotFoundError`](./src/attio/errors/deletev2objectsobjectrecordsrecordidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2ObjectsObjectRecordsMergeInvalidRequestError`](./src/attio/errors/postv2objectsobjectrecordsmergeinvalidrequesterror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2ObjectsObjectRecordsRecordIDAttributesAttributeValuesNotFoundError`](./src/attio/errors/getv2objectsobjectrecordsrecordidattributesattributevaluesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2ListsNotFoundError`](./src/attio/errors/postv2listsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2ListsListNotFoundError`](./src/attio/errors/getv2listslistnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PatchV2ListsListNotFoundError`](./src/attio/errors/patchv2listslistnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2ListsListViewsNotFoundError`](./src/attio/errors/getv2listslistviewsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2ListsListEntriesQueryNotFoundError`](./src/attio/errors/postv2listslistentriesquerynotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2ListsListEntriesNotFoundError`](./src/attio/errors/postv2listslistentriesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PutV2ListsListEntriesNotFoundError`](./src/attio/errors/putv2listslistentriesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2ListsListEntriesEntryIDNotFoundError`](./src/attio/errors/getv2listslistentriesentryidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PatchV2ListsListEntriesEntryIDNotFoundError`](./src/attio/errors/patchv2listslistentriesentryidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PutV2ListsListEntriesEntryIDNotFoundError`](./src/attio/errors/putv2listslistentriesentryidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`DeleteV2ListsListEntriesEntryIDNotFoundError`](./src/attio/errors/deletev2listslistentriesentryidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2ListsListEntriesEntryIDAttributesAttributeValuesNotFoundError`](./src/attio/errors/getv2listslistentriesentryidattributesattributevaluesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2WorkspaceMembersWorkspaceMemberIDNotFoundError`](./src/attio/errors/getv2workspacemembersworkspacememberidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2NotesNotFoundError`](./src/attio/errors/getv2notesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2NotesNotFoundError`](./src/attio/errors/postv2notesnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2NotesNoteIDNotFoundError`](./src/attio/errors/getv2notesnoteidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`DeleteV2NotesNoteIDNotFoundError`](./src/attio/errors/deletev2notesnoteidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2TasksNotFoundError`](./src/attio/errors/postv2tasksnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2TasksTaskIDNotFoundError`](./src/attio/errors/getv2taskstaskidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PatchV2TasksTaskIDNotFoundError`](./src/attio/errors/patchv2taskstaskidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`DeleteV2TasksTaskIDNotFoundError`](./src/attio/errors/deletev2taskstaskidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2ThreadsThreadIDNotFoundError`](./src/attio/errors/getv2threadsthreadidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2CommentsCommentIDNotFoundError`](./src/attio/errors/getv2commentscommentidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`DeleteV2CommentsCommentIDNotFoundError`](./src/attio/errors/deletev2commentscommentidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2MeetingsMeetingIDNotFoundError`](./src/attio/errors/getv2meetingsmeetingidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2MeetingsMeetingIDCallRecordingsNotFoundError`](./src/attio/errors/postv2meetingsmeetingidcallrecordingsnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDNotFoundError`](./src/attio/errors/getv2meetingsmeetingidcallrecordingscallrecordingidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`DeleteV2MeetingsMeetingIDCallRecordingsCallRecordingIDNotFoundError`](./src/attio/errors/deletev2meetingsmeetingidcallrecordingscallrecordingidnotfounderror.py): Call recording not found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2FilesFileIDNotFoundError`](./src/attio/errors/getv2filesfileidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`DeleteV2FilesFileIDNotFoundError`](./src/attio/errors/deletev2filesfileidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`GetV2WebhooksWebhookIDNotFoundError`](./src/attio/errors/getv2webhookswebhookidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PatchV2WebhooksWebhookIDNotFoundError`](./src/attio/errors/patchv2webhookswebhookidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`DeleteV2WebhooksWebhookIDNotFoundError`](./src/attio/errors/deletev2webhookswebhookidnotfounderror.py): Not Found. Status code `404`. Applicable to 1 of 76 methods.*
+* [`PostV2ObjectsSlugConflictError`](./src/attio/errors/postv2objectsslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 76 methods.*
+* [`PatchV2ObjectsObjectSlugConflictError`](./src/attio/errors/patchv2objectsobjectslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 76 methods.*
+* [`PostV2TargetIdentifierAttributesSlugConflictError`](./src/attio/errors/postv2targetidentifierattributesslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 76 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeOptionsSlugConflictError`](./src/attio/errors/postv2targetidentifierattributesattributeoptionsslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 76 methods.*
+* [`PatchV2TargetIdentifierAttributesAttributeOptionsOptionSlugConflictError`](./src/attio/errors/patchv2targetidentifierattributesattributeoptionsoptionslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 76 methods.*
+* [`PostV2TargetIdentifierAttributesAttributeStatusesSlugConflictError`](./src/attio/errors/postv2targetidentifierattributesattributestatusesslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 76 methods.*
+* [`PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictError`](./src/attio/errors/patchv2targetidentifierattributesattributestatusesstatusslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 76 methods.*
+* [`PostV2ListsSlugConflictError`](./src/attio/errors/postv2listsslugconflicterror.py): Conflict. Status code `409`. Applicable to 1 of 76 methods.*
+* [`PostV2NotesValidationTypeError`](./src/attio/errors/postv2notesvalidationtypeerror.py): Content Too Large. Status code `413`. Applicable to 1 of 76 methods.*
 * [`ResponseValidationError`](./src/attio/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>
@@ -619,7 +612,6 @@ with SDK(
 ### Override Server URL Per-Client
 
 The default server can be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
-
 ```python
 from attio import SDK
 
@@ -645,7 +637,6 @@ Depending on whether you are using the sync or async version of the SDK, you can
 This allows you to wrap the client with your own custom logic, such as adding custom headers, logging, or error handling, or you can just pass an instance of `httpx.Client` or `httpx.AsyncClient` directly.
 
 For example, you could specify a header for every request that this sdk makes as follows:
-
 ```python
 from attio import SDK
 import httpx
@@ -655,7 +646,6 @@ s = SDK(client=http_client)
 ```
 
 or you could wrap the client with your own custom logic:
-
 ```python
 from attio import SDK
 from attio.httpclient import AsyncHttpClient
@@ -753,7 +743,6 @@ async def amain():
 You can setup your SDK to emit debug logs for SDK requests and responses.
 
 You can pass your own logger class directly into your SDK.
-
 ```python
 from attio import SDK
 import logging

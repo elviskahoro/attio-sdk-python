@@ -31,7 +31,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 python:
-  version: 0.22.0
+  version: 0.23.0
   additionalDependencies:
     dev: {}
     main: {}
@@ -43,12 +43,18 @@ python:
   authors:
     - elviskahoro
   baseErrorName: SDKError
+  bodyVariantOverloads: false
   clientServerStatusCodesAsErrors: true
   constFieldCasing: upper
   defaultErrorName: SDKDefaultError
   description: Attio API client library from elviskahoro
+  durationFormat: false
   enableCustomCodeRegions: false
   enumFormat: union
+  errorSchemaValidation: true
+  eventStreamClassNames:
+    async: EventStreamAsync
+    sync: EventStream
   fixFlags:
     asyncPaginationSep2025: true
     conflictResistantModelImportsFeb2026: false
@@ -69,20 +75,27 @@ python:
       webhooks: ""
   inferUnionDiscriminators: true
   inputModelSuffix: input
+  inputTypedDictSuffix: TypedDict
   legacyPyright: true
   license: ""
   maxMethodParams: 999
   methodArguments: infer-optional-args
+  methodTimeoutArgument: timeout-ms
+  methodTimeoutUnits: milliseconds
   moduleName: ""
   multipartArrayFormat: legacy
+  optionalDependencies: {}
   outputModelSuffix: output
   packageManager: uv
   packageName: attio
   preApplyUnionDiscriminators: false
   pytestFilterWarnings: []
   pytestTimeout: 0
+  rawResponseHelpers: false
   repoURL: https://github.com/elviskahoro/attio-sdk-python
   responseFormat: flat
+  responseSchemaValidation: true
   sseFlatResponse: true
   templateVersion: v2
   useAsyncHooks: false
+  uuidFormat: false

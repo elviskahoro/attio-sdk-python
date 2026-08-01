@@ -5,7 +5,7 @@ from attio import errors, models, utils
 from attio._hooks import HookContext
 from attio.types import OptionalNullable, UNSET
 from attio.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
 
 
 class Entries(BaseSDK):
@@ -15,12 +15,12 @@ class Entries(BaseSDK):
         self,
         *,
         list_id: str,
-        filter_: Optional[Dict[str, Any]] = None,
+        filter_: Optional[Mapping[str, Any]] = None,
         filter_view_id: Optional[str] = None,
         sorts: Optional[
             Union[
-                List[models.PostV2ListsListEntriesQuerySortUnion],
-                List[models.PostV2ListsListEntriesQuerySortUnionTypedDict],
+                Iterable[models.PostV2ListsListEntriesQuerySortUnion],
+                Iterable[models.PostV2ListsListEntriesQuerySortUnionTypedDict],
             ]
         ] = None,
         limit: Optional[float] = None,
@@ -60,7 +60,7 @@ class Entries(BaseSDK):
         request = models.PostV2ListsListEntriesQueryRequest(
             list_id=list_id,
             request_body=models.PostV2ListsListEntriesQueryRequestBody(
-                filter_=filter_,
+                filter_=utils.unmarshal(filter_, Optional[Dict[str, Any]]),
                 filter_view_id=filter_view_id,
                 sorts=utils.get_pydantic_model(
                     sorts, Optional[List[models.PostV2ListsListEntriesQuerySortUnion]]
@@ -109,6 +109,8 @@ class Entries(BaseSDK):
                 operation_id="post_/v2/lists/{list}/entries/query",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -140,12 +142,12 @@ class Entries(BaseSDK):
         self,
         *,
         list_id: str,
-        filter_: Optional[Dict[str, Any]] = None,
+        filter_: Optional[Mapping[str, Any]] = None,
         filter_view_id: Optional[str] = None,
         sorts: Optional[
             Union[
-                List[models.PostV2ListsListEntriesQuerySortUnion],
-                List[models.PostV2ListsListEntriesQuerySortUnionTypedDict],
+                Iterable[models.PostV2ListsListEntriesQuerySortUnion],
+                Iterable[models.PostV2ListsListEntriesQuerySortUnionTypedDict],
             ]
         ] = None,
         limit: Optional[float] = None,
@@ -185,7 +187,7 @@ class Entries(BaseSDK):
         request = models.PostV2ListsListEntriesQueryRequest(
             list_id=list_id,
             request_body=models.PostV2ListsListEntriesQueryRequestBody(
-                filter_=filter_,
+                filter_=utils.unmarshal(filter_, Optional[Dict[str, Any]]),
                 filter_view_id=filter_view_id,
                 sorts=utils.get_pydantic_model(
                     sorts, Optional[List[models.PostV2ListsListEntriesQuerySortUnion]]
@@ -234,6 +236,8 @@ class Entries(BaseSDK):
                 operation_id="post_/v2/lists/{list}/entries/query",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -345,6 +349,8 @@ class Entries(BaseSDK):
                 operation_id="post_/v2/lists/{list}/entries",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -461,6 +467,8 @@ class Entries(BaseSDK):
                 operation_id="post_/v2/lists/{list}/entries",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -506,7 +514,7 @@ class Entries(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PutV2ListsListEntriesResponse:
-        r"""Assert a list entry by parent
+        r"""Upsert a list entry by parent
 
         Use this endpoint to create or update a list entry for a given parent record. If an entry with the specified parent record is found, that entry will be updated. If no such entry is found, a new entry will be created instead. If there are multiple entries with the same parent record, this endpoint with return the \"MULTIPLE_MATCH_RESULTS\" error. When writing to multi-select attributes, all values will be either created or deleted as necessary to match the list of values supplied in the request body.
 
@@ -577,6 +585,8 @@ class Entries(BaseSDK):
                 operation_id="put_/v2/lists/{list}/entries",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -590,9 +600,11 @@ class Entries(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.MultipleMatchResultsErrorData, http_res
+                errors.PutV2ListsListEntriesInvalidRequestErrorData, http_res
             )
-            raise errors.MultipleMatchResultsError(response_data, http_res)
+            raise errors.PutV2ListsListEntriesInvalidRequestError(
+                response_data, http_res
+            )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PutV2ListsListEntriesNotFoundErrorData, http_res
@@ -620,7 +632,7 @@ class Entries(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PutV2ListsListEntriesResponse:
-        r"""Assert a list entry by parent
+        r"""Upsert a list entry by parent
 
         Use this endpoint to create or update a list entry for a given parent record. If an entry with the specified parent record is found, that entry will be updated. If no such entry is found, a new entry will be created instead. If there are multiple entries with the same parent record, this endpoint with return the \"MULTIPLE_MATCH_RESULTS\" error. When writing to multi-select attributes, all values will be either created or deleted as necessary to match the list of values supplied in the request body.
 
@@ -691,6 +703,8 @@ class Entries(BaseSDK):
                 operation_id="put_/v2/lists/{list}/entries",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -704,9 +718,11 @@ class Entries(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.MultipleMatchResultsErrorData, http_res
+                errors.PutV2ListsListEntriesInvalidRequestErrorData, http_res
             )
-            raise errors.MultipleMatchResultsError(response_data, http_res)
+            raise errors.PutV2ListsListEntriesInvalidRequestError(
+                response_data, http_res
+            )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PutV2ListsListEntriesNotFoundErrorData, http_res
@@ -791,6 +807,8 @@ class Entries(BaseSDK):
                 operation_id="get_/v2/lists/{list}/entries/{entry_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -888,6 +906,8 @@ class Entries(BaseSDK):
                 operation_id="get_/v2/lists/{list}/entries/{entry_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1002,6 +1022,8 @@ class Entries(BaseSDK):
                 operation_id="patch_/v2/lists/{list}/entries/{entry_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1015,9 +1037,9 @@ class Entries(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PatchV2ListsListEntriesEntryIDImmutableValueErrorData, http_res
+                errors.PatchV2ListsListEntriesEntryIDInvalidRequestErrorData, http_res
             )
-            raise errors.PatchV2ListsListEntriesEntryIDImmutableValueError(
+            raise errors.PatchV2ListsListEntriesEntryIDInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -1123,6 +1145,8 @@ class Entries(BaseSDK):
                 operation_id="patch_/v2/lists/{list}/entries/{entry_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1136,9 +1160,9 @@ class Entries(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PatchV2ListsListEntriesEntryIDImmutableValueErrorData, http_res
+                errors.PatchV2ListsListEntriesEntryIDInvalidRequestErrorData, http_res
             )
-            raise errors.PatchV2ListsListEntriesEntryIDImmutableValueError(
+            raise errors.PatchV2ListsListEntriesEntryIDInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -1244,6 +1268,8 @@ class Entries(BaseSDK):
                 operation_id="put_/v2/lists/{list}/entries/{entry_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1257,9 +1283,9 @@ class Entries(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PutV2ListsListEntriesEntryIDImmutableValueErrorData, http_res
+                errors.PutV2ListsListEntriesEntryIDInvalidRequestErrorData, http_res
             )
-            raise errors.PutV2ListsListEntriesEntryIDImmutableValueError(
+            raise errors.PutV2ListsListEntriesEntryIDInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -1365,6 +1391,8 @@ class Entries(BaseSDK):
                 operation_id="put_/v2/lists/{list}/entries/{entry_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1378,9 +1406,9 @@ class Entries(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PutV2ListsListEntriesEntryIDImmutableValueErrorData, http_res
+                errors.PutV2ListsListEntriesEntryIDInvalidRequestErrorData, http_res
             )
-            raise errors.PutV2ListsListEntriesEntryIDImmutableValueError(
+            raise errors.PutV2ListsListEntriesEntryIDInvalidRequestError(
                 response_data, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
@@ -1469,6 +1497,8 @@ class Entries(BaseSDK):
                 operation_id="delete_/v2/lists/{list}/entries/{entry_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1566,6 +1596,8 @@ class Entries(BaseSDK):
                 operation_id="delete_/v2/lists/{list}/entries/{entry_id}",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1675,6 +1707,8 @@ class Entries(BaseSDK):
                 operation_id="get_/v2/lists/{list}/entries/{entry_id}/attributes/{attribute}/values",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1786,6 +1820,8 @@ class Entries(BaseSDK):
                 operation_id="get_/v2/lists/{list}/entries/{entry_id}/attributes/{attribute}/values",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Entries"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

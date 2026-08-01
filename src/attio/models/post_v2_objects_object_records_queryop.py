@@ -197,7 +197,7 @@ PostV2ObjectsObjectRecordsQueryNotFoundCode = Literal["not_found",]
 PostV2ObjectsObjectRecordsQueryBadRequestType = Literal["invalid_request_error",]
 
 
-CodeFilterError = Literal["filter_error",]
+PostV2ObjectsObjectRecordsQueryCodeFilterError = Literal["filter_error",]
 
 
 class PostV2ObjectsObjectRecordsQueryIDTypedDict(TypedDict):
@@ -2369,6 +2369,7 @@ PostV2ObjectsObjectRecordsQueryCurrencyCode = Literal[
     "HUF",
     "ISK",
     "INR",
+    "IDR",
     "ILS",
     "JPY",
     "KES",
@@ -2391,6 +2392,7 @@ PostV2ObjectsObjectRecordsQueryCurrencyCode = Literal[
     "SEK",
     "CHF",
     "THB",
+    "TRY",
     "AED",
     "UYU",
     "USD",

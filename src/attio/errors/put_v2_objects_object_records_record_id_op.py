@@ -36,22 +36,22 @@ class PutV2ObjectsObjectRecordsRecordIDNotFoundError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class PutV2ObjectsObjectRecordsRecordIDMissingValueErrorData(BaseModel):
+class PutV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData(BaseModel):
     status_code: float
     type: models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDBadRequestType
-    code: models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDCodeMissingValue
+    code: models_put_v2_objects_object_records_record_id_op.PutV2ObjectsObjectRecordsRecordIDCodeUnion
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PutV2ObjectsObjectRecordsRecordIDMissingValueError(SDKError):
+class PutV2ObjectsObjectRecordsRecordIDInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: PutV2ObjectsObjectRecordsRecordIDMissingValueErrorData = field(hash=False)
+    data: PutV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: PutV2ObjectsObjectRecordsRecordIDMissingValueErrorData,
+        data: PutV2ObjectsObjectRecordsRecordIDInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):
