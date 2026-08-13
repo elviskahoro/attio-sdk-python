@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from attio.attributes import Attributes
     from attio.call_recordings import CallRecordings
     from attio.comments import Comments
+    from attio.emails import Emails
     from attio.entries import Entries
     from attio.files import Files
     from attio.lists import Lists
@@ -57,6 +58,8 @@ class SDK(BaseSDK):
     r"""Threads are groups of [comments](/rest-api/endpoint-reference/comments/get-a-comment) on either a record or entry."""
     comments: "Comments"
     r"""Comments are messages on a [thread](/rest-api/endpoint-reference/threads/list-threads)."""
+    emails: "Emails"
+    r"""Emails are messages synced from connected mailboxes. This API exposes their metadata — participants, subject line and timestamps — and never their content."""
     meetings: "Meetings"
     r"""Meetings are events synced from your calendar, added manually or added from third-party integrations."""
     call_recordings: "CallRecordings"
@@ -81,6 +84,7 @@ class SDK(BaseSDK):
         "tasks": ("attio.tasks", "Tasks"),
         "threads": ("attio.threads", "Threads"),
         "comments": ("attio.comments", "Comments"),
+        "emails": ("attio.emails", "Emails"),
         "meetings": ("attio.meetings", "Meetings"),
         "call_recordings": ("attio.call_recordings", "CallRecordings"),
         "transcripts": ("attio.transcripts", "Transcripts"),

@@ -22,9 +22,9 @@ class Transcripts(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptResponse:
-        r"""Get call transcript
+        r"""Deprecated: Get call transcript
 
-        Get the transcript for a call recording.
+        Deprecated: prefer using `GET /v2/meetings/:meeting_id/call_recordings/:call_recording_id` to get the transcript for a call recording.
 
         This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
@@ -89,7 +89,7 @@ class Transcripts(BaseSDK):
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
                 tags=["Transcripts"],
-                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
+                extensions={"x-hidden": True, "x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -121,9 +121,9 @@ class Transcripts(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptResponse:
-        r"""Get call transcript
+        r"""Deprecated: Get call transcript
 
-        Get the transcript for a call recording.
+        Deprecated: prefer using `GET /v2/meetings/:meeting_id/call_recordings/:call_recording_id` to get the transcript for a call recording.
 
         This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
@@ -188,7 +188,7 @@ class Transcripts(BaseSDK):
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
                 tags=["Transcripts"],
-                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
+                extensions={"x-hidden": True, "x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

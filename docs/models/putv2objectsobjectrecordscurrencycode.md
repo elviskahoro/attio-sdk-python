@@ -24,6 +24,7 @@ value: PutV2ObjectsObjectRecordsCurrencyCode = "ARS"
 - `"DKK"`
 - `"EUR"`
 - `"FJD"`
+- `"GHS"`
 - `"HKD"`
 - `"HUF"`
 - `"ISK"`
@@ -39,11 +40,13 @@ value: PutV2ObjectsObjectRecordsCurrencyCode = "ARS"
 - `"NZD"`
 - `"NGN"`
 - `"NOK"`
+- `"OMR"`
 - `"XPF"`
 - `"PEN"`
 - `"PHP"`
 - `"PLN"`
 - `"GBP"`
+- `"QAR"`
 - `"RWF"`
 - `"SAR"`
 - `"SGD"`

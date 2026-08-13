@@ -66,6 +66,8 @@ class PostV2MeetingsMeetingIDCallRecordingsDataRequestTypedDict(TypedDict):
     video_url: NotRequired[str]
     r"""A publicly accessible URL to a video file of the call recording. Attio will download the video from this URL asynchronously.
 
+    This field is optional — a call recording can be created with only a `transcript` and no video.
+
     **Requirements:**
     - **Protocol:** The URL must use the `https` protocol.
     - **File type:** The file must be a `.mp4` file.
@@ -75,12 +77,17 @@ class PostV2MeetingsMeetingIDCallRecordingsDataRequestTypedDict(TypedDict):
     transcript: NotRequired[
         List[PostV2MeetingsMeetingIDCallRecordingsTranscriptTypedDict]
     ]
-    r"""The call recording's transcript."""
+    r"""The call recording's transcript.
+
+    This field is technically optional for backwards compatibility, but you should always provide it — a call recording created without a transcript will be missing summaries and other transcript-derived features. This field will become required in a future version of this endpoint.
+    """
 
 
 class PostV2MeetingsMeetingIDCallRecordingsDataRequest(BaseModel):
     video_url: Optional[str] = None
     r"""A publicly accessible URL to a video file of the call recording. Attio will download the video from this URL asynchronously.
+
+    This field is optional — a call recording can be created with only a `transcript` and no video.
 
     **Requirements:**
     - **Protocol:** The URL must use the `https` protocol.
@@ -90,7 +97,10 @@ class PostV2MeetingsMeetingIDCallRecordingsDataRequest(BaseModel):
     """
 
     transcript: Optional[List[PostV2MeetingsMeetingIDCallRecordingsTranscript]] = None
-    r"""The call recording's transcript."""
+    r"""The call recording's transcript.
+
+    This field is technically optional for backwards compatibility, but you should always provide it — a call recording created without a transcript will be missing summaries and other transcript-derived features. This field will become required in a future version of this endpoint.
+    """
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

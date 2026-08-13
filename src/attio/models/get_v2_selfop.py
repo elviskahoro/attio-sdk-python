@@ -6,12 +6,12 @@ from attio.utils import validate_const
 import pydantic
 from pydantic import model_serializer
 from pydantic.functional_validators import AfterValidator
-from typing import Literal, Union
-from typing_extensions import Annotated, TypeAliasType, TypedDict
+from typing import Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 TokenType = Literal["Bearer",]
-r"""The type of token, always Bearer for tokens acquired via the OAuth 2.0 flow."""
+r"""The type of token, always Bearer."""
 
 
 Iss = Literal["attio.com",]
@@ -19,16 +19,14 @@ r"""The issuer of the token. Always attio.com"""
 
 
 class AttioComTypedDict(TypedDict):
-    active: bool
-    r"""Whether the token is currently active and usable."""
     scope: str
     r"""A space-separated list of scopes associated with this token"""
     client_id: str
-    r"""The app ID of the OAuth application that requested this token"""
+    r"""Identifies the client the token was issued to. For app access tokens this is the app ID. Workspace access tokens have no OAuth client, so this is the workspace access token ID."""
     token_type: TokenType
-    r"""The type of token, always Bearer for tokens acquired via the OAuth 2.0 flow."""
+    r"""The type of token, always Bearer."""
     exp: Nullable[float]
-    r"""The time at which this token will expire, if set, as a number of seconds since January 1 1970 UTC."""
+    r"""The time at which this token will expire, if set, as a number of seconds since January 1 1970 UTC. Attio access tokens do not currently expire, so this is always null."""
     iat: float
     r"""The time at which this token was issued, as a number of seconds since January 1 1970 UTC."""
     sub: str
@@ -37,8 +35,6 @@ class AttioComTypedDict(TypedDict):
     r"""The intended audience for this token, for Bearer tokens this is the same as the client_id."""
     iss: Iss
     r"""The issuer of the token. Always attio.com"""
-    authorized_by_workspace_member_id: str
-    r"""The ID of the workspace member who authorised this token initially."""
     workspace_id: str
     r"""The ID of the workspace the token is scoped to."""
     workspace_name: str
@@ -47,23 +43,24 @@ class AttioComTypedDict(TypedDict):
     r"""The slug of the workspace the token is scoped to."""
     workspace_logo_url: Nullable[str]
     r"""The logo URL of the workspace the token is scoped to."""
+    active: Literal[True]
+    r"""Whether the token is currently active and usable."""
+    authorized_by_workspace_member_id: NotRequired[str]
+    r"""The ID of the workspace member who authorized this token initially. Almost every token has one, but it is omitted for the app access tokens that Attio created itself rather than on a member's behalf."""
 
 
 class AttioCom(BaseModel):
-    active: bool
-    r"""Whether the token is currently active and usable."""
-
     scope: str
     r"""A space-separated list of scopes associated with this token"""
 
     client_id: str
-    r"""The app ID of the OAuth application that requested this token"""
+    r"""Identifies the client the token was issued to. For app access tokens this is the app ID. Workspace access tokens have no OAuth client, so this is the workspace access token ID."""
 
     token_type: TokenType
-    r"""The type of token, always Bearer for tokens acquired via the OAuth 2.0 flow."""
+    r"""The type of token, always Bearer."""
 
     exp: Nullable[float]
-    r"""The time at which this token will expire, if set, as a number of seconds since January 1 1970 UTC."""
+    r"""The time at which this token will expire, if set, as a number of seconds since January 1 1970 UTC. Attio access tokens do not currently expire, so this is always null."""
 
     iat: float
     r"""The time at which this token was issued, as a number of seconds since January 1 1970 UTC."""
@@ -77,9 +74,6 @@ class AttioCom(BaseModel):
     iss: Iss
     r"""The issuer of the token. Always attio.com"""
 
-    authorized_by_workspace_member_id: str
-    r"""The ID of the workspace member who authorised this token initially."""
-
     workspace_id: str
     r"""The ID of the workspace the token is scoped to."""
 
@@ -92,17 +86,37 @@ class AttioCom(BaseModel):
     workspace_logo_url: Nullable[str]
     r"""The logo URL of the workspace the token is scoped to."""
 
+    ACTIVE: Annotated[
+        Annotated[Literal[True], AfterValidator(validate_const(True))],
+        pydantic.Field(alias="active"),
+    ] = True
+    r"""Whether the token is currently active and usable."""
+
+    authorized_by_workspace_member_id: Optional[str] = None
+    r"""The ID of the workspace member who authorized this token initially. Almost every token has one, but it is omitted for the app access tokens that Attio created itself rather than on a member's behalf."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
+        optional_fields = set(["authorized_by_workspace_member_id"])
+        nullable_fields = set(["exp", "workspace_logo_url"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                m[k] = val
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -128,6 +142,10 @@ GetV2SelfResponse = TypeAliasType("GetV2SelfResponse", Union[ResponseBody, Attio
 r"""Success"""
 
 
+try:
+    AttioCom.model_rebuild()
+except NameError:
+    pass
 try:
     ResponseBody.model_rebuild()
 except NameError:

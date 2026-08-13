@@ -12,4 +12,5 @@ src/*.egg-info/
 .env
 .env.local
 .claude/
+.beads/
 tmp/

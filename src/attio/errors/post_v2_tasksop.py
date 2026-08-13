@@ -34,22 +34,22 @@ class PostV2TasksNotFoundError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class PostV2TasksValidationTypeErrorData(BaseModel):
+class PostV2TasksInvalidRequestErrorData(BaseModel):
     status_code: float
     type: models_post_v2_tasksop.PostV2TasksBadRequestType
-    code: models_post_v2_tasksop.PostV2TasksCodeValidationType
+    code: models_post_v2_tasksop.PostV2TasksCodeUnion
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PostV2TasksValidationTypeError(SDKError):
+class PostV2TasksInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: PostV2TasksValidationTypeErrorData = field(hash=False)
+    data: PostV2TasksInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: PostV2TasksValidationTypeErrorData,
+        data: PostV2TasksInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

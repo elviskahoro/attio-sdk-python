@@ -10,7 +10,7 @@ from attio.utils import (
     RequestMetadata,
     get_discriminator,
 )
-from pydantic import Discriminator, Tag, model_serializer
+from pydantic import Discriminator, SerializeAsAny, Tag, model_serializer
 from typing import Any, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -92,6 +92,7 @@ PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode = Literal[
     "DKK",
     "EUR",
     "FJD",
+    "GHS",
     "HKD",
     "HUF",
     "ISK",
@@ -107,11 +108,13 @@ PatchV2TargetIdentifierAttributesAttributeDefaultCurrencyCode = Literal[
     "NZD",
     "NGN",
     "NOK",
+    "OMR",
     "XPF",
     "PEN",
     "PHP",
     "PLN",
     "GBP",
+    "QAR",
     "RWF",
     "SAR",
     "SGD",
@@ -245,8 +248,8 @@ class PatchV2TargetIdentifierAttributesAttributeData(BaseModel):
     is_unique: Optional[bool] = None
     r"""Whether or not new values for this attribute must be unique. Uniqueness restrictions are only applied to new data and do not apply retroactively to previously created data."""
 
-    default_value: OptionalNullable[
-        PatchV2TargetIdentifierAttributesAttributeDefaultValueUnion
+    default_value: SerializeAsAny[
+        OptionalNullable[PatchV2TargetIdentifierAttributesAttributeDefaultValueUnion]
     ] = UNSET
     r"""The default value for this attribute. Static values are used to directly populate values using their contents. Dynamic values are used to lookup data at the point of creation. For example, you could use a dynamic value to insert a value for the currently logged in user. Which default values are available is dependent on the type of the attribute. Default values are not currently supported on people or company objects."""
 

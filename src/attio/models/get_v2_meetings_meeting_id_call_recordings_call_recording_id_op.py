@@ -188,6 +188,8 @@ class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDDataTypedDict(TypedDict
     r"""The actor that created this call recording."""
     created_at: str
     r"""The timestamp of when the call recording was created."""
+    video_url: Nullable[str]
+    r"""A short-lived URL for downloading the call recording's video. This is only available for call recordings captured by the Attio call recorder: it is always `null` for call recordings created through the API. The URL expires one hour after this response was generated. You can call this endpoint again to get a fresh URL."""
     transcript: Nullable[
         GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscriptTypedDict
     ]
@@ -208,6 +210,9 @@ class GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDData(BaseModel):
 
     created_at: str
     r"""The timestamp of when the call recording was created."""
+
+    video_url: Nullable[str]
+    r"""A short-lived URL for downloading the call recording's video. This is only available for call recordings captured by the Attio call recorder: it is always `null` for call recordings created through the API. The URL expires one hour after this response was generated. You can call this endpoint again to get a fresh URL."""
 
     transcript: Nullable[GetV2MeetingsMeetingIDCallRecordingsCallRecordingIDTranscript]
     r"""The transcript for this call recording, `null` if no transcript is available."""

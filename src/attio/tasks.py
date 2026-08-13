@@ -304,9 +304,9 @@ class Tasks(BaseSDK):
             return unmarshal_json_response(models.PostV2TasksResponse, http_res)
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PostV2TasksValidationTypeErrorData, http_res
+                errors.PostV2TasksInvalidRequestErrorData, http_res
             )
-            raise errors.PostV2TasksValidationTypeError(response_data, http_res)
+            raise errors.PostV2TasksInvalidRequestError(response_data, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PostV2TasksNotFoundErrorData, http_res
@@ -406,9 +406,9 @@ class Tasks(BaseSDK):
             return unmarshal_json_response(models.PostV2TasksResponse, http_res)
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PostV2TasksValidationTypeErrorData, http_res
+                errors.PostV2TasksInvalidRequestErrorData, http_res
             )
-            raise errors.PostV2TasksValidationTypeError(response_data, http_res)
+            raise errors.PostV2TasksInvalidRequestError(response_data, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PostV2TasksNotFoundErrorData, http_res
@@ -701,9 +701,9 @@ class Tasks(BaseSDK):
             return unmarshal_json_response(models.PatchV2TasksTaskIDResponse, http_res)
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PatchV2TasksTaskIDValidationTypeErrorData, http_res
+                errors.PatchV2TasksTaskIDInvalidRequestErrorData, http_res
             )
-            raise errors.PatchV2TasksTaskIDValidationTypeError(response_data, http_res)
+            raise errors.PatchV2TasksTaskIDInvalidRequestError(response_data, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PatchV2TasksTaskIDNotFoundErrorData, http_res
@@ -812,9 +812,9 @@ class Tasks(BaseSDK):
             return unmarshal_json_response(models.PatchV2TasksTaskIDResponse, http_res)
         if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
-                errors.PatchV2TasksTaskIDValidationTypeErrorData, http_res
+                errors.PatchV2TasksTaskIDInvalidRequestErrorData, http_res
             )
-            raise errors.PatchV2TasksTaskIDValidationTypeError(response_data, http_res)
+            raise errors.PatchV2TasksTaskIDInvalidRequestError(response_data, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PatchV2TasksTaskIDNotFoundErrorData, http_res

@@ -171,10 +171,10 @@ if TYPE_CHECKING:
         PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictErrorData,
     )
     from .patch_v2_tasks_task_id_op import (
+        PatchV2TasksTaskIDInvalidRequestError,
+        PatchV2TasksTaskIDInvalidRequestErrorData,
         PatchV2TasksTaskIDNotFoundError,
         PatchV2TasksTaskIDNotFoundErrorData,
-        PatchV2TasksTaskIDValidationTypeError,
-        PatchV2TasksTaskIDValidationTypeErrorData,
     )
     from .patch_v2_webhooks_webhook_id_op import (
         PatchV2WebhooksWebhookIDNotFoundError,
@@ -183,6 +183,10 @@ if TYPE_CHECKING:
     from .post_v2_commentsop import (
         PostV2CommentsInvalidRequestError,
         PostV2CommentsInvalidRequestErrorData,
+    )
+    from .post_v2_files_uploadop import (
+        PostV2FilesUploadAuthError,
+        PostV2FilesUploadAuthErrorData,
     )
     from .post_v2_lists_list_entries_queryop import (
         PostV2ListsListEntriesQueryNotFoundError,
@@ -205,8 +209,8 @@ if TYPE_CHECKING:
         PostV2ListsSlugConflictErrorData,
     )
     from .post_v2_meetings_meeting_id_call_recordingsop import (
-        AuthError,
-        AuthErrorData,
+        PostV2MeetingsMeetingIDCallRecordingsAuthError,
+        PostV2MeetingsMeetingIDCallRecordingsAuthErrorData,
         PostV2MeetingsMeetingIDCallRecordingsNotFoundError,
         PostV2MeetingsMeetingIDCallRecordingsNotFoundErrorData,
         PostV2MeetingsMeetingIDCallRecordingsValidationTypeError,
@@ -278,10 +282,10 @@ if TYPE_CHECKING:
         PostV2TargetIdentifierAttributesValidationTypeErrorData,
     )
     from .post_v2_tasksop import (
+        PostV2TasksInvalidRequestError,
+        PostV2TasksInvalidRequestErrorData,
         PostV2TasksNotFoundError,
         PostV2TasksNotFoundErrorData,
-        PostV2TasksValidationTypeError,
-        PostV2TasksValidationTypeErrorData,
     )
     from .post_v2_webhooksop import (
         PostV2WebhooksValidationTypeError,
@@ -315,8 +319,6 @@ if TYPE_CHECKING:
     from .sdkdefaulterror import SDKDefaultError
 
 __all__ = [
-    "AuthError",
-    "AuthErrorData",
     "BillingError",
     "BillingErrorData",
     "DeleteV2CommentsCommentIDNotFoundError",
@@ -412,14 +414,16 @@ __all__ = [
     "PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundErrorData",
     "PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictError",
     "PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictErrorData",
+    "PatchV2TasksTaskIDInvalidRequestError",
+    "PatchV2TasksTaskIDInvalidRequestErrorData",
     "PatchV2TasksTaskIDNotFoundError",
     "PatchV2TasksTaskIDNotFoundErrorData",
-    "PatchV2TasksTaskIDValidationTypeError",
-    "PatchV2TasksTaskIDValidationTypeErrorData",
     "PatchV2WebhooksWebhookIDNotFoundError",
     "PatchV2WebhooksWebhookIDNotFoundErrorData",
     "PostV2CommentsInvalidRequestError",
     "PostV2CommentsInvalidRequestErrorData",
+    "PostV2FilesUploadAuthError",
+    "PostV2FilesUploadAuthErrorData",
     "PostV2ListsInvalidRequestError",
     "PostV2ListsInvalidRequestErrorData",
     "PostV2ListsListEntriesInvalidRequestError",
@@ -432,6 +436,8 @@ __all__ = [
     "PostV2ListsNotFoundErrorData",
     "PostV2ListsSlugConflictError",
     "PostV2ListsSlugConflictErrorData",
+    "PostV2MeetingsMeetingIDCallRecordingsAuthError",
+    "PostV2MeetingsMeetingIDCallRecordingsAuthErrorData",
     "PostV2MeetingsMeetingIDCallRecordingsNotFoundError",
     "PostV2MeetingsMeetingIDCallRecordingsNotFoundErrorData",
     "PostV2MeetingsMeetingIDCallRecordingsValidationTypeError",
@@ -476,10 +482,10 @@ __all__ = [
     "PostV2TargetIdentifierAttributesSlugConflictErrorData",
     "PostV2TargetIdentifierAttributesValidationTypeError",
     "PostV2TargetIdentifierAttributesValidationTypeErrorData",
+    "PostV2TasksInvalidRequestError",
+    "PostV2TasksInvalidRequestErrorData",
     "PostV2TasksNotFoundError",
     "PostV2TasksNotFoundErrorData",
-    "PostV2TasksValidationTypeError",
-    "PostV2TasksValidationTypeErrorData",
     "PostV2WebhooksValidationTypeError",
     "PostV2WebhooksValidationTypeErrorData",
     "PutV2ListsListEntriesEntryIDInvalidRequestError",
@@ -607,14 +613,16 @@ _dynamic_imports: dict[str, str] = {
     "PatchV2TargetIdentifierAttributesAttributeStatusesStatusNotFoundErrorData": ".patch_v2_target_identifier_attributes_attribute_statuses_status_op",
     "PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictError": ".patch_v2_target_identifier_attributes_attribute_statuses_status_op",
     "PatchV2TargetIdentifierAttributesAttributeStatusesStatusSlugConflictErrorData": ".patch_v2_target_identifier_attributes_attribute_statuses_status_op",
+    "PatchV2TasksTaskIDInvalidRequestError": ".patch_v2_tasks_task_id_op",
+    "PatchV2TasksTaskIDInvalidRequestErrorData": ".patch_v2_tasks_task_id_op",
     "PatchV2TasksTaskIDNotFoundError": ".patch_v2_tasks_task_id_op",
     "PatchV2TasksTaskIDNotFoundErrorData": ".patch_v2_tasks_task_id_op",
-    "PatchV2TasksTaskIDValidationTypeError": ".patch_v2_tasks_task_id_op",
-    "PatchV2TasksTaskIDValidationTypeErrorData": ".patch_v2_tasks_task_id_op",
     "PatchV2WebhooksWebhookIDNotFoundError": ".patch_v2_webhooks_webhook_id_op",
     "PatchV2WebhooksWebhookIDNotFoundErrorData": ".patch_v2_webhooks_webhook_id_op",
     "PostV2CommentsInvalidRequestError": ".post_v2_commentsop",
     "PostV2CommentsInvalidRequestErrorData": ".post_v2_commentsop",
+    "PostV2FilesUploadAuthError": ".post_v2_files_uploadop",
+    "PostV2FilesUploadAuthErrorData": ".post_v2_files_uploadop",
     "PostV2ListsListEntriesQueryNotFoundError": ".post_v2_lists_list_entries_queryop",
     "PostV2ListsListEntriesQueryNotFoundErrorData": ".post_v2_lists_list_entries_queryop",
     "PostV2ListsListEntriesInvalidRequestError": ".post_v2_lists_list_entriesop",
@@ -629,8 +637,8 @@ _dynamic_imports: dict[str, str] = {
     "PostV2ListsNotFoundErrorData": ".post_v2_listsop",
     "PostV2ListsSlugConflictError": ".post_v2_listsop",
     "PostV2ListsSlugConflictErrorData": ".post_v2_listsop",
-    "AuthError": ".post_v2_meetings_meeting_id_call_recordingsop",
-    "AuthErrorData": ".post_v2_meetings_meeting_id_call_recordingsop",
+    "PostV2MeetingsMeetingIDCallRecordingsAuthError": ".post_v2_meetings_meeting_id_call_recordingsop",
+    "PostV2MeetingsMeetingIDCallRecordingsAuthErrorData": ".post_v2_meetings_meeting_id_call_recordingsop",
     "PostV2MeetingsMeetingIDCallRecordingsNotFoundError": ".post_v2_meetings_meeting_id_call_recordingsop",
     "PostV2MeetingsMeetingIDCallRecordingsNotFoundErrorData": ".post_v2_meetings_meeting_id_call_recordingsop",
     "PostV2MeetingsMeetingIDCallRecordingsValidationTypeError": ".post_v2_meetings_meeting_id_call_recordingsop",
@@ -681,10 +689,10 @@ _dynamic_imports: dict[str, str] = {
     "PostV2TargetIdentifierAttributesSlugConflictErrorData": ".post_v2_target_identifier_attributesop",
     "PostV2TargetIdentifierAttributesValidationTypeError": ".post_v2_target_identifier_attributesop",
     "PostV2TargetIdentifierAttributesValidationTypeErrorData": ".post_v2_target_identifier_attributesop",
+    "PostV2TasksInvalidRequestError": ".post_v2_tasksop",
+    "PostV2TasksInvalidRequestErrorData": ".post_v2_tasksop",
     "PostV2TasksNotFoundError": ".post_v2_tasksop",
     "PostV2TasksNotFoundErrorData": ".post_v2_tasksop",
-    "PostV2TasksValidationTypeError": ".post_v2_tasksop",
-    "PostV2TasksValidationTypeErrorData": ".post_v2_tasksop",
     "PostV2WebhooksValidationTypeError": ".post_v2_webhooksop",
     "PostV2WebhooksValidationTypeErrorData": ".post_v2_webhooksop",
     "PutV2ListsListEntriesEntryIDInvalidRequestError": ".put_v2_lists_list_entries_entry_id_op",

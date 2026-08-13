@@ -606,7 +606,22 @@ PostV2TasksNotFoundCode = Literal["not_found",]
 PostV2TasksBadRequestType = Literal["invalid_request_error",]
 
 
+PostV2TasksCodeLimitReached = Literal["limit_reached",]
+
+
 PostV2TasksCodeValidationType = Literal["validation_type",]
+
+
+PostV2TasksCodeUnionTypedDict = TypeAliasType(
+    "PostV2TasksCodeUnionTypedDict",
+    Union[PostV2TasksCodeValidationType, PostV2TasksCodeLimitReached],
+)
+
+
+PostV2TasksCodeUnion = TypeAliasType(
+    "PostV2TasksCodeUnion",
+    Union[PostV2TasksCodeValidationType, PostV2TasksCodeLimitReached],
+)
 
 
 class PostV2TasksResponseTypedDict(TypedDict):

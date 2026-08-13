@@ -248,7 +248,7 @@ class Meetings(BaseSDK):
 
         Creates a new meeting. [See here](/rest-api/guides/syncing-meetings) for guidance on avoiding duplicate meetings.
 
-        This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+        This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
         Required scopes: `meeting:read-write`, `record_permission:read`.
 
@@ -308,7 +308,7 @@ class Meetings(BaseSDK):
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
                 tags=["Meetings"],
-                extensions={"x-hidden": True, "x-mint": {"metadata": {"tag": "ALPHA"}}},
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -345,7 +345,7 @@ class Meetings(BaseSDK):
 
         Creates a new meeting. [See here](/rest-api/guides/syncing-meetings) for guidance on avoiding duplicate meetings.
 
-        This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+        This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
         Required scopes: `meeting:read-write`, `record_permission:read`.
 
@@ -405,7 +405,7 @@ class Meetings(BaseSDK):
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
                 tags=["Meetings"],
-                extensions={"x-hidden": True, "x-mint": {"metadata": {"tag": "ALPHA"}}},
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

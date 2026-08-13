@@ -34,22 +34,22 @@ class PatchV2TasksTaskIDNotFoundError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class PatchV2TasksTaskIDValidationTypeErrorData(BaseModel):
+class PatchV2TasksTaskIDInvalidRequestErrorData(BaseModel):
     status_code: float
     type: models_patch_v2_tasks_task_id_op.PatchV2TasksTaskIDBadRequestType
-    code: models_patch_v2_tasks_task_id_op.PatchV2TasksTaskIDCodeValidationType
+    code: models_patch_v2_tasks_task_id_op.PatchV2TasksTaskIDCodeUnion
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class PatchV2TasksTaskIDValidationTypeError(SDKError):
+class PatchV2TasksTaskIDInvalidRequestError(SDKError):
     r"""Bad Request"""
 
-    data: PatchV2TasksTaskIDValidationTypeErrorData = field(hash=False)
+    data: PatchV2TasksTaskIDInvalidRequestErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: PatchV2TasksTaskIDValidationTypeErrorData,
+        data: PatchV2TasksTaskIDInvalidRequestErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

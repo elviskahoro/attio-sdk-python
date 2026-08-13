@@ -36,7 +36,7 @@ class PostV2MeetingsMeetingIDCallRecordingsNotFoundError(SDKError):
         object.__setattr__(self, "data", data)
 
 
-class AuthErrorData(BaseModel):
+class PostV2MeetingsMeetingIDCallRecordingsAuthErrorData(BaseModel):
     status_code: float
     type: models_post_v2_meetings_meeting_id_call_recordingsop.PostV2MeetingsMeetingIDCallRecordingsForbiddenType
     code: models_post_v2_meetings_meeting_id_call_recordingsop.PostV2MeetingsMeetingIDCallRecordingsCodeUnion
@@ -44,14 +44,14 @@ class AuthErrorData(BaseModel):
 
 
 @dataclass(unsafe_hash=True)
-class AuthError(SDKError):
+class PostV2MeetingsMeetingIDCallRecordingsAuthError(SDKError):
     r"""Forbidden"""
 
-    data: AuthErrorData = field(hash=False)
+    data: PostV2MeetingsMeetingIDCallRecordingsAuthErrorData = field(hash=False)
 
     def __init__(
         self,
-        data: AuthErrorData,
+        data: PostV2MeetingsMeetingIDCallRecordingsAuthErrorData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):

@@ -220,7 +220,9 @@ class CallRecordings(BaseSDK):
 
         Create a call recording for a meeting. This endpoint is rate limited to 1 request per second.
 
-        This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+        A `transcript` should always be provided — it is technically optional for backwards compatibility, but a call recording created without one will be missing summaries and other transcript-derived features. `video_url` is optional, and a transcript-only call recording (with no video) is fully supported.
+
+        This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
         Required scopes: `meeting:read`, `call_recording:read-write`.
 
@@ -290,7 +292,7 @@ class CallRecordings(BaseSDK):
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
                 tags=["Call recordings"],
-                extensions={"x-hidden": True, "x-mint": {"metadata": {"tag": "ALPHA"}}},
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -311,8 +313,12 @@ class CallRecordings(BaseSDK):
                 response_data, http_res
             )
         if utils.match_response(http_res, "403", "application/json"):
-            response_data = unmarshal_json_response(errors.AuthErrorData, http_res)
-            raise errors.AuthError(response_data, http_res)
+            response_data = unmarshal_json_response(
+                errors.PostV2MeetingsMeetingIDCallRecordingsAuthErrorData, http_res
+            )
+            raise errors.PostV2MeetingsMeetingIDCallRecordingsAuthError(
+                response_data, http_res
+            )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PostV2MeetingsMeetingIDCallRecordingsNotFoundErrorData, http_res
@@ -346,7 +352,9 @@ class CallRecordings(BaseSDK):
 
         Create a call recording for a meeting. This endpoint is rate limited to 1 request per second.
 
-        This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+        A `transcript` should always be provided — it is technically optional for backwards compatibility, but a call recording created without one will be missing summaries and other transcript-derived features. `video_url` is optional, and a transcript-only call recording (with no video) is fully supported.
+
+        This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
         Required scopes: `meeting:read`, `call_recording:read-write`.
 
@@ -416,7 +424,7 @@ class CallRecordings(BaseSDK):
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
                 tags=["Call recordings"],
-                extensions={"x-hidden": True, "x-mint": {"metadata": {"tag": "ALPHA"}}},
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -437,8 +445,12 @@ class CallRecordings(BaseSDK):
                 response_data, http_res
             )
         if utils.match_response(http_res, "403", "application/json"):
-            response_data = unmarshal_json_response(errors.AuthErrorData, http_res)
-            raise errors.AuthError(response_data, http_res)
+            response_data = unmarshal_json_response(
+                errors.PostV2MeetingsMeetingIDCallRecordingsAuthErrorData, http_res
+            )
+            raise errors.PostV2MeetingsMeetingIDCallRecordingsAuthError(
+                response_data, http_res
+            )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 errors.PostV2MeetingsMeetingIDCallRecordingsNotFoundErrorData, http_res
@@ -675,7 +687,7 @@ class CallRecordings(BaseSDK):
 
         Deletes the specified call recording. This will remove the call recording and all associated data.
 
-        This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+        This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
         Required scopes: `meeting:read`, `call_recording:read-write`.
 
@@ -734,7 +746,7 @@ class CallRecordings(BaseSDK):
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
                 tags=["Call recordings"],
-                extensions={"x-hidden": True, "x-mint": {"metadata": {"tag": "ALPHA"}}},
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -778,7 +790,7 @@ class CallRecordings(BaseSDK):
 
         Deletes the specified call recording. This will remove the call recording and all associated data.
 
-        This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+        This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
         Required scopes: `meeting:read`, `call_recording:read-write`.
 
@@ -837,7 +849,7 @@ class CallRecordings(BaseSDK):
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
                 tags=["Call recordings"],
-                extensions={"x-hidden": True, "x-mint": {"metadata": {"tag": "ALPHA"}}},
+                extensions={"x-mint": {"metadata": {"tag": "BETA"}}},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

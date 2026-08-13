@@ -628,7 +628,22 @@ PatchV2TasksTaskIDNotFoundCode = Literal["not_found",]
 PatchV2TasksTaskIDBadRequestType = Literal["invalid_request_error",]
 
 
+PatchV2TasksTaskIDCodeLimitReached = Literal["limit_reached",]
+
+
 PatchV2TasksTaskIDCodeValidationType = Literal["validation_type",]
+
+
+PatchV2TasksTaskIDCodeUnionTypedDict = TypeAliasType(
+    "PatchV2TasksTaskIDCodeUnionTypedDict",
+    Union[PatchV2TasksTaskIDCodeValidationType, PatchV2TasksTaskIDCodeLimitReached],
+)
+
+
+PatchV2TasksTaskIDCodeUnion = TypeAliasType(
+    "PatchV2TasksTaskIDCodeUnion",
+    Union[PatchV2TasksTaskIDCodeValidationType, PatchV2TasksTaskIDCodeLimitReached],
+)
 
 
 class PatchV2TasksTaskIDResponseTypedDict(TypedDict):

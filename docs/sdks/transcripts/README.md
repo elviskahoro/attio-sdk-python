@@ -6,11 +6,11 @@ Transcripts contain the speech segments and speaker information for a call recor
 
 ### Available Operations
 
-* [get_v2_meetings_meeting_id_call_recordings_call_recording_id_transcript](#get_v2_meetings_meeting_id_call_recordings_call_recording_id_transcript) - Get call transcript
+* [get_v2_meetings_meeting_id_call_recordings_call_recording_id_transcript](#get_v2_meetings_meeting_id_call_recordings_call_recording_id_transcript) - Deprecated: Get call transcript
 
 ## get_v2_meetings_meeting_id_call_recordings_call_recording_id_transcript
 
-Get the transcript for a call recording.
+Deprecated: prefer using `GET /v2/meetings/:meeting_id/call_recordings/:call_recording_id` to get the transcript for a call recording.
 
 This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 

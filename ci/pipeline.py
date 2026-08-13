@@ -21,19 +21,15 @@ Examples:
     python ci/pipeline.py publish --token <token>
     python ci/pipeline.py ci --publish --token <token>
 
-Or via Dagger directly:
-    dagger call attio-sdk-pipeline test
-    dagger call attio-sdk-pipeline build
-    dagger call attio-sdk-pipeline verify-version --version 0.22.9
-    dagger call attio-sdk-pipeline release-bump --version 0.22.9 export --path .
-    dagger call attio-sdk-pipeline generate --api-key env:SPEAKEASY_API_KEY
-    dagger call attio-sdk-pipeline publish --pypi-token env:PYPI_TOKEN
-    dagger call attio-sdk-pipeline ci --api-key env:SPEAKEASY_API_KEY --pypi-token env:PYPI_TOKEN
+The commands above use Dagger for their isolated build and generation steps.
+Use them locally and in CI so generated files are exported back to the
+working tree before subsequent checks run.
 """
 
 import argparse
 import asyncio
 import json
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -99,6 +95,49 @@ if new == text:
 vfile.write_text(new)
 """
 
+_GTM_PACKAGE_VARIANT_SCRIPT = r"""
+# Convert the staged SDK checkout into the gtm-attio distribution.  The import
+# package deliberately remains ``attio``, so users can install either
+# distribution without changing their imports.
+
+import pathlib
+import re
+import sys
+
+pyproject = pathlib.Path("pyproject.toml")
+text = pyproject.read_text()
+new = re.sub(
+    r'^(name\s*=\s*)"attio"',
+    r'\1"gtm-attio"',
+    text,
+    count=1,
+    flags=re.M,
+)
+if new == text:
+    sys.exit('Could not change project name from "attio" to "gtm-attio"')
+pyproject.write_text(new)
+
+vfile = pathlib.Path("src/attio/_version.py")
+text = vfile.read_text()
+new = re.sub(
+    r'^(__title__\s*:\s*str\s*=\s*)"attio"',
+    r'\1"gtm-attio"',
+    text,
+    count=1,
+    flags=re.M,
+)
+new = re.sub(
+    r'(speakeasy-sdk/python [^ ]+ [^ ]+ [^ ]+ )attio"$',
+    r'\1gtm-attio"',
+    new,
+    count=1,
+    flags=re.M,
+)
+if new == text:
+    sys.exit("Could not create the gtm-attio _version.py variant")
+vfile.write_text(new)
+"""
+
 
 def _sync_write_spec(spec_path: str, spec_data: dict[str, object]) -> None:
     """Write OpenAPI spec to disk (synchronous)."""
@@ -159,6 +198,40 @@ async def fetch_latest_spec() -> str:
 
     print(f"Updated .speakeasy/workflow.yaml to point to {spec_path}", file=sys.stderr)
     return spec_path
+
+
+def _has_local_speakeasy_auth() -> bool:
+    """Return whether the installed Speakeasy CLI has an authenticated session."""
+    result = subprocess.run(
+        ["speakeasy", "auth", "status"],
+        check=False,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    return result.returncode == 0
+
+
+async def _run_local_speakeasy(*, version: str | None) -> None:
+    """Run generation with the authenticated host CLI session."""
+    command = [
+        "speakeasy",
+        "run",
+        "--auto-yes",
+        "--output",
+        "console",
+        "--skip-upload-spec",
+    ]
+    if version:
+        command.extend(["--set-version", version])
+    await asyncio.to_thread(subprocess.run, command, check=True)
+
+
+def _host_source_dir() -> Directory:
+    """Create a stable Dagger source snapshot without local runtime state."""
+    return dag.host().directory(
+        ".",
+        exclude=[".git", ".venv", ".beads", "dist"],
+    )
 
 
 class AttioSDKPipeline:
@@ -296,14 +369,13 @@ class AttioSDKPipeline:
         """Generate SDK via Speakeasy.
 
         Steps:
-        1. Fetch latest OpenAPI spec
-        2. Prepare Speakeasy container with API key
-        3. Set up ownership and temp directories
-        4. Execute generation with optional flags
-        5. Export generated source directory
-        """
-        await fetch_latest_spec()
+        1. Prepare Speakeasy container with API key
+        2. Set up ownership and temp directories
+        3. Execute generation with optional flags
 
+        The caller must fetch the spec and create ``source`` afterwards, so
+        the mounted source snapshot includes the updated workflow and spec.
+        """
         env = self.speakeasy_env(api_key)
         prepared = self.speakeasy_prepared(env)
         executed = self.speakeasy_executed(prepared, force=force, version=version)
@@ -313,30 +385,44 @@ class AttioSDKPipeline:
 
     @function
     def build(self) -> dagger.Container:
-        """Build distribution packages."""
-        env = self.builder_env()
-        deps = self.dependencies_installed(env)
-        return deps.with_exec(["uv", "build"])
+        """Build the ``attio`` and ``gtm-attio`` distribution artifacts.
+
+        Both distributions expose the same ``attio`` import package.  The
+        gtm-attio metadata is applied only to a staged copy, so the canonical
+        source tree remains the attio SDK Speakeasy regenerates.
+        """
+        staged = (
+            self.builder_env()
+            .with_exec(["/bin/sh", "-c", "mkdir -p /work /dist && cp -a /repo/. /work/"])
+            .with_workdir("/work")
+            .with_exec(["uv", "build", "--out-dir", "/dist"])
+        )
+        return (
+            staged.with_exec(["python", "-c", _GTM_PACKAGE_VARIANT_SCRIPT])
+            .with_exec(["uv", "build", "--out-dir", "/dist"])
+        )
 
     @function
     async def publish(
         self,
         pypi_token: Annotated[dagger.Secret, Doc("PyPI token")],
     ) -> str:
-        """Build and publish SDK to PyPI.
+        """Build and publish both SDK distribution names to PyPI.
 
         Steps:
         1. Install dependencies
         2. Build distribution packages
-        3. Publish to PyPI with token
+        3. Publish the attio and gtm-attio artifacts with the token
         """
         built = self.build()
         await (
             built.with_secret_variable("PYPI_TOKEN", pypi_token)
-            .with_exec(["/bin/sh", "-c", "uv publish --token $PYPI_TOKEN"])
+            .with_exec(
+                ["/bin/sh", "-c", "uv publish --token $PYPI_TOKEN /dist/*"]
+            )
             .sync()
         )
-        return "Published to PyPI"
+        return "Published attio and gtm-attio to PyPI"
 
     @function
     async def ci(
@@ -369,29 +455,37 @@ async def cmd_test() -> None:
     os.environ.setdefault("DAGGER_PROGRESS", "plain")
     os.environ.setdefault("OTEL_SDK_DISABLED", "true")
     async with dagger.connection(dagger.Config(log_output=sys.stderr)):
-        source_dir = dag.host().directory(".")
+        source_dir = _host_source_dir()
         pipeline = AttioSDKPipeline(source=source_dir)
         result = await pipeline.test()
         print(result)
 
 
 async def cmd_generate(*, force: bool, version: str | None) -> None:
-    """CLI handler for generate command."""
+    """Fetch, generate, and export the SDK into the local working tree."""
     import os
 
     os.environ.setdefault("DAGGER_PROGRESS", "plain")
     os.environ.setdefault("OTEL_SDK_DISABLED", "true")
-    async with dagger.connection(dagger.Config(log_output=sys.stderr)):
-        api_key_str = os.environ.get("SPEAKEASY_API_KEY")
-        if not api_key_str:
-            msg = "SPEAKEASY_API_KEY environment variable not set"
-            raise RuntimeError(msg) from None
+    api_key_str = os.environ.get("SPEAKEASY_API_KEY")
+    if not api_key_str and not _has_local_speakeasy_auth():
+        msg = "SPEAKEASY_API_KEY is not set and the local Speakeasy CLI is not authenticated"
+        raise RuntimeError(msg) from None
 
+    await fetch_latest_spec()
+    if not api_key_str:
+        _ = force
+        await _run_local_speakeasy(version=version)
+        print("SDK generated with the local Speakeasy CLI", file=sys.stderr)
+        return
+
+    async with dagger.connection(dagger.Config(log_output=sys.stderr)):
         api_key = dag.set_secret("SPEAKEASY_API_KEY", api_key_str)
-        source_dir = dag.host().directory(".")
+        source_dir = _host_source_dir()
         pipeline = AttioSDKPipeline(source=source_dir)
-        await pipeline.generate(api_key=api_key, force=force, version=version)
-        print("SDK generated successfully", file=sys.stderr)
+        generated = await pipeline.generate(api_key=api_key, force=force, version=version)
+        await generated.export("./src")
+        print("SDK generated and exported to ./src", file=sys.stderr)
 
 
 async def cmd_build() -> None:
@@ -406,10 +500,10 @@ async def cmd_build() -> None:
     os.environ.setdefault("DAGGER_PROGRESS", "plain")
     os.environ.setdefault("OTEL_SDK_DISABLED", "true")
     async with dagger.connection(dagger.Config(log_output=sys.stderr)):
-        source_dir = dag.host().directory(".")
+        source_dir = _host_source_dir()
         pipeline = AttioSDKPipeline(source=source_dir)
         built = pipeline.build()
-        await built.directory("/repo/dist").export("./dist")
+        await built.directory("/dist").export("./dist")
         print("Build completed successfully (artifacts in ./dist)", file=sys.stderr)
 
 
@@ -428,7 +522,7 @@ async def cmd_publish(*, token: str | None = None) -> None:
                 raise RuntimeError(msg) from None
 
         pypi_secret = dag.set_secret("PYPI_TOKEN", token_to_use)
-        source_dir = dag.host().directory(".")
+        source_dir = _host_source_dir()
         pipeline = AttioSDKPipeline(source=source_dir)
         result = await pipeline.publish(pypi_token=pypi_secret)
         print(result, file=sys.stderr)
@@ -441,35 +535,58 @@ async def cmd_ci(
     token: str | None = None,
     publish: bool = False,
 ) -> None:
-    """CLI handler for complete CI workflow."""
+    """Fetch, generate, test, build, and optionally publish the SDK."""
     import os
 
     os.environ.setdefault("DAGGER_PROGRESS", "plain")
     os.environ.setdefault("OTEL_SDK_DISABLED", "true")
-    async with dagger.connection(dagger.Config(log_output=sys.stderr)):
-        api_key_str = os.environ.get("SPEAKEASY_API_KEY")
-        if not api_key_str:
-            msg = "SPEAKEASY_API_KEY environment variable not set"
+    api_key_str = os.environ.get("SPEAKEASY_API_KEY")
+    if not api_key_str and not _has_local_speakeasy_auth():
+        msg = "SPEAKEASY_API_KEY is not set and the local Speakeasy CLI is not authenticated"
+        raise RuntimeError(msg) from None
+
+    pypi_token = None
+    if publish:
+        pypi_token = token or os.environ.get("PYPI_TOKEN")
+        if not pypi_token:
+            msg = "PYPI_TOKEN environment variable required for publish"
             raise RuntimeError(msg) from None
 
-        api_key = dag.set_secret("SPEAKEASY_API_KEY", api_key_str)
+    await fetch_latest_spec()
+    async with dagger.connection(dagger.Config(log_output=sys.stderr)):
+        if api_key_str:
+            api_key = dag.set_secret("SPEAKEASY_API_KEY", api_key_str)
+            source_dir = _host_source_dir()
+            pipeline = AttioSDKPipeline(source=source_dir)
+            generated = await pipeline.generate(
+                api_key=api_key,
+                force=force,
+                version=version,
+            )
+            await generated.export("./src")
+            print("SDK generated and exported to ./src", file=sys.stderr)
+        else:
+            _ = force
+            await _run_local_speakeasy(version=version)
+            print("SDK generated with the local Speakeasy CLI", file=sys.stderr)
 
-        pypi_secret = None
-        if publish:
-            token_to_use = token
-            if token_to_use is None:
-                token_to_use = os.environ.get("PYPI_TOKEN")
-            if not token_to_use:
-                msg = "PYPI_TOKEN environment variable required for publish"
-                raise RuntimeError(msg) from None
-            pypi_secret = dag.set_secret("PYPI_TOKEN", token_to_use)
-
-        _ = force
-        _ = version
-        source_dir = dag.host().directory(".")
+        # Re-read the host directory after export so test/build consume the
+        # generated SDK rather than Dagger's pre-generation source snapshot.
+        source_dir = _host_source_dir()
         pipeline = AttioSDKPipeline(source=source_dir)
-        result = await pipeline.ci(api_key=api_key, pypi_token=pypi_secret)
-        print(result, file=sys.stderr)
+        test_output = await pipeline.test()
+        print(f"Tests passed\n{test_output}", file=sys.stderr)
+
+        built = pipeline.build()
+        await built.directory("/dist").export("./dist")
+        print("Build completed successfully (artifacts in ./dist)", file=sys.stderr)
+
+        if pypi_token:
+            pypi_secret = dag.set_secret("PYPI_TOKEN", pypi_token)
+            result = await pipeline.publish(pypi_token=pypi_secret)
+            print(result, file=sys.stderr)
+        else:
+            print("Complete CI pipeline finished (publish skipped)", file=sys.stderr)
 
 
 async def cmd_fetch_openapi() -> None:
@@ -485,7 +602,7 @@ async def cmd_verify_version(version: str) -> None:
     os.environ.setdefault("DAGGER_PROGRESS", "plain")
     os.environ.setdefault("OTEL_SDK_DISABLED", "true")
     async with dagger.connection(dagger.Config(log_output=sys.stderr)):
-        source_dir = dag.host().directory(".")
+        source_dir = _host_source_dir()
         pipeline = AttioSDKPipeline(source=source_dir)
         result = await pipeline.verify_version(version=version)
         print(result)
@@ -502,7 +619,7 @@ async def cmd_release_bump(version: str) -> None:
     os.environ.setdefault("DAGGER_PROGRESS", "plain")
     os.environ.setdefault("OTEL_SDK_DISABLED", "true")
     async with dagger.connection(dagger.Config(log_output=sys.stderr)):
-        source_dir = dag.host().directory(".")
+        source_dir = _host_source_dir()
         pipeline = AttioSDKPipeline(source=source_dir)
         patched = pipeline.release_bump(version=version)
         await patched.export(".")

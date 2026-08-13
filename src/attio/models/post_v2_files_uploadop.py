@@ -7,8 +7,8 @@ from attio.utils import FieldMetadata, MultipartFormMetadata
 import io
 import pydantic
 from pydantic import model_serializer
-from typing import IO, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import IO, Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class PostV2FilesUploadFileTypedDict(TypedDict):
@@ -92,6 +92,27 @@ class PostV2FilesUploadRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+PostV2FilesUploadType = Literal["auth_error",]
+
+
+PostV2FilesUploadCodeQuotaExceeded = Literal["quota_exceeded",]
+
+
+PostV2FilesUploadCodeBillingError = Literal["billing_error",]
+
+
+PostV2FilesUploadCodeUnionTypedDict = TypeAliasType(
+    "PostV2FilesUploadCodeUnionTypedDict",
+    Union[PostV2FilesUploadCodeBillingError, PostV2FilesUploadCodeQuotaExceeded],
+)
+
+
+PostV2FilesUploadCodeUnion = TypeAliasType(
+    "PostV2FilesUploadCodeUnion",
+    Union[PostV2FilesUploadCodeBillingError, PostV2FilesUploadCodeQuotaExceeded],
+)
 
 
 class PostV2FilesUploadResponseTypedDict(TypedDict):

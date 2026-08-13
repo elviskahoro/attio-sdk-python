@@ -24,6 +24,7 @@ value: GetV2ObjectsObjectRecordsRecordIDCurrencyCode = "ARS"
 - `"DKK"`
 - `"EUR"`
 - `"FJD"`
+- `"GHS"`
 - `"HKD"`
 - `"HUF"`
 - `"ISK"`
@@ -39,11 +40,13 @@ value: GetV2ObjectsObjectRecordsRecordIDCurrencyCode = "ARS"
 - `"NZD"`
 - `"NGN"`
 - `"NOK"`
+- `"OMR"`
 - `"XPF"`
 - `"PEN"`
 - `"PHP"`
 - `"PLN"`
 - `"GBP"`
+- `"QAR"`
 - `"RWF"`
 - `"SAR"`
 - `"SGD"`

@@ -155,9 +155,10 @@ with SDK(
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.PostV2FilesUploadAuthError | 403                               | application/json                  |
+| errors.SDKDefaultError            | 4XX, 5XX                          | \*/\*                             |
 
 ## get_v2_files_file_id_
 

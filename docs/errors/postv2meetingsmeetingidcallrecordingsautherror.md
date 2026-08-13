@@ -1,4 +1,4 @@
-# AuthError
+# PostV2MeetingsMeetingIDCallRecordingsAuthError
 
 Forbidden
 

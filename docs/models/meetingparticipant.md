@@ -1,4 +1,4 @@
-# Participant
+# MeetingParticipant
 
 
 ## Fields

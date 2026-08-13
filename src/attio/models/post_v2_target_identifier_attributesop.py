@@ -10,7 +10,7 @@ from attio.utils import (
     RequestMetadata,
     get_discriminator,
 )
-from pydantic import Discriminator, Tag, model_serializer
+from pydantic import Discriminator, SerializeAsAny, Tag, model_serializer
 from typing import Any, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -136,6 +136,7 @@ PostV2TargetIdentifierAttributesDefaultCurrencyCode = Literal[
     "DKK",
     "EUR",
     "FJD",
+    "GHS",
     "HKD",
     "HUF",
     "ISK",
@@ -151,11 +152,13 @@ PostV2TargetIdentifierAttributesDefaultCurrencyCode = Literal[
     "NZD",
     "NGN",
     "NOK",
+    "OMR",
     "XPF",
     "PEN",
     "PHP",
     "PLN",
     "GBP",
+    "QAR",
     "RWF",
     "SAR",
     "SGD",
@@ -296,8 +299,8 @@ class PostV2TargetIdentifierAttributesData(BaseModel):
 
     config: PostV2TargetIdentifierAttributesConfig
 
-    default_value: OptionalNullable[
-        PostV2TargetIdentifierAttributesDefaultValueUnion
+    default_value: SerializeAsAny[
+        OptionalNullable[PostV2TargetIdentifierAttributesDefaultValueUnion]
     ] = UNSET
     r"""The default value for this attribute. Static values are used to directly populate values using their contents. Dynamic values are used to lookup data at the point of creation. For example, you could use a dynamic value to insert a value for the currently logged in user. Which default values are available is dependent on the type of the attribute. Default values are not currently supported on people or company objects."""
 

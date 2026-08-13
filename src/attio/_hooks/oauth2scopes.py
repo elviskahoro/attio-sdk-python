@@ -92,3 +92,9 @@ class OAuth2Scope(str, Enum):
 
     FILE_READ_WRITE = "file:read-write"
     r"""View, and upload files."""
+
+    EMAIL_READ = "email:read"
+    r"""View email metadata. Email content is never exposed."""
+
+    EMAIL_READ_WRITE = "email:read-write"
+    r"""View email metadata. Email content is never exposed."""

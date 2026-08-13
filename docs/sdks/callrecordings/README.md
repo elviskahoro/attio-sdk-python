@@ -60,7 +60,9 @@ with SDK(
 
 Create a call recording for a meeting. This endpoint is rate limited to 1 request per second.
 
-This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+A `transcript` should always be provided — it is technically optional for backwards compatibility, but a call recording created without one will be missing summaries and other transcript-derived features. `video_url` is optional, and a transcript-only call recording (with no video) is fully supported.
+
+This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
 Required scopes: `meeting:read`, `call_recording:read-write`.
 
@@ -112,7 +114,7 @@ with SDK(
 | Error Type                                                      | Status Code                                                     | Content Type                                                    |
 | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
 | errors.PostV2MeetingsMeetingIDCallRecordingsValidationTypeError | 400                                                             | application/json                                                |
-| errors.AuthError                                                | 403                                                             | application/json                                                |
+| errors.PostV2MeetingsMeetingIDCallRecordingsAuthError           | 403                                                             | application/json                                                |
 | errors.PostV2MeetingsMeetingIDCallRecordingsNotFoundError       | 404                                                             | application/json                                                |
 | errors.SDKDefaultError                                          | 4XX, 5XX                                                        | \*/\*                                                           |
 
@@ -165,7 +167,7 @@ with SDK(
 
 Deletes the specified call recording. This will remove the call recording and all associated data.
 
-This endpoint is in alpha and may be subject to breaking changes as we gather feedback.
+This endpoint is in beta. We will aim to avoid breaking changes, but small updates may be made as we roll out to more users.
 
 Required scopes: `meeting:read`, `call_recording:read-write`.
 

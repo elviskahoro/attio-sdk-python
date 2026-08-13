@@ -110,7 +110,7 @@ with SDK(
 
 | Error Type                            | Status Code                           | Content Type                          |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.PostV2TasksValidationTypeError | 400                                   | application/json                      |
+| errors.PostV2TasksInvalidRequestError | 400                                   | application/json                      |
 | errors.PostV2TasksNotFoundError       | 404                                   | application/json                      |
 | errors.SDKDefaultError                | 4XX, 5XX                              | \*/\*                                 |
 
@@ -208,7 +208,7 @@ with SDK(
 
 | Error Type                                   | Status Code                                  | Content Type                                 |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| errors.PatchV2TasksTaskIDValidationTypeError | 400                                          | application/json                             |
+| errors.PatchV2TasksTaskIDInvalidRequestError | 400                                          | application/json                             |
 | errors.PatchV2TasksTaskIDNotFoundError       | 404                                          | application/json                             |
 | errors.SDKDefaultError                       | 4XX, 5XX                                     | \*/\*                                        |
 

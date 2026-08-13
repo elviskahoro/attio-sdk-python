@@ -33,8 +33,8 @@ jobs:
 
       - uses: dagger/dagger-for-github@v8.4.1
 
-      - name: Generate SDK
-        run: uv run python ci/pipeline.py generate
+      - name: Fetch, generate, test, and build SDK
+        run: uv run python ci/pipeline.py ci
         env:
           SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

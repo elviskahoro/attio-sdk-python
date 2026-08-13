@@ -126,7 +126,7 @@ MeetingStatus = Literal[
 r"""The status of the individual meeting participant."""
 
 
-class ParticipantTypedDict(TypedDict):
+class MeetingParticipantTypedDict(TypedDict):
     status: MeetingStatus
     r"""The status of the individual meeting participant."""
     is_organizer: bool
@@ -137,7 +137,7 @@ class ParticipantTypedDict(TypedDict):
     r"""The participant's name. This is only set when the name was explicitly provided when the participant was created. It is null for any participant identified by an email address — including workspace members and person records — whose display names are not resolved into this field."""
 
 
-class Participant(BaseModel):
+class MeetingParticipant(BaseModel):
     status: MeetingStatus
     r"""The status of the individual meeting participant."""
 
@@ -248,7 +248,7 @@ class MeetingTypedDict(TypedDict):
     r"""Whether or not the meeting is an all day event. All day events may span multiple days."""
     start: StartUnionTypedDict
     end: EndUnionTypedDict
-    participants: List[ParticipantTypedDict]
+    participants: List[MeetingParticipantTypedDict]
     linked_records: List[MeetingLinkedRecordTypedDict]
     r"""A list of records that are linked to the meeting. Participants with matching person records are automatically linked to the meeting but other records may also be linked explicitly."""
     created_at: str
@@ -273,7 +273,7 @@ class Meeting(BaseModel):
 
     end: EndUnion
 
-    participants: List[Participant]
+    participants: List[MeetingParticipant]
 
     linked_records: List[MeetingLinkedRecord]
     r"""A list of records that are linked to the meeting. Participants with matching person records are automatically linked to the meeting but other records may also be linked explicitly."""
