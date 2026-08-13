@@ -8,8 +8,8 @@ Available commands:
     test                           Run test suite
     build                          Build distribution packages
     generate [--force] [--version] Generate SDK via Speakeasy
-    publish [--token]              Build and publish to PyPI
-    ci [--force] [--version] [...] Complete workflow: test, generate, build, optionally publish
+    publish                        Build and publish to PyPI
+    ci [--force] [--version] [...] Complete workflow: fetch, generate, test, build, optionally publish
 
 Examples:
     python ci/pipeline.py fetch-openapi
@@ -18,8 +18,8 @@ Examples:
     python ci/pipeline.py test
     python ci/pipeline.py generate --force --version 1.0.0
     python ci/pipeline.py build
-    python ci/pipeline.py publish --token <token>
-    python ci/pipeline.py ci --publish --token <token>
+    python ci/pipeline.py publish
+    python ci/pipeline.py ci --publish
 
 The commands above use Dagger for their isolated build and generation steps.
 Use them locally and in CI so generated files are exported back to the
@@ -29,6 +29,8 @@ working tree before subsequent checks run.
 import argparse
 import asyncio
 import json
+import os
+import shutil
 import subprocess
 import sys
 from datetime import datetime
@@ -138,6 +140,8 @@ if new == text:
 vfile.write_text(new)
 """
 
+_PYPI_PUBLISHER_MODULE = "github.com/elviskahoro/sdk-python-publish-to-pypi@main"
+
 
 def _sync_write_spec(spec_path: str, spec_data: dict[str, object]) -> None:
     """Write OpenAPI spec to disk (synchronous)."""
@@ -231,6 +235,39 @@ def _host_source_dir() -> Directory:
     return dag.host().directory(
         ".",
         exclude=[".git", ".venv", ".beads", "dist"],
+    )
+
+
+def _replace_dist_directory() -> None:
+    """Remove prior distribution artifacts before exporting a fresh build."""
+    dist_dir = Path("dist")
+    if dist_dir.is_symlink() or dist_dir.is_file():
+        dist_dir.unlink()
+    elif dist_dir.is_dir():
+        shutil.rmtree(dist_dir)
+
+
+def _publish_artifacts() -> None:
+    """Publish the just-built artifacts through the shared Dagger module.
+
+    ``env:PYPI_TOKEN`` makes Dagger read the token as a Secret, so it is never
+    passed as a command-line token or copied into build artifacts.
+    """
+    if not Path("dist").is_dir():
+        raise RuntimeError("dist/ does not exist; run the build command before publishing")
+    subprocess.run(
+        [
+            "dagger",
+            "-m",
+            _PYPI_PUBLISHER_MODULE,
+            "call",
+            "publish-artifacts",
+            "--artifacts",
+            "./dist",
+            "--pypi-token",
+            "env:PYPI_TOKEN",
+        ],
+        check=True,
     )
 
 
@@ -403,34 +440,11 @@ class AttioSDKPipeline:
         )
 
     @function
-    async def publish(
-        self,
-        pypi_token: Annotated[dagger.Secret, Doc("PyPI token")],
-    ) -> str:
-        """Build and publish both SDK distribution names to PyPI.
-
-        Steps:
-        1. Install dependencies
-        2. Build distribution packages
-        3. Publish the attio and gtm-attio artifacts with the token
-        """
-        built = self.build()
-        await (
-            built.with_secret_variable("PYPI_TOKEN", pypi_token)
-            .with_exec(
-                ["/bin/sh", "-c", "uv publish --token $PYPI_TOKEN /dist/*"]
-            )
-            .sync()
-        )
-        return "Published attio and gtm-attio to PyPI"
-
-    @function
     async def ci(
         self,
         api_key: Annotated[dagger.Secret, Doc("Speakeasy API key")],
-        pypi_token: Annotated[dagger.Secret, Doc("PyPI token")] | None = None,
     ) -> str:
-        """Complete CI workflow: test, generate, build, optionally publish."""
+        """Complete CI workflow: test, generate, and build."""
         test_output = await self.test()
         print(f"Tests passed\n{test_output}", file=sys.stderr)
 
@@ -441,11 +455,7 @@ class AttioSDKPipeline:
         await built.sync()
         print("Build completed successfully", file=sys.stderr)
 
-        if pypi_token:
-            published = await self.publish(pypi_token=pypi_token)
-            return f"Complete CI pipeline finished. {published}"
-
-        return "Complete CI pipeline finished (publish skipped)"
+        return "Complete CI pipeline finished"
 
 
 async def cmd_test() -> None:
@@ -503,36 +513,23 @@ async def cmd_build() -> None:
         source_dir = _host_source_dir()
         pipeline = AttioSDKPipeline(source=source_dir)
         built = pipeline.build()
+        _replace_dist_directory()
         await built.directory("/dist").export("./dist")
         print("Build completed successfully (artifacts in ./dist)", file=sys.stderr)
 
 
-async def cmd_publish(*, token: str | None = None) -> None:
-    """CLI handler for publish command."""
-    import os
-
-    os.environ.setdefault("DAGGER_PROGRESS", "plain")
-    os.environ.setdefault("OTEL_SDK_DISABLED", "true")
-    async with dagger.connection(dagger.Config(log_output=sys.stderr)):
-        token_to_use = token
-        if token_to_use is None:
-            token_to_use = os.environ.get("PYPI_TOKEN")
-            if not token_to_use:
-                msg = "PYPI_TOKEN environment variable not set"
-                raise RuntimeError(msg) from None
-
-        pypi_secret = dag.set_secret("PYPI_TOKEN", token_to_use)
-        source_dir = _host_source_dir()
-        pipeline = AttioSDKPipeline(source=source_dir)
-        result = await pipeline.publish(pypi_token=pypi_secret)
-        print(result, file=sys.stderr)
+async def cmd_publish() -> None:
+    """Build once and publish both SDK distributions with the shared module."""
+    if "PYPI_TOKEN" not in os.environ:
+        raise RuntimeError("PYPI_TOKEN environment variable not set")
+    await cmd_build()
+    _publish_artifacts()
 
 
 async def cmd_ci(
     *,
     force: bool = False,
     version: str | None = None,
-    token: str | None = None,
     publish: bool = False,
 ) -> None:
     """Fetch, generate, test, build, and optionally publish the SDK."""
@@ -544,13 +541,6 @@ async def cmd_ci(
     if not api_key_str and not _has_local_speakeasy_auth():
         msg = "SPEAKEASY_API_KEY is not set and the local Speakeasy CLI is not authenticated"
         raise RuntimeError(msg) from None
-
-    pypi_token = None
-    if publish:
-        pypi_token = token or os.environ.get("PYPI_TOKEN")
-        if not pypi_token:
-            msg = "PYPI_TOKEN environment variable required for publish"
-            raise RuntimeError(msg) from None
 
     await fetch_latest_spec()
     async with dagger.connection(dagger.Config(log_output=sys.stderr)):
@@ -578,15 +568,14 @@ async def cmd_ci(
         print(f"Tests passed\n{test_output}", file=sys.stderr)
 
         built = pipeline.build()
+        _replace_dist_directory()
         await built.directory("/dist").export("./dist")
         print("Build completed successfully (artifacts in ./dist)", file=sys.stderr)
 
-        if pypi_token:
-            pypi_secret = dag.set_secret("PYPI_TOKEN", pypi_token)
-            result = await pipeline.publish(pypi_token=pypi_secret)
-            print(result, file=sys.stderr)
-        else:
-            print("Complete CI pipeline finished (publish skipped)", file=sys.stderr)
+    if publish:
+        if "PYPI_TOKEN" not in os.environ:
+            raise RuntimeError("PYPI_TOKEN environment variable not set")
+        _publish_artifacts()
 
 
 async def cmd_fetch_openapi() -> None:
@@ -657,16 +646,14 @@ def main() -> None:
         help="Pin SDK to a specific version",
     )
 
-    pub = sub.add_parser("publish", help="Build and publish the SDK to PyPI")
-    pub.add_argument(
-        "--token",
-        metavar="TOKEN",
-        help="PyPI token (defaults to PYPI_TOKEN env var)",
+    sub.add_parser(
+        "publish",
+        help="Build and publish the SDK with the shared PyPI publisher",
     )
 
     ci = sub.add_parser(
         "ci",
-        help="Complete CI workflow: test, generate, build, publish",
+        help="Complete CI workflow: fetch, generate, test, build, and publish",
     )
     ci.add_argument("--force", action="store_true", help="Force SDK regeneration")
     ci.add_argument(
@@ -677,14 +664,8 @@ def main() -> None:
     ci.add_argument(
         "--publish",
         action="store_true",
-        help="Publish to PyPI after building",
+        help="Publish freshly built artifacts with the shared PyPI publisher",
     )
-    ci.add_argument(
-        "--token",
-        metavar="TOKEN",
-        help="PyPI token (defaults to PYPI_TOKEN env var)",
-    )
-
     args = parser.parse_args()
 
     if args.command == "fetch-openapi":
@@ -700,13 +681,12 @@ def main() -> None:
     elif args.command == "generate":
         asyncio.run(cmd_generate(force=args.force, version=args.version))
     elif args.command == "publish":
-        asyncio.run(cmd_publish(token=args.token))
+        asyncio.run(cmd_publish())
     elif args.command == "ci":
         asyncio.run(
             cmd_ci(
                 force=args.force,
                 version=args.version,
-                token=args.token,
                 publish=args.publish,
             ),
         )
