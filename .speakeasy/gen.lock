@@ -1,21 +1,21 @@
 lockVersion: 2.0.0
 id: 8dc93348-09a5-472d-90a9-8d558c23be86
 management:
-  docChecksum: 53465f4d244ebc93b170220b040227fb
+  docChecksum: 8dd5e7ea89c21a8c76427595bd88add9
   docVersion: 2.0.0
-  speakeasyVersion: 1.793.1
-  generationVersion: 2.928.0
-  releaseVersion: 0.23.0
-  configChecksum: 1535f09a01ca0e3b3bbd6dd9914c0192
+  speakeasyVersion: 1.795.3
+  generationVersion: 2.932.9
+  releaseVersion: 0.24.0
+  configChecksum: 511707035e9eaa3476a2aa008913167a
 persistentEdits:
-  generation_id: 4fd1aa6c-5efe-4c5c-8e98-c385d9345e09
-  pristine_commit_hash: 10265a8dae3e8bd143c7114a03fe5aa6c6febf72
-  pristine_tree_hash: 9eb2736ed4d19e9dc878933e8d1608a28aac0847
+  generation_id: 9a20b202-4de7-49de-9056-1137f9c7c32f
+  pristine_commit_hash: 3dd2f57713263b218f3df3a295a7fb2d0733e2fd
+  pristine_tree_hash: 8204a0b9558f0640367f546becba936a09ca9fc5
 features:
   python:
     additionalDependencies: 1.1.0
     constsAndDefaults: 1.0.7
-    core: 6.0.35
+    core: 6.1.0
     defaultEnabledRetries: 0.2.0
     enumUnions: 0.1.1
     envVarSecurityUsage: 0.3.3
@@ -30,9 +30,9 @@ features:
     nameOverrides: 3.0.3
     nullables: 1.0.2
     responseFormat: 1.1.0
-    retries: 3.0.7
+    retries: 3.1.0
     sdkHooks: 1.3.0
-    unions: 3.1.8
+    unions: 3.1.9
     uploadStreams: 1.0.3
 trackedFiles:
   .gitattributes:
@@ -441,8 +441,8 @@ trackedFiles:
     pristine_git_object: 91ca9bd8e41503b6014558c345d9488525d06f4b
   docs/models/attiocom.md:
     id: f5b3fe427acf
-    last_write_checksum: sha1:6c4f64e169a5d94e6e31d77af4922190e2a760c2
-    pristine_git_object: 7523c15b336969f917aa440480a4ca9da9acadba
+    last_write_checksum: sha1:92cd00174db568c4d06c33862469d1e45844b143
+    pristine_git_object: 57278a4dbfb4d1daf3fa3ff7ff4bdb145a7a190c
   docs/models/attribute.md:
     id: 4b84711ddd4e
     last_write_checksum: sha1:97db90090b7ddd3353d6e7d8f86e6c53aab3cc5a
@@ -8189,8 +8189,8 @@ trackedFiles:
     pristine_git_object: 0e86b815bf94f8acb55249ce9d799d7d45caf5aa
   docs/models/responsebody.md:
     id: a2c4400c632e
-    last_write_checksum: sha1:03a92db97118d391dc9a48662cbec09a3df41e57
-    pristine_git_object: 1624786759e5492cfdcf9c216eb2bb7fc631b0bb
+    last_write_checksum: sha1:addeb347888723ae19077f79201f97291f070c81
+    pristine_git_object: 7af76b0fb77e83bc73a323fb456950251c5bd8d6
   docs/models/role.md:
     id: b694540a5b1e
     last_write_checksum: sha1:62b65d6048db69743c09a1460f067785d530f1c8
@@ -8421,8 +8421,8 @@ trackedFiles:
     pristine_git_object: f456032107a9387ba6c98afd1c981df2f4b3d636
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:f56234440fb53c2c8f3fb35d2c18b42b977e0dee
-    pristine_git_object: 999d4f5a9a5238fffad152f29efc2bde35c3d5d1
+    last_write_checksum: sha1:d3654fd38d856e8260fd4c234dde70fdcc4b37bc
+    pristine_git_object: 6f27d3f4e3c2a0c7fbedcb99ad3fe457d1dea3c9
   scripts/publish.sh:
     id: fe273b08f514
     last_write_checksum: sha1:adc9b741c12ad1591ab4870eabe20f0d0a86cd1a
@@ -8449,8 +8449,8 @@ trackedFiles:
     pristine_git_object: 07fce86de71e75fc33b319175a2b1e576d7ca370
   src/attio/_version.py:
     id: 601b0c828c8d
-    last_write_checksum: sha1:e40dd4fa38a86f3b0578d433f47d9be0d2f7306e
-    pristine_git_object: 80cdea913d4ecfaf777e1e5079e0995fd09fb901
+    last_write_checksum: sha1:92fbb4405bb70e082cc2ca2b6ae2f7df349091d0
+    pristine_git_object: f52ee8e44c85bbae50c44bf35576759a8d23a672
   src/attio/attributes.py:
     id: 7c101fc896f8
     last_write_checksum: sha1:e6b2f8179e05b20ba8ed69574d7a72edbcf0be48
@@ -8917,8 +8917,8 @@ trackedFiles:
     pristine_git_object: 66ebd8a112b7a86d5afe180963ebf0042ee80328
   src/attio/models/get_v2_selfop.py:
     id: de2e2bcbaa48
-    last_write_checksum: sha1:623c7d88bc1b547e7b6ef513eb0871e255c899ad
-    pristine_git_object: 47f6ba102116ac6f1cc651f6064647e8361061e8
+    last_write_checksum: sha1:979f719abc66c62e630bb4a20bfdb302f2fc1bf8
+    pristine_git_object: 4564c0a7f37481c27aa9585efae51175450f3e48
   src/attio/models/get_v2_target_identifier_attributes_attribute_op.py:
     id: e5ae1228f75a
     last_write_checksum: sha1:18c2aaa18583d23b09d896f9faed5ec20b7c04ad
@@ -9257,8 +9257,8 @@ trackedFiles:
     pristine_git_object: 591415af8e64baa410627b507d2740afb5387d13
   src/attio/utils/retries.py:
     id: c1a2a1d10bb5
-    last_write_checksum: sha1:3585b891142f30a597fbf7a2f0340700babef8e4
-    pristine_git_object: ca7b59efebbbd9545744d0207ef42725c4cc5143
+    last_write_checksum: sha1:481dfc7cd6a07a3987f0f443e91bee72888ae41d
+    pristine_git_object: c7418a62826fc73990a52e70df0d54093c5e2a57
   src/attio/utils/security.py:
     id: cde1137a57b8
     last_write_checksum: sha1:c11eef495b6aaa249178c24c796940cc540b7a00
@@ -9277,8 +9277,8 @@ trackedFiles:
     pristine_git_object: c78ccbae426ce6d385709d97ce0b1c2813ea2418
   src/attio/utils/values.py:
     id: 8c5954801e16
-    last_write_checksum: sha1:acaa178a7c41ddd000f58cc691e4632d925b2553
-    pristine_git_object: dae01a44384ac3bc13ae07453a053bf6c898ebe3
+    last_write_checksum: sha1:65e1ee8607767a4fc1ae7a55c74d77a23ab3cef1
+    pristine_git_object: ac217f473c5d52a454a2979b3eb35e66175d365c
   src/attio/webhooks.py:
     id: 92608d966910
     last_write_checksum: sha1:f0f8c37ca383ceca2b996677f80332702c25d52d
