@@ -2,12 +2,9 @@
 
 from __future__ import annotations
 from attio.types import BaseModel, Nullable, UNSET_SENTINEL
-from attio.utils import validate_const
-import pydantic
-from pydantic import model_serializer
-from pydantic.functional_validators import AfterValidator
+from pydantic import model_serializer, model_validator
 from typing import Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
 TokenType = Literal["Bearer",]
@@ -19,6 +16,8 @@ r"""The issuer of the token. Always attio.com"""
 
 
 class AttioComTypedDict(TypedDict):
+    active: bool
+    r"""Whether the token is currently active and usable."""
     scope: str
     r"""A space-separated list of scopes associated with this token"""
     client_id: str
@@ -43,13 +42,14 @@ class AttioComTypedDict(TypedDict):
     r"""The slug of the workspace the token is scoped to."""
     workspace_logo_url: Nullable[str]
     r"""The logo URL of the workspace the token is scoped to."""
-    active: Literal[True]
-    r"""Whether the token is currently active and usable."""
     authorized_by_workspace_member_id: NotRequired[str]
     r"""The ID of the workspace member who authorized this token initially. Almost every token has one, but it is omitted for the app access tokens that Attio created itself rather than on a member's behalf."""
 
 
 class AttioCom(BaseModel):
+    active: bool
+    r"""Whether the token is currently active and usable."""
+
     scope: str
     r"""A space-separated list of scopes associated with this token"""
 
@@ -86,14 +86,18 @@ class AttioCom(BaseModel):
     workspace_logo_url: Nullable[str]
     r"""The logo URL of the workspace the token is scoped to."""
 
-    ACTIVE: Annotated[
-        Annotated[Literal[True], AfterValidator(validate_const(True))],
-        pydantic.Field(alias="active"),
-    ] = True
-    r"""Whether the token is currently active and usable."""
-
     authorized_by_workspace_member_id: Optional[str] = None
     r"""The ID of the workspace member who authorized this token initially. Almost every token has one, but it is omitted for the app access tokens that Attio created itself rather than on a member's behalf."""
+
+    @model_validator(mode="after")
+    def _validate_active(self):
+        # overlay.yaml strips the `active` const enum so Speakeasy generates
+        # a plain `active: bool` instead of an ACTIVE-aliased const field;
+        # this restores the discriminating check the const used to provide.
+        # NOTE: manual patch on generated code — re-apply after regenerating.
+        if self.active is not True:
+            raise ValueError("active must be true for AttioCom")
+        return self
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -122,14 +126,18 @@ class AttioCom(BaseModel):
 
 
 class ResponseBodyTypedDict(TypedDict):
-    active: Literal[False]
+    active: bool
 
 
 class ResponseBody(BaseModel):
-    ACTIVE: Annotated[
-        Annotated[Literal[False], AfterValidator(validate_const(False))],
-        pydantic.Field(alias="active"),
-    ] = False
+    active: bool
+
+    @model_validator(mode="after")
+    def _validate_active(self):
+        # See AttioCom._validate_active — same manual patch, inverted assertion.
+        if self.active is not False:
+            raise ValueError("active must be false for ResponseBody")
+        return self
 
 
 GetV2SelfResponseTypedDict = TypeAliasType(
@@ -140,13 +148,3 @@ r"""Success"""
 
 GetV2SelfResponse = TypeAliasType("GetV2SelfResponse", Union[ResponseBody, AttioCom])
 r"""Success"""
-
-
-try:
-    AttioCom.model_rebuild()
-except NameError:
-    pass
-try:
-    ResponseBody.model_rebuild()
-except NameError:
-    pass

@@ -47115,10 +47115,7 @@
                       "type": "object",
                       "properties": {
                         "active": {
-                          "type": "boolean",
-                          "enum": [
-                            false
-                          ]
+                          "type": "boolean"
                         }
                       },
                       "required": [
@@ -47130,9 +47127,6 @@
                       "properties": {
                         "active": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ],
                           "description": "Whether the token is currently active and usable."
                         },
                         "scope": {

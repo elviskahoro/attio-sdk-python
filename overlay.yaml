@@ -482,3 +482,21 @@ actions:
     description: "Allow validation_type code in POST /v2/comments"
     update:
       - "validation_type"
+
+  # GET /v2/self's `active` field is a single-value boolean enum per anyOf
+  # variant ({"enum":[false]} / {"enum":[true]}), which Speakeasy treats as a
+  # "const" field. With constFieldCasing: upper (gen.yaml) that renders the
+  # generated Python attribute as `ACTIVE` (alias="active"), so any caller
+  # reading `getattr(response, "active", ...)` silently falls through to the
+  # default instead of the real value — a live token gets reported inactive.
+  # Dropping the single-value enum keeps `active` a plain boolean (the anyOf
+  # variants still discriminate structurally: the false variant requires only
+  # `active`, the true variant requires all the other workspace/scope fields),
+  # so this is response-shape-neutral and only affects the generated field name.
+  - target: "$.paths['/v2/self'].get.responses['200'].content['application/json'].schema.anyOf[0].properties.active.enum"
+    description: "Remove single-value enum from inactive-token `active` field in GET /v2/self so it doesn't generate as a const field"
+    remove: true
+
+  - target: "$.paths['/v2/self'].get.responses['200'].content['application/json'].schema.anyOf[1].properties.active.enum"
+    description: "Remove single-value enum from active-token `active` field in GET /v2/self so it doesn't generate as a const field"
+    remove: true
