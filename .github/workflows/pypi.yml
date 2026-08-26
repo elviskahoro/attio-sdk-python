@@ -47,6 +47,11 @@ jobs:
       - name: Build distribution
         run: uv run python ci/pipeline.py build
 
+      - name: Debug PYPI_TOKEN length
+        env:
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+        run: echo "PYPI_TOKEN length=${#PYPI_TOKEN}"
+
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
