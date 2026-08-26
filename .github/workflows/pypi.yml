@@ -15,8 +15,6 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    environment:
-      name: pypi
     env:
       DAGGER_PROGRESS: plain
       OTEL_SDK_DISABLED: "true"
