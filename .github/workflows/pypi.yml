@@ -12,9 +12,12 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
+    # Kept for GitHub environment protection rules (required reviewers,
+    # deployment branch policy), not for OIDC -- this job has no id-token
+    # permission, so it's purely a deploy-target gate, not a trusted-
+    # publishing scope.
+    environment:
+      name: pypi
     env:
       DAGGER_PROGRESS: plain
       OTEL_SDK_DISABLED: "true"
@@ -45,10 +48,14 @@ jobs:
       - name: Build distribution
         run: uv run python ci/pipeline.py build
 
-      - name: Debug PYPI_TOKEN length
+      - name: Check PYPI_TOKEN is set
         env:
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: echo "PYPI_TOKEN length=${#PYPI_TOKEN}"
+        run: |
+          if [ -z "${PYPI_TOKEN}" ]; then
+            echo "::error::PYPI_TOKEN secret is empty or unset. Re-set it at https://github.com/${{ github.repository }}/settings/secrets/actions before retrying." >&2
+            exit 1
+          fi
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
@@ -56,3 +63,8 @@ jobs:
           packages-dir: dist/
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
+          # PEP 740 attestations only work via OIDC trusted publishing, which
+          # this workflow doesn't use (see comment on `environment:` above).
+          # TODO: fix the trusted-publisher config on pypi.org (still points
+          # at the pre-rename repo name) and switch back to OIDC + attestations.
+          attestations: false
